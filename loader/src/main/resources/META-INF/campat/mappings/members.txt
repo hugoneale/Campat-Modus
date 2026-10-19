@@ -28,3 +28,73 @@ R net/neoforged/neoforge/registries/NewRegistryEvent register (Lnet/minecraft/co
 # ---- vanilla fields NeoForge widens but Forge redirects to methods (coremods/field_to_method.js) ----
 S net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid; io/github/hugoneale/campat/runtime/bridge/FieldBridge bucketContent
 S net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid; io/github/hugoneale/campat/runtime/bridge/FieldBridge liquidBlockFluid
+
+# ---- NeoForge FluidStack (data components) on Forge FluidStack (NBT) ----
+R net/neoforged/neoforge/fluids/FluidStack getHoverName ()Lnet/minecraft/network/chat/Component; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getHoverName
+R net/neoforged/neoforge/fluids/FluidStack getDescriptionId ()Ljava/lang/String; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getDescriptionId
+R net/neoforged/neoforge/fluids/FluidStack copyWithAmount (I)Lnet/neoforged/neoforge/fluids/FluidStack; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge copyWithAmount
+R net/neoforged/neoforge/fluids/FluidStack copyAndClear ()Lnet/neoforged/neoforge/fluids/FluidStack; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge copyAndClear
+R net/neoforged/neoforge/fluids/FluidStack getFluidHolder ()Lnet/minecraft/core/Holder; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getFluidHolder
+R net/neoforged/neoforge/fluids/FluidStack getFluidType ()Lnet/neoforged/neoforge/fluids/FluidType; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getFluidType
+R net/neoforged/neoforge/fluids/FluidStack is (Lnet/minecraft/tags/TagKey;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge is
+R net/neoforged/neoforge/fluids/FluidStack is (Lnet/minecraft/world/level/material/Fluid;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge is
+R net/neoforged/neoforge/fluids/FluidStack is (Lnet/neoforged/neoforge/fluids/FluidType;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge is
+R net/neoforged/neoforge/fluids/FluidStack is (Lnet/minecraft/core/Holder;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge is
+R net/neoforged/neoforge/fluids/FluidStack limitSize (I)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge limitSize
+R net/neoforged/neoforge/fluids/FluidStack isSameFluid (Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/FluidStack;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge isSameFluid
+R net/neoforged/neoforge/fluids/FluidStack isSameFluidSameComponents (Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/FluidStack;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge isSameFluidSameComponents
+R net/neoforged/neoforge/fluids/FluidStack matches (Lnet/neoforged/neoforge/fluids/FluidStack;Lnet/neoforged/neoforge/fluids/FluidStack;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge matches
+R net/neoforged/neoforge/fluids/FluidStack hashFluidAndComponents (Lnet/neoforged/neoforge/fluids/FluidStack;)I io/github/hugoneale/campat/runtime/bridge/FluidStackBridge hashFluidAndComponents
+R net/neoforged/neoforge/fluids/FluidStack getComponentsPatch ()Lnet/minecraft/core/component/DataComponentPatch; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getComponentsPatch
+R net/neoforged/neoforge/fluids/FluidStack getComponents ()Lnet/minecraft/core/component/PatchedDataComponentMap; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getComponents
+R net/neoforged/neoforge/fluids/FluidStack get (Lnet/minecraft/core/component/DataComponentType;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge get
+R net/neoforged/neoforge/fluids/FluidStack get (Ljava/util/function/Supplier;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge get
+R net/neoforged/neoforge/fluids/FluidStack getOrDefault (Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge getOrDefault
+R net/neoforged/neoforge/fluids/FluidStack has (Lnet/minecraft/core/component/DataComponentType;)Z io/github/hugoneale/campat/runtime/bridge/FluidStackBridge has
+R net/neoforged/neoforge/fluids/FluidStack set (Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge set
+R net/neoforged/neoforge/fluids/FluidStack remove (Lnet/minecraft/core/component/DataComponentType;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge remove
+R net/neoforged/neoforge/fluids/FluidStack update (Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;Ljava/util/function/UnaryOperator;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge update
+R net/neoforged/neoforge/fluids/FluidStack update (Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;Ljava/lang/Object;Ljava/util/function/BiFunction;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge update
+R net/neoforged/neoforge/fluids/FluidStack applyComponents (Lnet/minecraft/core/component/DataComponentPatch;)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge applyComponents
+R net/neoforged/neoforge/fluids/FluidStack applyComponents (Lnet/minecraft/core/component/DataComponentMap;)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge applyComponents
+R net/neoforged/neoforge/fluids/FluidStack fixedAmountCodec (I)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge fixedAmountCodec
+R net/neoforged/neoforge/fluids/FluidStack save (Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/Tag; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge save
+R net/neoforged/neoforge/fluids/FluidStack save (Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/nbt/Tag;)Lnet/minecraft/nbt/Tag; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge save
+R net/neoforged/neoforge/fluids/FluidStack saveOptional (Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/Tag; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge saveOptional
+R net/neoforged/neoforge/fluids/FluidStack parse (Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/nbt/Tag;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge parse
+R net/neoforged/neoforge/fluids/FluidStack parseOptional (Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/nbt/CompoundTag;)Lnet/neoforged/neoforge/fluids/FluidStack; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge parseOptional
+R net/neoforged/neoforge/fluids/FluidStack <init> (Lnet/minecraft/core/Holder;I)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge createFluidStack
+R net/neoforged/neoforge/fluids/FluidStack <init> (Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/DataComponentPatch;)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge createFluidStack
+R net/neoforged/neoforge/fluids/FluidStack <init> (Lnet/minecraft/world/level/material/Fluid;ILnet/minecraft/core/component/DataComponentPatch;)V io/github/hugoneale/campat/runtime/bridge/FluidStackBridge createFluidStack
+S net/neoforged/neoforge/fluids/FluidStack CODEC Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge CODEC
+S net/neoforged/neoforge/fluids/FluidStack OPTIONAL_CODEC Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge OPTIONAL_CODEC
+S net/neoforged/neoforge/fluids/FluidStack FLUID_NON_EMPTY_CODEC Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge FLUID_NON_EMPTY_CODEC
+S net/neoforged/neoforge/fluids/FluidStack STREAM_CODEC Lnet/minecraft/network/codec/StreamCodec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge STREAM_CODEC
+S net/neoforged/neoforge/fluids/FluidStack OPTIONAL_STREAM_CODEC Lnet/minecraft/network/codec/StreamCodec; io/github/hugoneale/campat/runtime/bridge/FluidStackBridge OPTIONAL_STREAM_CODEC
+
+# ---- event members (renamed NeoForge events lacking NeoForge methods) ----
+R net/neoforged/neoforge/registries/RegisterEvent getRegistry ()Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/bridge/EventBridge getRegistry
+R net/neoforged/neoforge/registries/RegisterEvent getRegistry (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/bridge/EventBridge getRegistry
+R net/neoforged/neoforge/event/OnDatapackSyncEvent getRelevantPlayers ()Ljava/util/stream/Stream; io/github/hugoneale/campat/runtime/bridge/EventBridge getRelevantPlayers
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent insertAfter (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V io/github/hugoneale/campat/runtime/bridge/EventBridge insertAfter
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent insertBefore (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V io/github/hugoneale/campat/runtime/bridge/EventBridge insertBefore
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent insertFirst (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V io/github/hugoneale/campat/runtime/bridge/EventBridge insertFirst
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent remove (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/CreativeModeTab$TabVisibility;)V io/github/hugoneale/campat/runtime/bridge/EventBridge remove
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent getParentEntries ()Lit/unimi/dsi/fastutil/objects/ObjectSortedSet; io/github/hugoneale/campat/runtime/bridge/EventBridge getParentEntries
+R net/neoforged/neoforge/event/BuildCreativeModeTabContentsEvent getSearchEntries ()Lit/unimi/dsi/fastutil/objects/ObjectSortedSet; io/github/hugoneale/campat/runtime/bridge/EventBridge getSearchEntries
+R net/minecraft/server/ReloadableServerResources getRegistryLookup ()Lnet/minecraft/core/HolderLookup$Provider; io/github/hugoneale/campat/runtime/bridge/EventBridge getRegistryLookup
+M net/neoforged/neoforge/event/level/BlockEvent$BlockToolModificationEvent getItemAbility ()Lnet/neoforged/neoforge/common/ItemAbility; getToolAction
+M net/neoforged/neoforge/client/event/InputEvent$MouseScrollingEvent getScrollDeltaX ()D getDeltaX
+M net/neoforged/neoforge/client/event/InputEvent$MouseScrollingEvent getScrollDeltaY ()D getDeltaY
+M net/neoforged/neoforge/client/event/ScreenEvent$MouseScrolled getScrollDeltaX ()D getDeltaX
+M net/neoforged/neoforge/client/event/ScreenEvent$MouseScrolled getScrollDeltaY ()D getDeltaY
+M net/neoforged/neoforge/client/event/EntityRenderersEvent$AddLayers getSkin (Lnet/minecraft/client/resources/PlayerSkin$Model;)Lnet/minecraft/client/renderer/entity/EntityRenderer; getPlayerSkin
+M net/neoforged/neoforge/client/event/EntityRenderersEvent$AddLayers getRenderer (Lnet/minecraft/world/entity/EntityType;)Lnet/minecraft/client/renderer/entity/EntityRenderer; getEntityRenderer
+R net/neoforged/neoforge/client/event/RenderLevelStageEvent getPoseStack ()Lcom/mojang/blaze3d/vertex/PoseStack; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getPoseStack
+R net/neoforged/neoforge/client/event/RenderLevelStageEvent getModelViewMatrix ()Lorg/joml/Matrix4f; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getModelViewMatrix
+R net/neoforged/neoforge/client/event/RenderLevelStageEvent getPartialTick ()Lnet/minecraft/client/DeltaTracker; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getPartialTick
+R net/neoforged/neoforge/event/entity/player/ItemTooltipEvent getContext ()Lnet/minecraft/world/item/Item$TooltipContext; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getContext
+R net/neoforged/neoforge/client/event/CustomizeGuiOverlayEvent$DebugText getLeft ()Ljava/util/List; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getLeft
+R net/neoforged/neoforge/client/event/CustomizeGuiOverlayEvent$DebugText getRight ()Ljava/util/List; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getRight
+R net/neoforged/neoforge/client/event/ModelEvent$RegisterGeometryLoaders register (Lnet/minecraft/resources/ResourceLocation;Lnet/neoforged/neoforge/client/model/geometry/IGeometryLoader;)V io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge register
+R net/minecraft/client/resources/model/ModelResourceLocation standalone (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/ModelResourceLocation; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge standalone

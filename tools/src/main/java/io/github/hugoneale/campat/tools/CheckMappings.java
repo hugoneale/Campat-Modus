@@ -1,0 +1,163 @@
+package io.github.hugoneale.campat.tools;
+
+import io.github.hugoneale.campat.loader.remap.Mappings;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.MethodNode;
+
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.zip.ZipFile;
+
+/**
+ * Verifies members.txt against the real NeoForge classes and the built runtime: every redirect
+ * target must exist as a static helper with exactly the descriptor the converter will emit.
+ *
+ * <p>usage: CheckMappings neo_env.txt runtime.jar mappingsDir</p>
+ */
+public final class CheckMappings {
+    public static void main(String[] a) throws Exception {
+        PlatformEnv neo = PlatformEnv.fromList(Path.of(a[0]));
+        Map<String, ClassNode> runtime = new HashMap<>();
+        try (ZipFile z = new ZipFile(a[1])) {
+            var en = z.entries();
+            while (en.hasMoreElements()) {
+                var e = en.nextElement();
+                if (!e.getName().endsWith(".class")) continue;
+                try (InputStream in = z.getInputStream(e)) {
+                    ClassNode cn = new ClassNode();
+                    new ClassReader(in.readAllBytes()).accept(cn, ClassReader.SKIP_CODE);
+                    runtime.put(cn.name, cn);
+                }
+            }
+        }
+        Path dir = Path.of(a[2]);
+        Mappings m;
+        try (InputStream c = Files.newInputStream(dir.resolve("classes.txt")); InputStream mem = Files.newInputStream(dir.resolve("members.txt"))) {
+            m = Mappings.load(List.of(c, mem));
+        }
+        m.removeClassRenames(runtime::containsKey);
+        List<String> errors = new ArrayList<>();
+        int checked = 0;
+        for (String line : Files.readAllLines(dir.resolve("members.txt"))) {
+            String l = line.contains("#") ? line.substring(0, line.indexOf('#')).strip() : line.strip();
+            if (l.isEmpty()) continue;
+            String[] p = l.split("\\s+");
+            if (!p[0].equals("R") && !p[0].equals("S")) continue;
+            checked++;
+            String owner = p[1], name = p[2], desc = p[3], tOwner = p[4], tName = p[5];
+            String explicit = p.length > 6 ? p[6] : null;
+            String expected;
+            if (p[0].equals("R")) {
+                Boolean isStatic = staticMethod(neo, owner, name, desc);
+                if (isStatic == null && !name.equals("<init>")) {
+                    errors.add("not a NeoForge method: " + l);
+                    continue;
+                }
+                if (explicit != null) expected = explicit;
+                else if (name.equals("<init>")) expected = Type.getMethodDescriptor(Type.getObjectType(owner), Type.getArgumentTypes(desc));
+                else if (isStatic) expected = desc;
+                else {
+                    Type[] args = Type.getArgumentTypes(desc);
+                    Type[] withRecv = new Type[args.length + 1];
+                    withRecv[0] = Type.getObjectType(declaring(neo, owner, name + desc));
+                    System.arraycopy(args, 0, withRecv, 1, args.length);
+                    expected = Type.getMethodDescriptor(Type.getReturnType(desc), withRecv);
+                }
+            } else {
+                Boolean isStatic = staticField(neo, owner, name, desc);
+                if (isStatic == null) {
+                    errors.add("not a NeoForge field: " + l);
+                    continue;
+                }
+                expected = explicit != null ? explicit : isStatic ? "()" + desc : "(L" + owner + ";)" + desc;
+            }
+            String mapped = mapDesc(expected, m);
+            ClassNode helper = runtime.get(tOwner);
+            if (helper == null) {
+                errors.add("helper class missing: " + tOwner + "  <- " + l);
+                continue;
+            }
+            boolean found = false;
+            for (MethodNode mn : helper.methods) {
+                if (mn.name.equals(tName) && mn.desc.equals(mapped) && (mn.access & Opcodes.ACC_STATIC) != 0 && (mn.access & Opcodes.ACC_PUBLIC) != 0) found = true;
+            }
+            if (!found) {
+                StringBuilder near = new StringBuilder();
+                for (MethodNode mn : helper.methods) if (mn.name.equals(tName)) near.append("\n        have ").append(mn.desc);
+                errors.add("missing public static " + tOwner + "." + tName + mapped + "  <- " + l + near);
+            }
+        }
+        for (String e : errors) System.out.println("ERROR " + e);
+        System.out.println(checked + " member mappings checked, " + errors.size() + " problems");
+        if (!errors.isEmpty()) System.exit(1);
+    }
+
+    private static Boolean staticMethod(PlatformEnv env, String owner, String name, String desc) {
+        String decl = env.declaringMethod(owner, name + desc, new HashSet<>());
+        if (decl == null) return null;
+        ClassNode cn = node(env, decl);
+        if (cn == null) return null;
+        for (MethodNode mn : cn.methods) if (mn.name.equals(name) && mn.desc.equals(desc)) return (mn.access & Opcodes.ACC_STATIC) != 0;
+        return null;
+    }
+
+    /** RedirectPass passes the receiver typed as the mapping's owner */
+    private static String declaring(PlatformEnv env, String owner, String nd) {
+        return owner;
+    }
+
+    private static Boolean staticField(PlatformEnv env, String owner, String name, String desc) {
+        String decl = env.declaringField(owner, name + ":" + desc, new HashSet<>());
+        if (decl == null) return null;
+        ClassNode cn = node(env, decl);
+        if (cn == null) return null;
+        for (FieldNode fn : cn.fields) if (fn.name.equals(name) && fn.desc.equals(desc)) return (fn.access & Opcodes.ACC_STATIC) != 0;
+        return null;
+    }
+
+    private static final Map<String, ClassNode> NODES = new HashMap<>();
+
+    private static ClassNode node(PlatformEnv env, String name) {
+        return NODES.computeIfAbsent(name, n -> {
+            try {
+                for (Path jar : env.jars) {
+                    try (ZipFile z = new ZipFile(jar.toFile())) {
+                        var e = z.getEntry(n + ".class");
+                        if (e == null) continue;
+                        try (InputStream in = z.getInputStream(e)) {
+                            ClassNode cn = new ClassNode();
+                            new ClassReader(in.readAllBytes()).accept(cn, ClassReader.SKIP_CODE);
+                            return cn;
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            return null;
+        });
+    }
+
+    private static final Pattern OBJ = Pattern.compile("L([^;]+);");
+
+    private static String mapDesc(String desc, Mappings m) {
+        Matcher mt = OBJ.matcher(desc);
+        StringBuilder sb = new StringBuilder();
+        while (mt.find()) mt.appendReplacement(sb, Matcher.quoteReplacement("L" + m.mapClass(mt.group(1)) + ";"));
+        mt.appendTail(sb);
+        return sb.toString();
+    }
+}

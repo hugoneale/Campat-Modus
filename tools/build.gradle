@@ -92,3 +92,17 @@ tasks.register('extGen', JavaExec) {
               rootProject.file('runtime/src/main/resources/campat_modus.mixins.json').absolutePath] + (project.findProperty('ifaces') ?: '').split(',').toList())
     }
 }
+
+// ./gradlew :tools:checkMappings  verifies every member redirect against NeoForge and the runtime
+tasks.register('checkMappings', JavaExec) {
+    group = 'campat'
+    dependsOn ':runtime:jar'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.CheckMappings'
+    jvmArgs '-Xmx4g'
+    doFirst {
+        args envs.file('neo_env.txt').asFile.absolutePath,
+            project(':runtime').tasks.jar.archiveFile.get().asFile.absolutePath,
+            rootProject.file('loader/src/main/resources/META-INF/campat/mappings').absolutePath
+    }
+}

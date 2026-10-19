@@ -22,6 +22,7 @@ public final class PlatformEnv {
     public record ClassInfo(String name, String superName, String[] interfaces, Set<String> methods, Set<String> fields, int access) {}
 
     public final Map<String, ClassInfo> classes = new HashMap<>();
+    public final List<Path> jars = new java.util.ArrayList<>();
 
     public static PlatformEnv fromList(Path list) throws IOException {
         PlatformEnv env = new PlatformEnv();
@@ -36,6 +37,7 @@ public final class PlatformEnv {
     }
 
     public void load(Path jar) throws IOException {
+        jars.add(jar);
         try (ZipFile z = new ZipFile(jar.toFile())) {
             var en = z.entries();
             while (en.hasMoreElements()) {
