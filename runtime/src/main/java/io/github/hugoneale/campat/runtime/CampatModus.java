@@ -19,7 +19,7 @@ public final class CampatModus {
         io.github.hugoneale.campat.runtime.events.TickBridge.register();
         io.github.hugoneale.campat.runtime.attachment.AttachmentPersistence.register();
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist.isClient()) {
-            io.github.hugoneale.campat.runtime.client.ClientTickBridge.register();
+            io.github.hugoneale.campat.runtime.client.ClientLifecycle.register(modBus);
         }
         LOGGER.info("Campat Modus runtime loaded");
     }

@@ -69,6 +69,12 @@
     "ext.TooltipFlagExtension_TooltipFlagMixin"
   ],
   "client": [
+    "client.BlockRenderPropertiesMixin",
+    "client.FluidTypeRenderPropertiesMixin",
+    "client.ForgeLayeredDrawAccessor",
+    "client.GuiRenderEventMixin",
+    "client.ItemRenderPropertiesMixin",
+    "client.MobEffectRenderPropertiesMixin",
     "client.ClientCommonPacketListenerImplMixin",
     "client.ClientEntityTickMixin",
     "ext.client.IAbstractWidgetExtension_AbstractWidgetMixin",

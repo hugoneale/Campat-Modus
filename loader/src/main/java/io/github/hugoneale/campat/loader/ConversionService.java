@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 final class ConversionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversionService.class);
     /** Bump whenever the converter output changes for the same input. */
-    static final int CONVERTER_VERSION = 2;
+    static final int CONVERTER_VERSION = 3;
 
     record Converted(Path source, Path output, JarConverter.Report report, String error) {}
 

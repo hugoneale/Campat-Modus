@@ -25,6 +25,7 @@ import java.util.Set;
 public final class ClassConverter {
     public static final String NEO_MOD_ANNOTATION = "Lnet/neoforged/fml/common/Mod;";
     private static final String NEO_CANCELLABLE = "net/neoforged/bus/api/ICancellableEvent";
+    private static final String NEO_EVENT = "net/neoforged/bus/api/Event";
     private static final String FORGE_CANCELABLE = "Lnet/minecraftforge/eventbus/api/Cancelable;";
 
     /** A NeoForge {@code @Mod} entrypoint found while converting. */
@@ -78,6 +79,16 @@ public final class ClassConverter {
             if (!has) {
                 if (cn.visibleAnnotations == null) cn.visibleAnnotations = new ArrayList<>();
                 cn.visibleAnnotations.add(new AnnotationNode(FORGE_CANCELABLE));
+            }
+        }
+
+        // 3b. Forge's event bus instantiates events through a public no-arg constructor to build
+        // listener lists; NeoForge's bus does not, so mod events often have a non-public one.
+        if (hierarchy.isSubtypeOf(cn.name, NEO_EVENT)) {
+            for (MethodNode mn : cn.methods) {
+                if (mn.name.equals("<init>") && mn.desc.equals("()V") && (mn.access & Opcodes.ACC_PUBLIC) == 0) {
+                    mn.access = (mn.access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED)) | Opcodes.ACC_PUBLIC;
+                }
             }
         }
 

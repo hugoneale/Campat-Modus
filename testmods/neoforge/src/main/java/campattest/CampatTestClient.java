@@ -17,5 +17,6 @@ public class CampatTestClient {
             T.pass("client.configscreen");
         });
         modBus.addListener(FMLClientSetupEvent.class, e -> T.pass("lifecycle.clientsetup"));
+        T.run("client.features", () -> ClientFeatures.setup(modBus));
     }
 }

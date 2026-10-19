@@ -24,3 +24,7 @@ S net/neoforged/fml/config/ModConfig$Type STARTUP Lnet/neoforged/fml/config/ModC
 
 # ---- net.neoforged.neoforge.registries ----
 R net/neoforged/neoforge/registries/NewRegistryEvent register (Lnet/minecraft/core/Registry;)V io/github/hugoneale/campat/runtime/registry/NeoRegistries register
+
+# ---- vanilla fields NeoForge widens but Forge redirects to methods (coremods/field_to_method.js) ----
+S net/minecraft/world/item/BucketItem content Lnet/minecraft/world/level/material/Fluid; io/github/hugoneale/campat/runtime/bridge/FieldBridge bucketContent
+S net/minecraft/world/level/block/LiquidBlock fluid Lnet/minecraft/world/level/material/FlowingFluid; io/github/hugoneale/campat/runtime/bridge/FieldBridge liquidBlockFluid
