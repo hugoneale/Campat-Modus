@@ -17,8 +17,17 @@ final class JarInspector {
      */
     static boolean isNeoForgeOnly(Path jar) {
         try (ZipFile z = new ZipFile(jar.toFile())) {
-            return z.getEntry("META-INF/neoforge.mods.toml") != null && z.getEntry("META-INF/mods.toml") == null;
-        } catch (IOException e) {
+            var mods = z.getEntry("META-INF/mods.toml");
+            boolean neoToml = z.getEntry("META-INF/neoforge.mods.toml") != null;
+            if (mods == null) return neoToml;
+            // NeoForge 20.2 - 20.4 metadata format, or both files with a mods.toml meant for NeoForge
+            String text;
+            try (var in = z.getInputStream(mods)) {
+                text = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            }
+            boolean forNeo = io.github.hugoneale.campat.loader.convert.ModsTomlConverter.dependsOnNeoForge(text);
+            return neoToml ? forNeo : forNeo && !LegacyTomlConverter.isLegacy(text);
+        } catch (IOException | RuntimeException e) {
             return false;
         }
     }

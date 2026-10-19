@@ -8,16 +8,17 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Minecraft 1.20.1 mods carry a {@code mods.toml}, so Forge's own mods folder locator would load
- * them unconverted (and fail on their Minecraft version range). Forge skips jars listed by
+ * Keeps Forge's own mods folder locator away from the jars this locator converts: 1.20.1 mods and
+ * old style NeoForge mods carry a {@code mods.toml} Forge would load unconverted, and Forge's secure
+ * jar handling rejects some NeoForge jars outright (strict module-info checks). Forge skips jars listed by
  * {@link ModDirTransformerDiscoverer#allExcluded()}, which is backed by a static mutable list
  * filled before any locator scans; the converted copies are handed to FML by this locator instead.
  *
  * <p>The list is private and fmlloader's package is not opened to us, so the field is read
  * through {@code sun.misc.Unsafe}.</p>
  */
-final class LegacyExclusion {
-    private LegacyExclusion() {}
+final class ScanExclusion {
+    private ScanExclusion() {}
 
     @SuppressWarnings({"unchecked", "removal", "deprecation"})
     static void exclude(List<Path> jars) throws ReflectiveOperationException {
@@ -27,7 +28,7 @@ final class LegacyExclusion {
         Field found = ModDirTransformerDiscoverer.class.getDeclaredField("found");
         List<NamedPath> list = (List<NamedPath>) unsafe.getObject(unsafe.staticFieldBase(found), unsafe.staticFieldOffset(found));
         for (Path p : jars) {
-            if (!excluded(List.of(p))) list.add(new NamedPath("campat-legacy:" + p.getFileName(), p));
+            if (!excluded(List.of(p))) list.add(new NamedPath("campat:" + p.getFileName(), p));
         }
     }
 

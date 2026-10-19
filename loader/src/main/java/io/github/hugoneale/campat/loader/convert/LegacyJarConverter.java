@@ -68,7 +68,7 @@ public final class LegacyJarConverter {
                     warnings.add("failed to convert " + name + ": " + ex);
                     out.put(name, data);
                 }
-            } else if (name.startsWith("META-INF/jarjar/") && name.endsWith(".jar")) {
+            } else if (JarConverter.isNestedJar(name)) {
                 Map<String, byte[]> n = JarConverter.read(data);
                 if (isLegacyMod(n)) {
                     JarConverter.Result r = convert(name.substring(name.lastIndexOf('/') + 1), data);

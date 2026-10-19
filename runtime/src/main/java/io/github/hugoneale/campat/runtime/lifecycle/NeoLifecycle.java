@@ -35,6 +35,7 @@ public final class NeoLifecycle {
         // NeoForge sets up its network registry right after common setup.
         event.enqueueWork(() -> {
             postModBus(new RegisterPayloadHandlersEvent());
+            io.github.hugoneale.campat.runtime.events.EventShimBridge.afterRegistration();
             // NeoForge fires RegisterCapabilitiesEvent once registries are frozen
             net.neoforged.neoforge.capabilities.CapabilityHooks.init();
         });

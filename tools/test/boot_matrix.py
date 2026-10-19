@@ -32,7 +32,7 @@ def mods_in(data: bytes):
                         deps.add(d.get("modId"))
             client_only = bool(t.get("clientSideOnly")) or all(str(m.get("displayTest", "")).upper() == "IGNORE_ALL_VERSION" for m in t.get("mods", [])) and False
         for n in names:
-            if n.startswith("META-INF/jarjar/") and n.endswith(".jar"):
+            if n.startswith("META-INF/") and n.endswith(".jar"):
                 i, d, _ = mods_in(z.read(n))
                 ids |= i
                 deps |= d

@@ -351,8 +351,12 @@ public class DeferredRegister<T> {
     }
 
     private Registry<T> makeRegistry(final ResourceLocation registryName, final Consumer<Object> consumer) {
-        // TODO(campat): custom NeoForge registries are not emulated yet
-        throw new UnsupportedOperationException("Campat Modus does not support creating custom NeoForge registries yet (" + registryName + ")");
+        if (this.customRegistry != null) throw new IllegalStateException("Cannot create a registry twice: " + registryName);
+        // same path as RegistryBuilder.create(): queued for Forge's NewRegistryEvent, resolved lazily
+        RegistryBuilder<T> builder = new RegistryBuilder<>(this.registryKey);
+        consumer.accept(builder);
+        this.customRegistry = builder.create();
+        return this.customRegistry;
     }
 
     private void addEntries(RegisterEvent event) {

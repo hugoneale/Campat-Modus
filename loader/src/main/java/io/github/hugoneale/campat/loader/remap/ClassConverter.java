@@ -38,6 +38,7 @@ public final class ClassConverter {
     private final NeoRemapper remapper;
     private final RedirectPass redirects;
     private final EvolutionPass evolutions;
+    private final MixinRetypes mixinRetypes;
 
     public ClassConverter(Mappings mappings, ClassHierarchy hierarchy) {
         this.mappings = mappings;
@@ -45,6 +46,11 @@ public final class ClassConverter {
         this.remapper = new NeoRemapper(mappings, hierarchy);
         this.redirects = new RedirectPass(mappings, hierarchy);
         this.evolutions = new EvolutionPass(mappings, hierarchy);
+        this.mixinRetypes = new MixinRetypes(mappings);
+    }
+
+    public MixinRetypes mixinRetypes() {
+        return mixinRetypes;
     }
 
     public NeoRemapper remapper() {
@@ -72,6 +78,8 @@ public final class ClassConverter {
         // 1b. evolved virtual method signatures (legacy layer): bridges and adapted calls. The
         // generated methods are straight line code with explicit max stack/locals, no frames needed.
         evolutions.apply(cn);
+        fixKindChanges(cn);
+        mixinRetypes.apply(cn);
 
         // 2. call site redirects, still in NeoForge names
         boolean ctorRedirect = false;
@@ -95,6 +103,16 @@ public final class ClassConverter {
                 if (mn.name.equals("<init>") && mn.desc.equals("()V") && (mn.access & Opcodes.ACC_PUBLIC) == 0) {
                     mn.access = (mn.access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED)) | Opcodes.ACC_PUBLIC;
                 }
+            }
+        }
+
+        // 3c. NeoForge (20.5+) no longer strips or enforces @OnlyIn, and mods rely on loading such
+        // classes on the server; Forge's RuntimeDistCleaner would refuse them. Also NeoForge's bus
+        // accepts private @SubscribeEvent methods, Forge's rejects them.
+        stripOnlyIn(cn);
+        for (MethodNode mn : cn.methods) {
+            if ((mn.access & Opcodes.ACC_PRIVATE) != 0 && has(mn.visibleAnnotations, NEO_SUBSCRIBE)) {
+                mn.access = (mn.access & ~Opcodes.ACC_PRIVATE) | Opcodes.ACC_PUBLIC;
             }
         }
 
@@ -123,6 +141,58 @@ public final class ClassConverter {
         ClassWriter cw = ctorRedirect ? new HierarchyClassWriter(hierarchy, mappings) : new ClassWriter(0);
         cn.accept(new ClassRemapper(cw, remapper));
         return new Output(cw.toByteArray(), entrypoints, neoRefs, problems);
+    }
+
+    /** call opcodes for owners that changed between class and interface */
+    private void fixKindChanges(ClassNode cn) {
+        for (MethodNode mn : cn.methods) {
+            if (mn.instructions == null) continue;
+            for (AbstractInsnNode insn : mn.instructions) {
+                if (!(insn instanceof MethodInsnNode mi)) continue;
+                Boolean nowItf = mappings.kindChange(mi.owner);
+                if (nowItf == null) continue;
+                if (nowItf) {
+                    if (mi.getOpcode() == Opcodes.INVOKEVIRTUAL) mi.setOpcode(Opcodes.INVOKEINTERFACE);
+                    mi.itf = true;
+                } else {
+                    if (mi.getOpcode() == Opcodes.INVOKEINTERFACE) mi.setOpcode(Opcodes.INVOKEVIRTUAL);
+                    mi.itf = false;
+                }
+            }
+            if (mn.instructions != null) {
+                for (AbstractInsnNode insn : mn.instructions) {
+                    if (insn instanceof org.objectweb.asm.tree.InvokeDynamicInsnNode indy) {
+                        for (int i = 0; i < indy.bsmArgs.length; i++) {
+                            if (indy.bsmArgs[i] instanceof org.objectweb.asm.Handle h) {
+                                Boolean nowItf = mappings.kindChange(h.getOwner());
+                                if (nowItf == null || h.isInterface() == nowItf) continue;
+                                int tag = h.getTag();
+                                if (nowItf && tag == org.objectweb.asm.Opcodes.H_INVOKEVIRTUAL) tag = org.objectweb.asm.Opcodes.H_INVOKEINTERFACE;
+                                if (!nowItf && tag == org.objectweb.asm.Opcodes.H_INVOKEINTERFACE) tag = org.objectweb.asm.Opcodes.H_INVOKEVIRTUAL;
+                                indy.bsmArgs[i] = new org.objectweb.asm.Handle(tag, h.getOwner(), h.getName(), h.getDesc(), nowItf);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static final String NEO_SUBSCRIBE = "Lnet/neoforged/bus/api/SubscribeEvent;";
+    private static final java.util.Set<String> NEO_ONLY_IN = java.util.Set.of("Lnet/neoforged/api/distmarker/OnlyIn;", "Lnet/neoforged/api/distmarker/OnlyIns;");
+
+    private static boolean has(List<AnnotationNode> anns, String desc) {
+        if (anns == null) return false;
+        for (AnnotationNode a : anns) if (a.desc.equals(desc)) return true;
+        return false;
+    }
+
+    private static void stripOnlyIn(ClassNode cn) {
+        java.util.function.Consumer<List<AnnotationNode>> strip = l -> { if (l != null) l.removeIf(a -> NEO_ONLY_IN.contains(a.desc)); };
+        strip.accept(cn.visibleAnnotations);
+        strip.accept(cn.invisibleAnnotations);
+        for (MethodNode m : cn.methods) { strip.accept(m.visibleAnnotations); strip.accept(m.invisibleAnnotations); }
+        for (FieldNode f : cn.fields) { strip.accept(f.visibleAnnotations); strip.accept(f.invisibleAnnotations); }
     }
 
     private static int countNew(ClassNode cn) {

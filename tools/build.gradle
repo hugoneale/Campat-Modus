@@ -120,3 +120,24 @@ tasks.register('legacyGen', JavaExec) {
         rootProject.file('runtime/src/main/java/io/github/hugoneale/campat/runtime/legacy/gen/HolderBridges.java').absolutePath,
         rootProject.file('loader/src/main/resources/META-INF/campat/legacy/bridges.txt').absolutePath
 }
+
+// ./gradlew :tools:kindDiff  NeoForge classes renamed to a Forge class of the other kind (class/interface)
+tasks.register('kindDiff', JavaExec) {
+    group = 'campat'
+    dependsOn ':runtime:jar'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.KindDiff'
+    doFirst {
+        args envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath,
+            rootProject.file('loader/src/main/resources/META-INF/campat/mappings/classes.txt').absolutePath,
+            project(':runtime').tasks.jar.archiveFile.get().asFile.absolutePath
+    }
+}
+
+tasks.register('memberDiff', JavaExec) {
+    group = 'campat'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.MemberDiff'
+    jvmArgs '-Xmx4g'
+    args envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath
+}

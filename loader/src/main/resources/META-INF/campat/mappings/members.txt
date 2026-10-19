@@ -98,3 +98,19 @@ R net/neoforged/neoforge/client/event/CustomizeGuiOverlayEvent$DebugText getLeft
 R net/neoforged/neoforge/client/event/CustomizeGuiOverlayEvent$DebugText getRight ()Ljava/util/List; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge getRight
 R net/neoforged/neoforge/client/event/ModelEvent$RegisterGeometryLoaders register (Lnet/minecraft/resources/ResourceLocation;Lnet/neoforged/neoforge/client/model/geometry/IGeometryLoader;)V io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge register
 R net/minecraft/client/resources/model/ModelResourceLocation standalone (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/ModelResourceLocation; io/github/hugoneale/campat/runtime/bridge/client/ClientEventBridge standalone
+
+# ---- found by the boot matrix ----
+I net/neoforged/neoforge/common/util/Lazy
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineList (Ljava/lang/String;Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineList
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineList (Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineList
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineList (Ljava/util/List;Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineList
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineList (Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineList
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineListAllowEmpty (Ljava/lang/String;Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineListAllowEmpty
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineListAllowEmpty (Ljava/lang/String;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineListAllowEmpty
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineListAllowEmpty (Ljava/util/List;Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineListAllowEmpty
+R net/neoforged/neoforge/common/ModConfigSpec$Builder defineListAllowEmpty (Ljava/util/List;Ljava/util/function/Supplier;Ljava/util/function/Supplier;Ljava/util/function/Predicate;)Lnet/neoforged/neoforge/common/ModConfigSpec$ConfigValue; io/github/hugoneale/campat/runtime/bridge/ConfigBridge defineListAllowEmpty
+R net/minecraft/world/level/block/entity/BlockEntityType getValidBlocks ()Ljava/util/Set; io/github/hugoneale/campat/runtime/bridge/EventBridge getValidBlocks
+R net/minecraft/server/network/ConfigurationTask$Type <init> (Lnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/bridge/EventBridge configurationTaskType
+# vanilla fields Forge patched to a subtype (tools: memberDiff)
+T net/minecraft/world/level/chunk/ChunkGenerator featuresPerStep Ljava/util/function/Supplier; Lnet/minecraftforge/common/util/ClearableLazy;
+T net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal mob Lnet/minecraft/world/entity/Mob; Lnet/minecraft/world/entity/monster/Monster;

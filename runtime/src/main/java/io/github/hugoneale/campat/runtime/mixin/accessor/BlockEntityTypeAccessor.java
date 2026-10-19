@@ -10,4 +10,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface BlockEntityTypeAccessor {
     @Accessor("validBlocks")
     Set<Block> campat$getValidBlocks();
+
+    @Accessor("validBlocks")
+    @org.spongepowered.asm.mixin.Mutable
+    void campat$setValidBlocks(Set<Block> blocks);
 }

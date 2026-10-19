@@ -89,4 +89,14 @@ public final class EventBridge {
     }
 
     private static java.lang.reflect.Field registryLookupField;
+
+    // ---- NeoForge additions to vanilla classes ----
+
+    public static java.util.Set<net.minecraft.world.level.block.Block> getValidBlocks(net.minecraft.world.level.block.entity.BlockEntityType<?> type) {
+        return ((io.github.hugoneale.campat.runtime.mixin.accessor.BlockEntityTypeAccessor) type).campat$getValidBlocks();
+    }
+
+    public static net.minecraft.server.network.ConfigurationTask.Type configurationTaskType(net.minecraft.resources.ResourceLocation id) {
+        return new net.minecraft.server.network.ConfigurationTask.Type(id.toString());
+    }
 }

@@ -19,6 +19,7 @@ public final class ClientLifecycle {
     public static void register(IEventBus modBus) {
         modBus.addListener(GuiLayerBridge::onAddLayers);
         modBus.addListener(ClientLifecycle::onClientSetup);
+        modBus.addListener(net.minecraftforge.eventbus.api.EventPriority.HIGHEST, net.neoforged.neoforge.common.DeferredSpawnEggItem.ColorRegisterHandler::registerSpawnEggColors);
         ClientTickBridge.register();
     }
 

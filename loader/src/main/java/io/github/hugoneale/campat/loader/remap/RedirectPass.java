@@ -103,6 +103,13 @@ public final class RedirectPass {
                         }
                     }
                 }
+            } else if (insn instanceof org.objectweb.asm.tree.InvokeDynamicInsnNode indy) {
+                // method references (Foo::bar) to redirected members
+                for (int i = 0; i < indy.bsmArgs.length; i++) {
+                    if (!(indy.bsmArgs[i] instanceof org.objectweb.asm.Handle h)) continue;
+                    org.objectweb.asm.Handle r = redirectHandle(h);
+                    if (r != null) indy.bsmArgs[i] = r;
+                }
             } else if (insn instanceof FieldInsnNode fi && (fi.getOpcode() == Opcodes.GETSTATIC || fi.getOpcode() == Opcodes.GETFIELD)) {
                 Found f = findField(fi.owner, fi.name, fi.desc);
                 if (f != null) {
@@ -113,5 +120,24 @@ public final class RedirectPass {
             }
             insn = next;
         }
+    }
+
+    private org.objectweb.asm.Handle redirectHandle(org.objectweb.asm.Handle h) {
+        int tag = h.getTag();
+        if (tag != Opcodes.H_INVOKEVIRTUAL && tag != Opcodes.H_INVOKEINTERFACE && tag != Opcodes.H_INVOKESTATIC && tag != Opcodes.H_NEWINVOKESPECIAL) return null;
+        Found f = findMethod(h.getOwner(), h.getName(), h.getDesc());
+        if (f == null) return null;
+        String desc;
+        if (f.redirect().targetDesc() != null) desc = f.redirect().targetDesc();
+        else if (tag == Opcodes.H_NEWINVOKESPECIAL) desc = Type.getMethodDescriptor(Type.getObjectType(h.getOwner()), Type.getArgumentTypes(h.getDesc()));
+        else if (tag == Opcodes.H_INVOKESTATIC) desc = h.getDesc();
+        else {
+            Type[] args = Type.getArgumentTypes(h.getDesc());
+            Type[] withRecv = new Type[args.length + 1];
+            withRecv[0] = Type.getObjectType(f.owner());
+            System.arraycopy(args, 0, withRecv, 1, args.length);
+            desc = Type.getMethodDescriptor(Type.getReturnType(h.getDesc()), withRecv);
+        }
+        return new org.objectweb.asm.Handle(Opcodes.H_INVOKESTATIC, f.redirect().targetOwner(), f.redirect().targetName(), desc, false);
     }
 }

@@ -32,6 +32,10 @@ import java.util.function.Predicate;
  *                                                 redirect a field read (GETSTATIC/GETFIELD) to a static helper
  * N  srgName  newName                             rename an SRG member (f_123_/m_123_) wherever it appears;
  *                                                 SRG ids are unique per field / method family, so no owner
+ * T  owner  field  neoDesc  forgeDesc              a vanilla field Forge patched to a subtype: mixin shadows and
+ *                                                 accessors are retyped
+ * I  class / K  class                              the class became an interface / the interface became a class:
+ *                                                 call opcodes are fixed up
  * V  owner  name  oldDesc  newName  newDesc  callMap  bridgeMap
  *                                                 a virtual method whose signature evolved; see {@link EvolutionPass}
  * </pre>
@@ -53,6 +57,8 @@ public final class Mappings {
     private final Set<String> memberOwners = new HashSet<>();
     private final Map<String, String> globalNames = new HashMap<>();
     private final Map<String, List<Evolution>> evolutions = new HashMap<>(); // by old name
+    private final Map<String, Boolean> kindChanges = new HashMap<>(); // class -> now an interface?
+    private final Map<String, String[]> fieldRetypes = new HashMap<>(); // owner.name -> {neoDesc, forgeDesc}
 
     /** A virtual method whose signature changed; maps are described in {@link EvolutionPass}. */
     public record Evolution(String owner, String name, String oldDesc, String newName, String newDesc, String callMap, String bridgeMap) {}
@@ -95,6 +101,9 @@ public final class Mappings {
                 memberOwners.add(p[1]);
             }
             case "N" -> globalNames.put(p[1], p[2]);
+            case "T" -> fieldRetypes.put(p[1] + "." + p[2], new String[]{p[3], p[4]});
+            case "I" -> kindChanges.put(p[1], true);
+            case "K" -> kindChanges.put(p[1], false);
             case "V" -> evolutions.computeIfAbsent(p[2], k -> new ArrayList<>()).add(new Evolution(p[1], p[2], p[3], p[4], p[5], p[6], p[7]));
             default -> throw new IllegalArgumentException("Unknown entry type " + p[0]);
         }
@@ -124,6 +133,20 @@ public final class Mappings {
     /** @return the new name of an SRG member, or {@code null} */
     public String globalName(String srg) {
         return globalNames.isEmpty() ? null : globalNames.get(srg);
+    }
+
+    /** @return {neoDesc, forgeDesc} for a field Forge retyped, or null */
+    public String[] fieldRetype(String owner, String name) {
+        return fieldRetypes.isEmpty() ? null : fieldRetypes.get(owner + "." + name);
+    }
+
+    public boolean hasFieldRetypes() {
+        return !fieldRetypes.isEmpty();
+    }
+
+    /** @return TRUE if the class is an interface now but was not, FALSE for the reverse, else null */
+    public Boolean kindChange(String owner) {
+        return kindChanges.isEmpty() ? null : kindChanges.get(owner);
     }
 
     public List<Evolution> evolutions(String name) {

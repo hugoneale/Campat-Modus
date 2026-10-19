@@ -59,10 +59,15 @@ public final class LegacyGen {
     /** conversion helper from {@code a} to {@code b}, "" when equal, null when not convertible */
     private String conv(Type a, Type b) {
         if (a.equals(b)) return "";
+        if (numeric(a) && numeric(b)) return "!" + a.getDescriptor() + "2" + b.getDescriptor();
         if (a.getSort() != Type.OBJECT || b.getSort() != Type.OBJECT) return null;
         if (b.getInternalName().equals(HOLDER)) return WRAP;
         if (a.getInternalName().equals(HOLDER)) return UNWRAP;
-        return CONV.get(a.getInternalName() + ">" + b.getInternalName());
+        String c = CONV.get(a.getInternalName() + ">" + b.getInternalName());
+        if (c != null) return c;
+        if (subtype(a.getInternalName(), b.getInternalName())) return "";
+        if (subtype(b.getInternalName(), a.getInternalName())) return "!cast";
+        return null;
     }
 
     /** align old and new arguments; returns per-target-argument entries using prefix p ("o" or "n") */
@@ -127,6 +132,7 @@ public final class LegacyGen {
             g.member(p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
         }
         g.constructors();
+        g.kindChanges();
         g.write(Path.of(a[4]), Path.of(a[5]));
     }
 
@@ -150,7 +156,7 @@ public final class LegacyGen {
         return t;
     }
 
-    /** per position: 0 same, 1 value -> Holder (wrap), 2 Holder -> value (unwrap); null if not a pure Holder change */
+    /** per position: 0 same, 1 value -> Holder (wrap), 2 Holder -> value (unwrap), 3 cast; null if not mechanical */
     private int[] holderDiff(Type[] o, Type[] n) {
         if (o.length != n.length) return null;
         int[] r = new int[o.length];
@@ -160,9 +166,30 @@ public final class LegacyGen {
             if (a.equals(b)) continue;
             if (b.getSort() == Type.OBJECT && b.getInternalName().equals(HOLDER) && a.getSort() == Type.OBJECT) { r[i] = 1; any = true; }
             else if (a.getSort() == Type.OBJECT && a.getInternalName().equals(HOLDER) && b.getSort() == Type.OBJECT) { r[i] = 2; any = true; }
+            else if (castable(a, b)) { r[i] = 3; any = true; }
             else return null;
         }
         return any ? r : new int[0];
+    }
+
+    /** related reference types (either way) or numeric primitives */
+    private boolean castable(Type a, Type b) {
+        if (a.getSort() == Type.OBJECT && b.getSort() == Type.OBJECT) return subtype(a.getInternalName(), b.getInternalName()) || subtype(b.getInternalName(), a.getInternalName());
+        return numeric(a) && numeric(b);
+    }
+
+    private static boolean numeric(Type t) {
+        int s = t.getSort();
+        return s == Type.INT || s == Type.LONG || s == Type.FLOAT || s == Type.DOUBLE || s == Type.SHORT || s == Type.BYTE;
+    }
+
+    boolean subtype(String c, String sup) {
+        if (c.equals(sup) || sup.equals("java/lang/Object")) return true;
+        ClassNode n = now.node(c);
+        if (n == null) return false;
+        if (n.superName != null && subtype(n.superName, sup)) return true;
+        for (String i : n.interfaces) if (subtype(i, sup)) return true;
+        return false;
     }
 
     /** every class named in the descriptor must exist on 1.21.1 after the class renames */
@@ -188,13 +215,13 @@ public final class LegacyGen {
             FieldNode fn = nc.fields.stream().filter(f -> f.name.equals(name121) && f.desc.equals(desc121)).findFirst().orElse(null);
             if (fn == null || (fn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0) { skip("field not public"); return; }
             int[] d = holderDiff(new Type[]{Type.getType(desc120)}, new Type[]{Type.getType(desc121)});
-            if (d == null || d.length == 0 || d[0] != 1) { skip("field: not a holder change"); return; }
+            if (d == null || d.length == 0 || (d[0] != 1 && d[0] != 3)) { skip("field: not a holder change"); return; }
             boolean st = (fn.access & Opcodes.ACC_STATIC) != 0;
             Type value = mapType(Type.getType(desc120));
             String h = helperName(owner121, name121);
             String recv = st ? "" : src(Type.getObjectType(owner121)) + " self";
             code.append("    public static ").append(src(value)).append(' ').append(h).append('(').append(recv).append(") {\n")
-                .append("        return (").append(src(value)).append(") ").append(st ? src(Type.getObjectType(owner121)) : "self").append('.').append(name121).append(".value();\n    }\n\n");
+                .append("        return (").append(src(value)).append(") (Object) ").append(st ? src(Type.getObjectType(owner121)) : "self").append('.').append(name121).append(d[0] == 1 ? ".value();\n    }\n\n" : ";\n    }\n\n");
             lines.add("S " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
             return;
         }
@@ -224,18 +251,34 @@ public final class LegacyGen {
             sig.append(src(mapType(oa[i]))).append(" a").append(i);
             if (i > 0) call.append(", ");
             int k = args.length == 0 ? 0 : args[i];
-            call.append(k == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : k == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : "a" + i);
+            call.append(k == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : k == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : k == 3 ? "(" + src(na[i]) + ") (Object) a" + i : "a" + i);
         }
         String target = (st ? src(Type.getObjectType(owner121)) : "self") + "." + name121 + "(" + call + ")";
         int rk = ret.length == 0 ? 0 : ret[0];
-        code.append("    public static ").append(src(r)).append(' ').append(h).append('(').append(sig).append(") {\n        ");
+        code.append("    public static ").append(src(r)).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        ");
         if (r.getSort() == Type.VOID) code.append(target).append(";\n");
         else if (rk == 1) code.append("return (").append(src(r)).append(") ((net.minecraft.core.Holder) ").append(target).append(").value();\n");
         else if (rk == 2) code.append("return (").append(src(r)).append(") LegacyHolders.wrap(").append(target).append(");\n");
+        else if (rk == 3) code.append("return (").append(src(r)).append(") (Object) ").append(target).append(";\n");
         else code.append("return ").append(target).append(";\n");
         code.append("    }\n\n");
         lines.add("R " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
         if (itf && !st) skip("(info) interface instance bridges");
+    }
+
+    /** classes that became interfaces (DFU's DataResult, ...) or the other way round */
+    void kindChanges() {
+        int n = 0;
+        for (String c : old.classNames()) {
+            ClassNode oc = old.node(c), nc = now.node(mapClass(c));
+            if (oc == null || nc == null) continue;
+            boolean wasItf = (oc.access & Opcodes.ACC_INTERFACE) != 0, isItf = (nc.access & Opcodes.ACC_INTERFACE) != 0;
+            if (wasItf != isItf) {
+                lines.add((isItf ? "I " : "K ") + c);
+                n++;
+            }
+        }
+        System.out.println(n + " classes changed between class and interface");
     }
 
     /** constructors whose arguments changed by Holder only */
@@ -259,9 +302,9 @@ public final class LegacyGen {
                     for (int i = 0; i < oa.length; i++) {
                         if (i > 0) { sig.append(", "); call.append(", "); }
                         sig.append(src(mapType(oa[i]))).append(" a").append(i);
-                        call.append(d[i] == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : d[i] == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : "a" + i);
+                        call.append(d[i] == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : d[i] == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : d[i] == 3 ? "(" + src(na[i]) + ") (Object) a" + i : "a" + i);
                     }
-                    code.append("    public static ").append(owner).append(' ').append(h).append('(').append(sig).append(") {\n        return new ")
+                    code.append("    public static ").append(owner).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        return new ")
                         .append(owner).append('(').append(call).append(");\n    }\n\n");
                     lines.add("R " + c + " <init> " + om.desc + " " + INTERNAL + " " + h);
                     break;

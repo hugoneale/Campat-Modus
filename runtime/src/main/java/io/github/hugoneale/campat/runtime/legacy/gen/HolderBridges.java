@@ -8,590 +8,734 @@ public final class HolderBridges {
     private HolderBridges() {}
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_CHAIN() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_CHAIN.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_CHAIN.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_DIAMOND() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_DIAMOND.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_DIAMOND.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_ELYTRA() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_ELYTRA.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_ELYTRA.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_GENERIC() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_GENERIC.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_GENERIC.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_GOLD() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_GOLD.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_GOLD.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_IRON() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_IRON.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_IRON.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_LEATHER() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_LEATHER.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_LEATHER.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_NETHERITE() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_NETHERITE.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_NETHERITE.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_ARMOR_EQUIP_TURTLE() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_TURTLE.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_TURTLE.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_LOADING_END() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_END.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_END.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_LOADING_MIDDLE() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_MIDDLE.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_MIDDLE.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_LOADING_START() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_START.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_LOADING_START.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_QUICK_CHARGE_1() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_1.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_1.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_QUICK_CHARGE_2() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_2.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_2.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_CROSSBOW_QUICK_CHARGE_3() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_3.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_3.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_LLAMA_SWAG() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.LLAMA_SWAG.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.LLAMA_SWAG.value();
+    }
+
+    public static net.minecraft.core.particles.SimpleParticleType ParticleTypes_ENTITY_EFFECT() {
+        return (net.minecraft.core.particles.SimpleParticleType) (Object) net.minecraft.core.particles.ParticleTypes.ENTITY_EFFECT;
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_RIPTIDE_1() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_1.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_1.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_RIPTIDE_2() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_2.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_2.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_RIPTIDE_3() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_3.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_RIPTIDE_3.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_THROW() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.TRIDENT_THROW.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_THROW.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_THUNDER() {
-        return (net.minecraft.sounds.SoundEvent) net.minecraft.sounds.SoundEvents.TRIDENT_THUNDER.value();
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_THUNDER.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_UNLUCK() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.UNLUCK.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.UNLUCK.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_SLOW_FALLING() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.SLOW_FALLING.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.SLOW_FALLING.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_CONDUIT_POWER() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.CONDUIT_POWER.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.CONDUIT_POWER.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DOLPHINS_GRACE() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DOLPHINS_GRACE.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DOLPHINS_GRACE.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_BAD_OMEN() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.BAD_OMEN.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.BAD_OMEN.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_HERO_OF_THE_VILLAGE() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.HERO_OF_THE_VILLAGE.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.HERO_OF_THE_VILLAGE.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_MOVEMENT_SPEED() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.MOVEMENT_SPEED.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_MOVEMENT_SLOWDOWN() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DIG_SPEED() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DIG_SPEED.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DIG_SPEED.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DIG_SLOWDOWN() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DIG_SLOWDOWN.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DIG_SLOWDOWN.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DAMAGE_BOOST() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DAMAGE_BOOST.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DAMAGE_BOOST.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_HEAL() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.HEAL.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.HEAL.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_HARM() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.HARM.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.HARM.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_JUMP() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.JUMP.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.JUMP.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_CONFUSION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.CONFUSION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.CONFUSION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_REGENERATION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.REGENERATION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.REGENERATION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DAMAGE_RESISTANCE() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_FIRE_RESISTANCE() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.FIRE_RESISTANCE.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_WATER_BREATHING() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.WATER_BREATHING.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.WATER_BREATHING.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_INVISIBILITY() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.INVISIBILITY.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.INVISIBILITY.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_BLINDNESS() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.BLINDNESS.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.BLINDNESS.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_NIGHT_VISION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.NIGHT_VISION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.NIGHT_VISION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_HUNGER() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.HUNGER.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.HUNGER.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_WEAKNESS() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.WEAKNESS.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.WEAKNESS.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_POISON() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.POISON.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.POISON.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_WITHER() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.WITHER.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.WITHER.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_HEALTH_BOOST() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.HEALTH_BOOST.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.HEALTH_BOOST.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_ABSORPTION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.ABSORPTION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.ABSORPTION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_SATURATION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.SATURATION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.SATURATION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_GLOWING() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.GLOWING.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.GLOWING.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_LEVITATION() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.LEVITATION.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.LEVITATION.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_LUCK() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.LUCK.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.LUCK.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_DARKNESS() {
-        return (net.minecraft.world.effect.MobEffect) net.minecraft.world.effect.MobEffects.DARKNESS.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DARKNESS.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_MAX_HEALTH() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_FOLLOW_RANGE() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.FOLLOW_RANGE.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.FOLLOW_RANGE.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_KNOCKBACK_RESISTANCE() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_MOVEMENT_SPEED() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_FLYING_SPEED() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.FLYING_SPEED.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.FLYING_SPEED.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_ATTACK_DAMAGE() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_ATTACK_KNOCKBACK() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_KNOCKBACK.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_KNOCKBACK.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_ATTACK_SPEED() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_SPEED.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_SPEED.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_ARMOR() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.ARMOR.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.ARMOR.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_ARMOR_TOUGHNESS() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_LUCK() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.LUCK.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.LUCK.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_SPAWN_REINFORCEMENTS_CHANCE() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.SPAWN_REINFORCEMENTS_CHANCE.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.SPAWN_REINFORCEMENTS_CHANCE.value();
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_JUMP_STRENGTH() {
-        return (net.minecraft.world.entity.ai.attributes.Attribute) net.minecraft.world.entity.ai.attributes.Attributes.JUMP_STRENGTH.value();
+        return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.JUMP_STRENGTH.value();
+    }
+
+    public static net.minecraft.util.StringRepresentable.EnumCodec CraftingBookCategory_CODEC() {
+        return (net.minecraft.util.StringRepresentable.EnumCodec) (Object) net.minecraft.world.item.crafting.CraftingBookCategory.CODEC;
+    }
+
+    public static net.minecraft.core.DefaultedRegistry BuiltInRegistries_POTION() {
+        return (net.minecraft.core.DefaultedRegistry) (Object) net.minecraft.core.registries.BuiltInRegistries.POTION;
     }
 
     public static net.minecraft.world.effect.MobEffect Spider_SpiderEffectsGroupData_effect(net.minecraft.world.entity.monster.Spider.SpiderEffectsGroupData self) {
-        return (net.minecraft.world.effect.MobEffect) self.effect.value();
+        return (net.minecraft.world.effect.MobEffect) (Object) self.effect.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_HEALING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_HEALING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_HEALING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_HARMING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.HARMING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.HARMING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_HARMING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_HARMING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_HARMING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_POISON() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.POISON.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.POISON.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_POISON() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_POISON.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_POISON.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_POISON() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_POISON.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_POISON.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_REGENERATION() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.REGENERATION.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.REGENERATION.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_REGENERATION() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_REGENERATION.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_REGENERATION.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_REGENERATION() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_REGENERATION.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_REGENERATION.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRENGTH() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRENGTH.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRENGTH.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_STRENGTH() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_STRENGTH.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_STRENGTH.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_STRENGTH() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_STRENGTH.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_STRENGTH.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_WEAKNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.WEAKNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.WEAKNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_WEAKNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_WEAKNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_WEAKNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LUCK() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LUCK.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LUCK.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_SLOW_FALLING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.SLOW_FALLING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.SLOW_FALLING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_SLOW_FALLING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_SLOW_FALLING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_WATER() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.WATER.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.WATER.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_MUNDANE() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.MUNDANE.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.MUNDANE.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_THICK() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.THICK.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.THICK.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_AWKWARD() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.AWKWARD.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.AWKWARD.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_NIGHT_VISION() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.NIGHT_VISION.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.NIGHT_VISION.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_NIGHT_VISION() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_NIGHT_VISION.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_NIGHT_VISION.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_INVISIBILITY() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.INVISIBILITY.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.INVISIBILITY.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_INVISIBILITY() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_INVISIBILITY.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_INVISIBILITY.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LEAPING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LEAPING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LEAPING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_LEAPING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_LEAPING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_LEAPING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_LEAPING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_LEAPING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_LEAPING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_FIRE_RESISTANCE() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.FIRE_RESISTANCE.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.FIRE_RESISTANCE.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_FIRE_RESISTANCE() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_FIRE_RESISTANCE.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_FIRE_RESISTANCE.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_SWIFTNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.SWIFTNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.SWIFTNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_SWIFTNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_SWIFTNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_SWIFTNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_SWIFTNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_SWIFTNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_SWIFTNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_SLOWNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.SLOWNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.SLOWNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_SLOWNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_SLOWNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_SLOWNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_SLOWNESS() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_SLOWNESS.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_SLOWNESS.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_TURTLE_MASTER() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.TURTLE_MASTER.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.TURTLE_MASTER.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_TURTLE_MASTER() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_TURTLE_MASTER.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_TURTLE_MASTER.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_STRONG_TURTLE_MASTER() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.STRONG_TURTLE_MASTER.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.STRONG_TURTLE_MASTER.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_WATER_BREATHING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.WATER_BREATHING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.WATER_BREATHING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_LONG_WATER_BREATHING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.LONG_WATER_BREATHING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.LONG_WATER_BREATHING.value();
     }
 
     public static net.minecraft.world.item.alchemy.Potion Potions_HEALING() {
-        return (net.minecraft.world.item.alchemy.Potion) net.minecraft.world.item.alchemy.Potions.HEALING.value();
+        return (net.minecraft.world.item.alchemy.Potion) (Object) net.minecraft.world.item.alchemy.Potions.HEALING.value();
     }
 
     public static net.minecraft.world.item.enchantment.Enchantment EnchantmentInstance_enchantment(net.minecraft.world.item.enchantment.EnchantmentInstance self) {
-        return (net.minecraft.world.item.enchantment.Enchantment) self.enchantment.value();
+        return (net.minecraft.world.item.enchantment.Enchantment) (Object) self.enchantment.value();
     }
 
-    public static net.minecraft.world.item.Item GsonHelper_convertToItem(com.google.gson.JsonElement a0, java.lang.String a1) {
+    public static java.util.function.Predicate ItemPredicateArgument_getItemPredicate(com.mojang.brigadier.context.CommandContext a0, java.lang.String a1) throws Throwable {
+        return (java.util.function.Predicate) (Object) net.minecraft.commands.arguments.item.ItemPredicateArgument.getItemPredicate(a0, a1);
+    }
+
+    public static net.minecraft.nbt.CompoundTag NbtUtils_writeBlockPos(net.minecraft.core.BlockPos a0) throws Throwable {
+        return (net.minecraft.nbt.CompoundTag) (Object) net.minecraft.nbt.NbtUtils.writeBlockPos(a0);
+    }
+
+    public static net.minecraft.world.item.Item GsonHelper_convertToItem(com.google.gson.JsonElement a0, java.lang.String a1) throws Throwable {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.convertToItem(a0, a1)).value();
     }
 
-    public static net.minecraft.world.item.Item GsonHelper_getAsItem(com.google.gson.JsonObject a0, java.lang.String a1) {
+    public static net.minecraft.world.item.Item GsonHelper_getAsItem(com.google.gson.JsonObject a0, java.lang.String a1) throws Throwable {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.getAsItem(a0, a1)).value();
     }
 
-    public static net.minecraft.world.item.Item GsonHelper_getAsItem2(com.google.gson.JsonObject a0, java.lang.String a1, net.minecraft.world.item.Item a2) {
+    public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message(net.minecraft.server.level.ChunkHolder a0, java.lang.Runnable a1) throws Throwable {
+        return net.minecraft.server.level.ChunkTaskPriorityQueueSorter.message((net.minecraft.server.level.GenerationChunkHolder) (Object) a0, a1);
+    }
+
+    public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message2(net.minecraft.server.level.ChunkHolder a0, java.util.function.Function a1) throws Throwable {
+        return net.minecraft.server.level.ChunkTaskPriorityQueueSorter.message((net.minecraft.server.level.GenerationChunkHolder) (Object) a0, a1);
+    }
+
+    public static net.minecraft.world.item.Item GsonHelper_getAsItem2(com.google.gson.JsonObject a0, java.lang.String a1, net.minecraft.world.item.Item a2) throws Throwable {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.getAsItem(a0, a1, (net.minecraft.core.Holder) LegacyHolders.wrap(a2))).value();
     }
 
-    public static boolean BrewedPotionTrigger_TriggerInstance_matches(net.minecraft.advancements.critereon.BrewedPotionTrigger.TriggerInstance self, net.minecraft.world.item.alchemy.Potion a0) {
+    public static net.minecraft.world.item.crafting.Ingredient AxolotlAi_getTemptations() throws Throwable {
+        return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.axolotl.AxolotlAi.getTemptations();
+    }
+
+    public static net.minecraft.world.item.crafting.Ingredient GoatAi_getTemptations() throws Throwable {
+        return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.goat.GoatAi.getTemptations();
+    }
+
+    public static net.minecraft.world.level.block.state.BlockState CandleCakeBlock_byCandle(net.minecraft.world.level.block.Block a0) throws Throwable {
+        return net.minecraft.world.level.block.CandleCakeBlock.byCandle((net.minecraft.world.level.block.CandleBlock) (Object) a0);
+    }
+
+    public static com.mojang.blaze3d.shaders.EffectProgram EffectInstance_getOrCreate(net.minecraft.server.packs.resources.ResourceManager a0, com.mojang.blaze3d.shaders.Program.Type a1, java.lang.String a2) throws Throwable {
+        return net.minecraft.client.renderer.EffectInstance.getOrCreate((net.minecraft.server.packs.resources.ResourceProvider) (Object) a0, a1, a2);
+    }
+
+    public static boolean BrewedPotionTrigger_TriggerInstance_matches(net.minecraft.advancements.critereon.BrewedPotionTrigger.TriggerInstance self, net.minecraft.world.item.alchemy.Potion a0) throws Throwable {
         return self.matches((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder SetPotionFunction_setPotion(net.minecraft.world.item.alchemy.Potion a0) {
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder SetPotionFunction_setPotion(net.minecraft.world.item.alchemy.Potion a0) throws Throwable {
         return net.minecraft.world.level.storage.loot.functions.SetPotionFunction.setPotion((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.client.resources.model.Material Sheets_getBannerMaterial(net.minecraft.resources.ResourceKey a0) {
+    public static void Entity_igniteForSeconds(net.minecraft.world.entity.Entity self, int a0) throws Throwable {
+        self.igniteForSeconds((float) (Object) a0);
+    }
+
+    public static void Util_shuffle(it.unimi.dsi.fastutil.objects.ObjectArrayList a0, net.minecraft.util.RandomSource a1) throws Throwable {
+        net.minecraft.Util.shuffle((java.util.List) (Object) a0, a1);
+    }
+
+    public static net.minecraft.world.item.crafting.Ingredient FrogAi_getTemptations() throws Throwable {
+        return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.frog.FrogAi.getTemptations();
+    }
+
+    public static net.minecraft.client.resources.model.Material Sheets_getBannerMaterial(net.minecraft.resources.ResourceKey a0) throws Throwable {
         return net.minecraft.client.renderer.Sheets.getBannerMaterial((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.client.resources.model.Material Sheets_getShieldMaterial(net.minecraft.resources.ResourceKey a0) {
+    public static net.minecraft.client.resources.model.Material Sheets_getShieldMaterial(net.minecraft.resources.ResourceKey a0) throws Throwable {
         return net.minecraft.client.renderer.Sheets.getShieldMaterial((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static void DebugPackets_sendGameEventInfo(net.minecraft.world.level.Level a0, net.minecraft.world.level.gameevent.GameEvent a1, net.minecraft.world.phys.Vec3 a2) {
+    public static void DebugPackets_sendGameEventInfo(net.minecraft.world.level.Level a0, net.minecraft.world.level.gameevent.GameEvent a1, net.minecraft.world.phys.Vec3 a2) throws Throwable {
         net.minecraft.network.protocol.game.DebugPackets.sendGameEventInfo(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1), a2);
     }
 
-    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ListenerInfo_gameEvent(net.minecraft.world.level.gameevent.GameEvent.ListenerInfo self) {
+    public static net.minecraft.world.item.crafting.Ingredient CamelAi_getTemptations() throws Throwable {
+        return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.camel.CamelAi.getTemptations();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ListenerInfo_gameEvent(net.minecraft.world.level.gameevent.GameEvent.ListenerInfo self) throws Throwable {
         return (net.minecraft.world.level.gameevent.GameEvent) ((net.minecraft.core.Holder) self.gameEvent()).value();
     }
 
-    public static void ItemStack_enchant(net.minecraft.world.item.ItemStack self, net.minecraft.world.item.enchantment.Enchantment a0, int a1) {
+    public static net.minecraft.network.syncher.SynchedEntityData.DataValue SynchedEntityData_DataValue_read(net.minecraft.network.FriendlyByteBuf a0, int a1) throws Throwable {
+        return net.minecraft.network.syncher.SynchedEntityData.DataValue.read((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0, a1);
+    }
+
+    public static void SynchedEntityData_DataValue_write(net.minecraft.network.syncher.SynchedEntityData.DataValue self, net.minecraft.network.FriendlyByteBuf a0) throws Throwable {
+        self.write((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0);
+    }
+
+    public static java.util.Optional TrimPatterns_getFromTemplate(net.minecraft.core.RegistryAccess a0, net.minecraft.world.item.ItemStack a1) throws Throwable {
+        return net.minecraft.world.item.armortrim.TrimPatterns.getFromTemplate((net.minecraft.core.HolderLookup.Provider) (Object) a0, a1);
+    }
+
+    public static java.util.Optional TrimMaterials_getFromIngredient(net.minecraft.core.RegistryAccess a0, net.minecraft.world.item.ItemStack a1) throws Throwable {
+        return net.minecraft.world.item.armortrim.TrimMaterials.getFromIngredient((net.minecraft.core.HolderLookup.Provider) (Object) a0, a1);
+    }
+
+    public static boolean LecternBlock_tryPlaceBook(net.minecraft.world.entity.Entity a0, net.minecraft.world.level.Level a1, net.minecraft.core.BlockPos a2, net.minecraft.world.level.block.state.BlockState a3, net.minecraft.world.item.ItemStack a4) throws Throwable {
+        return net.minecraft.world.level.block.LecternBlock.tryPlaceBook((net.minecraft.world.entity.LivingEntity) (Object) a0, a1, a2, a3, a4);
+    }
+
+    public static boolean Container_stillValidBlockEntity(net.minecraft.world.level.block.entity.BlockEntity a0, net.minecraft.world.entity.player.Player a1, int a2) throws Throwable {
+        return net.minecraft.world.Container.stillValidBlockEntity(a0, a1, (float) (Object) a2);
+    }
+
+    public static net.minecraft.world.item.crafting.Ingredient SnifferAi_getTemptations() throws Throwable {
+        return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.sniffer.SnifferAi.getTemptations();
+    }
+
+    public static void ItemStack_enchant(net.minecraft.world.item.ItemStack self, net.minecraft.world.item.enchantment.Enchantment a0, int a1) throws Throwable {
         self.enchant((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static int PotionContents_getColor(net.minecraft.world.item.alchemy.Potion a0) {
+    public static int PotionContents_getColor(net.minecraft.world.item.alchemy.Potion a0) throws Throwable {
         return net.minecraft.world.item.alchemy.PotionContents.getColor((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static int EnchantmentHelper_getEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.world.entity.LivingEntity a1) {
+    public static int EnchantmentHelper_getEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.world.entity.LivingEntity a1) throws Throwable {
         return net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentLevel((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static int EnchantmentHelper_getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.world.item.ItemStack a1) {
+    public static int EnchantmentHelper_getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.world.item.ItemStack a1) throws Throwable {
         return net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static boolean EnchantmentHelper_isEnchantmentCompatible(java.util.Collection a0, net.minecraft.world.item.enchantment.Enchantment a1) {
+    public static boolean EnchantmentHelper_isEnchantmentCompatible(java.util.Collection a0, net.minecraft.world.item.enchantment.Enchantment a1) throws Throwable {
         return net.minecraft.world.item.enchantment.EnchantmentHelper.isEnchantmentCompatible(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1));
     }
 
-    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addOreBonusCount(net.minecraft.world.item.enchantment.Enchantment a0) {
+    public static net.minecraft.commands.functions.CommandFunction CommandFunction_fromLines(net.minecraft.resources.ResourceLocation a0, com.mojang.brigadier.CommandDispatcher a1, net.minecraft.commands.CommandSourceStack a2, java.util.List a3) throws Throwable {
+        return net.minecraft.commands.functions.CommandFunction.fromLines(a0, a1, (net.minecraft.commands.ExecutionCommandSource) (Object) a2, a3);
+    }
+
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addOreBonusCount(net.minecraft.world.item.enchantment.Enchantment a0) throws Throwable {
         return net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.addOreBonusCount((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addBonusBinomialDistributionCount(net.minecraft.world.item.enchantment.Enchantment a0, float a1, int a2) {
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addBonusBinomialDistributionCount(net.minecraft.world.item.enchantment.Enchantment a0, float a1, int a2) throws Throwable {
         return net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.addBonusBinomialDistributionCount((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
     }
 
-    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addUniformBonusCount(net.minecraft.world.item.enchantment.Enchantment a0, int a1) {
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addUniformBonusCount(net.minecraft.world.item.enchantment.Enchantment a0, int a1) throws Throwable {
         return net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.addUniformBonusCount((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addUniformBonusCount2(net.minecraft.world.item.enchantment.Enchantment a0) {
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder ApplyBonusCount_addUniformBonusCount2(net.minecraft.world.item.enchantment.Enchantment a0) throws Throwable {
         return net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.addUniformBonusCount((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder BonusLevelTableCondition_bonusLevelFlatChance(net.minecraft.world.item.enchantment.Enchantment a0, float[] a1) {
+    public static net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder BonusLevelTableCondition_bonusLevelFlatChance(net.minecraft.world.item.enchantment.Enchantment a0, float[] a1) throws Throwable {
         return net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition.bonusLevelFlatChance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static net.minecraft.world.level.gameevent.GameEvent.ListenerInfo GameEvent_ListenerInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) {
-        return new net.minecraft.world.level.gameevent.GameEvent.ListenerInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
+    public static net.minecraft.client.gui.components.MultiLineLabel MultiLineLabel_create(net.minecraft.client.gui.Font a0, net.minecraft.network.chat.FormattedText a1, int a2) throws Throwable {
+        return net.minecraft.client.gui.components.MultiLineLabel.create(a0, (net.minecraft.network.chat.Component) (Object) a1, a2);
     }
 
-    public static net.minecraft.advancements.critereon.EnchantmentPredicate EnchantmentPredicate_new(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) {
-        return new net.minecraft.advancements.critereon.EnchantmentPredicate((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    public static net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen CreativeModeInventoryScreen_new(net.minecraft.world.entity.player.Player a0, net.minecraft.world.flag.FeatureFlagSet a1, boolean a2) throws Throwable {
+        return new net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen((net.minecraft.client.player.LocalPlayer) (Object) a0, a1, a2);
     }
 
-    public static net.minecraft.world.item.enchantment.EnchantmentInstance EnchantmentInstance_new(net.minecraft.world.item.enchantment.Enchantment a0, int a1) {
+    public static net.minecraft.world.item.enchantment.EnchantmentInstance EnchantmentInstance_new(net.minecraft.world.item.enchantment.Enchantment a0, int a1) throws Throwable {
         return new net.minecraft.world.item.enchantment.EnchantmentInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket ClientboundRemoveMobEffectPacket_new(int a0, net.minecraft.world.effect.MobEffect a1) {
+    public static net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket ClientboundRemoveMobEffectPacket_new(int a0, net.minecraft.world.effect.MobEffect a1) throws Throwable {
         return new net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1));
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4) {
+    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4) throws Throwable {
         return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new2(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, net.minecraft.world.entity.Entity a3) {
+    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new2(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, net.minecraft.world.entity.Entity a3) throws Throwable {
         return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3);
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new3(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4, net.minecraft.world.entity.Entity a5) {
+    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new3(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4, net.minecraft.world.entity.Entity a5) throws Throwable {
         return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4, a5);
     }
 
-    public static net.minecraft.world.entity.ai.attributes.AttributeInstance AttributeInstance_new(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) {
+    public static net.minecraft.world.entity.ai.attributes.AttributeInstance AttributeInstance_new(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) throws Throwable {
         return new net.minecraft.world.entity.ai.attributes.AttributeInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static net.minecraft.world.entity.npc.VillagerTrades.SuspiciousStewForEmerald VillagerTrades_SuspiciousStewForEmerald_new(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
+    public static net.minecraft.world.level.validation.DirectoryValidator DirectoryValidator_new(net.minecraft.world.level.validation.PathAllowList a0) throws Throwable {
+        return new net.minecraft.world.level.validation.DirectoryValidator((java.nio.file.PathMatcher) (Object) a0);
+    }
+
+    public static net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket.Parameters ClientboundSetPlayerTeamPacket_Parameters_new(net.minecraft.network.FriendlyByteBuf a0) throws Throwable {
+        return new net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket.Parameters((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0);
+    }
+
+    public static net.minecraft.world.entity.npc.VillagerTrades.SuspiciousStewForEmerald VillagerTrades_SuspiciousStewForEmerald_new(net.minecraft.world.effect.MobEffect a0, int a1, int a2) throws Throwable {
         return new net.minecraft.world.entity.npc.VillagerTrades.SuspiciousStewForEmerald((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot ClientboundUpdateAttributesPacket_AttributeSnapshot_new(net.minecraft.world.entity.ai.attributes.Attribute a0, double a1, java.util.Collection a2) {
+    public static net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot ClientboundUpdateAttributesPacket_AttributeSnapshot_new(net.minecraft.world.entity.ai.attributes.Attribute a0, double a1, java.util.Collection a2) throws Throwable {
         return new net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
     }
 
-    public static net.minecraft.world.item.alchemy.PotionBrewing.Mix PotionBrewing_Mix_new(java.lang.Object a0, net.minecraft.world.item.crafting.Ingredient a1, java.lang.Object a2) {
-        return new net.minecraft.world.item.alchemy.PotionBrewing.Mix((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, (net.minecraft.core.Holder) LegacyHolders.wrap(a2));
+    public static net.minecraft.world.level.block.FlowerBlock FlowerBlock_new(java.util.function.Supplier a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
+        return new net.minecraft.world.level.block.FlowerBlock((net.minecraft.core.Holder) LegacyHolders.wrap(a0), (float) (Object) a1, a2);
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new(net.minecraft.world.effect.MobEffect a0) {
+    public static net.minecraft.world.level.block.FlowerBlock FlowerBlock_new2(net.minecraft.world.effect.MobEffect a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
+        return new net.minecraft.world.level.block.FlowerBlock((net.minecraft.core.Holder) LegacyHolders.wrap(a0), (float) (Object) a1, a2);
+    }
+
+    public static net.minecraft.world.entity.ai.sensing.TemptingSensor TemptingSensor_new(net.minecraft.world.item.crafting.Ingredient a0) throws Throwable {
+        return new net.minecraft.world.entity.ai.sensing.TemptingSensor((java.util.function.Predicate) (Object) a0);
+    }
+
+    public static net.minecraft.world.level.block.AmethystClusterBlock AmethystClusterBlock_new(int a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
+        return new net.minecraft.world.level.block.AmethystClusterBlock((float) (Object) a0, (float) (Object) a1, a2);
+    }
+
+    public static net.minecraft.client.renderer.PostChain PostChain_new(net.minecraft.client.renderer.texture.TextureManager a0, net.minecraft.server.packs.resources.ResourceManager a1, com.mojang.blaze3d.pipeline.RenderTarget a2, net.minecraft.resources.ResourceLocation a3) throws Throwable {
+        return new net.minecraft.client.renderer.PostChain(a0, (net.minecraft.server.packs.resources.ResourceProvider) (Object) a1, a2, a3);
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent.ListenerInfo GameEvent_ListenerInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) throws Throwable {
+        return new net.minecraft.world.level.gameevent.GameEvent.ListenerInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
+    }
+
+    public static net.minecraft.advancements.critereon.EnchantmentPredicate EnchantmentPredicate_new(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) throws Throwable {
+        return new net.minecraft.advancements.critereon.EnchantmentPredicate((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    }
+
+    public static net.minecraft.client.renderer.EffectInstance EffectInstance_new(net.minecraft.server.packs.resources.ResourceManager a0, java.lang.String a1) throws Throwable {
+        return new net.minecraft.client.renderer.EffectInstance((net.minecraft.server.packs.resources.ResourceProvider) (Object) a0, a1);
+    }
+
+    public static net.minecraft.world.level.block.TripWireBlock TripWireBlock_new(net.minecraft.world.level.block.TripWireHookBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) throws Throwable {
+        return new net.minecraft.world.level.block.TripWireBlock((net.minecraft.world.level.block.Block) (Object) a0, a1);
+    }
+
+    public static net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData ClientboundLevelChunkPacketData_new(net.minecraft.network.FriendlyByteBuf a0, int a1, int a2) throws Throwable {
+        return new net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0, a1, a2);
+    }
+
+    public static net.minecraft.world.entity.ai.goal.TemptGoal TemptGoal_new(net.minecraft.world.entity.PathfinderMob a0, double a1, net.minecraft.world.item.crafting.Ingredient a2, boolean a3) throws Throwable {
+        return new net.minecraft.world.entity.ai.goal.TemptGoal(a0, a1, (java.util.function.Predicate) (Object) a2, a3);
+    }
+
+    public static net.minecraft.world.level.block.ChorusFlowerBlock ChorusFlowerBlock_new(net.minecraft.world.level.block.ChorusPlantBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) throws Throwable {
+        return new net.minecraft.world.level.block.ChorusFlowerBlock((net.minecraft.world.level.block.Block) (Object) a0, a1);
+    }
+
+    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new(net.minecraft.world.effect.MobEffect a0) throws Throwable {
         return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new2(net.minecraft.world.effect.MobEffect a0, int a1) {
+    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new2(net.minecraft.world.effect.MobEffect a0, int a1) throws Throwable {
         return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new3(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
+    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new3(net.minecraft.world.effect.MobEffect a0, int a1, int a2) throws Throwable {
         return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new4(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4) {
+    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new4(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4) throws Throwable {
         return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new5(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4, boolean a5) {
+    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new5(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4, boolean a5) throws Throwable {
         return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4, a5);
     }
 
-    public static net.minecraft.world.item.ArmorItem ArmorItem_new(net.minecraft.world.item.ArmorMaterial a0, net.minecraft.world.item.ArmorItem.Type a1, net.minecraft.world.item.Item.Properties a2) {
+    public static net.minecraft.world.item.ArmorItem ArmorItem_new(net.minecraft.world.item.ArmorMaterial a0, net.minecraft.world.item.ArmorItem.Type a1, net.minecraft.world.item.Item.Properties a2) throws Throwable {
         return new net.minecraft.world.item.ArmorItem((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
     }
 

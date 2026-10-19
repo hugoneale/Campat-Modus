@@ -31,21 +31,29 @@ import java.util.stream.Stream;
 public class CampatModLocator extends AbstractModProvider implements IModLocator {
     private static final Logger LOGGER = LoggerFactory.getLogger(CampatModLocator.class);
 
-    /** 1.20.1 jars found when the locator was created; hidden from Forge's own mods folder scan. */
-    private final List<Path> legacyJars;
+    /** Jars to convert, found when the locator was created and hidden from Forge's own mods folder scan. */
+    private final List<Path> neoJars, legacyJars;
+    private final boolean hidden;
 
     public CampatModLocator() {
-        List<Path> legacy = List.of();
-        if (!Boolean.getBoolean("campat.disable") && !Boolean.getBoolean("campat.legacy.disable")) {
+        List<Path> neo = List.of(), legacy = List.of();
+        boolean ok = true;
+        if (!Boolean.getBoolean("campat.disable")) {
             try {
-                legacy = findLegacyJars(FMLPaths.MODSDIR.get());
-                if (!legacy.isEmpty()) LegacyExclusion.exclude(legacy);
+                Path mods = FMLPaths.MODSDIR.get();
+                neo = findNeoForgeJars(mods);
+                if (!Boolean.getBoolean("campat.legacy.disable")) legacy = findLegacyJars(mods);
+                List<Path> all = new ArrayList<>(neo);
+                all.addAll(legacy);
+                if (!all.isEmpty()) ScanExclusion.exclude(all);
             } catch (Throwable t) {
-                LOGGER.error("Campat Modus: could not prepare Minecraft 1.20.1 mods", t);
-                legacy = List.of();
+                LOGGER.error("Campat Modus: could not hide converted mods from Forge's mods folder scan", t);
+                ok = false;
             }
         }
+        this.neoJars = neo;
         this.legacyJars = legacy;
+        this.hidden = ok;
     }
 
     @Override
@@ -68,8 +76,8 @@ public class CampatModLocator extends AbstractModProvider implements IModLocator
             Path runtime = env.runtimeJar();
             result.add(createMod(runtime));
 
-            List<Path> candidates = new ArrayList<>(findNeoForgeJars(modsDir));
-            if (!legacyJars.isEmpty() && !LegacyExclusion.excluded(legacyJars)) {
+            List<Path> candidates = new ArrayList<>(neoJars);
+            if (!legacyJars.isEmpty() && !(hidden && ScanExclusion.excluded(legacyJars))) {
                 LOGGER.error("Campat Modus: could not hide Minecraft 1.20.1 mods from Forge's scanner; they are not converted");
             } else {
                 candidates.addAll(legacyJars);

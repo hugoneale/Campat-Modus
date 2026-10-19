@@ -14,9 +14,11 @@ public final class CampatModus {
     public CampatModus(FMLJavaModLoadingContext context) {
         var modBus = context.getModEventBus();
         modBus.addListener(NeoLifecycle::onCommonSetup);
+        modBus.addListener(net.neoforged.neoforge.common.DeferredSpawnEggItem.CommonHandler::onCommonSetup);
         NeoLifecycle.register(modBus);
         modBus.addListener(io.github.hugoneale.campat.runtime.registry.NeoRegistries::onNewRegistry);
         io.github.hugoneale.campat.runtime.events.TickBridge.register();
+        io.github.hugoneale.campat.runtime.events.EventShimBridge.register();
         io.github.hugoneale.campat.runtime.attachment.AttachmentPersistence.register();
         if (net.minecraftforge.fml.loading.FMLEnvironment.dist.isClient()) {
             io.github.hugoneale.campat.runtime.client.ClientLifecycle.register(modBus);

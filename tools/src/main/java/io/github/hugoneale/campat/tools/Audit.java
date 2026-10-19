@@ -86,7 +86,7 @@ public final class Audit {
                 ClassNode cn = new ClassNode();
                 try { new ClassReader(e.getValue()).accept(cn, 0); } catch (RuntimeException ex) { continue; }
                 own.put(cn.name, cn);
-            } else if (e.getKey().startsWith("META-INF/jarjar/") && e.getKey().endsWith(".jar")) {
+            } else if (JarConverter.isNestedJar(e.getKey())) {
                 Map<String, byte[]> nested = JarConverter.read(e.getValue());
                 Map<String, byte[]> origNested = null;
                 if (original != null && original.containsKey(e.getKey())) origNested = JarConverter.read(original.get(e.getKey()));

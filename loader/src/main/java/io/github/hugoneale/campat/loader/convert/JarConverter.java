@@ -32,6 +32,14 @@ public final class JarConverter {
     /** Nested libraries that NeoForge mods bundle but that the compatibility layer provides itself. */
     private static final List<String> DROPPED_NESTED = List.of("mixinextras-neoforge", "mixinextras-common");
 
+    private static boolean dropNested(String simpleName) {
+        String n = simpleName.toLowerCase(java.util.Locale.ROOT);
+        return DROPPED_NESTED.stream().anyMatch(n::startsWith) || (n.contains("mixinextras") && !n.contains("forge-") && n.contains("neoforge"));
+    }
+
+    /** Mods that only exist to give NeoForge what Forge has natively: replaced by an empty mod of the same id. */
+    public static final java.util.Set<String> NATIVE_ON_FORGE = java.util.Set.of("forgeconfigapiport");
+
     public record Report(String fileName, List<String> modIds, List<String> warnings, Set<String> missingNeoClasses,
                          List<Report> nested) {
         public boolean clean() {
@@ -55,8 +63,23 @@ public final class JarConverter {
         this.resources = new ResourceRewriter(classConverter.remapper());
     }
 
+    /** jar-in-jar entries: metadata.json may point anywhere, in practice somewhere under META-INF/ */
+    public static boolean isNestedJar(String name) {
+        return name.startsWith("META-INF/") && name.endsWith(".jar");
+    }
+
     public static boolean isNeoForgeMod(Map<String, byte[]> entries) {
-        return entries.containsKey(NEO_TOML) && !entries.containsKey(FORGE_TOML);
+        byte[] toml = entries.get(FORGE_TOML);
+        // jars shipping both files: the mods.toml decides whether it is meant for Forge
+        if (entries.containsKey(NEO_TOML)) return toml == null || ModsTomlConverter.dependsOnNeoForge(new String(toml, StandardCharsets.UTF_8));
+        // NeoForge 20.2 - 20.4 era metadata: a mods.toml that depends on "neoforge" (and is not a 1.20.1 mod)
+        return toml != null && ModsTomlConverter.dependsOnNeoForge(new String(toml, StandardCharsets.UTF_8))
+            && !LegacyTomlConverter.isLegacy(new String(toml, StandardCharsets.UTF_8));
+    }
+
+    private static String neoToml(Map<String, byte[]> entries) {
+        byte[] t = entries.containsKey(NEO_TOML) ? entries.get(NEO_TOML) : entries.get(FORGE_TOML);
+        return new String(t, StandardCharsets.UTF_8);
     }
 
     public static Map<String, byte[]> read(byte[] jar) throws IOException {
@@ -81,7 +104,7 @@ public final class JarConverter {
                 } catch (RuntimeException ignored) {
                     // broken or non standard class files are copied as is later
                 }
-            } else if (n.startsWith("META-INF/jarjar/") && n.endsWith(".jar")) {
+            } else if (isNestedJar(n)) {
                 Map<String, byte[]> nested = read(e.getValue());
                 if (isNeoForgeMod(nested)) index(nested, hierarchy);
             }
@@ -97,7 +120,8 @@ public final class JarConverter {
         Set<String> missing = new TreeSet<>();
         List<Report> nestedReports = new ArrayList<>();
 
-        ModsTomlConverter.Result toml = new ModsTomlConverter().convert(new String(in.get(NEO_TOML), StandardCharsets.UTF_8));
+        ModsTomlConverter.Result toml = new ModsTomlConverter().convert(neoToml(in));
+        if (toml.mods().stream().anyMatch(m -> NATIVE_ON_FORGE.contains(m.modId()))) return nativeStub(fileName, toml);
         warnings.addAll(toml.warnings());
         if (!toml.enumExtensions().isEmpty()) {
             warnings.add("uses NeoForge enum extensions (" + String.join(", ", toml.enumExtensions()) + "); these are not supported yet");
@@ -105,14 +129,27 @@ public final class JarConverter {
 
         Map<String, byte[]> out = new LinkedHashMap<>();
         List<ClassConverter.Entrypoint> entrypoints = new ArrayList<>();
+        // accumulated across jars (keys are class qualified): nested jars are converted in the middle of their parent
+        for (var e : in.entrySet()) {
+            if (e.getKey().endsWith(".class") && !e.getKey().startsWith("META-INF/")) {
+                try {
+                    classConverter.mixinRetypes().scan(e.getValue());
+                } catch (RuntimeException ignored) {
+                    // reported when converting
+                }
+            }
+        }
         Manifest manifest = new Manifest();
         if (in.containsKey("META-INF/MANIFEST.MF")) manifest.read(new ByteArrayInputStream(in.get("META-INF/MANIFEST.MF")));
 
         for (var e : in.entrySet()) {
             String name = e.getKey();
             byte[] data = e.getValue();
-            if (name.equals("META-INF/MANIFEST.MF")) continue;
+            if (name.equals("META-INF/MANIFEST.MF") || name.equals(NEO_TOML)) continue;
             if (isSignature(name)) continue;
+            // Forge's secure jar loader validates module descriptors strictly; NeoForge mods are
+            // loaded as automatic modules anyway
+            if (name.equals("module-info.class") || (name.startsWith("META-INF/versions/") && name.endsWith("/module-info.class"))) continue;
             if (name.endsWith(".class") && !name.startsWith("META-INF/versions/")) {
                 try {
                     ClassConverter.Output o = classConverter.convert(data);
@@ -126,9 +163,9 @@ public final class JarConverter {
                     warnings.add("failed to convert " + name + ": " + ex);
                     out.put(name, data);
                 }
-            } else if (name.startsWith("META-INF/jarjar/") && name.endsWith(".jar")) {
+            } else if (isNestedJar(name)) {
                 String simple = name.substring(name.lastIndexOf('/') + 1);
-                if (DROPPED_NESTED.stream().anyMatch(simple::startsWith)) continue;
+                if (dropNested(simple)) continue;
                 Map<String, byte[]> nested = read(data);
                 if (isNeoForgeMod(nested)) {
                     Result r = convert(simple, data);
@@ -181,6 +218,24 @@ public final class JarConverter {
         manifest.getEntries().clear(); // per entry digests are invalid now
 
         return new Result(write(manifest, out), new Report(fileName, modIds, warnings, missing, nestedReports));
+    }
+
+    /** An empty Forge mod carrying the ids of a mod whose purpose Forge fulfils natively. */
+    private Result nativeStub(String fileName, ModsTomlConverter.Result toml) throws IOException {
+        Map<String, byte[]> out = new LinkedHashMap<>();
+        EntrypointGenerator gen = new EntrypointGenerator();
+        List<String> ids = new ArrayList<>();
+        for (ModsTomlConverter.ModEntry mod : toml.mods()) {
+            ids.add(mod.modId());
+            EntrypointGenerator.Generated g = gen.generate(mod.modId(), List.of());
+            out.put(g.internalName() + ".class", g.bytes());
+        }
+        out.put(FORGE_TOML, toml.modsToml().getBytes(StandardCharsets.UTF_8));
+        out.put("pack.mcmeta", "{\"pack\":{\"description\":\"stub\",\"pack_format\":34}}".getBytes(StandardCharsets.UTF_8));
+        Manifest manifest = new Manifest();
+        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        manifest.getMainAttributes().putValue("Campat-Converted-From", fileName);
+        return new Result(write(manifest, out), new Report(fileName, ids, List.of("provided natively by Forge; the NeoForge port was replaced by an empty mod"), new java.util.TreeSet<>(), List.of()));
     }
 
     static boolean isSignature(String name) {

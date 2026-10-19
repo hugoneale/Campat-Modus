@@ -2,3 +2,32 @@
 # Hand written Minecraft 1.20.1 / Forge 47 -> Minecraft 1.21.1 / Forge 52 rules.
 # Same line formats as loader/.../mappings/members.txt, written in 1.20.1 Mojang names; tools/legacy_mapgen.py
 # translates Minecraft member names to SRG ids into loader/src/main/resources/META-INF/campat/legacy/members.txt.
+
+# ---- ResourceLocation ----
+R net/minecraft/resources/ResourceLocation <init> (Ljava/lang/String;)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc resourceLocation
+R net/minecraft/resources/ResourceLocation <init> (Ljava/lang/String;Ljava/lang/String;)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc resourceLocation
+R net/minecraft/resources/ResourceLocation m_135830_ (Ljava/lang/String;)Z io/github/hugoneale/campat/runtime/legacy/LegacyMisc isValidResourceLocation
+
+# ---- chat ----
+R net/minecraft/network/chat/TextColor m_131268_ (Ljava/lang/String;)Lnet/minecraft/network/chat/TextColor; io/github/hugoneale/campat/runtime/legacy/LegacyMisc parseColor
+R net/minecraft/network/chat/Component$Serializer m_130701_ (Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent; io/github/hugoneale/campat/runtime/legacy/LegacyMisc componentFromJson
+R net/minecraft/network/chat/Component$Serializer m_130691_ (Lcom/google/gson/JsonElement;)Lnet/minecraft/network/chat/MutableComponent; io/github/hugoneale/campat/runtime/legacy/LegacyMisc componentFromJson
+R net/minecraft/network/chat/Component$Serializer m_130703_ (Lnet/minecraft/network/chat/Component;)Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/LegacyMisc componentToJson
+
+# ---- DataFixerUpper 6 (1.20.1) -> 8 (1.21.1) ----
+R com/mojang/serialization/DataResult getOrThrow (ZLjava/util/function/Consumer;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyMisc getOrThrow
+R com/mojang/serialization/DataResult get ()Lcom/mojang/datafixers/util/Either; io/github/hugoneale/campat/runtime/legacy/LegacyMisc get
+C com/mojang/serialization/DataResult$PartialResult com/mojang/serialization/DataResult$Error
+R net/minecraft/Util m_260975_ (Lcom/mojang/serialization/DataResult;Ljava/util/function/Function;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyMisc utilGetOrThrow
+
+# ---- NBT IO ----
+R net/minecraft/nbt/NbtIo m_128953_ (Ljava/io/File;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyMisc nbtRead
+R net/minecraft/nbt/NbtIo m_128955_ (Lnet/minecraft/nbt/CompoundTag;Ljava/io/File;)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc nbtWrite
+
+# ---- client ----
+R net/minecraft/client/Minecraft m_91296_ ()F io/github/hugoneale/campat/runtime/legacy/client/LegacyClient getFrameTime
+R net/minecraft/client/Minecraft m_91297_ ()F io/github/hugoneale/campat/runtime/legacy/client/LegacyClient getDeltaFrameTime
+S net/minecraft/client/Options f_92063_ Z io/github/hugoneale/campat/runtime/legacy/client/LegacyClient renderDebug
+R net/minecraft/client/model/geom/ModelPart m_104306_ (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;IIFFFF)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClient render
+M net/minecraftforge/client/event/ScreenEvent$MouseScrolled getScrollDelta ()D getDeltaY
+M net/minecraftforge/client/event/InputEvent$MouseScrollingEvent getScrollDelta ()D getDeltaY

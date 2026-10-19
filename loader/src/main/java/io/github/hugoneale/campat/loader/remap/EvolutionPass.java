@@ -183,13 +183,34 @@ public final class EvolutionPass {
         if (colon >= 0) call(il, entry.substring(colon + 1), target);
     }
 
+    private static int primitive(char from, char to) {
+        char f = from == 'S' || from == 'B' ? 'I' : from, t = to;
+        int op = switch ("" + f + t) {
+            case "ID" -> Opcodes.I2D; case "IF" -> Opcodes.I2F; case "IJ" -> Opcodes.I2L;
+            case "DI" -> Opcodes.D2I; case "DF" -> Opcodes.D2F; case "DJ" -> Opcodes.D2L;
+            case "FI" -> Opcodes.F2I; case "FD" -> Opcodes.F2D; case "FJ" -> Opcodes.F2L;
+            case "JI" -> Opcodes.L2I; case "JD" -> Opcodes.L2D; case "JF" -> Opcodes.L2F;
+            case "IS" -> Opcodes.I2S; case "IB" -> Opcodes.I2B;
+            default -> Opcodes.NOP;
+        };
+        return op;
+    }
+
     private static void convertReturn(InsnList il, String conv, Type from, Type to) {
-        if (conv != null) call(il, conv, to);
+        if (conv != null && !conv.isEmpty()) call(il, conv, to);
         else if (!from.equals(to) && to.getSort() == Type.VOID) il.add(new InsnNode(from.getSize() == 2 ? Opcodes.POP2 : Opcodes.POP));
     }
 
     /** owner.name(desc) static call, then a cast to {@code target} when the helper returns something wider */
     private static void call(InsnList il, String ref, Type target) {
+        if (ref.equals("!cast")) {
+            il.add(new TypeInsnNode(Opcodes.CHECKCAST, target.getInternalName()));
+            return;
+        }
+        if (ref.startsWith("!")) { // primitive conversion such as !D2F
+            il.add(new InsnNode(primitive(ref.charAt(1), ref.charAt(3))));
+            return;
+        }
         int dot = ref.lastIndexOf('.', ref.indexOf('('));
         String owner = ref.substring(0, dot), rest = ref.substring(dot + 1);
         int paren = rest.indexOf('(');
