@@ -29,6 +29,8 @@ public final class EventShimBridge {
         bus.addListener(EventPriority.HIGHEST, false, BrewingRecipeRegisterEvent.class,
             e -> bus.post(new RegisterBrewingRecipesEvent(e.getBuilder(), LegacyRegistries.access())));
         bus.addListener(EventPriority.HIGHEST, true, MobSpawnEvent.FinalizeSpawn.class, EventShimBridge::finalizeSpawn);
+        PickupBridge.register();
+        DamageBridge.register();
         bus.addListener(EventPriority.HIGHEST, true, ShieldBlockEvent.class, EventShimBridge::shieldBlock);
         bus.addListener(EventPriority.HIGHEST, false, SleepingLocationCheckEvent.class, EventShimBridge::sleeping);
         bus.addListener(EventPriority.HIGHEST, false, GatherLoginConfigurationTasksEvent.class, e -> {

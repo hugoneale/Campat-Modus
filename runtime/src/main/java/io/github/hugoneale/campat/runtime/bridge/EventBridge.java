@@ -99,4 +99,8 @@ public final class EventBridge {
     public static net.minecraft.server.network.ConfigurationTask.Type configurationTaskType(net.minecraft.resources.ResourceLocation id) {
         return new net.minecraft.server.network.ConfigurationTask.Type(id.toString());
     }
+
+    public static boolean loadingErrors(net.minecraftforge.fml.loading.LoadingModList list) {
+        return !list.getErrors().isEmpty();
+    }
 }

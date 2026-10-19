@@ -112,5 +112,27 @@ R net/neoforged/neoforge/common/ModConfigSpec$Builder defineListAllowEmpty (Ljav
 R net/minecraft/world/level/block/entity/BlockEntityType getValidBlocks ()Ljava/util/Set; io/github/hugoneale/campat/runtime/bridge/EventBridge getValidBlocks
 R net/minecraft/server/network/ConfigurationTask$Type <init> (Lnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/bridge/EventBridge configurationTaskType
 # vanilla fields Forge patched to a subtype (tools: memberDiff)
-T net/minecraft/world/level/chunk/ChunkGenerator featuresPerStep Ljava/util/function/Supplier; Lnet/minecraftforge/common/util/ClearableLazy;
+T net/minecraft/world/level/chunk/ChunkGenerator featuresPerStep Ljava/util/function/Supplier; Lnet/minecraftforge/common/util/ClearableLazy; io/github/hugoneale/campat/runtime/bridge/FieldBridge.clearableLazy(Ljava/util/function/Supplier;)Lnet/minecraftforge/common/util/ClearableLazy;
 T net/minecraft/world/entity/ai/goal/RangedCrossbowAttackGoal mob Lnet/minecraft/world/entity/Mob; Lnet/minecraft/world/entity/monster/Monster;
+# NeoForge custom ingredients (Ingredient patch)
+R net/minecraft/world/item/crafting/Ingredient getCustomIngredient ()Lnet/neoforged/neoforge/common/crafting/ICustomIngredient; io/github/hugoneale/campat/runtime/crafting/CustomIngredients getCustomIngredient
+R net/minecraft/world/item/crafting/Ingredient isCustom ()Z io/github/hugoneale/campat/runtime/crafting/CustomIngredients isCustom
+R net/minecraft/world/item/crafting/Ingredient hasNoItems ()Z io/github/hugoneale/campat/runtime/crafting/CustomIngredients hasNoItems
+R net/minecraft/world/item/crafting/Ingredient <init> (Lnet/neoforged/neoforge/common/crafting/ICustomIngredient;)V io/github/hugoneale/campat/runtime/crafting/CustomIngredients toVanilla (Lnet/neoforged/neoforge/common/crafting/ICustomIngredient;)Lnet/minecraft/world/item/crafting/Ingredient;
+S net/minecraft/world/item/crafting/Ingredient LIST_CODEC_NONEMPTY Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/crafting/CustomIngredients listCodecNonEmpty
+S net/minecraft/world/item/crafting/Ingredient LIST_CODEC Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/crafting/CustomIngredients listCodec
+S net/minecraft/world/item/crafting/Ingredient MAP_CODEC_NONEMPTY Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/crafting/CustomIngredients mapCodecNonEmpty
+R net/minecraft/world/item/crafting/Ingredient getValues ()[Lnet/minecraft/world/item/crafting/Ingredient$Value; io/github/hugoneale/campat/runtime/crafting/CustomIngredients getValues
+# NeoForge registry extensions: data maps and callbacks
+R net/minecraft/core/Registry getData (Lnet/neoforged/neoforge/registries/datamaps/DataMapType;Lnet/minecraft/resources/ResourceKey;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/datamap/DataMaps getData
+R net/minecraft/core/Registry getDataMap (Lnet/neoforged/neoforge/registries/datamaps/DataMapType;)Ljava/util/Map; io/github/hugoneale/campat/runtime/datamap/DataMaps getDataMap
+R net/minecraft/core/Registry getKeyOrNull (Ljava/lang/Object;)Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/datamap/DataMaps getKeyOrNull
+R net/minecraft/core/Registry addCallback (Lnet/neoforged/neoforge/registries/callback/RegistryCallback;)V io/github/hugoneale/campat/runtime/datamap/RegistryCallbacks addCallback
+R net/minecraft/core/Registry addCallback (Ljava/lang/Class;Lnet/neoforged/neoforge/registries/callback/RegistryCallback;)V io/github/hugoneale/campat/runtime/datamap/RegistryCallbacks addCallback
+R net/minecraft/core/Holder getData (Lnet/neoforged/neoforge/registries/datamaps/DataMapType;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/datamap/DataMaps holderGetData
+R net/minecraft/core/Holder getKey ()Lnet/minecraft/resources/ResourceKey; io/github/hugoneale/campat/runtime/datamap/DataMaps holderGetKey
+R net/minecraft/core/Holder getDelegate ()Lnet/minecraft/core/Holder; io/github/hugoneale/campat/runtime/datamap/DataMaps holderGetDelegate
+# same API under another name on Forge
+C net/neoforged/neoforge/event/entity/RegisterSpawnPlacementsEvent net/minecraftforge/event/entity/SpawnPlacementRegisterEvent
+C net/neoforged/neoforge/fluids/BaseFlowingFluid net/minecraftforge/fluids/ForgeFlowingFluid
+R net/neoforged/fml/loading/LoadingModList hasErrors ()Z io/github/hugoneale/campat/runtime/bridge/EventBridge loadingErrors

@@ -1,0 +1,5 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [{"type": "campattest:two_diamonds"}],
+  "result": {"id": "minecraft:emerald", "count": 1}
+}

@@ -39,6 +39,26 @@ public final class LazyRegistry {
                         break;
                     default:
                 }
+                if ((args == null || args.length == 0) && delegate == null && lookup() == null) {
+                    // codecs requested at class initialisation, before Forge created the registry
+                    Class<?> r = method.getReturnType();
+                    if (r == com.mojang.serialization.Codec.class) {
+                        return com.mojang.serialization.Codec.lazyInitialized(() -> (com.mojang.serialization.Codec<Object>) invokeResolved(method));
+                    }
+                    if (r == net.minecraft.network.codec.StreamCodec.class) {
+                        return new net.minecraft.network.codec.StreamCodec<Object, Object>() {
+                            @Override
+                            public Object decode(Object buf) {
+                                return ((net.minecraft.network.codec.StreamCodec<Object, Object>) invokeResolved(method)).decode(buf);
+                            }
+
+                            @Override
+                            public void encode(Object buf, Object value) {
+                                ((net.minecraft.network.codec.StreamCodec<Object, Object>) invokeResolved(method)).encode(buf, value);
+                            }
+                        };
+                    }
+                }
                 try {
                     return method.invoke(resolve(), args);
                 } catch (InvocationTargetException e) {
@@ -46,10 +66,22 @@ public final class LazyRegistry {
                 }
             }
 
+            private Object invokeResolved(Method method) {
+                try {
+                    return method.invoke(resolve());
+                } catch (ReflectiveOperationException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            private Registry<T> lookup() {
+                return (Registry<T>) BuiltInRegistries.REGISTRY.get(key.location());
+            }
+
             private Registry<T> resolve() {
                 Registry<T> d = delegate;
                 if (d == null) {
-                    d = (Registry<T>) BuiltInRegistries.REGISTRY.get(key.location());
+                    d = lookup();
                     if (d == null) throw new IllegalStateException("Registry " + key.location() + " has not been created yet");
                     delegate = d;
                 }

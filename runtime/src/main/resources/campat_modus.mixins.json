@@ -11,6 +11,8 @@
     "ServerPlayerMenuMixin",
     "accessor.AbstractHorseAccessor",
     "accessor.BlockEntityTypeAccessor",
+    "legacy.ItemStackCopyMixin",
+    "accessor.CustomDataAccessor",
     "EntityTickMixins",
     "ForgeHooksMixin",
     "ServerCommonPacketListenerImplMixin",

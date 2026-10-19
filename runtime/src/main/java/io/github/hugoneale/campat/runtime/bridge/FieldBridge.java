@@ -19,4 +19,9 @@ public final class FieldBridge {
     public static FlowingFluid liquidBlockFluid(LiquidBlock block) {
         return block.getFluid();
     }
+
+    /** values written to ChunkGenerator.featuresPerStep by NeoForge mixins (Supplier there, ClearableLazy on Forge) */
+    public static net.minecraftforge.common.util.ClearableLazy clearableLazy(java.util.function.Supplier supplier) {
+        return supplier instanceof net.minecraftforge.common.util.ClearableLazy c ? c : net.minecraftforge.common.util.ClearableLazy.of(supplier);
+    }
 }

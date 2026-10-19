@@ -21,6 +21,11 @@ import org.jetbrains.annotations.ApiStatus;
  * @see Post
  */
 public abstract class RenderGuiEvent extends Event {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public RenderGuiEvent() {
+        this((GuiGraphics) null, (DeltaTracker) null);
+    }
+
     private final GuiGraphics guiGraphics;
     private final DeltaTracker partialTick;
 
@@ -52,6 +57,11 @@ public abstract class RenderGuiEvent extends Event {
      */
     @net.minecraftforge.eventbus.api.Cancelable
     public static class Pre extends RenderGuiEvent implements ICancellableEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((GuiGraphics) null, (DeltaTracker) null);
+    }
+
         @ApiStatus.Internal
         public Pre(GuiGraphics guiGraphics, DeltaTracker partialTick) {
             super(guiGraphics, partialTick);
@@ -67,6 +77,11 @@ public abstract class RenderGuiEvent extends Event {
      * only on the {@linkplain LogicalSide#CLIENT logical client}.</p>
      */
     public static class Post extends RenderGuiEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((GuiGraphics) null, (DeltaTracker) null);
+    }
+
         @ApiStatus.Internal
         public Post(GuiGraphics guiGraphics, DeltaTracker partialTick) {
             super(guiGraphics, partialTick);

@@ -51,6 +51,8 @@ public class CampatTest {
         T.run("bus.login", () -> NeoForge.EVENT_BUS.addListener(this::login));
         T.run("ticks", () -> Ticks.setup());
         T.run("features.setup", () -> Features.setup(modBus));
+        T.run("ingredient.setup", () -> Ingredients.setup(modBus));
+        T.run("datamap.setup", () -> DataMapsTest.setup(modBus));
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -63,6 +65,8 @@ public class CampatTest {
         T.check("bus.game", event.getServer() != null, "server");
         T.run("registries.lookup", () -> Registration.verify());
         T.run("features", () -> Features.onServerStarted(event.getServer().overworld()));
+        T.run("ingredients", () -> Ingredients.verify(event.getServer()));
+        T.run("datamaps", DataMapsTest::verify);
     }
 
     private void login(PlayerEvent.PlayerLoggedInEvent event) {

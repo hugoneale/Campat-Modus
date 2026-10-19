@@ -31,6 +31,11 @@ import org.jetbrains.annotations.Nullable;
  * <p>This event is fired on the mod-specific event bus, only on the {@linkplain LogicalSide#CLIENT logical client}.</p>
  */
 public class RegisterGuiLayersEvent extends Event implements IModBusEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public RegisterGuiLayersEvent() {
+        this((List) null);
+    }
+
     private final List<GuiLayerManager.NamedLayer> layers;
 
     @ApiStatus.Internal

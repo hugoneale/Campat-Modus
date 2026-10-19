@@ -63,6 +63,29 @@ public final class JarConverter {
         this.resources = new ResourceRewriter(classConverter.remapper());
     }
 
+    private static final byte[] NEO_MOD = "Lnet/neoforged/fml/common/Mod;".getBytes(StandardCharsets.ISO_8859_1);
+    private static final byte[] FORGE_MOD = "Lnet/minecraftforge/fml/common/Mod;".getBytes(StandardCharsets.ISO_8859_1);
+
+    /** a NeoForge @Mod class and no Forge one */
+    public static boolean usesNeoModAnnotation(java.util.Iterator<byte[]> classFiles) {
+        boolean neo = false;
+        while (classFiles.hasNext()) {
+            byte[] c = classFiles.next();
+            if (contains(c, FORGE_MOD)) return false;
+            if (!neo && contains(c, NEO_MOD)) neo = true;
+        }
+        return neo;
+    }
+
+    private static boolean contains(byte[] hay, byte[] needle) {
+        outer:
+        for (int i = 0; i <= hay.length - needle.length; i++) {
+            for (int j = 0; j < needle.length; j++) if (hay[i + j] != needle[j]) continue outer;
+            return true;
+        }
+        return false;
+    }
+
     /** jar-in-jar entries: metadata.json may point anywhere, in practice somewhere under META-INF/ */
     public static boolean isNestedJar(String name) {
         return name.startsWith("META-INF/") && name.endsWith(".jar");
@@ -70,8 +93,16 @@ public final class JarConverter {
 
     public static boolean isNeoForgeMod(Map<String, byte[]> entries) {
         byte[] toml = entries.get(FORGE_TOML);
-        // jars shipping both files: the mods.toml decides whether it is meant for Forge
-        if (entries.containsKey(NEO_TOML)) return toml == null || ModsTomlConverter.dependsOnNeoForge(new String(toml, StandardCharsets.UTF_8));
+        // jars shipping both files: the mods.toml decides whether it is meant for Forge; when it names
+        // neither loader, the @Mod annotation in the classes does
+        if (entries.containsKey(NEO_TOML)) {
+            if (toml == null) return true;
+            String t = new String(toml, StandardCharsets.UTF_8);
+            if (ModsTomlConverter.dependsOnNeoForge(t)) return true;
+            if (ModsTomlConverter.dependsOnForge(t)) return false;
+            return usesNeoModAnnotation(entries.entrySet().stream()
+                .filter(e -> e.getKey().endsWith(".class")).map(Map.Entry::getValue).iterator());
+        }
         // NeoForge 20.2 - 20.4 era metadata: a mods.toml that depends on "neoforge" (and is not a 1.20.1 mod)
         return toml != null && ModsTomlConverter.dependsOnNeoForge(new String(toml, StandardCharsets.UTF_8))
             && !LegacyTomlConverter.isLegacy(new String(toml, StandardCharsets.UTF_8));
@@ -112,6 +143,11 @@ public final class JarConverter {
     }
 
     public Result convert(String fileName, byte[] jar) throws IOException {
+        return convert(fileName, jar, List.of());
+    }
+
+    /** @param inheritedMixins mixin configs declared by the parent jar's metadata that live in this jar */
+    private Result convert(String fileName, byte[] jar, List<String> inheritedMixins) throws IOException {
         Map<String, byte[]> in = read(jar);
         if (!isNeoForgeMod(in)) throw new IOException(fileName + " is not a NeoForge mod");
         index(in, hierarchy);
@@ -168,7 +204,9 @@ public final class JarConverter {
                 if (dropNested(simple)) continue;
                 Map<String, byte[]> nested = read(data);
                 if (isNeoForgeMod(nested)) {
-                    Result r = convert(simple, data);
+                    List<String> inherited = new ArrayList<>();
+                    for (String c : toml.mixinConfigs()) if (!in.containsKey(c) && nested.containsKey(c)) inherited.add(c);
+                    Result r = convert(simple, data, inherited);
                     nestedReports.add(r.report());
                     out.put(name, r.jar());
                 } else {
@@ -205,11 +243,14 @@ public final class JarConverter {
 
         Attributes main = manifest.getMainAttributes();
         if (main.getValue(Attributes.Name.MANIFEST_VERSION) == null) main.put(Attributes.Name.MANIFEST_VERSION, "1.0");
-        if (!toml.mixinConfigs().isEmpty()) {
+        // configs must be read from the jar that holds them (NeoForge finds them anywhere in the mod)
+        List<String> mixinConfigs = new ArrayList<>(inheritedMixins);
+        for (String c : toml.mixinConfigs()) if (in.containsKey(c) && !mixinConfigs.contains(c)) mixinConfigs.add(c);
+        if (!mixinConfigs.isEmpty()) {
             List<String> all = new ArrayList<>();
             String existing = main.getValue("MixinConfigs");
             if (existing != null) for (String s : existing.split(",")) if (!s.isBlank()) all.add(s.trim());
-            for (String c : toml.mixinConfigs()) if (!all.contains(c)) all.add(c);
+            for (String c : mixinConfigs) if (!all.contains(c)) all.add(c);
             main.putValue("MixinConfigs", String.join(",", all));
         }
         // NeoForge reads this for libraries; Forge would load such a jar a second time as a library.

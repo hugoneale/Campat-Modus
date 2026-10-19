@@ -20,6 +20,11 @@ import net.minecraftforge.eventbus.api.Event;
  * @see RenderFrameEvent.Post
  */
 public abstract class RenderFrameEvent extends Event {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public RenderFrameEvent() {
+        this((DeltaTracker) null);
+    }
+
     protected final DeltaTracker partialTick;
 
     protected RenderFrameEvent(DeltaTracker partialTick) {
@@ -39,6 +44,11 @@ public abstract class RenderFrameEvent extends Event {
      * This event only fires on the physical client.
      */
     public static class Pre extends RenderFrameEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((DeltaTracker) null);
+    }
+
         public Pre(DeltaTracker partialTick) {
             super(partialTick);
         }
@@ -50,6 +60,11 @@ public abstract class RenderFrameEvent extends Event {
      * This event only fires on the physical client.
      */
     public static class Post extends RenderFrameEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((DeltaTracker) null);
+    }
+
         public Post(DeltaTracker partialTick) {
             super(partialTick);
         }

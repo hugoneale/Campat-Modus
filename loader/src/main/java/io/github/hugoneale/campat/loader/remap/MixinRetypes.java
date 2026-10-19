@@ -31,6 +31,8 @@ public final class MixinRetypes {
     private final Mappings mappings;
     /** accessorOwner.name+oldDesc -> newDesc, collected for the whole jar */
     private final Map<String, String> accessors = new HashMap<>();
+    /** setter accessors: accessorOwner.name+oldDesc -> adapter applied to the argument */
+    private final Map<String, String> setterAdapters = new HashMap<>();
 
     public MixinRetypes(Mappings mappings) {
         this.mappings = mappings;
@@ -45,11 +47,17 @@ public final class MixinRetypes {
         if (targets.isEmpty()) return;
         for (MethodNode mn : cn.methods) {
             String field = accessorField(mn);
-            if (field == null || Type.getArgumentTypes(mn.desc).length != 0) continue; // getters only
+            if (field == null) continue;
+            Type[] args = Type.getArgumentTypes(mn.desc);
             for (String t : targets) {
                 String[] r = mappings.fieldRetype(t, field);
-                if (r != null && Type.getReturnType(mn.desc).getDescriptor().equals(r[0])) {
+                if (r == null) continue;
+                if (args.length == 0 && Type.getReturnType(mn.desc).getDescriptor().equals(r[0])) {
                     accessors.put(cn.name + "." + mn.name + mn.desc, "()" + r[1]);
+                } else if (args.length == 1 && args[0].getDescriptor().equals(r[0]) && r[2] != null) {
+                    String key = cn.name + "." + mn.name + mn.desc;
+                    accessors.put(key, "(" + r[1] + ")" + Type.getReturnType(mn.desc).getDescriptor());
+                    setterAdapters.put(key, r[2]);
                 }
             }
         }
@@ -70,7 +78,7 @@ public final class MixinRetypes {
                 for (String t : targets) {
                     String[] r = mappings.fieldRetype(t, fn.name);
                     if (r != null && fn.desc.equals(r[0])) {
-                        shadowRetypes.put(fn.name, r[0] + " " + r[1]);
+                        shadowRetypes.put(fn.name, r[0] + " " + r[1] + (r[2] != null ? " " + r[2] : ""));
                         fn.desc = r[1];
                         fn.signature = null;
                     }
@@ -92,14 +100,26 @@ public final class MixinRetypes {
                     if (!fi.desc.equals(r[0])) continue;
                     fi.desc = r[1];
                     if (fi.getOpcode() == Opcodes.PUTFIELD || fi.getOpcode() == Opcodes.PUTSTATIC) {
-                        mn.instructions.insertBefore(fi, new TypeInsnNode(Opcodes.CHECKCAST, Type.getType(r[1]).getInternalName()));
+                        mn.instructions.insertBefore(fi, r.length > 2 ? adapterCall(r[2]) : new TypeInsnNode(Opcodes.CHECKCAST, Type.getType(r[1]).getInternalName()));
                     }
                 } else if (insn instanceof MethodInsnNode mi) {
-                    String nd = accessors.get(mi.owner + "." + mi.name + mi.desc);
-                    if (nd != null) mi.desc = nd;
+                    String key = mi.owner + "." + mi.name + mi.desc;
+                    String nd = accessors.get(key);
+                    if (nd != null) {
+                        String adapter = setterAdapters.get(key);
+                        if (adapter != null) mn.instructions.insertBefore(mi, adapterCall(adapter));
+                        mi.desc = nd;
+                    }
                 }
             }
         }
+    }
+
+    /** owner.name(desc), a public static method of a class */
+    private static MethodInsnNode adapterCall(String ref) {
+        int paren = ref.indexOf('(');
+        int dot = ref.lastIndexOf('.', paren);
+        return new MethodInsnNode(Opcodes.INVOKESTATIC, ref.substring(0, dot), ref.substring(dot + 1, paren), ref.substring(paren), false);
     }
 
     private static List<String> targets(ClassNode cn) {

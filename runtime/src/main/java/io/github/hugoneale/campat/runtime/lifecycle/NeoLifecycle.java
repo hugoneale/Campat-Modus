@@ -36,6 +36,8 @@ public final class NeoLifecycle {
         event.enqueueWork(() -> {
             postModBus(new RegisterPayloadHandlersEvent());
             io.github.hugoneale.campat.runtime.events.EventShimBridge.afterRegistration();
+            io.github.hugoneale.campat.runtime.datamap.RegistryCallbacks.bake();
+            io.github.hugoneale.campat.runtime.datamap.DataMaps.fireRegisterTypes();
             // NeoForge fires RegisterCapabilitiesEvent once registries are frozen
             net.neoforged.neoforge.capabilities.CapabilityHooks.init();
         });

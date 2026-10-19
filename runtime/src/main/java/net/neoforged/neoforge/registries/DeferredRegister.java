@@ -236,6 +236,10 @@ public class DeferredRegister<T> {
         if (entries.putIfAbsent(ret, () -> func.apply(key)) != null) {
             throw new IllegalArgumentException("Duplicate registration " + name);
         }
+        // campat: custom ingredient types also need a Forge ingredient serializer under the same id
+        if (this.registryKey.location().equals(NeoForgeRegistries.Keys.INGREDIENT_TYPES.location())) {
+            io.github.hugoneale.campat.runtime.crafting.CustomIngredients.declare(key);
+        }
 
         return ret;
     }

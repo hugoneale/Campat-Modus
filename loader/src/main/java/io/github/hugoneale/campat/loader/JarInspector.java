@@ -26,7 +26,20 @@ final class JarInspector {
                 text = new String(in.readAllBytes(), StandardCharsets.UTF_8);
             }
             boolean forNeo = io.github.hugoneale.campat.loader.convert.ModsTomlConverter.dependsOnNeoForge(text);
-            return neoToml ? forNeo : forNeo && !LegacyTomlConverter.isLegacy(text);
+            if (!neoToml) return forNeo && !LegacyTomlConverter.isLegacy(text);
+            if (forNeo) return true;
+            if (io.github.hugoneale.campat.loader.convert.ModsTomlConverter.dependsOnForge(text)) return false;
+            // both files naming neither loader: the classes decide
+            java.util.List<byte[]> classes = new java.util.ArrayList<>();
+            var en = z.entries();
+            while (en.hasMoreElements()) {
+                var e = en.nextElement();
+                if (!e.getName().endsWith(".class")) continue;
+                try (var in = z.getInputStream(e)) {
+                    classes.add(in.readAllBytes());
+                }
+            }
+            return io.github.hugoneale.campat.loader.convert.JarConverter.usesNeoModAnnotation(classes.iterator());
         } catch (IOException | RuntimeException e) {
             return false;
         }

@@ -46,6 +46,7 @@ public class CampatModLocator extends AbstractModProvider implements IModLocator
                 List<Path> all = new ArrayList<>(neo);
                 all.addAll(legacy);
                 if (!all.isEmpty()) ScanExclusion.exclude(all);
+                if (!neo.isEmpty()) DistCleanerRelax.apply();
             } catch (Throwable t) {
                 LOGGER.error("Campat Modus: could not hide converted mods from Forge's mods folder scan", t);
                 ok = false;

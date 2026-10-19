@@ -16,6 +16,11 @@ import net.minecraftforge.eventbus.api.Event;
  * @see ServerTickEvent.Post
  */
 public abstract class ServerTickEvent extends Event {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public ServerTickEvent() {
+        this((BooleanSupplier) null, (MinecraftServer) null);
+    }
+
     private final BooleanSupplier hasTime;
     private final MinecraftServer server;
 
@@ -46,6 +51,11 @@ public abstract class ServerTickEvent extends Event {
      * This event only fires on the logical server.
      */
     public static class Pre extends ServerTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((BooleanSupplier) null, (MinecraftServer) null);
+    }
+
         public Pre(BooleanSupplier haveTime, MinecraftServer server) {
             super(haveTime, server);
         }
@@ -57,6 +67,11 @@ public abstract class ServerTickEvent extends Event {
      * This event only fires on the logical server.
      */
     public static class Post extends ServerTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((BooleanSupplier) null, (MinecraftServer) null);
+    }
+
         public Post(BooleanSupplier haveTime, MinecraftServer server) {
             super(haveTime, server);
         }

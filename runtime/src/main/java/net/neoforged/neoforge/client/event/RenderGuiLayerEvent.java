@@ -26,6 +26,11 @@ import org.jetbrains.annotations.ApiStatus;
  * @see Post
  */
 public abstract class RenderGuiLayerEvent extends Event {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public RenderGuiLayerEvent() {
+        this((GuiGraphics) null, (DeltaTracker) null, (ResourceLocation) null, (LayeredDraw.Layer) null);
+    }
+
     private final GuiGraphics guiGraphics;
     private final DeltaTracker partialTick;
     private final ResourceLocation name;
@@ -69,6 +74,11 @@ public abstract class RenderGuiLayerEvent extends Event {
      */
     @net.minecraftforge.eventbus.api.Cancelable
     public static class Pre extends RenderGuiLayerEvent implements ICancellableEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((GuiGraphics) null, (DeltaTracker) null, (ResourceLocation) null, (LayeredDraw.Layer) null);
+    }
+
         @ApiStatus.Internal
         public Pre(GuiGraphics guiGraphics, DeltaTracker partialTick, ResourceLocation name, LayeredDraw.Layer layer) {
             super(guiGraphics, partialTick, name, layer);
@@ -84,6 +94,11 @@ public abstract class RenderGuiLayerEvent extends Event {
      * only on the {@linkplain LogicalSide#CLIENT logical client}.</p>
      */
     public static class Post extends RenderGuiLayerEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((GuiGraphics) null, (DeltaTracker) null, (ResourceLocation) null, (LayeredDraw.Layer) null);
+    }
+
         @ApiStatus.Internal
         public Post(GuiGraphics guiGraphics, DeltaTracker partialTick, ResourceLocation name, LayeredDraw.Layer layer) {
             super(guiGraphics, partialTick, name, layer);

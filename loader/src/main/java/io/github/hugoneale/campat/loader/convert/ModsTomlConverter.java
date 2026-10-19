@@ -39,6 +39,20 @@ public final class ModsTomlConverter {
                          List<String> accessTransformers, List<String> warnings,
                          List<String> enumExtensions, String originalLoader) {}
 
+    /** whether the mods.toml names the forge loader as a dependency */
+    public static boolean dependsOnForge(String toml) {
+        try {
+            UnmodifiableConfig deps = new TomlParser().parse(toml).get("dependencies");
+            if (deps == null) return false;
+            for (Object v : deps.valueMap().values()) {
+                for (Config d : asConfigList(v)) if ("forge".equals(d.get("modId"))) return true;
+            }
+            return false;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
     /** an old style (NeoForge 20.2 - 20.4) mods.toml: depends on neoforge, not on forge */
     public static boolean dependsOnNeoForge(String toml) {
         try {

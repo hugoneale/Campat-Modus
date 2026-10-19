@@ -18,6 +18,11 @@ import net.minecraftforge.eventbus.api.Event;
  * @see LevelTickEvent.Post
  */
 public abstract class LevelTickEvent extends Event {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public LevelTickEvent() {
+        this((BooleanSupplier) null, (Level) null);
+    }
+
     private final BooleanSupplier hasTime;
     private final Level level;
 
@@ -49,6 +54,11 @@ public abstract class LevelTickEvent extends Event {
      * This event fires on both the logical client and logical server, for {@link ClientLevel} and {@link ServerLevel} respectively.
      */
     public static class Pre extends LevelTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((BooleanSupplier) null, (Level) null);
+    }
+
         public Pre(BooleanSupplier haveTime, Level level) {
             super(haveTime, level);
         }
@@ -60,6 +70,11 @@ public abstract class LevelTickEvent extends Event {
      * This event fires on both the logical client and logical server, for {@link ClientLevel} and {@link ServerLevel} respectively.
      */
     public static class Post extends LevelTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((BooleanSupplier) null, (Level) null);
+    }
+
         public Post(BooleanSupplier haveTime, Level level) {
             super(haveTime, level);
         }

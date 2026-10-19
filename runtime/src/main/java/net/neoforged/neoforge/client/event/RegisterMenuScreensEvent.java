@@ -17,6 +17,11 @@ import net.minecraftforge.fml.event.IModBusEvent;
 import org.jetbrains.annotations.ApiStatus;
 
 public class RegisterMenuScreensEvent extends Event implements IModBusEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public RegisterMenuScreensEvent() {
+        this((Map) null);
+    }
+
     private final Map<MenuType<?>, MenuScreens.ScreenConstructor<?, ?>> registeredScreens;
 
     @ApiStatus.Internal

@@ -16,6 +16,11 @@ import net.minecraftforge.event.entity.EntityEvent;
  * @see EntityTickEvent.Post
  */
 public abstract class EntityTickEvent extends EntityEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public EntityTickEvent() {
+        this((Entity) null);
+    }
+
     protected EntityTickEvent(Entity entity) {
         super(entity);
     }
@@ -27,6 +32,11 @@ public abstract class EntityTickEvent extends EntityEvent {
      */
     @net.minecraftforge.eventbus.api.Cancelable
     public static class Pre extends EntityTickEvent implements ICancellableEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((Entity) null);
+    }
+
         public Pre(Entity entity) {
             super(entity);
         }
@@ -50,6 +60,11 @@ public abstract class EntityTickEvent extends EntityEvent {
      * This event fires on both the logical server and logical client.
      */
     public static class Post extends EntityTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((Entity) null);
+    }
+
         public Post(Entity entity) {
             super(entity);
         }

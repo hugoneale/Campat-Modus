@@ -25,7 +25,9 @@ import java.util.zip.ZipFile;
  * Verifies members.txt against the real NeoForge classes and the built runtime: every redirect
  * target must exist as a static helper with exactly the descriptor the converter will emit.
  *
- * <p>usage: CheckMappings neo_env.txt runtime.jar mappingsDir</p>
+ * <p>usage: CheckMappings sourceEnv.txt runtime.jar mappingsDir [mappingFile...]</p>
+ * <p>Without mapping files: classes.txt + members.txt of the NeoForge layer. With files (legacy layer:
+ * srg.txt bridges.txt members.txt) the R/S lines of all but the first are checked.</p>
  */
 public final class CheckMappings {
     public static void main(String[] a) throws Exception {
@@ -44,14 +46,19 @@ public final class CheckMappings {
             }
         }
         Path dir = Path.of(a[2]);
-        Mappings m;
-        try (InputStream c = Files.newInputStream(dir.resolve("classes.txt")); InputStream mem = Files.newInputStream(dir.resolve("members.txt"))) {
-            m = Mappings.load(List.of(c, mem));
-        }
+        List<Path> files = new ArrayList<>();
+        for (int i = 3; i < a.length; i++) files.add(dir.resolve(a[i]));
+        if (files.isEmpty()) files = List.of(dir.resolve("classes.txt"), dir.resolve("members.txt"));
+        List<InputStream> streams = new ArrayList<>();
+        for (Path f : files) streams.add(Files.newInputStream(f));
+        Mappings m = Mappings.load(streams);
+        for (InputStream in : streams) in.close();
         m.removeClassRenames(runtime::containsKey);
         List<String> errors = new ArrayList<>();
         int checked = 0;
-        for (String line : Files.readAllLines(dir.resolve("members.txt"))) {
+        List<String> lines = new ArrayList<>();
+        for (Path f : files.subList(1, files.size())) lines.addAll(Files.readAllLines(f));
+        for (String line : lines) {
             String l = line.contains("#") ? line.substring(0, line.indexOf('#')).strip() : line.strip();
             if (l.isEmpty()) continue;
             String[] p = l.split("\\s+");
@@ -63,7 +70,7 @@ public final class CheckMappings {
             if (p[0].equals("R")) {
                 Boolean isStatic = staticMethod(neo, owner, name, desc);
                 if (isStatic == null && !name.equals("<init>")) {
-                    errors.add("not a NeoForge method: " + l);
+                    errors.add("not a source platform method: " + l);
                     continue;
                 }
                 if (explicit != null) expected = explicit;
@@ -79,7 +86,7 @@ public final class CheckMappings {
             } else {
                 Boolean isStatic = staticField(neo, owner, name, desc);
                 if (isStatic == null) {
-                    errors.add("not a NeoForge field: " + l);
+                    errors.add("not a source platform field: " + l);
                     continue;
                 }
                 expected = explicit != null ? explicit : isStatic ? "()" + desc : "(L" + owner + ";)" + desc;

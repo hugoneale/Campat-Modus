@@ -141,3 +141,18 @@ tasks.register('memberDiff', JavaExec) {
     jvmArgs '-Xmx4g'
     args envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath
 }
+
+// ./gradlew :tools:checkLegacyMappings  verifies the legacy (1.20.1) redirect targets
+tasks.register('checkLegacyMappings', JavaExec) {
+    group = 'campat'
+    dependsOn ':runtime:jar'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.CheckMappings'
+    jvmArgs '-Xmx4g'
+    doFirst {
+        args envs.file('forge120_env.txt').asFile.absolutePath,
+            project(':runtime').tasks.jar.archiveFile.get().asFile.absolutePath,
+            rootProject.file('loader/src/main/resources/META-INF/campat/legacy').absolutePath,
+            'srg.txt', 'bridges.txt', 'members.txt'
+    }
+}

@@ -25,6 +25,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
  * @see PlayerTickEvent.Post
  */
 public abstract class PlayerTickEvent extends PlayerEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public PlayerTickEvent() {
+        this((Player) null);
+    }
+
     protected PlayerTickEvent(Player player) {
         super(player);
     }
@@ -37,6 +42,11 @@ public abstract class PlayerTickEvent extends PlayerEvent {
      * As such, be sure to check {@link Level#isClientSide()} before performing any operations.
      */
     public static class Pre extends PlayerTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Pre() {
+        this((Player) null);
+    }
+
         public Pre(Player player) {
             super(player);
         }
@@ -50,6 +60,11 @@ public abstract class PlayerTickEvent extends PlayerEvent {
      * As such, be sure to check {@link Level#isClientSide()} before performing any operations.
      */
     public static class Post extends PlayerTickEvent {
+    /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
+    public Post() {
+        this((Player) null);
+    }
+
         public Post(Player player) {
             super(player);
         }

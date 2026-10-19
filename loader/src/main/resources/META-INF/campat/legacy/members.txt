@@ -31,3 +31,33 @@ S net/minecraft/client/Options f_92063_ Z io/github/hugoneale/campat/runtime/leg
 R net/minecraft/client/model/geom/ModelPart m_104306_ (Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;IIFFFF)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClient render
 M net/minecraftforge/client/event/ScreenEvent$MouseScrolled getScrollDelta ()D getDeltaY
 M net/minecraftforge/client/event/InputEvent$MouseScrollingEvent getScrollDelta ()D getDeltaY
+
+# ---- ItemStack NBT -> data components ----
+R net/minecraft/world/item/ItemStack m_41783_ ()Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getTag
+R net/minecraft/world/item/ItemStack m_41784_ ()Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getOrCreateTag
+R net/minecraft/world/item/ItemStack m_41782_ ()Z io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks hasTag
+R net/minecraft/world/item/ItemStack m_41751_ (Lnet/minecraft/nbt/CompoundTag;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks setTag
+R net/minecraft/world/item/ItemStack m_41737_ (Ljava/lang/String;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getTagElement
+R net/minecraft/world/item/ItemStack m_41698_ (Ljava/lang/String;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getOrCreateTagElement
+R net/minecraft/world/item/ItemStack m_41700_ (Ljava/lang/String;Lnet/minecraft/nbt/Tag;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks addTagElement
+R net/minecraft/world/item/ItemStack m_41749_ (Ljava/lang/String;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks removeTagKey
+R net/minecraft/world/item/ItemStack m_41788_ ()Z io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks hasCustomHoverName
+R net/minecraft/world/item/ItemStack m_41714_ (Lnet/minecraft/network/chat/Component;)Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks setHoverName
+R net/minecraft/world/item/ItemStack m_41787_ ()V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks resetHoverName
+R net/minecraft/world/item/ItemStack m_41651_ (Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/TooltipFlag;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getTooltipLines
+R net/minecraft/world/item/ItemStack m_41622_ (ILnet/minecraft/world/entity/LivingEntity;Ljava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks hurtAndBreak
+R net/minecraft/world/item/ItemStack m_41663_ (Lnet/minecraft/world/item/enchantment/Enchantment;I)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks enchant
+R net/minecraft/world/item/ItemStack m_41610_ ()I io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks getBaseRepairCost
+R net/minecraft/world/item/ItemStack m_41742_ (I)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks setRepairCost
+R net/minecraft/world/item/ItemStack m_150942_ (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks isSameItemSameTags
+R net/minecraft/world/item/ItemStack <init> (Lnet/minecraft/world/level/ItemLike;ILnet/minecraft/nbt/CompoundTag;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks create
+R net/minecraft/world/item/ItemStack m_41712_ (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks of
+R net/minecraft/world/item/ItemStack m_41739_ (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks save
+R net/minecraft/world/item/ItemStack m_41785_ ()Lnet/minecraft/nbt/ListTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks enchantmentTags
+R net/minecraft/world/ContainerHelper m_18973_ (Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/NonNullList;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks saveAllItems
+R net/minecraft/world/ContainerHelper m_18976_ (Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/NonNullList;Z)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks saveAllItems
+R net/minecraft/world/ContainerHelper m_18980_ (Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/NonNullList;)V io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks loadAllItems
+R net/minecraft/network/FriendlyByteBuf m_130267_ ()Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks readItem
+R net/minecraft/network/FriendlyByteBuf m_130055_ (Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/network/FriendlyByteBuf; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks writeItem
+R net/minecraft/network/FriendlyByteBuf m_130079_ (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/network/FriendlyByteBuf; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks writeNbt
+R net/minecraft/network/FriendlyByteBuf m_130261_ ()Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks readAnySizeNbt

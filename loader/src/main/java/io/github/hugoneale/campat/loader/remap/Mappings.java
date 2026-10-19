@@ -32,8 +32,9 @@ import java.util.function.Predicate;
  *                                                 redirect a field read (GETSTATIC/GETFIELD) to a static helper
  * N  srgName  newName                             rename an SRG member (f_123_/m_123_) wherever it appears;
  *                                                 SRG ids are unique per field / method family, so no owner
- * T  owner  field  neoDesc  forgeDesc              a vanilla field Forge patched to a subtype: mixin shadows and
- *                                                 accessors are retyped
+ * T  owner  field  neoDesc  forgeDesc  [adapter]  a vanilla field Forge patched to a subtype: mixin shadows and
+ *                                                 accessors are retyped; the adapter (static owner.name(desc))
+ *                                                 turns values written through setters/shadows into Forge's type
  * I  class / K  class                              the class became an interface / the interface became a class:
  *                                                 call opcodes are fixed up
  * V  owner  name  oldDesc  newName  newDesc  callMap  bridgeMap
@@ -101,7 +102,7 @@ public final class Mappings {
                 memberOwners.add(p[1]);
             }
             case "N" -> globalNames.put(p[1], p[2]);
-            case "T" -> fieldRetypes.put(p[1] + "." + p[2], new String[]{p[3], p[4]});
+            case "T" -> fieldRetypes.put(p[1] + "." + p[2], new String[]{p[3], p[4], p.length > 5 ? p[5] : null});
             case "I" -> kindChanges.put(p[1], true);
             case "K" -> kindChanges.put(p[1], false);
             case "V" -> evolutions.computeIfAbsent(p[2], k -> new ArrayList<>()).add(new Evolution(p[1], p[2], p[3], p[4], p[5], p[6], p[7]));
