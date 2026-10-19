@@ -1,0 +1,3 @@
+# Hand written Minecraft 1.20.1 / Forge 47 -> Minecraft 1.21.1 / Forge 52 rules.
+# Same line formats as loader/.../mappings/members.txt, written in 1.20.1 Mojang names; tools/legacy_mapgen.py
+# translates Minecraft member names to SRG ids into loader/src/main/resources/META-INF/campat/legacy/members.txt.

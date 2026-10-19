@@ -1,6 +1,7 @@
 package io.github.hugoneale.campat.loader;
 
 import io.github.hugoneale.campat.loader.convert.JarConverter;
+import io.github.hugoneale.campat.loader.convert.LegacyJarConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
 final class ConversionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversionService.class);
     /** Bump whenever the converter output changes for the same input. */
-    static final int CONVERTER_VERSION = 3;
+    static final int CONVERTER_VERSION = 4;
 
     record Converted(Path source, Path output, JarConverter.Report report, String error) {}
 
@@ -51,6 +52,7 @@ final class ConversionService {
             }
         }
         JarConverter converter = new JarConverter(env.mappings(), env.platform(), env.runtimeClasses()::contains);
+        LegacyJarConverter legacy = null;
         List<Path> keep = new ArrayList<>();
         for (var e : contents.entrySet()) {
             Path src = e.getKey();
@@ -67,7 +69,13 @@ final class ConversionService {
                     r = ReportIO.read(Files.readString(report));
                 } else {
                     long t = System.nanoTime();
-                    JarConverter.Result res = converter.convert(src.getFileName().toString(), e.getValue());
+                    JarConverter.Result res;
+                    if (JarConverter.isNeoForgeMod(JarConverter.read(e.getValue()))) {
+                        res = converter.convert(src.getFileName().toString(), e.getValue());
+                    } else {
+                        if (legacy == null) legacy = new LegacyJarConverter(env.legacyMappings().get(), env.platform());
+                        res = legacy.convert(src.getFileName().toString(), e.getValue());
+                    }
                     Path tmp = Files.createTempFile(cacheDir, base, ".tmp");
                     Files.write(tmp, res.jar());
                     Files.move(tmp, out, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);

@@ -1,6 +1,9 @@
 package io.github.hugoneale.campat.loader;
 
+import io.github.hugoneale.campat.loader.convert.LegacyTomlConverter;
+
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.zip.ZipFile;
 
@@ -16,6 +19,31 @@ final class JarInspector {
         try (ZipFile z = new ZipFile(jar.toFile())) {
             return z.getEntry("META-INF/neoforge.mods.toml") != null && z.getEntry("META-INF/mods.toml") == null;
         } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /** A Forge / NeoForge 47 mod for Minecraft 1.20.1. */
+    static boolean isLegacyForge(Path jar) {
+        try (ZipFile z = new ZipFile(jar.toFile())) {
+            var toml = z.getEntry("META-INF/mods.toml");
+            if (toml == null || z.getEntry("META-INF/neoforge.mods.toml") != null) return false;
+            String text;
+            try (var in = z.getInputStream(toml)) {
+                text = new String(in.readAllBytes(), StandardCharsets.UTF_8);
+            }
+            if (LegacyTomlConverter.isLegacy(text)) return true;
+            if (!LegacyTomlConverter.accepts1201(text)) return false;
+            var en = z.entries();
+            while (en.hasMoreElements()) {
+                var e = en.nextElement();
+                if (!e.getName().endsWith(".class")) continue;
+                try (var in = z.getInputStream(e)) {
+                    if (LegacyTomlConverter.hasSrgNames(in.readAllBytes())) return true;
+                }
+            }
+            return false;
+        } catch (IOException | RuntimeException e) {
             return false;
         }
     }

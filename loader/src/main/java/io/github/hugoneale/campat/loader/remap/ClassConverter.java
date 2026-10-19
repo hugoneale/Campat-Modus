@@ -37,12 +37,14 @@ public final class ClassConverter {
     private final ClassHierarchy hierarchy;
     private final NeoRemapper remapper;
     private final RedirectPass redirects;
+    private final EvolutionPass evolutions;
 
     public ClassConverter(Mappings mappings, ClassHierarchy hierarchy) {
         this.mappings = mappings;
         this.hierarchy = hierarchy;
         this.remapper = new NeoRemapper(mappings, hierarchy);
         this.redirects = new RedirectPass(mappings, hierarchy);
+        this.evolutions = new EvolutionPass(mappings, hierarchy);
     }
 
     public NeoRemapper remapper() {
@@ -66,6 +68,10 @@ public final class ClassConverter {
         for (AnnotationNode an : visible(cn)) {
             if (NEO_MOD_ANNOTATION.equals(an.desc)) entrypoints.add(readEntrypoint(cn.name, an));
         }
+
+        // 1b. evolved virtual method signatures (legacy layer): bridges and adapted calls. The
+        // generated methods are straight line code with explicit max stack/locals, no frames needed.
+        evolutions.apply(cn);
 
         // 2. call site redirects, still in NeoForge names
         boolean ctorRedirect = false;

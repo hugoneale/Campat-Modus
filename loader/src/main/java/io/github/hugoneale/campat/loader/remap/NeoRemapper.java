@@ -27,7 +27,10 @@ public final class NeoRemapper extends Remapper {
 
     @Override
     public String mapMethodName(String owner, String name, String descriptor) {
-        if (name.startsWith("<") || owner.startsWith("[")) return name;
+        if (name.startsWith("<")) return name;
+        String srg = mappings.globalName(name);
+        if (srg != null) return srg;
+        if (owner.startsWith("[")) return name;
         String key = owner + "." + name + descriptor;
         return methodCache.computeIfAbsent(key, k -> {
             String[] found = new String[1];
@@ -43,6 +46,8 @@ public final class NeoRemapper extends Remapper {
 
     @Override
     public String mapFieldName(String owner, String name, String descriptor) {
+        String srg = mappings.globalName(name);
+        if (srg != null) return srg;
         String key = owner + "." + name;
         return fieldCache.computeIfAbsent(key, k -> {
             String[] found = new String[1];
@@ -61,9 +66,14 @@ public final class NeoRemapper extends Remapper {
         return name;
     }
 
+    private static final java.util.regex.Pattern SRG = java.util.regex.Pattern.compile("\\b[fm]_\\d+_\\b");
+    private static final java.util.regex.Pattern TYPE = java.util.regex.Pattern.compile("L([a-zA-Z_$][\\w$]*(?:/[\\w$]+)+);");
+
     /** Remaps every {@code L...;} type and bare internal/binary class names inside a string. */
     public String mapStringReferences(String s) {
-        if (s == null || s.isEmpty() || !s.contains("neoforged")) return s;
+        if (s == null || s.isEmpty()) return s;
+        if (mappings.hasGlobalNames()) return mapLegacyString(s);
+        if (!s.contains("neoforged")) return s;
         // exact class name in internal or binary form
         String internal = s.replace('.', '/');
         String mapped = mappings.classes().get(internal);
@@ -81,5 +91,25 @@ public final class NeoRemapper extends Remapper {
         }
         sb.append(s, i, s.length());
         return sb.toString();
+    }
+
+    /** Legacy (SRG) strings: reflection names, mixin targets, refmap entries, AT lines, coremods. */
+    private String mapLegacyString(String s) {
+        String internal = s.replace('.', '/');
+        String mapped = mappings.classes().get(internal);
+        if (mapped == null && internal.indexOf('$') > 0) {
+            String m = mappings.mapClass(internal);
+            if (!m.equals(internal)) mapped = m;
+        }
+        if (mapped != null && !s.contains(";")) return s.indexOf('/') >= 0 ? mapped : mapped.replace('/', '.');
+        String out = s;
+        if (out.indexOf(';') >= 0) out = TYPE.matcher(out).replaceAll(r -> java.util.regex.Matcher.quoteReplacement("L" + map(r.group(1)) + ";"));
+        if (out.indexOf('_') >= 0) {
+            out = SRG.matcher(out).replaceAll(r -> {
+                String n = mappings.globalName(r.group());
+                return java.util.regex.Matcher.quoteReplacement(n != null ? n : r.group());
+            });
+        }
+        return out;
     }
 }

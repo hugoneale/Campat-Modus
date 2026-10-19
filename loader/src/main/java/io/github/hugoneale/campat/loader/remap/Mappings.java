@@ -30,6 +30,10 @@ import java.util.function.Predicate;
  *                                                 redirect a call site to a static helper
  * S  neoOwner  name  desc  targetOwner  targetName  [targetDesc]
  *                                                 redirect a field read (GETSTATIC/GETFIELD) to a static helper
+ * N  srgName  newName                             rename an SRG member (f_123_/m_123_) wherever it appears;
+ *                                                 SRG ids are unique per field / method family, so no owner
+ * V  owner  name  oldDesc  newName  newDesc  callMap  bridgeMap
+ *                                                 a virtual method whose signature evolved; see {@link EvolutionPass}
  * </pre>
  * For {@code R} without an explicit target descriptor the helper descriptor is derived: static
  * methods keep their descriptor, instance methods take the receiver as an extra first argument and
@@ -47,6 +51,11 @@ public final class Mappings {
     private final Map<MemberKey, Redirect> fieldRedirects = new HashMap<>();
     /** owners that have any member entry, so lookups can be skipped quickly */
     private final Set<String> memberOwners = new HashSet<>();
+    private final Map<String, String> globalNames = new HashMap<>();
+    private final Map<String, List<Evolution>> evolutions = new HashMap<>(); // by old name
+
+    /** A virtual method whose signature changed; maps are described in {@link EvolutionPass}. */
+    public record Evolution(String owner, String name, String oldDesc, String newName, String newDesc, String callMap, String bridgeMap) {}
 
     public static Mappings load(Collection<InputStream> sources) throws IOException {
         Mappings m = new Mappings();
@@ -85,6 +94,8 @@ public final class Mappings {
                 fieldRedirects.put(new MemberKey(p[1], p[2], p[3]), new Redirect(p[4], p[5], p.length > 6 ? p[6] : null));
                 memberOwners.add(p[1]);
             }
+            case "N" -> globalNames.put(p[1], p[2]);
+            case "V" -> evolutions.computeIfAbsent(p[2], k -> new ArrayList<>()).add(new Evolution(p[1], p[2], p[3], p[4], p[5], p[6], p[7]));
             default -> throw new IllegalArgumentException("Unknown entry type " + p[0]);
         }
     }
@@ -108,6 +119,23 @@ public final class Mappings {
             if (!outer.equals(neo.substring(0, d))) return outer + neo.substring(d);
         }
         return neo;
+    }
+
+    /** @return the new name of an SRG member, or {@code null} */
+    public String globalName(String srg) {
+        return globalNames.isEmpty() ? null : globalNames.get(srg);
+    }
+
+    public List<Evolution> evolutions(String name) {
+        return evolutions.getOrDefault(name, List.of());
+    }
+
+    public boolean hasEvolutions() {
+        return !evolutions.isEmpty();
+    }
+
+    public boolean hasGlobalNames() {
+        return !globalNames.isEmpty();
     }
 
     public boolean hasMembers(String owner) {
@@ -141,6 +169,7 @@ public final class Mappings {
         out.add(methodRenames.size() + " method renames");
         out.add(methodRedirects.size() + " method redirects");
         out.add(fieldRedirects.size() + " field redirects");
+        out.add(globalNames.size() + " SRG names");
         return out;
     }
 }

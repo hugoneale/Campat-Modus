@@ -31,6 +31,23 @@ import java.util.stream.Stream;
 public class CampatModLocator extends AbstractModProvider implements IModLocator {
     private static final Logger LOGGER = LoggerFactory.getLogger(CampatModLocator.class);
 
+    /** 1.20.1 jars found when the locator was created; hidden from Forge's own mods folder scan. */
+    private final List<Path> legacyJars;
+
+    public CampatModLocator() {
+        List<Path> legacy = List.of();
+        if (!Boolean.getBoolean("campat.disable") && !Boolean.getBoolean("campat.legacy.disable")) {
+            try {
+                legacy = findLegacyJars(FMLPaths.MODSDIR.get());
+                if (!legacy.isEmpty()) LegacyExclusion.exclude(legacy);
+            } catch (Throwable t) {
+                LOGGER.error("Campat Modus: could not prepare Minecraft 1.20.1 mods", t);
+                legacy = List.of();
+            }
+        }
+        this.legacyJars = legacy;
+    }
+
     @Override
     public String name() {
         return "campat-modus";
@@ -51,12 +68,17 @@ public class CampatModLocator extends AbstractModProvider implements IModLocator
             Path runtime = env.runtimeJar();
             result.add(createMod(runtime));
 
-            List<Path> candidates = findNeoForgeJars(modsDir);
+            List<Path> candidates = new ArrayList<>(findNeoForgeJars(modsDir));
+            if (!legacyJars.isEmpty() && !LegacyExclusion.excluded(legacyJars)) {
+                LOGGER.error("Campat Modus: could not hide Minecraft 1.20.1 mods from Forge's scanner; they are not converted");
+            } else {
+                candidates.addAll(legacyJars);
+            }
             if (candidates.isEmpty()) {
-                LOGGER.info("Campat Modus: no NeoForge mods found in {}", modsDir);
+                LOGGER.info("Campat Modus: no NeoForge or Minecraft 1.20.1 mods found in {}", modsDir);
                 return result;
             }
-            LOGGER.info("Campat Modus: found {} NeoForge mod jar(s), converting", candidates.size());
+            LOGGER.info("Campat Modus: found {} mod jar(s) to convert ({} for Minecraft 1.20.1)", candidates.size(), legacyJars.size());
             ConversionService service = new ConversionService(env, workDir.resolve("cache"));
             for (ConversionService.Converted c : service.convertAll(candidates)) {
                 if (c.error() != null) {
@@ -88,8 +110,21 @@ public class CampatModLocator extends AbstractModProvider implements IModLocator
         return out;
     }
 
+    static List<Path> findLegacyJars(Path modsDir) throws IOException {
+        if (!Files.isDirectory(modsDir)) return List.of();
+        List<Path> out = new ArrayList<>();
+        try (Stream<Path> s = Files.list(modsDir)) {
+            for (Path p : s.sorted().toList()) {
+                String n = p.getFileName().toString().toLowerCase(Locale.ROOT);
+                if (n.endsWith(".jar") && Files.isRegularFile(p) && JarInspector.isLegacyForge(p)) out.add(p);
+            }
+        }
+        return out;
+    }
+
     /** Mappings, hierarchy and the extracted runtime jar. */
-    record CampatEnvironment(Mappings mappings, ClassHierarchy platform, Path runtimeJar, java.util.Set<String> runtimeClasses, String fingerprint) {
+    record CampatEnvironment(Mappings mappings, ClassHierarchy platform, Path runtimeJar, java.util.Set<String> runtimeClasses, String fingerprint,
+                             java.util.function.Supplier<Mappings> legacyMappings) {
         static CampatEnvironment load(Path workDir) throws IOException {
             Files.createDirectories(workDir);
             String version = CampatModLocator.class.getPackage().getImplementationVersion();
@@ -123,7 +158,32 @@ public class CampatModLocator extends AbstractModProvider implements IModLocator
             mappings.removeClassRenames(runtimeClasses::contains);
             ClassHierarchy platform = ClassHierarchy.load(new java.io.ByteArrayInputStream(hierarchy));
             String fingerprint = Hashing.sha256(classes, members, hierarchy, runtimeHash.getBytes()).substring(0, 16);
-            return new CampatEnvironment(mappings, platform, runtime, runtimeClasses, fingerprint);
+            byte[] legacyNames, legacyBridges, legacyMembers;
+            try (InputStream a = resource("META-INF/campat/legacy/srg.txt"); InputStream g = resource("META-INF/campat/legacy/bridges.txt");
+                 InputStream b = resource("META-INF/campat/legacy/members.txt")) {
+                legacyNames = a.readAllBytes();
+                legacyBridges = g.readAllBytes();
+                legacyMembers = b.readAllBytes();
+            }
+            fingerprint = Hashing.sha256(fingerprint.getBytes(), legacyNames, legacyBridges, legacyMembers).substring(0, 16);
+            java.util.function.Supplier<Mappings> legacy = new java.util.function.Supplier<>() {
+                private Mappings loaded;
+
+                @Override
+                public synchronized Mappings get() {
+                    if (loaded == null) {
+                        try {
+                            // hand written rules last: they win over generated renames
+                            loaded = Mappings.load(List.of(new java.io.ByteArrayInputStream(legacyNames),
+                                new java.io.ByteArrayInputStream(legacyBridges), new java.io.ByteArrayInputStream(legacyMembers)));
+                        } catch (IOException e) {
+                            throw new java.io.UncheckedIOException(e);
+                        }
+                    }
+                    return loaded;
+                }
+            };
+            return new CampatEnvironment(mappings, platform, runtime, runtimeClasses, fingerprint, legacy);
         }
 
         private static InputStream resource(String path) throws IOException {

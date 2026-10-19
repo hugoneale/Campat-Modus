@@ -1,6 +1,7 @@
 package io.github.hugoneale.campat.tools;
 
 import io.github.hugoneale.campat.loader.convert.JarConverter;
+import io.github.hugoneale.campat.loader.convert.LegacyJarConverter;
 import io.github.hugoneale.campat.loader.remap.ClassHierarchy;
 import io.github.hugoneale.campat.loader.remap.Mappings;
 import org.objectweb.asm.ClassReader;
@@ -51,20 +52,34 @@ public final class ConvertAll {
             jars = s.filter(p -> p.toString().endsWith(".jar")).sorted().toList();
         }
         List<Path> neo = new ArrayList<>();
+        Set<Path> legacyJars = new HashSet<>();
         for (Path j : jars) {
             Map<String, byte[]> e = JarConverter.read(Files.readAllBytes(j));
-            if (JarConverter.isNeoForgeMod(e)) {
+            if (JarConverter.isNeoForgeMod(e) || LegacyJarConverter.isLegacyMod(e)) {
                 neo.add(j);
+                if (!JarConverter.isNeoForgeMod(e)) legacyJars.add(j);
                 JarConverter.index(e, hierarchy);
             }
         }
-        JarConverter conv = new JarConverter(mappings, hierarchy, runtimeClasses::contains);
+        JarConverter neoConv = new JarConverter(mappings, hierarchy, runtimeClasses::contains);
+        LegacyJarConverter legacyConv = null;
+        if (!legacyJars.isEmpty()) {
+            Mappings legacy;
+            try (InputStream a = Files.newInputStream(res.resolve("legacy/srg.txt"));
+                 InputStream g = Files.newInputStream(res.resolve("legacy/bridges.txt"));
+                 InputStream b = Files.newInputStream(res.resolve("legacy/members.txt"))) {
+                legacy = Mappings.load(List.of(a, g, b));
+            }
+            legacyConv = new LegacyJarConverter(legacy, hierarchy);
+        }
         int ok = 0, failed = 0, badClasses = 0;
         long t0 = System.currentTimeMillis();
         StringBuilder report = new StringBuilder();
         for (Path j : neo) {
             try {
-                JarConverter.Result r = conv.convert(j.getFileName().toString(), Files.readAllBytes(j));
+                JarConverter.Result r = legacyJars.contains(j)
+                    ? legacyConv.convert(j.getFileName().toString(), Files.readAllBytes(j))
+                    : neoConv.convert(j.getFileName().toString(), Files.readAllBytes(j));
                 Files.write(out.resolve(j.getFileName()), r.jar());
                 int bad = verify(r.jar(), j.getFileName().toString(), report);
                 badClasses += bad;

@@ -8,12 +8,23 @@ find "$INST/mods" -maxdepth 1 -name '*.jar' -delete
 ln -sfn "$INSTALL/libraries" "$INST/libraries"
 cp "$INSTALL"/run.sh "$INSTALL"/*-shim.jar "$INST/" 2>/dev/null
 echo eula=true > "$INST/eula.txt"
-printf 'online-mode=false\nlevel-type=minecraft\\:flat\nspawn-protection=0\nview-distance=3\nsimulation-distance=3\nmax-tick-time=-1\n' > "$INST/server.properties"
+printf 'server-port=%s\nonline-mode=false\nlevel-type=minecraft\\:flat\nspawn-protection=0\nview-distance=3\nsimulation-distance=3\nmax-tick-time=-1\n' "${PORT:-25565}" > "$INST/server.properties"
 echo '-Xmx3G' > "$INST/user_jvm_args.txt"
 cp "$CAMPAT" "$INST/mods/"
 for m in "$@"; do cp "$m" "$INST/mods/"; done
 cd "$INST"
-# feed "stop" once the server reports it is ready
-( while ! grep -q 'Done (' logs/latest.log 2>/dev/null; do sleep 2; if ! kill -0 $$ 2>/dev/null; then exit; fi; done; echo stop ) | timeout "${TIMEOUT:-420}" bash run.sh nogui > run.log 2>&1
-echo "exit=$?"
+# feed "stop" once the server reports it is ready; give up when the server exits
+rm -f stdin.fifo; mkfifo stdin.fifo
+timeout "${TIMEOUT:-420}" bash run.sh nogui < stdin.fifo > run.log 2>&1 &
+SPID=$!
+exec 3> stdin.fifo
+while kill -0 $SPID 2>/dev/null; do
+  if grep -q 'Done (' run.log 2>/dev/null; then echo stop >&3; break; fi
+  sleep 2
+done
+wait $SPID
+rc=$?
+exec 3>&-
+rm -f stdin.fifo
+echo "exit=$rc"
 grep -q 'Done (' run.log && echo "SERVER STARTED" || echo "SERVER DID NOT START"

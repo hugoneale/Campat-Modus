@@ -183,13 +183,13 @@ public final class JarConverter {
         return new Result(write(manifest, out), new Report(fileName, modIds, warnings, missing, nestedReports));
     }
 
-    private static boolean isSignature(String name) {
+    static boolean isSignature(String name) {
         if (!name.startsWith("META-INF/") || name.indexOf('/', 9) >= 0) return false;
         String u = name.toUpperCase();
         return u.endsWith(".SF") || u.endsWith(".RSA") || u.endsWith(".DSA") || u.endsWith(".EC");
     }
 
-    private static byte[] write(Manifest manifest, Map<String, byte[]> entries) throws IOException {
+    static byte[] write(Manifest manifest, Map<String, byte[]> entries) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try (JarOutputStream jos = new JarOutputStream(bos, manifest)) {
             Set<String> dirs = new TreeSet<>();
