@@ -1,0 +1,15 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "LGPL-2.1-only"
+
+[[mods]]
+modId = "campat_autotest"
+version = "1.0.0"
+displayName = "Campat Autotest"
+
+[[dependencies.campat_autotest]]
+modId = "forge"
+mandatory = true
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"

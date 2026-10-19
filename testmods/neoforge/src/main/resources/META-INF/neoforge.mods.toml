@@ -1,0 +1,23 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "LGPL-2.1-only"
+
+[[mods]]
+modId = "campattest"
+version = "1.0.0"
+displayName = "Campat NeoForge Test Mod"
+description = "Exercises the NeoForge API surface that Campat Modus emulates on Forge."
+
+[[dependencies.campattest]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.campattest]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"

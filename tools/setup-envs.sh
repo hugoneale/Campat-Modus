@@ -24,5 +24,10 @@ TOOLS='installertools|binarypatcher|jarsplitter|AutoRenamingTool|ForgeAutoRenami
 { echo "$FCLIENT"; find "$OUT/forge/libraries" -name '*.jar' | grep -Ev "$TOOLS" | grep -v "forge-$MC-$FORGE-client.jar";
   # vanilla libraries are downloaded by the launcher, not the installer; borrow NeoForge's copies
   find "$OUT/forge-server/libraries" -name '*.jar' | grep -Ev "$TOOLS|/net/minecraft/server/|/net/minecraftforge/forge/" || true; } > "$OUT/forge_env.txt"
-{ echo "$NCLIENT"; echo "$NSRG"; find "$OUT/neo/libraries" -name '*.jar' | grep -Ev "$TOOLS" | grep -v "neoforge-$NEO-client.jar"; } > "$OUT/neo_env.txt"
+{ echo "$NCLIENT"; echo "$NSRG"; find "$OUT/neo/libraries" -name '*.jar' | grep -Ev "$TOOLS" | grep -v "neoforge-$NEO-client.jar";
+  find "$OUT/forge-server/libraries" -name '*.jar' | grep -Ev "$TOOLS|/net/minecraft/|/net/minecraftforge/|/cpw/|/org/spongepowered/" || true; } > "$OUT/neo_env.txt"
+# NeoForge sources, used by tools/transplant.py and :tools:extGen
+NS="$OUT/dl/neoforge-$NEO-sources.jar"
+[ -f "$NS" ] || curl -fsSL -o "$NS" "https://maven.neoforged.net/releases/net/neoforged/neoforge/$NEO/neoforge-$NEO-sources.jar"
+[ -d "$OUT/neo-src/net" ] || (mkdir -p "$OUT/neo-src" && cd "$OUT/neo-src" && unzip -qo "$NS")
 echo "Environments written to $OUT"

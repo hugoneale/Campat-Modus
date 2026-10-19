@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+// A NeoForge mod compiled against the real NeoForge 21.1 jars (listed in build/envs/neo_env.txt by
+// :tools:setupEnvs), used by tools/test/e2e.sh to check Campat Modus end to end.
+base.archivesName = 'campat-neoforge-testmod'
+version = '1.0.0'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+def envList = rootProject.file('build/envs/neo_env.txt')
+dependencies {
+    if (envList.exists()) {
+        compileOnly files(envList.readLines().findAll { !it.isBlank() })
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}

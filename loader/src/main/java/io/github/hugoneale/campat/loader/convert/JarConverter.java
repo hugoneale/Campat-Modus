@@ -158,6 +158,13 @@ public final class JarConverter {
             if (!modIds.contains(ep.modId())) warnings.add("@Mod class " + ep.className() + " references unknown mod id " + ep.modId());
         }
         out.put(FORGE_TOML, toml.modsToml().getBytes(StandardCharsets.UTF_8));
+        // NeoForge synthesises pack metadata for mod jars; Forge requires a pack.mcmeta and shows a
+        // loading warning (and skips the mod's resources) without one.
+        if (!out.containsKey("pack.mcmeta")) {
+            String desc = (modIds.isEmpty() ? fileName : String.join(", ", modIds)) + " resources";
+            out.put("pack.mcmeta", ("{\"pack\":{\"description\":\"" + desc.replace("\"", "'")
+                + "\",\"pack_format\":34,\"supported_formats\":[34,48]}}").getBytes(StandardCharsets.UTF_8));
+        }
 
         Attributes main = manifest.getMainAttributes();
         if (main.getValue(Attributes.Name.MANIFEST_VERSION) == null) main.put(Attributes.Name.MANIFEST_VERSION, "1.0");

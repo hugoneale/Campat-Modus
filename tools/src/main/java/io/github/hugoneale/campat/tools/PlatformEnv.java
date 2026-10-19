@@ -61,6 +61,46 @@ public final class PlatformEnv {
         classes.putIfAbsent(cr.getClassName(), new ClassInfo(cr.getClassName(), cr.getSuperName(), cr.getInterfaces(), m, f, cr.getAccess()));
     }
 
+    /**
+     * Applies the runtime's mixins to the index: interfaces a mixin implements and the members it
+     * adds become part of its target classes, as they do at runtime.
+     */
+    public void applyMixins(Path jar) throws IOException {
+        try (ZipFile z = new ZipFile(jar.toFile())) {
+            var en = z.entries();
+            while (en.hasMoreElements()) {
+                var e = en.nextElement();
+                if (!e.getName().endsWith(".class")) continue;
+                org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+                try (InputStream in = z.getInputStream(e)) {
+                    new ClassReader(in.readAllBytes()).accept(cn, ClassReader.SKIP_CODE);
+                }
+                if (cn.invisibleAnnotations == null) continue;
+                for (var an : cn.invisibleAnnotations) {
+                    if (!an.desc.equals("Lorg/spongepowered/asm/mixin/Mixin;") || an.values == null) continue;
+                    java.util.List<String> targets = new java.util.ArrayList<>();
+                    for (int i = 0; i < an.values.size(); i += 2) {
+                        Object v = an.values.get(i + 1);
+                        if (v instanceof java.util.List<?> l) for (Object o : l) {
+                            if (o instanceof org.objectweb.asm.Type t) targets.add(t.getInternalName());
+                            else if (o instanceof String str) targets.add(str.replace('.', '/'));
+                        }
+                    }
+                    for (String t : targets) {
+                        ClassInfo ti = get(t);
+                        if (ti == null) continue;
+                        java.util.List<String> itf = new java.util.ArrayList<>(java.util.List.of(ti.interfaces()));
+                        itf.addAll(cn.interfaces);
+                        Set<String> m = new HashSet<>(ti.methods()), f = new HashSet<>(ti.fields());
+                        for (var mn : cn.methods) if ((mn.access & Opcodes.ACC_PRIVATE) == 0 && !mn.name.startsWith("<")) m.add(mn.name + mn.desc);
+                        for (var fn : cn.fields) if ((fn.access & Opcodes.ACC_PRIVATE) == 0) f.add(fn.name + ":" + fn.desc);
+                        classes.put(t, new ClassInfo(t, ti.superName(), itf.toArray(new String[0]), m, f, ti.access()));
+                    }
+                }
+            }
+        }
+    }
+
     public ClassInfo get(String n) {
         ClassInfo c = classes.get(n);
         if (c == null && (n.startsWith("java/") || n.startsWith("javax/") || n.startsWith("jdk/") || n.startsWith("sun/"))) {

@@ -55,6 +55,7 @@ public final class Audit {
     public static void main(String[] a) throws Exception {
         PlatformEnv forge = PlatformEnv.fromList(Path.of(a[0]));
         forge.load(Path.of(a[1]));
+        forge.applyMixins(Path.of(a[1]));
         PlatformEnv neo = a.length > 5 ? PlatformEnv.fromList(Path.of(a[5])) : null;
         Path converted = Path.of(a[3]);
         Path out = Path.of(a[4]);

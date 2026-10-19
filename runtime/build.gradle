@@ -11,6 +11,8 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 minecraft {
     mappings channel: 'official', version: minecraft_version
     reobf = false
+    // NeoForge's access transformer, also shipped in the jar (see resources)
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 }
 
 repositories {
@@ -26,6 +28,7 @@ dependencies {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.release = 21
+    options.compilerArgs += ['-Xmaxerrs', '5000']
 }
 
 configurations {
@@ -70,6 +73,7 @@ jar {
             'Specification-Title': 'campat_modus',
             'Implementation-Title': 'Campat Modus Runtime',
             'Implementation-Version': project.version,
+            'MixinConfigs': 'campat_modus.mixins.json',
         )
     }
 }

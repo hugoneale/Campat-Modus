@@ -77,3 +77,18 @@ tasks.register('convertAll', JavaExec) {
             rootProject.file('build/converted').absolutePath
     }
 }
+
+// ./gradlew :tools:extGen -Pifaces=net.neoforged...IFooExtension,...  ports NeoForge extension interfaces (see ExtGen)
+tasks.register('extGen', JavaExec) {
+    group = 'campat'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.ExtGen'
+    jvmArgs '-Xmx6g'
+    doFirst {
+        def neoSrc = project.findProperty('neoSrc') ?: rootProject.file('build/envs/neo-src').absolutePath
+        args([neoSrc, envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath,
+              rootProject.file('loader/src/main/resources/META-INF/campat/mappings/classes.txt').absolutePath,
+              rootProject.file('runtime/src/main/java').absolutePath,
+              rootProject.file('runtime/src/main/resources/campat_modus.mixins.json').absolutePath] + (project.findProperty('ifaces') ?: '').split(',').toList())
+    }
+}

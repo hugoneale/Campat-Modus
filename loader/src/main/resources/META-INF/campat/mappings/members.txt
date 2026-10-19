@@ -21,3 +21,6 @@ R net/neoforged/fml/ModContainer registerExtensionPoint (Ljava/lang/Class;Ljava/
 R net/neoforged/fml/ModContainer acceptEvent (Lnet/neoforged/bus/api/Event;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge acceptEvent
 R net/neoforged/fml/ModContainer acceptEvent (Lnet/neoforged/bus/api/EventPriority;Lnet/neoforged/bus/api/Event;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge acceptEvent
 S net/neoforged/fml/config/ModConfig$Type STARTUP Lnet/neoforged/fml/config/ModConfig$Type; io/github/hugoneale/campat/runtime/bridge/ConfigBridge startupType
+
+# ---- net.neoforged.neoforge.registries ----
+R net/neoforged/neoforge/registries/NewRegistryEvent register (Lnet/minecraft/core/Registry;)V io/github/hugoneale/campat/runtime/registry/NeoRegistries register

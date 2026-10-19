@@ -10,4 +10,4 @@ plugins {
 }
 
 rootProject.name = 'campat-modus'
-include 'loader', 'runtime', 'tools'
+include 'loader', 'runtime', 'tools', 'testmods:neoforge', 'testmods:autotest'
