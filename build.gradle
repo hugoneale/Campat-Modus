@@ -1,0 +1,36 @@
+plugins {
+    id 'base'
+}
+
+version = mod_version
+
+evaluationDependsOn(':loader')
+evaluationDependsOn(':runtime')
+
+// The jar users drop into their mods folder: the service-layer loader with the runtime mod embedded.
+def runtimeJar = project(':runtime').tasks.named('jar')
+def loaderJar = project(':loader').tasks.named('jar')
+
+tasks.register('campatJar', Jar) {
+    group = 'build'
+    description = 'Assembles the Campat Modus jar for the mods folder.'
+    archiveBaseName = 'campat-modus'
+    archiveVersion = project.version
+    destinationDirectory = layout.buildDirectory.dir('libs')
+    dependsOn runtimeJar, loaderJar
+    from(zipTree(loaderJar.flatMap { it.archiveFile }))
+    from(runtimeJar.flatMap { it.archiveFile }) {
+        into 'META-INF/campat'
+        rename { 'campat-runtime.jar' }
+    }
+    from(rootProject.file('LICENSE')) { into 'META-INF' }
+    manifest {
+        attributes(
+            'Implementation-Title': 'Campat Modus',
+            'Implementation-Version': project.version,
+            'Automatic-Module-Name': 'campat.modus.loader',
+        )
+    }
+}
+
+tasks.named('assemble') { dependsOn 'campatJar' }

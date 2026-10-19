@@ -1,0 +1,53 @@
+plugins {
+    id 'java-library'
+}
+
+version = mod_version
+base.archivesName = 'campat-loader'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://libraries.minecraft.net/' }
+    maven { url = 'https://repo1.maven.org/maven2/' }
+    mavenCentral()
+}
+
+dependencies {
+    // Everything here is provided by Forge's boot/service layer at runtime.
+    compileOnly "net.minecraftforge:fmlloader:${minecraft_version}-${forge_version}"
+    compileOnly "net.minecraftforge:forgespi:7.1.5"
+    compileOnly "net.minecraftforge:modlauncher:10.2.4"
+    compileOnly "net.minecraftforge:securemodules:2.2.24"
+    compileOnly "net.minecraftforge:JarJarMetadata:0.3.26"
+    compileOnly "com.electronwill.night-config:toml:3.7.4"
+    compileOnly "com.electronwill.night-config:core:3.7.4"
+    compileOnly "org.apache.maven:maven-artifact:3.8.8"
+    compileOnly "org.ow2.asm:asm:9.9.1"
+    compileOnly "org.ow2.asm:asm-tree:9.9.1"
+    compileOnly "org.ow2.asm:asm-commons:9.9.1"
+    compileOnly "org.slf4j:slf4j-api:2.0.9"
+    compileOnly "com.google.code.gson:gson:2.10.1"
+    compileOnly "org.jetbrains:annotations:24.1.0"
+
+    testImplementation "org.ow2.asm:asm:9.9.1"
+    testImplementation "org.ow2.asm:asm-tree:9.9.1"
+    testImplementation "org.ow2.asm:asm-commons:9.9.1"
+    testImplementation "com.electronwill.night-config:toml:3.7.4"
+    testImplementation "com.electronwill.night-config:core:3.7.4"
+    testImplementation "com.google.code.gson:gson:2.10.1"
+    testImplementation "org.slf4j:slf4j-api:2.0.9"
+    testImplementation platform("org.junit:junit-bom:5.10.2")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+test {
+    useJUnitPlatform()
+}

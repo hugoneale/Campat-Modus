@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://repo1.maven.org/maven2/' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':loader')
+    implementation "org.ow2.asm:asm:9.9.1"
+    implementation "org.ow2.asm:asm-tree:9.9.1"
+    implementation "org.ow2.asm:asm-commons:9.9.1"
+    implementation "org.ow2.asm:asm-util:9.9.1"
+    implementation "org.ow2.asm:asm-analysis:9.9.1"
+    implementation "com.electronwill.night-config:toml:3.7.4"
+    implementation "com.electronwill.night-config:core:3.7.4"
+    implementation "com.google.code.gson:gson:2.10.1"
+    implementation "org.slf4j:slf4j-api:2.0.9"
+    runtimeOnly "org.slf4j:slf4j-simple:2.0.9"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+def envs = rootProject.layout.projectDirectory.dir('build/envs')
+
+// ./gradlew :tools:setupEnvs  installs NeoForge and Forge clients into build/envs (needs network)
+tasks.register('setupEnvs', Exec) {
+    group = 'campat'
+    commandLine 'bash', "${projectDir}/setup-envs.sh", envs.asFile.absolutePath, forge_version, neoforge_version, minecraft_version
+}
+
+// ./gradlew :tools:genMappings  regenerates loader/src/main/resources/META-INF/campat/{mappings/classes.txt,hierarchy.txt}
+tasks.register('genMappings', JavaExec) {
+    group = 'campat'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.MapGen'
+    args envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath,
+        rootProject.file('loader/src/main/resources/META-INF/campat').absolutePath
+}
+
+// ./gradlew :tools:audit -Pmods=/path/to/mods  link-checks the output of convertAll against Forge + the runtime
+tasks.register('audit', JavaExec) {
+    group = 'campat'
+    dependsOn 'convertAll'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.Audit'
+    jvmArgs '-Xmx8g'
+    doFirst {
+        args envs.file('forge_env.txt').asFile.absolutePath,
+            project(':runtime').tasks.jar.archiveFile.get().asFile.absolutePath,
+            project.findProperty('mods') ?: rootProject.file('build/corpus').absolutePath,
+            rootProject.file('build/converted').absolutePath,
+            rootProject.file('build/audit').absolutePath,
+            envs.file('neo_env.txt').asFile.absolutePath
+    }
+}
+
+// ./gradlew :tools:convertAll -Pmods=/path/to/mods  converts mods offline into build/converted
+tasks.register('convertAll', JavaExec) {
+    group = 'campat'
+    dependsOn ':runtime:jar'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.hugoneale.campat.tools.ConvertAll'
+    jvmArgs '-Xmx6g'
+    doFirst {
+        args project(':runtime').tasks.jar.archiveFile.get().asFile.absolutePath,
+            rootProject.file('loader/src/main/resources/META-INF/campat').absolutePath,
+            project.findProperty('mods') ?: rootProject.file('build/corpus').absolutePath,
+            rootProject.file('build/converted').absolutePath
+    }
+}

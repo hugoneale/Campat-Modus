@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+}
+
+version = mod_version
+base.archivesName = 'campat-runtime'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+minecraft {
+    mappings channel: 'official', version: minecraft_version
+    reobf = false
+}
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://repo1.maven.org/maven2/' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+configurations {
+    bundled
+}
+
+dependencies {
+    compileOnly "org.ow2.asm:asm:9.9.1"
+    bundled "io.github.llamalad7:mixinextras-forge:0.5.0"
+}
+
+// MixinExtras ships with NeoForge but not with Forge, so the runtime bundles it as a jar-in-jar.
+// Forge's JarJar locator then deduplicates it with copies bundled by other (Forge) mods.
+def jarJarDir = layout.buildDirectory.dir('jarjar')
+tasks.register('prepareJarJar') {
+    inputs.files(configurations.bundled)
+    outputs.dir(jarJarDir)
+    doLast {
+        def dir = jarJarDir.get().asFile
+        project.delete(dir)
+        new File(dir, 'META-INF/jarjar').mkdirs()
+        def entries = []
+        configurations.bundled.resolvedConfiguration.resolvedArtifacts.each { a ->
+            def id = a.moduleVersion.id
+            project.copy { from a.file; into new File(dir, 'META-INF/jarjar') }
+            entries << [
+                identifier: [group: id.group, artifact: id.name],
+                version: [range: "[${id.version},)", artifactVersion: id.version],
+                path: "META-INF/jarjar/${a.file.name}",
+                isObfuscated: false
+            ]
+        }
+        new File(dir, 'META-INF/jarjar/metadata.json').text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson([jars: entries]))
+    }
+}
+
+jar {
+    dependsOn 'prepareJarJar'
+    from(jarJarDir)
+    manifest {
+        attributes(
+            'Specification-Title': 'campat_modus',
+            'Implementation-Title': 'Campat Modus Runtime',
+            'Implementation-Version': project.version,
+        )
+    }
+}

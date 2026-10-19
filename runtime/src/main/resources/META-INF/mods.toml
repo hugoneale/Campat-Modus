@@ -1,0 +1,27 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "LGPL-2.1-only"
+issueTrackerURL = "https://github.com/hugoneale/Campat-Modus/issues"
+
+[[mods]]
+modId = "campat_modus"
+version = "${file.jarVersion}"
+displayName = "Campat Modus"
+authors = "hugoneale"
+description = '''
+Runs NeoForge 1.21.1 mods on Forge 1.21.1 by converting them at launch and providing the NeoForge API on top of Forge.
+'''
+
+[[dependencies.campat_modus]]
+modId = "forge"
+mandatory = true
+versionRange = "[52,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.campat_modus]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"

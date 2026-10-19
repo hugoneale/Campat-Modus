@@ -1,0 +1,23 @@
+# Hand maintained member level NeoForge -> Forge translations. See Mappings.java for the format.
+# Owners and descriptors are NeoForge names; the class table is applied afterwards.
+# Helpers live in the runtime: B = io/github/hugoneale/campat/runtime/bridge
+
+# ---- net.neoforged.bus ----
+R net/neoforged/bus/api/IEventBus post (Lnet/neoforged/bus/api/Event;)Lnet/neoforged/bus/api/Event; io/github/hugoneale/campat/runtime/bridge/BusBridge post
+R net/neoforged/bus/api/IEventBus post (Lnet/neoforged/bus/api/EventPriority;Lnet/neoforged/bus/api/Event;)Lnet/neoforged/bus/api/Event; io/github/hugoneale/campat/runtime/bridge/BusBridge post
+R net/neoforged/bus/api/IEventBus addListener (Ljava/lang/Class;Ljava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/bridge/BusBridge addListener
+R net/neoforged/bus/api/IEventBus addListener (Lnet/neoforged/bus/api/EventPriority;Ljava/lang/Class;Ljava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/bridge/BusBridge addListener
+R net/neoforged/bus/api/IEventBus addListener (ZLjava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/bridge/BusBridge addListener
+R net/neoforged/bus/api/IEventBus addListener (ZLjava/lang/Class;Ljava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/bridge/BusBridge addListener
+R net/neoforged/bus/api/ICancellableEvent setCanceled (Z)V io/github/hugoneale/campat/runtime/bridge/BusBridge setCanceled (Ljava/lang/Object;Z)V
+R net/neoforged/bus/api/ICancellableEvent isCanceled ()Z io/github/hugoneale/campat/runtime/bridge/BusBridge isCanceled (Ljava/lang/Object;)Z
+
+# ---- net.neoforged.fml ----
+R net/neoforged/fml/ModContainer getEventBus ()Lnet/neoforged/bus/api/IEventBus; io/github/hugoneale/campat/runtime/bridge/ModContainerBridge getEventBus
+R net/neoforged/fml/ModContainer registerConfig (Lnet/neoforged/fml/config/ModConfig$Type;Lnet/neoforged/fml/config/IConfigSpec;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge registerConfig
+R net/neoforged/fml/ModContainer registerConfig (Lnet/neoforged/fml/config/ModConfig$Type;Lnet/neoforged/fml/config/IConfigSpec;Ljava/lang/String;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge registerConfig
+R net/neoforged/fml/ModContainer registerExtensionPoint (Ljava/lang/Class;Lnet/neoforged/fml/IExtensionPoint;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge registerExtensionPoint
+R net/neoforged/fml/ModContainer registerExtensionPoint (Ljava/lang/Class;Ljava/util/function/Supplier;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge registerExtensionPoint
+R net/neoforged/fml/ModContainer acceptEvent (Lnet/neoforged/bus/api/Event;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge acceptEvent
+R net/neoforged/fml/ModContainer acceptEvent (Lnet/neoforged/bus/api/EventPriority;Lnet/neoforged/bus/api/Event;)V io/github/hugoneale/campat/runtime/bridge/ModContainerBridge acceptEvent
+S net/neoforged/fml/config/ModConfig$Type STARTUP Lnet/neoforged/fml/config/ModConfig$Type; io/github/hugoneale/campat/runtime/bridge/ConfigBridge startupType
