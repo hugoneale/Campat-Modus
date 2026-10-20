@@ -103,4 +103,9 @@ public final class EventBridge {
     public static boolean loadingErrors(net.minecraftforge.fml.loading.LoadingModList list) {
         return !list.getErrors().isEmpty();
     }
+
+    /** DynamicOps for NeoForge conditions tested through Forge's two argument ICondition.test */
+    public static com.mojang.serialization.DynamicOps<?> conditionOps() {
+        return com.mojang.serialization.JsonOps.INSTANCE;
+    }
 }

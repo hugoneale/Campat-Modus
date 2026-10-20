@@ -60,3 +60,38 @@ R net/minecraft/network/FriendlyByteBuf readItem ()Lnet/minecraft/world/item/Ite
 R net/minecraft/network/FriendlyByteBuf writeItem (Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/network/FriendlyByteBuf; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks writeItem
 R net/minecraft/network/FriendlyByteBuf writeNbt (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/network/FriendlyByteBuf; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks writeNbt
 R net/minecraft/network/FriendlyByteBuf readAnySizeNbt ()Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyItemStacks readAnySizeNbt
+
+# ---- Forge 47 networking ----
+C net/minecraftforge/network/simple/SimpleChannel io/github/hugoneale/campat/runtime/legacy/forge/LegacySimpleChannel
+C net/minecraftforge/network/NetworkEvent$Context io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworkContext
+C net/minecraftforge/network/NetworkRegistry$ChannelBuilder io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking$ChannelBuilder
+C net/minecraftforge/network/NetworkHooks io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworkHooks
+R net/minecraftforge/network/NetworkRegistry newSimpleChannel (Lnet/minecraft/resources/ResourceLocation;Ljava/util/function/Supplier;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Lnet/minecraftforge/network/simple/SimpleChannel; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking newSimpleChannel
+R net/minecraftforge/network/NetworkRegistry acceptMissingOr (Ljava/lang/String;)Ljava/util/function/Predicate; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking acceptMissingOr
+R net/minecraftforge/network/NetworkRegistry acceptMissingOr (Ljava/util/function/Predicate;)Ljava/util/function/Predicate; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking acceptMissingOr
+S net/minecraftforge/network/NetworkRegistry ACCEPTVANILLA Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking acceptVanilla
+R net/minecraftforge/network/PacketDistributor with (Ljava/util/function/Supplier;)Lnet/minecraftforge/network/PacketDistributor$PacketTarget; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking with
+R net/minecraftforge/network/PacketDistributor$TargetPoint p (DDDDLnet/minecraft/resources/ResourceKey;)Ljava/util/function/Supplier; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking targetPoint
+R net/minecraftforge/network/NetworkDirection getReceptionSide ()Lnet/minecraftforge/fml/LogicalSide; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking getReceptionSide
+R net/minecraftforge/network/NetworkDirection getOriginationSide ()Lnet/minecraftforge/fml/LogicalSide; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking getOriginationSide
+
+# ---- rendering: BufferBuilder lifecycle, removed vertex methods, model view stack ----
+C com/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer com/mojang/blaze3d/vertex/MeshData
+R com/mojang/blaze3d/vertex/Tesselator getBuilder ()Lcom/mojang/blaze3d/vertex/BufferBuilder; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender getBuilder
+R com/mojang/blaze3d/vertex/Tesselator end ()V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender end
+R com/mojang/blaze3d/vertex/BufferBuilder <init> (I)V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender newBufferBuilder (I)Lcom/mojang/blaze3d/vertex/BufferBuilder;
+R com/mojang/blaze3d/vertex/BufferBuilder begin (Lcom/mojang/blaze3d/vertex/VertexFormat$Mode;Lcom/mojang/blaze3d/vertex/VertexFormat;)V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender begin
+R com/mojang/blaze3d/vertex/BufferBuilder end ()Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender end
+R com/mojang/blaze3d/vertex/BufferBuilder endOrDiscardIfEmpty ()Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender endOrDiscardIfEmpty
+R com/mojang/blaze3d/vertex/BufferBuilder building ()Z io/github/hugoneale/campat/runtime/legacy/client/LegacyRender building
+R com/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer release ()V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender release
+R com/mojang/blaze3d/vertex/BufferUploader drawWithShader (Lcom/mojang/blaze3d/vertex/BufferBuilder$RenderedBuffer;)V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender drawWithShader
+R net/minecraft/client/renderer/MultiBufferSource immediate (Lcom/mojang/blaze3d/vertex/BufferBuilder;)Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender immediate
+R com/mojang/blaze3d/vertex/VertexConsumer endVertex ()V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender endVertex
+R com/mojang/blaze3d/vertex/VertexConsumer defaultColor (IIII)V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender defaultColor
+R com/mojang/blaze3d/vertex/VertexConsumer unsetDefaultColor ()V io/github/hugoneale/campat/runtime/legacy/client/LegacyRender unsetDefaultColor
+R com/mojang/blaze3d/vertex/VertexConsumer overlayCoords (II)Lcom/mojang/blaze3d/vertex/VertexConsumer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender overlayCoords
+R com/mojang/blaze3d/vertex/VertexConsumer uv2 (I)Lcom/mojang/blaze3d/vertex/VertexConsumer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender uv2
+R com/mojang/blaze3d/vertex/VertexConsumer normal (Lorg/joml/Matrix3f;FFF)Lcom/mojang/blaze3d/vertex/VertexConsumer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender normal
+R com/mojang/blaze3d/systems/RenderSystem getModelViewStack ()Lcom/mojang/blaze3d/vertex/PoseStack; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender getModelViewStack
+V com/mojang/blaze3d/vertex/VertexConsumer overlayCoords (II)Lcom/mojang/blaze3d/vertex/VertexConsumer; setUv1 (II)Lcom/mojang/blaze3d/vertex/VertexConsumer; o0,o1 n0,n1

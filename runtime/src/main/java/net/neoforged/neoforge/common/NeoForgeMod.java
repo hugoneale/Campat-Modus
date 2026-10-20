@@ -41,7 +41,8 @@ public final class NeoForgeMod {
     /** Registered by the runtime; Forge has no creative flight attribute */
     public static final Holder<Attribute> CREATIVE_FLIGHT = neo(Registries.ATTRIBUTE, "creative_flight");
 
-    public static final DeferredHolder ADD_TABLE_LOOT_MODIFIER_TYPE = forge(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "add_table");
+    /** registered by the runtime: Forge 52 has no add_table loot modifier */
+    public static final DeferredHolder ADD_TABLE_LOOT_MODIFIER_TYPE = neo(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, "add_table");
     public static final DeferredHolder NONE_BIOME_MODIFIER_TYPE = forge(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, "none");
     public static final DeferredHolder ADD_FEATURES_BIOME_MODIFIER_TYPE = forge(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, "add_features");
     public static final DeferredHolder REMOVE_FEATURES_BIOME_MODIFIER_TYPE = forge(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, "remove_features");
@@ -66,6 +67,14 @@ public final class NeoForgeMod {
     public static final DeferredHolder DIFFERENCE_INGREDIENT_TYPE = io.github.hugoneale.campat.runtime.crafting.CustomIngredients.DIFFERENCE_HOLDER;
     public static final DeferredHolder INTERSECTION_INGREDIENT_TYPE = io.github.hugoneale.campat.runtime.crafting.CustomIngredients.INTERSECTION_HOLDER;
     public static final DeferredHolder BLOCK_TAG_INGREDIENT = io.github.hugoneale.campat.runtime.crafting.CustomIngredients.BLOCK_TAG_HOLDER;
+
+    public static final DeferredHolder SINGLE_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "single");
+    public static final DeferredHolder TAG_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "tag");
+    public static final DeferredHolder EMPTY_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "empty");
+    public static final DeferredHolder COMPOUND_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "compound");
+    public static final DeferredHolder DATA_COMPONENT_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "components");
+    public static final DeferredHolder DIFFERENCE_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "difference");
+    public static final DeferredHolder INTERSECTION_FLUID_INGREDIENT_TYPE = neo(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.FLUID_INGREDIENT_TYPES, "intersection");
 
     public static final DeferredHolder AND_CONDITION = forge(ForgeRegistries.Keys.CONDITION_SERIALIZERS, "and");
     public static final DeferredHolder FALSE_CONDITION = forge(ForgeRegistries.Keys.CONDITION_SERIALIZERS, "false");

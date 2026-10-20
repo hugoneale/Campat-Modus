@@ -136,3 +136,16 @@ R net/minecraft/core/Holder getDelegate ()Lnet/minecraft/core/Holder; io/github/
 C net/neoforged/neoforge/event/entity/RegisterSpawnPlacementsEvent net/minecraftforge/event/entity/SpawnPlacementRegisterEvent
 C net/neoforged/neoforge/fluids/BaseFlowingFluid net/minecraftforge/fluids/ForgeFlowingFluid
 R net/neoforged/fml/loading/LoadingModList hasErrors ()Z io/github/hugoneale/campat/runtime/bridge/EventBridge loadingErrors
+# NeoForge conditions: same classes on Forge; ICondition.test gained a DynamicOps parameter
+C net/neoforged/neoforge/common/conditions/AndCondition net/minecraftforge/common/crafting/conditions/AndCondition
+C net/neoforged/neoforge/common/conditions/OrCondition net/minecraftforge/common/crafting/conditions/OrCondition
+C net/neoforged/neoforge/common/conditions/NotCondition net/minecraftforge/common/crafting/conditions/NotCondition
+C net/neoforged/neoforge/common/conditions/ModLoadedCondition net/minecraftforge/common/crafting/conditions/ModLoadedCondition
+C net/neoforged/neoforge/common/conditions/ItemExistsCondition net/minecraftforge/common/crafting/conditions/ItemExistsCondition
+C net/neoforged/neoforge/common/conditions/TagEmptyCondition net/minecraftforge/common/crafting/conditions/TagEmptyCondition
+C net/neoforged/neoforge/common/conditions/TrueCondition net/minecraftforge/common/crafting/conditions/TrueCondition
+C net/neoforged/neoforge/common/conditions/FalseCondition net/minecraftforge/common/crafting/conditions/FalseCondition
+M net/neoforged/neoforge/common/conditions/OrCondition values ()Ljava/util/List; children
+M net/neoforged/neoforge/common/conditions/NotCondition value ()Lnet/neoforged/neoforge/common/conditions/ICondition; child
+V net/neoforged/neoforge/common/conditions/ICondition test (Lnet/neoforged/neoforge/common/conditions/ICondition$IContext;)Z test (Lnet/neoforged/neoforge/common/conditions/ICondition$IContext;Lcom/mojang/serialization/DynamicOps;)Z o0,s:io/github/hugoneale/campat/runtime/bridge/EventBridge.conditionOps()Lcom/mojang/serialization/DynamicOps; n0
+C net/neoforged/neoforge/data/loading/DatagenModLoader net/minecraftforge/data/loading/DatagenModLoader

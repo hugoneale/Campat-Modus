@@ -26,5 +26,10 @@ public interface IMenuTypeExtension<T> {
         return new MenuType<>(factory, FeatureFlags.DEFAULT_FLAGS);
     }
 
+    /** campat: converted NeoForge mods pass NeoForge's IContainerFactory (provided by the runtime) */
+    static <T extends AbstractContainerMenu> MenuType<T> create(net.neoforged.neoforge.network.IContainerFactory<T> factory) {
+        return new MenuType<>(factory, FeatureFlags.DEFAULT_FLAGS);
+    }
+
     T create(int windowId, Inventory playerInv, RegistryFriendlyByteBuf extraData);
 }

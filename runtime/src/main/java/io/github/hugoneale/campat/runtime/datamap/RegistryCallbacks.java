@@ -27,8 +27,18 @@ public final class RegistryCallbacks {
     private static final Map<ResourceKey<?>, List<RegistryCallback<?>>> CALLBACKS = new HashMap<>();
     private static final Map<ResourceKey<?>, Set<Object>> SEEN = new HashMap<>();
 
+    private static boolean modifyFired;
+
     public static void register(IEventBus modBus) {
+        modBus.addListener(EventPriority.HIGHEST, RegistryCallbacks::beforeRegister);
         modBus.addListener(EventPriority.LOWEST, RegistryCallbacks::onRegister);
+    }
+
+    /** NeoForge fires ModifyRegistriesEvent once every registry exists, before registration */
+    private static void beforeRegister(RegisterEvent event) {
+        if (modifyFired) return;
+        modifyFired = true;
+        io.github.hugoneale.campat.runtime.lifecycle.NeoLifecycle.postModBus(new net.neoforged.neoforge.registries.ModifyRegistriesEvent());
     }
 
     public static synchronized void addCallback(Registry registry, RegistryCallback callback) {

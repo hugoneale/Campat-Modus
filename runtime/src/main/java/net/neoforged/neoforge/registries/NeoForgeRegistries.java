@@ -32,8 +32,8 @@ public class NeoForgeRegistries {
     public static final Registry<MapCodec<? extends StructureModifier>> STRUCTURE_MODIFIER_SERIALIZERS = LazyRegistry.of(Keys.STRUCTURE_MODIFIER_SERIALIZERS);
     public static final Registry<FluidType> FLUID_TYPES = LazyRegistry.of(Keys.FLUID_TYPES);
     public static final Registry<HolderSetType> HOLDER_SET_TYPES = LazyRegistry.of(Keys.HOLDER_SET_TYPES);
-    public static final Registry<Object> INGREDIENT_TYPES = new RegistryBuilder<>(Keys.INGREDIENT_TYPES).sync(true).create();
-    public static final Registry<Object> FLUID_INGREDIENT_TYPES = new RegistryBuilder<>(Keys.FLUID_INGREDIENT_TYPES).sync(true).create();
+    public static final Registry<net.neoforged.neoforge.common.crafting.IngredientType<?>> INGREDIENT_TYPES = new RegistryBuilder<>(Keys.INGREDIENT_TYPES).sync(true).create();
+    public static final Registry<net.neoforged.neoforge.fluids.crafting.FluidIngredientType<?>> FLUID_INGREDIENT_TYPES = new RegistryBuilder<>(Keys.FLUID_INGREDIENT_TYPES).sync(true).create();
     public static final Registry<MapCodec<? extends ICondition>> CONDITION_SERIALIZERS = LazyRegistry.of(Keys.CONDITION_CODECS);
     public static final Registry<AttachmentType<?>> ATTACHMENT_TYPES = new RegistryBuilder<>(Keys.ATTACHMENT_TYPES).create();
 
@@ -47,8 +47,8 @@ public class NeoForgeRegistries {
         public static final ResourceKey<Registry<MapCodec<? extends StructureModifier>>> STRUCTURE_MODIFIER_SERIALIZERS = ForgeRegistries.Keys.STRUCTURE_MODIFIER_SERIALIZERS;
         public static final ResourceKey<Registry<FluidType>> FLUID_TYPES = ForgeRegistries.Keys.FLUID_TYPES;
         public static final ResourceKey<Registry<HolderSetType>> HOLDER_SET_TYPES = ForgeRegistries.Keys.HOLDER_SET_TYPES;
-        public static final ResourceKey<Registry<Object>> INGREDIENT_TYPES = key("ingredient_serializer");
-        public static final ResourceKey<Registry<Object>> FLUID_INGREDIENT_TYPES = key("fluid_ingredient_type");
+        public static final ResourceKey<Registry<net.neoforged.neoforge.common.crafting.IngredientType<?>>> INGREDIENT_TYPES = key("ingredient_serializer");
+        public static final ResourceKey<Registry<net.neoforged.neoforge.fluids.crafting.FluidIngredientType<?>>> FLUID_INGREDIENT_TYPES = key("fluid_ingredient_type");
         public static final ResourceKey<Registry<MapCodec<? extends ICondition>>> CONDITION_CODECS = ForgeRegistries.Keys.CONDITION_SERIALIZERS;
         public static final ResourceKey<Registry<AttachmentType<?>>> ATTACHMENT_TYPES = key("attachment_types");
         public static final ResourceKey<Registry<BiomeModifier>> BIOME_MODIFIERS = ForgeRegistries.Keys.BIOME_MODIFIERS;

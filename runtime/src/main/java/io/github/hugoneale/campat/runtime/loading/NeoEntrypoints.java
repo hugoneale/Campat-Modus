@@ -81,6 +81,15 @@ public final class NeoEntrypoints {
 
     private static Object newInstance(Class<?> cls, IEventBus modBus, ModContainer container) throws ReflectiveOperationException {
         Constructor<?>[] ctors = cls.getConstructors();
+        if (ctors.length == 0) {
+            // Kotlin `object` mods (Kotlin for Forge): the singleton is created by class initialisation
+            try {
+                java.lang.reflect.Field instance = cls.getField("INSTANCE");
+                if (java.lang.reflect.Modifier.isStatic(instance.getModifiers()) && cls.isAssignableFrom(instance.getType())) return instance.get(null);
+            } catch (NoSuchFieldException ignored) {
+                // fall through to the error below
+            }
+        }
         if (ctors.length != 1) {
             throw new IllegalStateException("NeoForge mod class " + cls.getName() + " must have exactly one public constructor, found " + ctors.length);
         }

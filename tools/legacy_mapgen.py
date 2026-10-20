@@ -211,12 +211,21 @@ def translate_rules(rules, members, by_named):
             out.append(line)
             continue
         p = body.split()
+        if p[0] == "V":
+            srg = by_named.get((p[1], p[2], p[3]))
+            if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/vertex/")):
+                sys.exit(f"rules.txt:{no}: no 1.20.1 member {p[1]}.{p[2]}{p[3]}")
+            if srg:
+                p[2] = srg
+            out.append(" ".join(p))
+            continue
         if p[0] in ("M", "R", "S"):
             key = (p[1], p[2], p[3] if p[0] != "S" else None)
             srg = by_named.get(key)
             if srg is None and p[0] == "S":
                 srg = by_named.get((p[1], p[2], None))
-            if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/", "com/mojang/math/", "com/mojang/realmsclient/")) and not p[2].startswith("<"):
+            if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/", "com/mojang/math/", "com/mojang/realmsclient/")) \
+                    and not p[1].startswith("com/mojang/blaze3d/systems/") and not p[2].startswith("<"):  # RenderSystem is not obfuscated
                 sys.exit(f"rules.txt:{no}: no 1.20.1 member {p[1]}.{p[2]}{p[3] if p[0] != 'S' else ''}")
             if srg and p[0] == "M":
                 # SRG ids are renamed globally (N), which wins over owner keyed M renames
