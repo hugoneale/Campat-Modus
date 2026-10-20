@@ -15,7 +15,10 @@ import net.minecraftforge.network.SimpleChannel;
 /** Forge 47's {@code simple.SimpleChannel} over Forge 52's {@link SimpleChannel}. */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class LegacySimpleChannel {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("campat");
     private final SimpleChannel channel;
+    /** Forge 47 let a class be registered twice (the later index won); Forge 52 refuses */
+    private final java.util.Set<Class<?>> registered = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     public LegacySimpleChannel(ResourceLocation name, Supplier<String> version) {
         int v = version == null ? 0 : version.get().hashCode() & 0x7fffffff;
@@ -33,6 +36,10 @@ public class LegacySimpleChannel {
 
     public <M> LegacyMessageHandler<M> registerMessage(int index, Class<M> type, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder,
                                     BiConsumer<M, Supplier<LegacyNetworkContext>> handler, Optional<NetworkDirection> direction) {
+        if (!registered.add(type)) {
+            LOGGER.warn("{} registered twice on channel {}; keeping the first registration", type.getName(), channel.getName());
+            return new LegacyMessageHandler<>(type, index);
+        }
         SimpleChannel.MessageBuilder b = direction.isPresent() ? channel.messageBuilder(type, index, (NetworkDirection) direction.get()) : channel.messageBuilder(type, index);
         b.encoder((BiConsumer) encoder).decoder((Function) decoder)
             .consumerNetworkThread((BiConsumer<M, net.minecraftforge.event.network.CustomPayloadEvent.Context>) (msg, ctx) -> {
@@ -112,6 +119,24 @@ public class LegacySimpleChannel {
         public MessageBuilder<M> consumerMainThread(BiConsumer<M, Supplier<LegacyNetworkContext>> consumer) {
             this.consumer = consumer;
             this.mainThread = true;
+            return this;
+        }
+
+        // Forge 47 login-phase messages: Forge 52 negotiates channels during configuration, so the
+        // login index and login packet lists are accepted and not sent
+        public MessageBuilder<M> loginIndex(Function<M, Integer> getter, BiConsumer<M, Integer> setter) {
+            return this;
+        }
+
+        public MessageBuilder<M> markAsLoginPacket() {
+            return this;
+        }
+
+        public MessageBuilder<M> noResponse() {
+            return this;
+        }
+
+        public MessageBuilder<M> buildLoginPacketList(Function<Boolean, java.util.List> packets) {
             return this;
         }
 

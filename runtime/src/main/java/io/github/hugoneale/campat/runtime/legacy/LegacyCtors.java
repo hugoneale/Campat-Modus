@@ -18,6 +18,19 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern;
 public final class LegacyCtors {
     private LegacyCtors() {}
 
+    /** a painting whose texture is named after its registry id, filled in on registration */
+    public static final ResourceLocation UNNAMED_PAINTING = ResourceLocation.fromNamespaceAndPath("campat", "unnamed_painting");
+
+    /** PaintingVariant(width, height): 1.20.1 found the texture by the registry name */
+    public static Object[] paintingVariant(int width, int height) {
+        return new Object[]{width, height, UNNAMED_PAINTING};
+    }
+
+    /** TorchBlock / WallTorchBlock(properties, particle) -> (particle type, properties) */
+    public static Object[] torchBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties, net.minecraft.core.particles.ParticleOptions particle) {
+        return new Object[]{particle instanceof net.minecraft.core.particles.SimpleParticleType t ? t : net.minecraft.core.particles.ParticleTypes.FLAME, properties};
+    }
+
     /** CustomRecipe(id, category) -> (category) */
     public static Object[] customRecipe(ResourceLocation id, CraftingBookCategory category) {
         return new Object[]{category};

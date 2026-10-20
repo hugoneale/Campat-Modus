@@ -60,6 +60,98 @@ public final class LegacyLoot {
         public abstract T deserialize(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions);
     }
 
+    /** {@code LootPoolEntryContainer.Serializer} */
+    public abstract static class EntrySerializer<T extends net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer> implements Serializer<T> {
+        public EntrySerializer() {}
+
+        @Override
+        public final void serialize(JsonObject json, T value, JsonSerializationContext context) {
+            List<LootItemCondition> conditions = entryConditions(value);
+            if (!conditions.isEmpty()) json.add("conditions", encode(LootItemCondition.DIRECT_CODEC.listOf(), conditions));
+            serializeCustom(json, value, context);
+        }
+
+        @Override
+        public final T deserialize(JsonObject json, JsonDeserializationContext context) {
+            LootItemCondition[] conditions = json.has("conditions") ? (LootItemCondition[]) CONTEXT.deserialize(json.get("conditions"), LootItemCondition[].class) : new LootItemCondition[0];
+            return deserializeCustom(json, context, conditions);
+        }
+
+        public abstract void serializeCustom(JsonObject json, T value, JsonSerializationContext context);
+
+        public abstract T deserializeCustom(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions);
+    }
+
+    /** {@code LootPoolSingletonContainer.Serializer} */
+    public abstract static class SingletonSerializer<T extends net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer> extends EntrySerializer<T> {
+        public SingletonSerializer() {}
+
+        @Override
+        public void serializeCustom(JsonObject json, T value, JsonSerializationContext context) {
+            int weight = singletonInt(value, "weight"), quality = singletonInt(value, "quality");
+            if (weight != 1) json.addProperty("weight", weight);
+            if (quality != 0) json.addProperty("quality", quality);
+            List<net.minecraft.world.level.storage.loot.functions.LootItemFunction> functions = singletonFunctionList(value);
+            if (!functions.isEmpty()) json.add("functions", encode(net.minecraft.world.level.storage.loot.functions.LootItemFunctions.ROOT_CODEC.listOf(), functions));
+        }
+
+        @Override
+        public final T deserializeCustom(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions) {
+            int weight = json.has("weight") ? json.get("weight").getAsInt() : 1;
+            int quality = json.has("quality") ? json.get("quality").getAsInt() : 0;
+            net.minecraft.world.level.storage.loot.functions.LootItemFunction[] functions = json.has("functions")
+                ? decode(net.minecraft.world.level.storage.loot.functions.LootItemFunctions.ROOT_CODEC.listOf(), json.get("functions")).toArray(net.minecraft.world.level.storage.loot.functions.LootItemFunction[]::new)
+                : new net.minecraft.world.level.storage.loot.functions.LootItemFunction[0];
+            return deserialize(json, context, weight, quality, conditions, functions);
+        }
+
+        protected abstract T deserialize(JsonObject json, JsonDeserializationContext context, int weight, int quality, LootItemCondition[] conditions,
+                                         net.minecraft.world.level.storage.loot.functions.LootItemFunction[] functions);
+    }
+
+    public static net.minecraft.world.level.storage.loot.entries.LootPoolEntryType entryType(Serializer serializer) {
+        return new net.minecraft.world.level.storage.loot.entries.LootPoolEntryType(mapCodec(serializer));
+    }
+
+    /** LootPoolSingletonContainer(weight, quality, conditions[], functions[]) -> lists */
+    public static Object[] singletonArgs(int weight, int quality, LootItemCondition[] conditions, net.minecraft.world.level.storage.loot.functions.LootItemFunction[] functions) {
+        return new Object[]{weight, quality, conditions == null ? List.of() : Arrays.asList(conditions), functions == null ? List.of() : Arrays.asList(functions)};
+    }
+
+    private static Object field(Class<?> owner, String name, Object target) {
+        try {
+            java.lang.reflect.Field f = owner.getDeclaredField(name);
+            f.setAccessible(true);
+            return f.get(target);
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<LootItemCondition> entryConditions(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer entry) {
+        return (List<LootItemCondition>) field(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer.class, "conditions", entry);
+    }
+
+    /** 1.20.1's {@code LootPoolEntryContainer.conditions} array */
+    public static LootItemCondition[] entryConditionArray(net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer entry) {
+        return entryConditions(entry).toArray(LootItemCondition[]::new);
+    }
+
+    private static int singletonInt(net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer entry, String name) {
+        return (Integer) field(net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.class, name, entry);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<net.minecraft.world.level.storage.loot.functions.LootItemFunction> singletonFunctionList(net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer entry) {
+        return (List<net.minecraft.world.level.storage.loot.functions.LootItemFunction>) field(net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer.class, "functions", entry);
+    }
+
+    /** 1.20.1's {@code LootPoolSingletonContainer.functions} array */
+    public static net.minecraft.world.level.storage.loot.functions.LootItemFunction[] singletonFunctions(net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer entry) {
+        return singletonFunctionList(entry).toArray(net.minecraft.world.level.storage.loot.functions.LootItemFunction[]::new);
+    }
+
     private static RegistryOps<JsonElement> ops() {
         return RegistryOps.create(JsonOps.INSTANCE, LegacyRegistries.provider());
     }

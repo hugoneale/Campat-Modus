@@ -77,4 +77,53 @@ public final class LegacyBlocks {
     public static float alpha(int color) {
         return FastColor.ARGB32.alpha(color) / 255f;
     }
+
+    /** 1.20.1's {@code GravelBlock}; 1.21.1 builds gravel as a {@code ColoredFallingBlock} */
+    public static class GravelBlock extends net.minecraft.world.level.block.ColoredFallingBlock {
+        public GravelBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(new net.minecraft.util.ColorRGBA(-8356741), properties);
+        }
+    }
+
+    /** 1.20.1's {@code SandBlock(dustColor, properties)} */
+    public static class SandBlock extends net.minecraft.world.level.block.ColoredFallingBlock {
+        public SandBlock(int dustColor, net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(new net.minecraft.util.ColorRGBA(dustColor), properties);
+        }
+    }
+
+    /** 1.20.1's {@code StemGrownBlock}; 1.21.1 stems name their fruit by registry key */
+    public abstract static class StemGrownBlock extends net.minecraft.world.level.block.Block {
+        public StemGrownBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        public abstract net.minecraft.world.level.block.StemBlock getStem();
+
+        public abstract net.minecraft.world.level.block.AttachedStemBlock getAttachedStem();
+    }
+
+    /** 1.20.1's {@code MelonBlock}; melons are plain blocks in 1.21.1 */
+    public static class MelonBlock extends StemGrownBlock {
+        public MelonBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        public net.minecraft.world.level.block.StemBlock getStem() {
+            return (net.minecraft.world.level.block.StemBlock) net.minecraft.world.level.block.Blocks.MELON_STEM;
+        }
+
+        @Override
+        public net.minecraft.world.level.block.AttachedStemBlock getAttachedStem() {
+            return (net.minecraft.world.level.block.AttachedStemBlock) net.minecraft.world.level.block.Blocks.ATTACHED_MELON_STEM;
+        }
+    }
+
+    /** 1.20.1's {@code GlassBlock} */
+    public static class GlassBlock extends net.minecraft.world.level.block.TransparentBlock {
+        public GlassBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+    }
 }

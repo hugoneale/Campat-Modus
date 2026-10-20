@@ -235,4 +235,13 @@ public final class LegacyApi {
     public static void noop(Object self) {}
 
     public static void noop(Object self, Object arg) {}
+
+    /** 1.20.1 pack folders were not validated: symlinks are allowed */
+    public static net.minecraft.world.level.validation.DirectoryValidator directoryValidator() {
+        return new net.minecraft.world.level.validation.DirectoryValidator(path -> true);
+    }
+
+    /** 1.20.1's {@code Vanishable} marker; 1.21.1 decides curse of vanishing by item tag */
+    public interface Vanishable {
+    }
 }

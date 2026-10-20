@@ -35,11 +35,39 @@ public final class RedirectPass {
     /** @return human readable problems (e.g. a super constructor call that cannot be redirected) */
     public List<String> apply(ClassNode cn) {
         List<String> problems = new ArrayList<>();
+        List<MethodNode> factories = new ArrayList<>();
         for (MethodNode mn : cn.methods) {
             if (mn.instructions == null || mn.instructions.size() == 0) continue;
-            redirectMethod(cn, mn, problems);
+            redirectMethod(cn, mn, problems, factories);
         }
+        cn.methods.addAll(factories);
         return problems;
+    }
+
+    /**
+     * A constructor reference ({@code Foo::new}) to an adapted constructor: a static factory with the
+     * old signature in the referencing class, whose constructor call the adapter then rewrites.
+     */
+    private org.objectweb.asm.Handle constructorFactory(ClassNode cn, org.objectweb.asm.Handle h, Mappings.CtorAdapter ca, List<MethodNode> factories) {
+        String desc = Type.getMethodDescriptor(Type.getObjectType(h.getOwner()), Type.getArgumentTypes(h.getDesc()));
+        boolean itf = (cn.access & Opcodes.ACC_INTERFACE) != 0;
+        String name = "campat$new$" + factories.size();
+        MethodNode f = new MethodNode(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_SYNTHETIC, name, desc, null, null);
+        f.instructions.add(new TypeInsnNode(Opcodes.NEW, h.getOwner()));
+        f.instructions.add(new InsnNode(Opcodes.DUP));
+        int slot = 0;
+        for (Type t : Type.getArgumentTypes(h.getDesc())) {
+            f.instructions.add(new VarInsnNode(t.getOpcode(Opcodes.ILOAD), slot));
+            slot += t.getSize();
+        }
+        MethodInsnNode init = new MethodInsnNode(Opcodes.INVOKESPECIAL, h.getOwner(), "<init>", h.getDesc(), false);
+        f.instructions.add(init);
+        f.instructions.add(new InsnNode(Opcodes.ARETURN));
+        f.maxLocals = slot;
+        f.maxStack = slot + 2;
+        adaptConstructorCall(f, init, ca);
+        factories.add(f);
+        return new org.objectweb.asm.Handle(Opcodes.H_INVOKESTATIC, cn.name, name, desc, itf);
     }
 
     private record Found(String owner, Mappings.Redirect redirect) {}
@@ -59,7 +87,7 @@ public final class RedirectPass {
         return decl == null ? null : new Found(decl, r[0]);
     }
 
-    private void redirectMethod(ClassNode cn, MethodNode mn, List<String> problems) {
+    private void redirectMethod(ClassNode cn, MethodNode mn, List<String> problems, List<MethodNode> factories) {
         InsnList insns = mn.instructions;
         // pending NEW instructions so constructor redirects can drop their NEW/DUP pair
         Deque<TypeInsnNode> pendingNew = new ArrayDeque<>();
@@ -116,6 +144,11 @@ public final class RedirectPass {
                 // method references (Foo::bar) to redirected members
                 for (int i = 0; i < indy.bsmArgs.length; i++) {
                     if (!(indy.bsmArgs[i] instanceof org.objectweb.asm.Handle h)) continue;
+                    Mappings.CtorAdapter ca = h.getTag() == Opcodes.H_NEWINVOKESPECIAL ? mappings.ctorAdapter(h.getOwner(), h.getDesc()) : null;
+                    if (ca != null) {
+                        indy.bsmArgs[i] = constructorFactory(cn, h, ca, factories);
+                        continue;
+                    }
                     org.objectweb.asm.Handle r = redirectHandle(h);
                     if (r != null) indy.bsmArgs[i] = r;
                 }

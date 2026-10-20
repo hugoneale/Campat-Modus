@@ -56,15 +56,21 @@ final class JarInspector {
             }
             if (LegacyTomlConverter.isLegacy(text)) return true;
             if (!LegacyTomlConverter.accepts1201(text)) return false;
+            java.util.List<String> names = new java.util.ArrayList<>();
             var en = z.entries();
             while (en.hasMoreElements()) {
                 var e = en.nextElement();
+                names.add(e.getName());
                 if (!e.getName().endsWith(".class")) continue;
                 try (var in = z.getInputStream(e)) {
                     if (LegacyTomlConverter.hasSrgNames(in.readAllBytes())) return true;
                 }
             }
-            return false;
+            var mcmeta = z.getEntry("pack.mcmeta");
+            if (mcmeta == null) return false;
+            try (var in = z.getInputStream(mcmeta)) {
+                return io.github.hugoneale.campat.loader.convert.LegacyResources.hasLegacyData(names, in.readAllBytes());
+            }
         } catch (IOException | RuntimeException e) {
             return false;
         }

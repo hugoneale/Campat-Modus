@@ -42,7 +42,7 @@ public final class LegacyJarConverter {
         for (var e : entries.entrySet()) {
             if (e.getKey().endsWith(".class") && LegacyTomlConverter.hasSrgNames(e.getValue())) return true;
         }
-        return false;
+        return LegacyResources.hasLegacyData(entries.keySet(), entries.get("pack.mcmeta"));
     }
 
     /** static mixin accessors of members 1.21.1 no longer has get redirected to emulations (X mapping lines) */
@@ -88,6 +88,30 @@ public final class LegacyJarConverter {
                 }
             } catch (RuntimeException ignored) {
             }
+        }
+    }
+
+    /** a module descriptor naming packages the jar does not have (JEI ships Lucene's) fails to load */
+    static boolean isBrokenModuleInfo(Map<String, byte[]> jar) {
+        byte[] mi = jar.get("module-info.class");
+        if (mi == null) return false;
+        try {
+            org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+            new org.objectweb.asm.ClassReader(mi).accept(cn, 0);
+            if (cn.module == null) return false;
+            Set<String> named = new java.util.HashSet<>();
+            if (cn.module.packages != null) named.addAll(cn.module.packages);
+            if (cn.module.exports != null) for (var x : cn.module.exports) named.add(x.packaze);
+            if (cn.module.opens != null) for (var x : cn.module.opens) named.add(x.packaze);
+            Set<String> present = new java.util.HashSet<>();
+            for (String n : jar.keySet()) {
+                int s = n.lastIndexOf('/');
+                if (n.endsWith(".class") && s > 0) present.add(n.substring(0, s));
+            }
+            for (String p : named) if (!present.contains(p)) return true;
+            return false;
+        } catch (RuntimeException e) {
+            return true;
         }
     }
 
@@ -137,10 +161,13 @@ public final class LegacyJarConverter {
         if (in.containsKey("META-INF/MANIFEST.MF")) manifest.read(new ByteArrayInputStream(in.get("META-INF/MANIFEST.MF")));
 
         Map<String, byte[]> out = new LinkedHashMap<>();
+        boolean dropModuleInfo = isBrokenModuleInfo(in);
+        if (dropModuleInfo) warnings.add("dropped a module-info.class naming packages the jar does not contain");
         for (var e : in.entrySet()) {
             String name = e.getKey();
             byte[] data = e.getValue();
             if (name.equals("META-INF/MANIFEST.MF") || JarConverter.isSignature(name)) continue;
+            if (dropModuleInfo && name.equals("module-info.class")) continue;
             if (name.endsWith(".class") && !name.startsWith("META-INF/versions/")) {
                 try {
                     ClassConverter.Output o = classConverter.convert(data);

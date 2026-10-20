@@ -46,6 +46,12 @@ def classify(log: str):
     m = re.search(r"Missing or unsupported mandatory dependencies:(.*?)(?:\n\S|\Z)", log, re.S)
     if m:
         return "MISSING_DEP", " ".join(m.group(1).split())[:300]
+    # the crash report's own exception (mod loading errors are listed in its details)
+    i = log.find("---- Minecraft Crash Report ----")
+    if i >= 0:
+        for m in re.finditer(r"^\s*(?:\u00a77)?((?:java|javax|net|com|org|cpw)\.[\w.$]+(?:Exception|Error)\b[^\n]*)", log[i:], re.M):
+            if "Mod Loading has failed" not in m.group(1) and not m.group(1).rstrip().endswith("["):
+                return "CRASH", m.group(1)[:400]
     for pat in [r"Caused by: ([^\n]+)", r"(Mixin apply failed[^\n]+)", r"(Exception[^\n]*)"]:
         found = re.findall(pat, log)
         if found:

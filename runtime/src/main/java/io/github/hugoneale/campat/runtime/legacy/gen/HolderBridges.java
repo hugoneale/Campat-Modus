@@ -1539,8 +1539,18 @@ public final class HolderBridges {
         net.minecraft.network.protocol.game.DebugPackets.sendGameEventInfo(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1), a2);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.server.packs.repository.PackRepository ServerPacksSource_createPackRepository(java.nio.file.Path a0) throws Throwable {
+        return net.minecraft.server.packs.repository.ServerPacksSource.createPackRepository((java.nio.file.Path) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator());
+    }
+
     public static net.minecraft.world.item.crafting.Ingredient CamelAi_getTemptations() throws Throwable {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.camel.CamelAi.getTemptations();
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void FolderRepositorySource_discoverPacks(java.nio.file.Path a0, boolean a1, java.util.function.BiConsumer a2) throws Throwable {
+        net.minecraft.server.packs.repository.FolderRepositorySource.discoverPacks((java.nio.file.Path) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator(), (java.util.function.BiConsumer) (Object) a2);
     }
 
     public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ListenerInfo_gameEvent(net.minecraft.world.level.gameevent.GameEvent.ListenerInfo self) throws Throwable {
@@ -1725,8 +1735,16 @@ public final class HolderBridges {
         self.deserializeNBT(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), (net.minecraft.nbt.CompoundTag) (Object) a0);
     }
 
+    public static Object[] ClientboundContainerSetSlotPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] RealmsCreateRealmScreen_args(com.mojang.realmsclient.dto.RealmsServer a0, com.mojang.realmsclient.RealmsMainScreen a1) {
         return new Object[]{a1, a0};
+    }
+
+    public static Object[] ClientboundPlayerInfoUpdatePacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] WallHangingSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
@@ -1769,12 +1787,24 @@ public final class HolderBridges {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4, a5};
     }
 
+    public static Object[] ClientboundLevelChunkWithLightPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] SocialInteractionsPlayerList_args(net.minecraft.client.gui.screens.social.SocialInteractionsScreen a0, net.minecraft.client.Minecraft a1, int a2, int a3, int a4, int a5, int a6) {
         return new Object[]{a0, a1, a2, a3, a4, a5};
     }
 
     public static Object[] AxeItem_args(net.minecraft.world.item.Tier a0, float a1, float a2, net.minecraft.world.item.Item.Properties a3) {
         return new Object[]{a0, a3};
+    }
+
+    public static Object[] ClientboundSetObjectivePacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundUpdateMobEffectPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] AttributeInstance_args(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) {
@@ -1789,8 +1819,24 @@ public final class HolderBridges {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
     }
 
+    public static Object[] ClientboundRespawnPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] VanillaBlockLoot_args() {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] BlockStateProviderType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
+    }
+
+    public static Object[] ServerPacksSource_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator()};
+    }
+
+    public static Object[] ClientboundMerchantOffersPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] SignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
@@ -1805,8 +1851,28 @@ public final class HolderBridges {
         return new Object[]{a1, a2, a0};
     }
 
+    public static Object[] ClientboundBossEventPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundContainerSetContentPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] PackMetadataSection_args(net.minecraft.network.chat.Component a0, int a1) {
         return new Object[]{a0, a1, java.util.Optional.empty()};
+    }
+
+    public static Object[] RootPlacerType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
+    }
+
+    public static Object[] ClientboundLevelParticlesPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundAddEntityPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] FenceGateBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
@@ -1817,12 +1883,20 @@ public final class HolderBridges {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
     }
 
+    public static Object[] ClientboundLoginPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] SinglePoolElement_args(com.mojang.datafixers.util.Either a0, net.minecraft.core.Holder a1, net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection a2) {
         return new Object[]{a0, a1, a2, java.util.Optional.empty()};
     }
 
     public static Object[] VillagerTrades_SuspiciousStewForEmerald_args(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2};
+    }
+
+    public static Object[] ClientboundDamageEventPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] CeilingHangingSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
@@ -1835,6 +1909,10 @@ public final class HolderBridges {
 
     public static Object[] RealmsSelectFileToUploadScreen_args(long a0, int a1, com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen a2, java.lang.Runnable a3) {
         return new Object[]{a3, a0, a1, a2};
+    }
+
+    public static Object[] FoliagePlacerType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
     }
 
     public static Object[] RecipeManager_args() {
@@ -1861,12 +1939,20 @@ public final class HolderBridges {
         return new Object[]{a0, a1, a2, a3, a4};
     }
 
+    public static Object[] ClientboundUpdateAdvancementsPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] DoorBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.BlockSetType a1) {
         return new Object[]{a1, a0};
     }
 
     public static Object[] RealmsUploadScreen_args(long a0, int a1, com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen a2, net.minecraft.world.level.storage.LevelSummary a3, java.lang.Runnable a4) {
         return new Object[]{a4, a0, a1, a2, a3};
+    }
+
+    public static Object[] FeatureSizeType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
     }
 
     public static Object[] MushroomBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.resources.ResourceKey a1) {
@@ -1929,6 +2015,10 @@ public final class HolderBridges {
         return new Object[]{a0, a3};
     }
 
+    public static Object[] TrunkPlacerType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
+    }
+
     public static Object[] EnchantmentPredicate_args(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) {
         return new Object[]{LegacyHolders.wrap(a0), a1};
     }
@@ -1939,6 +2029,10 @@ public final class HolderBridges {
 
     public static Object[] FollowOwnerGoal_args(net.minecraft.world.entity.TamableAnimal a0, double a1, float a2, float a3, boolean a4) {
         return new Object[]{a0, a1, a2, a3};
+    }
+
+    public static Object[] ClientboundSetEquipmentPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] EntityLootSubProvider_args(net.minecraft.world.flag.FeatureFlagSet a0) {
@@ -1957,8 +2051,20 @@ public final class HolderBridges {
         return new Object[]{a0};
     }
 
+    public static Object[] ClientboundSetEntityDataPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundExplodePacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] ClientboundServerDataPacket_args(net.minecraft.network.chat.Component a0, java.util.Optional a1, boolean a2) {
         return new Object[]{a0, a1};
+    }
+
+    public static Object[] ClientboundSetPlayerTeamPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] BlockLootSubProvider_args(java.util.Set a0, net.minecraft.world.flag.FeatureFlagSet a1) {
@@ -1973,8 +2079,20 @@ public final class HolderBridges {
         return new Object[]{a1, a2, a0};
     }
 
+    public static Object[] ClientboundSoundEntityPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] VanillaEntityLoot_args() {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] ClientPackSource_args(java.nio.file.Path a0) {
+        return new Object[]{a0, io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator()};
+    }
+
+    public static Object[] TreeDecoratorType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
     }
 
     public static Object[] WeightedPressurePlateBlock_args(int a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1, net.minecraft.world.level.block.state.properties.BlockSetType a2) {
@@ -2017,6 +2135,10 @@ public final class HolderBridges {
         return new Object[]{a0, a1, a2};
     }
 
+    public static Object[] ServerboundPingRequestPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] TemptGoal_args(net.minecraft.world.entity.PathfinderMob a0, double a1, net.minecraft.world.item.crafting.Ingredient a2, boolean a3) {
         return new Object[]{a0, a1, a2, a3};
     }
@@ -2051,6 +2173,14 @@ public final class HolderBridges {
 
     public static Object[] TestFunction_args(java.lang.String a0, java.lang.String a1, java.lang.String a2, net.minecraft.world.level.block.Rotation a3, int a4, long a5, boolean a6, int a7, int a8, java.util.function.Consumer a9) {
         return new Object[]{a0, a1, a2, a3, a4, a5, a6, a9};
+    }
+
+    public static Object[] BuiltInPackSource_args(net.minecraft.server.packs.PackType a0, net.minecraft.server.packs.VanillaPackResources a1, net.minecraft.resources.ResourceLocation a2) {
+        return new Object[]{a0, a1, a2, io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator()};
+    }
+
+    public static Object[] ServerboundContainerClickPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
     public static Object[] WallTorchBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.core.particles.ParticleOptions a1) {
@@ -2093,12 +2223,28 @@ public final class HolderBridges {
         return new Object[]{a1, a0};
     }
 
+    public static Object[] ClientboundSoundPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] LegacySinglePoolElement_args(com.mojang.datafixers.util.Either a0, net.minecraft.core.Holder a1, net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection a2) {
         return new Object[]{a0, a1, a2, java.util.Optional.empty()};
     }
 
+    public static Object[] ClientboundPlayerChatPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundBlockEventPacket_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
+    }
+
     public static Object[] Fireball_args(net.minecraft.world.entity.EntityType a0, double a1, double a2, double a3, double a4, double a5, double a6, net.minecraft.world.level.Level a7) {
         return new Object[]{a0, a7};
+    }
+
+    public static Object[] FolderRepositorySource_args(java.nio.file.Path a0, net.minecraft.server.packs.PackType a1, net.minecraft.server.packs.repository.PackSource a2) {
+        return new Object[]{a0, a1, a2, io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator()};
     }
 
     public static Object[] TrapDoorBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.BlockSetType a1) {

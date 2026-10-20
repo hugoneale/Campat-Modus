@@ -64,6 +64,21 @@ public final class LegacyCodecs {
         return codec.validate(check);
     }
 
+    /** 1.20.1's KeyDispatchDataCodec.codec() was a Codec */
+    public static Codec dispatchDataCodec(net.minecraft.util.KeyDispatchDataCodec codec) {
+        return codec.codec().codec();
+    }
+
+    /** ExtraCodecs.COMPONENT */
+    public static Codec component() {
+        return net.minecraft.network.chat.ComponentSerialization.CODEC;
+    }
+
+    /** ExtraCodecs.validate(mapCodec, check) */
+    public static MapCodec validate(MapCodec codec, java.util.function.Function check) {
+        return codec.validate(check);
+    }
+
     /** ExtraCodecs.lazyInitializedCodec(supplier) */
     public static Codec lazyInitializedCodec(Supplier supplier) {
         return Codec.lazyInitialized(supplier);
@@ -97,29 +112,31 @@ public final class LegacyCodecs {
     public static void register(net.minecraftforge.registries.RegisterEvent event, net.minecraft.resources.ResourceKey key, java.util.function.Consumer consumer) {
         event.register(key, (java.util.function.Consumer<net.minecraftforge.registries.RegisterEvent.RegisterHelper<Object>>) helper -> consumer.accept(new net.minecraftforge.registries.RegisterEvent.RegisterHelper<Object>() {
             @Override
-            public void register(String name, Object value) {
-                helper.register(name, adapt(value));
-            }
-
-            @Override
             public void register(net.minecraft.resources.ResourceKey<Object> k, Object value) {
-                helper.register(k, adapt(value));
+                helper.register(k, named(adapt(value), k.location()));
             }
 
             @Override
             public void register(net.minecraft.resources.ResourceLocation id, Object value) {
-                helper.register(id, adapt(value));
+                helper.register(id, named(adapt(value), id));
             }
         }));
     }
 
     /** RegisterEvent.register(key, id, supplier) of 1.20.1 code */
     public static void register(net.minecraftforge.registries.RegisterEvent event, net.minecraft.resources.ResourceKey key, net.minecraft.resources.ResourceLocation id, Supplier supplier) {
-        event.register(key, id, () -> adapt(supplier.get()));
+        event.register(key, id, () -> named(adapt(supplier.get()), id));
     }
 
     /** DeferredRegister.register(name, supplier) of 1.20.1 code */
     public static RegistryObject register(DeferredRegister register, String name, Supplier supplier) {
-        return register.register(name, () -> adapt(supplier.get()));
+        return register.register(name, () -> named(adapt(supplier.get()), register.createTagKey(name).location()));
+    }
+
+    /** values that took their identity from the registry name in 1.20.1 (a painting's texture) */
+    private static Object named(Object value, net.minecraft.resources.ResourceLocation id) {
+        if (value instanceof net.minecraft.world.entity.decoration.PaintingVariant p && p.assetId().equals(LegacyCtors.UNNAMED_PAINTING))
+            return new net.minecraft.world.entity.decoration.PaintingVariant(p.width(), p.height(), id);
+        return value;
     }
 }

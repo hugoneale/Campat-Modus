@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** Minecraft 1.20.1 resources -> 1.21.1: data pack layout, data JSON formats and SRG names in text files. */
-final class LegacyResources {
+public final class LegacyResources {
     private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
     /** 1.21 made the data pack registry folders singular. */
     private static final Map<String, String> DIRS = Map.ofEntries(
@@ -103,6 +103,26 @@ final class LegacyResources {
             return out;
         }
         return el;
+    }
+
+    private static final Pattern PACK_FORMAT = Pattern.compile("\"pack_format\"\\s*:\\s*(\\d+)");
+    private static final Pattern NEW_DIRS = Pattern.compile("^data/[^/]+/(recipe|loot_table|advancement|predicate|item_modifier|function|structure|tags/(item|block|entity_type|fluid|game_event))/.*");
+
+    /**
+     * Data written for 1.20.x: a pack format older than 1.20.5's (41) and none of 1.21's singular
+     * folders. Catches data-only mods whose mods.toml accepts any Minecraft version.
+     */
+    public static boolean hasLegacyData(Iterable<String> names, byte[] packMcmeta) {
+        if (packMcmeta == null) return false;
+        Matcher m = PACK_FORMAT.matcher(new String(packMcmeta, StandardCharsets.UTF_8));
+        if (!m.find() || Integer.parseInt(m.group(1)) >= 41) return false;
+        boolean data = false;
+        for (String n : names) {
+            if (!n.startsWith("data/")) continue;
+            if (NEW_DIRS.matcher(n).matches()) return false;
+            data = true;
+        }
+        return data;
     }
 
     static String dataPath(String name) {

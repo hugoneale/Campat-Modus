@@ -56,6 +56,7 @@ public final class LegacyGen {
         "net/minecraft/world/item/Item$TooltipContext>net/minecraft/world/level/Level", RT + "Evo.level(Lnet/minecraft/world/item/Item$TooltipContext;)Lnet/minecraft/world/level/Level;");
     /** values for arguments only one side has */
     private static final Map<String, String> SUPPLY = Map.of(
+        "net/minecraft/world/level/validation/DirectoryValidator", RT + "LegacyApi.directoryValidator()Lnet/minecraft/world/level/validation/DirectoryValidator;",
         "net/minecraft/core/HolderLookup$Provider", RT + "LegacyRegistries.provider()Lnet/minecraft/core/HolderLookup$Provider;",
         "net/minecraft/core/RegistryAccess", RT + "LegacyRegistries.access()Lnet/minecraft/core/RegistryAccess;",
         "net/minecraft/world/InteractionHand", RT + "Evo.mainHand()Lnet/minecraft/world/InteractionHand;",
@@ -435,8 +436,10 @@ public final class LegacyGen {
                 if (nc.methods.stream().anyMatch(m -> m.name.equals("<init>") && m.desc.equals(mapped))) continue;
                 MethodNode best = null;
                 int[][] bestAlign = null;
+                boolean wasPublic = (om.access & Opcodes.ACC_PUBLIC) != 0;
                 for (MethodNode nm : nc.methods) {
-                    if (!nm.name.equals("<init>") || (nm.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
+                    // a constructor that was public in 1.20.1 may be private now (BlockStateProviderType): widened below
+                    if (!nm.name.equals("<init>") || (!wasPublic && (nm.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0)) continue;
                     if (!linkable(om.desc)) continue;
                     int[][] al = align(Type.getArgumentTypes(om.desc), Type.getArgumentTypes(nm.desc));
                     if (al == null) continue;
@@ -462,6 +465,7 @@ public final class LegacyGen {
                 code.append("    public static Object[] ").append(h).append('(').append(sig).append(") {\n        return new Object[]{")
                     .append(call).append("};\n    }\n\n");
                 lines.add("A " + c + " " + om.desc + " " + best.desc + " " + INTERNAL + " " + h);
+                if ((best.access & Opcodes.ACC_PUBLIC) == 0 && wasPublic) accessLines.add("public " + nc.name.replace('/', '.') + " <init>" + best.desc);
             }
         }
     }
@@ -556,7 +560,8 @@ public final class LegacyGen {
         "Lnet/minecraft/core/RegistryAccess;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.access()",
         "Lnet/minecraft/commands/CommandBuildContext;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext()",
         "Lnet/minecraft/core/RegistrationInfo;", "net.minecraft.core.RegistrationInfo.BUILT_IN",
-        "Ljava/util/Optional;", "java.util.Optional.empty()");
+        "Ljava/util/Optional;", "java.util.Optional.empty()",
+        "Lnet/minecraft/world/level/validation/DirectoryValidator;", "io.github.hugoneale.campat.runtime.legacy.LegacyApi.directoryValidator()");
 
     private static String argExpr(int[] al, Type target) {
         int j = al[0], k = al[1];
@@ -636,12 +641,22 @@ public final class LegacyGen {
     static final class Jars {
         private final Map<String, Path> where = new HashMap<>();
         private final Map<String, ClassNode> cache = new HashMap<>();
+        /** the platform's own access transformer (Forge 47 widens many vanilla members mods compile against) */
+        private final Map<String, Set<String>> widened = new HashMap<>();
 
         Jars(Path list) throws Exception {
             for (String l : Files.readAllLines(list)) {
                 if (l.isBlank()) continue;
                 Path j = Path.of(l.strip());
                 try (ZipFile z = new ZipFile(j.toFile())) {
+                    var at = z.getEntry("META-INF/accesstransformer.cfg");
+                    if (at != null) try (InputStream in = z.getInputStream(at)) {
+                        for (String line : new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8).split("\n")) {
+                            String[] p = line.split("#", 2)[0].strip().split("\\s+");
+                            if (p.length < 2 || !p[0].startsWith("public")) continue;
+                            widened.computeIfAbsent(p[1].replace('.', '/'), k -> new java.util.HashSet<>()).add(p.length > 2 ? p[2] : "");
+                        }
+                    }
                     var en = z.entries();
                     while (en.hasMoreElements()) {
                         String n = en.nextElement().getName();
@@ -662,6 +677,13 @@ public final class LegacyGen {
                 try (ZipFile z = new ZipFile(j.toFile()); InputStream in = z.getInputStream(z.getEntry(n + ".class"))) {
                     ClassNode cn = new ClassNode();
                     new ClassReader(in.readAllBytes()).accept(cn, ClassReader.SKIP_CODE);
+                    Set<String> w = widened.get(n);
+                    if (w != null) {
+                        int mask = Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED;
+                        if (w.contains("")) cn.access = (cn.access & ~mask) | Opcodes.ACC_PUBLIC;
+                        for (MethodNode m : cn.methods) if (w.contains(m.name + m.desc)) m.access = (m.access & ~mask) | Opcodes.ACC_PUBLIC;
+                        for (FieldNode f : cn.fields) if (w.contains(f.name)) f.access = (f.access & ~mask) | Opcodes.ACC_PUBLIC;
+                    }
                     return cn;
                 } catch (Exception e) {
                     throw new RuntimeException(e);

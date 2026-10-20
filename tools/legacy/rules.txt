@@ -453,6 +453,7 @@ R com/mojang/serialization/Codec dispatchMap (Ljava/util/function/Function;Ljava
 R com/mojang/serialization/Codec dispatchMap (Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs dispatchMap
 R com/mojang/serialization/Codec partialDispatch (Ljava/lang/String;Ljava/util/function/Function;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs partialDispatch
 R net/minecraft/util/ExtraCodecs validate (Lcom/mojang/serialization/Codec;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs validate
+R net/minecraft/util/ExtraCodecs validate (Lcom/mojang/serialization/MapCodec;Ljava/util/function/Function;)Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs validate
 R net/minecraft/util/ExtraCodecs lazyInitializedCodec (Ljava/util/function/Supplier;)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs lazyInitializedCodec
 R net/minecraftforge/network/NetworkDirection values ()[Lnet/minecraftforge/network/NetworkDirection; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking directions
 R net/minecraftforge/network/NetworkDirection ordinal ()I io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking ordinal
@@ -497,3 +498,30 @@ R net/minecraft/core/HolderLookup filterElements (Ljava/util/function/Predicate;
 R net/minecraftforge/event/entity/EntityAttributeModificationEvent add (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;D)V io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents add # forge
 R net/minecraftforge/event/entity/EntityAttributeModificationEvent add (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;)V io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents add # forge
 R net/minecraftforge/event/entity/EntityAttributeModificationEvent has (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;)Z io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents has # forge
+# blocks 1.21.1 builds from other classes
+C net/minecraft/world/level/block/GravelBlock io/github/hugoneale/campat/runtime/legacy/LegacyBlocks$GravelBlock
+C net/minecraft/world/level/block/SandBlock io/github/hugoneale/campat/runtime/legacy/LegacyBlocks$SandBlock
+C net/minecraft/world/level/block/MelonBlock io/github/hugoneale/campat/runtime/legacy/LegacyBlocks$MelonBlock
+# torches take a SimpleParticleType first
+A net/minecraft/world/level/block/TorchBlock (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/core/particles/ParticleOptions;)V (Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors torchBlock
+A net/minecraft/world/level/block/WallTorchBlock (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/core/particles/ParticleOptions;)V (Lnet/minecraft/core/particles/SimpleParticleType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors torchBlock
+R net/minecraft/util/KeyDispatchDataCodec codec ()Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs dispatchDataCodec
+S net/minecraft/util/ExtraCodecs COMPONENT Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs component
+C net/minecraft/world/item/Vanishable io/github/hugoneale/campat/runtime/legacy/LegacyApi$Vanishable
+A net/minecraft/world/entity/decoration/PaintingVariant (II)V (IILnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors paintingVariant
+# loot pool entries: Gson serializers and arrays became codecs and lists
+C net/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer$Serializer io/github/hugoneale/campat/runtime/legacy/LegacyLoot$EntrySerializer
+C net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer$Serializer io/github/hugoneale/campat/runtime/legacy/LegacyLoot$SingletonSerializer
+R net/minecraft/world/level/storage/loot/entries/LootPoolEntryType <init> (Lnet/minecraft/world/level/storage/loot/Serializer;)V io/github/hugoneale/campat/runtime/legacy/LegacyLoot entryType
+A net/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer ([Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition;)V (Ljava/util/List;)V io/github/hugoneale/campat/runtime/legacy/LegacyLoot conditionalArgs
+A net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer (II[Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition;[Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction;)V (IILjava/util/List;Ljava/util/List;)V io/github/hugoneale/campat/runtime/legacy/LegacyLoot singletonArgs
+S net/minecraft/world/level/storage/loot/entries/LootPoolEntryContainer conditions [Lnet/minecraft/world/level/storage/loot/predicates/LootItemCondition; io/github/hugoneale/campat/runtime/legacy/LegacyLoot entryConditionArray
+S net/minecraft/world/level/storage/loot/entries/LootPoolSingletonContainer functions [Lnet/minecraft/world/level/storage/loot/functions/LootItemFunction; io/github/hugoneale/campat/runtime/legacy/LegacyLoot singletonFunctions
+C net/minecraft/world/level/block/StemGrownBlock io/github/hugoneale/campat/runtime/legacy/LegacyBlocks$StemGrownBlock
+C net/minecraft/world/level/block/GlassBlock io/github/hugoneale/campat/runtime/legacy/LegacyBlocks$GlassBlock
+C net/minecraft/world/level/block/AbstractGlassBlock net/minecraft/world/level/block/TransparentBlock
+# items 1.21.1 builds from properties and components
+C net/minecraft/world/item/BowlFoodItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$BowlFoodItem
+C net/minecraft/world/item/SimpleFoiledItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$SimpleFoiledItem
+C net/minecraft/world/item/EnchantedGoldenAppleItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$EnchantedGoldenAppleItem
+C net/minecraft/world/item/DyeableArmorItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$DyeableArmorItem
