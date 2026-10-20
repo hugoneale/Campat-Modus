@@ -149,3 +149,14 @@ M net/neoforged/neoforge/common/conditions/OrCondition values ()Ljava/util/List;
 M net/neoforged/neoforge/common/conditions/NotCondition value ()Lnet/neoforged/neoforge/common/conditions/ICondition; child
 V net/neoforged/neoforge/common/conditions/ICondition test (Lnet/neoforged/neoforge/common/conditions/ICondition$IContext;)Z test (Lnet/neoforged/neoforge/common/conditions/ICondition$IContext;Lcom/mojang/serialization/DynamicOps;)Z o0,s:io/github/hugoneale/campat/runtime/bridge/EventBridge.conditionOps()Lcom/mojang/serialization/DynamicOps; n0
 C net/neoforged/neoforge/data/loading/DatagenModLoader net/minecraftforge/data/loading/DatagenModLoader
+# found by the boot matrix (round 3)
+R net/neoforged/neoforge/common/ModConfigSpec$BooleanValue getAsBoolean ()Z io/github/hugoneale/campat/runtime/bridge/ConfigBridge getAsBoolean
+R net/neoforged/neoforge/common/ModConfigSpec$BooleanValue isTrue ()Z io/github/hugoneale/campat/runtime/bridge/ConfigBridge isTrue
+R net/neoforged/neoforge/common/ModConfigSpec$BooleanValue isFalse ()Z io/github/hugoneale/campat/runtime/bridge/ConfigBridge isFalse
+R net/neoforged/neoforge/common/ModConfigSpec$IntValue getAsInt ()I io/github/hugoneale/campat/runtime/bridge/ConfigBridge getAsInt
+R net/neoforged/neoforge/common/ModConfigSpec$LongValue getAsLong ()J io/github/hugoneale/campat/runtime/bridge/ConfigBridge getAsLong
+R net/neoforged/neoforge/common/ModConfigSpec$DoubleValue getAsDouble ()D io/github/hugoneale/campat/runtime/bridge/ConfigBridge getAsDouble
+R net/neoforged/neoforge/event/AddPackFindersEvent addPackFinders (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/server/packs/PackType;Lnet/minecraft/network/chat/Component;Lnet/minecraft/server/packs/repository/PackSource;ZLnet/minecraft/server/packs/repository/Pack$Position;)V io/github/hugoneale/campat/runtime/bridge/EventBridge addPackFinders
+R net/neoforged/neoforge/event/AddPackFindersEvent isTrusted ()Z io/github/hugoneale/campat/runtime/bridge/EventBridge isTrusted
+R net/neoforged/fml/ModLoadingException <init> (Lnet/neoforged/fml/ModLoadingIssue;)V io/github/hugoneale/campat/runtime/bridge/EventBridge modLoadingException
+R net/neoforged/fml/ModLoadingException <init> (Ljava/util/List;)V io/github/hugoneale/campat/runtime/bridge/EventBridge modLoadingException

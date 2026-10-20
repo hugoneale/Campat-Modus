@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SERVER = ROOT / "build/envs/forge-server"
 CAMPAT = ROOT / "build/libs/campat-modus-0.1.0.jar"
-BUILTIN = {"minecraft", "neoforge", "forge", "java", "fml", "javafml"}
+BUILTIN = {"minecraft", "neoforge", "forge", "java", "fml", "javafml", "lowcodefml"}
 
 
 def mods_in(data: bytes):
@@ -18,9 +18,10 @@ def mods_in(data: bytes):
     ids, deps, client_only = set(), set(), False
     with zipfile.ZipFile(io.BytesIO(data)) as z:
         names = set(z.namelist())
-        if "META-INF/neoforge.mods.toml" in names:
+        toml = "META-INF/neoforge.mods.toml" if "META-INF/neoforge.mods.toml" in names else "META-INF/mods.toml" if "META-INF/mods.toml" in names else None
+        if toml:
             try:
-                t = tomllib.loads(z.read("META-INF/neoforge.mods.toml").decode("utf-8", "replace"))
+                t = tomllib.loads(z.read(toml).decode("utf-8", "replace"))
             except Exception:
                 t = {}
             for m in t.get("mods", []):

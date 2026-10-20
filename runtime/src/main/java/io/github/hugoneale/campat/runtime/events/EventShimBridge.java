@@ -30,6 +30,12 @@ public final class EventShimBridge {
             e -> bus.post(new RegisterBrewingRecipesEvent(e.getBuilder(), LegacyRegistries.access())));
         bus.addListener(EventPriority.HIGHEST, true, MobSpawnEvent.FinalizeSpawn.class, EventShimBridge::finalizeSpawn);
         PickupBridge.register();
+        bus.addListener(EventPriority.HIGHEST, false, net.minecraftforge.event.entity.player.PlayerSleepInBedEvent.class, e -> {
+            if (!(e.getEntity() instanceof net.minecraft.server.level.ServerPlayer player)) return;
+            var neo = new net.neoforged.neoforge.event.entity.player.CanPlayerSleepEvent(player, e.getPos(), e.getResultStatus());
+            bus.post(neo);
+            if (neo.getProblem() != e.getResultStatus()) e.setResult(neo.getProblem());
+        });
         DamageBridge.register();
         bus.addListener(EventPriority.HIGHEST, true, ShieldBlockEvent.class, EventShimBridge::shieldBlock);
         bus.addListener(EventPriority.HIGHEST, false, SleepingLocationCheckEvent.class, EventShimBridge::sleeping);

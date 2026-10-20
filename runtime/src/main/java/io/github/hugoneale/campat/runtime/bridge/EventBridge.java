@@ -108,4 +108,37 @@ public final class EventBridge {
     public static com.mojang.serialization.DynamicOps<?> conditionOps() {
         return com.mojang.serialization.JsonOps.INSTANCE;
     }
+
+    /** NeoForge's AddPackFindersEvent.addPackFinders: a built in pack from a folder inside a mod jar */
+    public static void addPackFinders(net.minecraftforge.event.AddPackFindersEvent event, net.minecraft.resources.ResourceLocation folder,
+                                      net.minecraft.server.packs.PackType type, net.minecraft.network.chat.Component title,
+                                      net.minecraft.server.packs.repository.PackSource source, boolean alwaysActive,
+                                      net.minecraft.server.packs.repository.Pack.Position position) {
+        if (event.getPackType() != type) return;
+        var modFile = net.minecraftforge.fml.ModList.get().getModFileById(folder.getNamespace());
+        if (modFile == null) return;
+        java.nio.file.Path path = modFile.getFile().findResource(folder.getPath());
+        if (path == null || !java.nio.file.Files.exists(path)) return;
+        String id = "mod/" + folder;
+        var info = new net.minecraft.server.packs.PackLocationInfo(id, title, source, java.util.Optional.empty());
+        var pack = net.minecraft.server.packs.repository.Pack.readMetaAndCreate(info,
+            new net.minecraft.server.packs.PathPackResources.PathResourcesSupplier(path), type,
+            new net.minecraft.server.packs.PackSelectionConfig(alwaysActive, position, false));
+        if (pack != null) event.addRepositorySource(consumer -> consumer.accept(pack));
+    }
+
+    public static boolean isTrusted(net.minecraftforge.event.AddPackFindersEvent event) {
+        return true;
+    }
+
+    // ---- NeoForge FML's ModLoadingException(ModLoadingIssue...) ----
+
+    public static net.minecraftforge.fml.ModLoadingException modLoadingException(net.neoforged.fml.ModLoadingIssue issue) {
+        return new net.minecraftforge.fml.ModLoadingException(issue.affectedMod(), net.minecraftforge.fml.ModLoadingStage.CONSTRUCT,
+            issue.translationKey(), issue.cause(), issue.translationArgs().toArray());
+    }
+
+    public static net.minecraftforge.fml.ModLoadingException modLoadingException(java.util.List<net.neoforged.fml.ModLoadingIssue> issues) {
+        return modLoadingException(issues.get(0));
+    }
 }

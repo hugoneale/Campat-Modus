@@ -52,4 +52,30 @@ public final class ConfigBridge {
     public static ForgeConfigSpec.ConfigValue defineListAllowEmpty(ForgeConfigSpec.Builder b, java.util.List path, java.util.function.Supplier def, java.util.function.Supplier newElement, java.util.function.Predicate validator) {
         return b.defineListAllowEmpty(path, def, validator);
     }
+
+    // ---- NeoForge's config values implement the primitive supplier interfaces ----
+
+    public static boolean getAsBoolean(ForgeConfigSpec.BooleanValue v) {
+        return v.get();
+    }
+
+    public static boolean isTrue(ForgeConfigSpec.BooleanValue v) {
+        return v.get();
+    }
+
+    public static boolean isFalse(ForgeConfigSpec.BooleanValue v) {
+        return !v.get();
+    }
+
+    public static int getAsInt(ForgeConfigSpec.IntValue v) {
+        return v.get();
+    }
+
+    public static long getAsLong(ForgeConfigSpec.LongValue v) {
+        return v.get();
+    }
+
+    public static double getAsDouble(ForgeConfigSpec.DoubleValue v) {
+        return v.get();
+    }
 }
