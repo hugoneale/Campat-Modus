@@ -481,3 +481,4 @@ R net/minecraftforge/client/event/ModelEvent$ModifyBakingResult getModels ()Ljav
 R net/minecraftforge/client/event/ModelEvent$BakingCompleted getModels ()Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModels
 W net/minecraft/client/resources/model/ModelResourceLocation net/minecraft/resources/ResourceLocation io/github/hugoneale/campat/runtime/legacy/client/LegacyModels asLocation
 S net/minecraft/client/resources/model/ModelBakery f_119230_ Lnet/minecraft/client/resources/model/ModelResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels missingModelLocation
+S net/minecraftforge/event/TickEvent$RenderTickEvent renderTickTime F io/github/hugoneale/campat/runtime/legacy/client/LegacyClient renderTickTime

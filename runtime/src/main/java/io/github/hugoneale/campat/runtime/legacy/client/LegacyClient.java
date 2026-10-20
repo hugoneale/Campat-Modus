@@ -41,4 +41,9 @@ public final class LegacyClient {
     public static void renderToBuffer(Model model, PoseStack pose, VertexConsumer consumer, int light, int overlay, float r, float g, float b, float a) {
         model.renderToBuffer(pose, consumer, light, overlay, argb(r, g, b, a));
     }
+
+    /** Forge 47's {@code RenderTickEvent.renderTickTime} */
+    public static float renderTickTime(net.minecraftforge.event.TickEvent.RenderTickEvent event) {
+        return event.getTimer().getGameTimeDeltaPartialTick(true);
+    }
 }
