@@ -36,6 +36,8 @@ public final class LegacyGen {
     private static final String INTERNAL = PKG.replace('.', '/') + "/" + CLS;
 
     private final Map<String, String> classRenames = new HashMap<>();
+    private final Map<String, String> srgNames = new HashMap<>();
+    private final java.util.TreeSet<String> accessLines = new java.util.TreeSet<>();
     private final Jars old, now;
     private final StringBuilder code = new StringBuilder();
     private final List<String> lines = new ArrayList<>();
@@ -125,6 +127,7 @@ public final class LegacyGen {
         for (String l : Files.readAllLines(Path.of(a[1]))) {
             String[] p = l.split(" ");
             if (p.length == 3 && p[0].equals("C")) g.classRenames.put(p[1], p[2]);
+            if (p.length == 3 && p[0].equals("N")) g.srgNames.put(p[1], p[2]);
         }
         for (String l : Files.readAllLines(Path.of(a[0]))) {
             String[] p = l.split("\t", -1);
@@ -132,8 +135,11 @@ public final class LegacyGen {
             g.member(p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
         }
         g.constructors();
+        g.packets();
         g.kindChanges();
+        g.accessWidening();
         g.write(Path.of(a[4]), Path.of(a[5]));
+        if (a.length > 6) g.writeAccess(Path.of(a[6]));
     }
 
     private String mapClass(String c) {
@@ -217,7 +223,16 @@ public final class LegacyGen {
         skipped.merge(why, 1, Integer::sum);
     }
 
+    /** classes emulated by hand written rules (tools/legacy/rules.txt); nothing is generated that mentions them */
+    private static final List<String> EMULATED = List.of("net/minecraft/world/item/ArmorMaterial");
+
+    private static boolean emulated(String... texts) {
+        for (String t : texts) for (String e : EMULATED) if (t.contains(e)) return true;
+        return false;
+    }
+
     void member(String srg, String owner120, String name120, String desc120, String owner121, String name121, String desc121) {
+        if (emulated(owner120, desc120)) { skip("emulated by hand"); return; }
         ClassNode nc = now.node(owner121);
         if (nc == null) { skip("owner gone"); return; }
         if (!linkable(desc120)) { skip("uses a class gone in 1.21.1"); return; }
@@ -234,9 +249,10 @@ public final class LegacyGen {
             String h = helperName(owner121, name121);
             String recv = st ? "" : src(Type.getObjectType(owner121)) + " self";
             code.append("    public static ").append(src(value)).append(' ').append(h).append('(').append(recv).append(") {\n")
-                .append("        return (").append(src(value)).append(") ").append(d[0] == 4 ? "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(" : "(Object) ")
+                .append("        return (").append(src(value)).append(") ").append(d[0] == 4 ? "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey("
+                    : value.getInternalName().equals("net/minecraft/core/DefaultedRegistry") ? "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.defaulted(" : "(Object) ")
                 .append(st ? src(Type.getObjectType(owner121)) : "self").append('.').append(name121)
-                .append(d[0] == 1 ? ".value();\n    }\n\n" : d[0] == 4 ? ");\n    }\n\n" : ";\n    }\n\n");
+                .append(d[0] == 1 ? ".value();\n    }\n\n" : d[0] == 4 || value.getInternalName().equals("net/minecraft/core/DefaultedRegistry") ? ");\n    }\n\n" : ";\n    }\n\n");
             lines.add("S " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
             return;
         }
@@ -253,6 +269,10 @@ public final class LegacyGen {
         Type[] oa = Type.getArgumentTypes(desc120), na = Type.getArgumentTypes(desc121);
         int[] args = holderDiff(oa, na);
         int[] ret = holderDiff(new Type[]{Type.getReturnType(desc120)}, new Type[]{Type.getReturnType(desc121)});
+        if (args == null && ret != null && !(nc.access == 0)) {
+            int[][] al = align(oa, na);
+            if (al != null) { alignedRedirect(srg, owner120, desc120, owner121, name121, desc121, mn, nc, al, ret); return; }
+        }
         if (args == null || ret == null) { skip("method: not a holder change"); return; }
         if (args.length == 0 && ret.length == 0) { skip("method: unchanged"); return; }
         boolean st = (mn.access & Opcodes.ACC_STATIC) != 0;
@@ -281,6 +301,39 @@ public final class LegacyGen {
         if (itf && !st) skip("(info) interface instance bridges");
     }
 
+    /** a public method whose parameters were reordered, dropped, converted or gained a registry access */
+    private void alignedRedirect(String srg, String owner120, String desc120, String owner121, String name121, String desc121, MethodNode mn, ClassNode nc, int[][] al, int[] ret) {
+        Type[] oa = Type.getArgumentTypes(desc120), na = Type.getArgumentTypes(desc121);
+        boolean st = (mn.access & Opcodes.ACC_STATIC) != 0;
+        String h = helperName(owner121, name121);
+        Type r = mapType(Type.getReturnType(desc120));
+        StringBuilder sig = new StringBuilder(), call = new StringBuilder();
+        if (!st) sig.append(src(Type.getObjectType(owner121))).append(" self");
+        for (int i = 0; i < oa.length; i++) {
+            if (sig.length() > 0) sig.append(", ");
+            sig.append(src(mapType(oa[i]))).append(" a").append(i);
+        }
+        for (int i = 0; i < al.length; i++) {
+            if (i > 0) call.append(", ");
+            String e = argExpr(al[i], na[i]);
+            // explicit casts keep overload resolution and generics happy
+            call.append(al[i][1] == 9 ? e : "(" + src(na[i]) + ") " + (na[i].getSort() == Type.OBJECT || na[i].getSort() == Type.ARRAY ? "(Object) " : "") + e);
+        }
+        String target = (st ? src(Type.getObjectType(owner121)) : "self") + "." + name121 + "(" + call + ")";
+        int rk = ret.length == 0 ? 0 : ret[0];
+        code.append("    @SuppressWarnings({\"unchecked\", \"rawtypes\"})\n    public static ").append(src(r)).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        ");
+        if (r.getSort() == Type.VOID) code.append(target).append(";\n");
+        else if (rk == 1) code.append("return (").append(src(r)).append(") ((net.minecraft.core.Holder) ").append(target).append(").value();\n");
+        else if (rk == 2) code.append("return (").append(src(r)).append(") LegacyHolders.wrap(").append(target).append(");\n");
+        else if (rk == 3) code.append("return (").append(src(r)).append(") (Object) ").append(target).append(";\n");
+        else code.append("return ").append(target).append(";\n");
+        code.append("    }\n\n");
+        lines.add("R " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
+        aligned++;
+    }
+
+    private int aligned;
+
     /** classes that became interfaces (DFU's DataResult, ...) or the other way round */
     void kindChanges() {
         int n = 0;
@@ -288,7 +341,7 @@ public final class LegacyGen {
             ClassNode oc = old.node(c), nc = now.node(mapClass(c));
             if (oc == null || nc == null) continue;
             boolean wasItf = (oc.access & Opcodes.ACC_INTERFACE) != 0, isItf = (nc.access & Opcodes.ACC_INTERFACE) != 0;
-            if (wasItf != isItf) {
+            if (wasItf != isItf && !emulated(c)) {
                 lines.add((isItf ? "I " : "K ") + c);
                 n++;
             }
@@ -303,28 +356,170 @@ public final class LegacyGen {
             ClassNode oc = old.node(c), nc = now.node(mapClass(c));
             if (oc == null || nc == null || (nc.access & Opcodes.ACC_PUBLIC) == 0) continue;
             for (MethodNode om : oc.methods) {
-                if (!om.name.equals("<init>") || (om.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
+                if (!om.name.equals("<init>") || (om.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0 || emulated(c, om.desc)) continue;
                 String mapped = Type.getMethodDescriptor(Type.VOID_TYPE, java.util.Arrays.stream(Type.getArgumentTypes(om.desc)).map(this::mapType).toArray(Type[]::new));
                 if (nc.methods.stream().anyMatch(m -> m.name.equals("<init>") && m.desc.equals(mapped))) continue;
+                MethodNode best = null;
+                int[][] bestAlign = null;
                 for (MethodNode nm : nc.methods) {
                     if (!nm.name.equals("<init>") || (nm.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
-                    int[] d = holderDiff(Type.getArgumentTypes(om.desc), Type.getArgumentTypes(nm.desc));
-                    if (d == null || d.length == 0 || !linkable(om.desc)) continue;
-                    Type[] oa = Type.getArgumentTypes(om.desc), na = Type.getArgumentTypes(nm.desc);
-                    String h = helperName(nc.name, "args");
-                    StringBuilder sig = new StringBuilder(), call = new StringBuilder();
-                    for (int i = 0; i < oa.length; i++) {
-                        if (i > 0) { sig.append(", "); call.append(", "); }
-                        sig.append(src(mapType(oa[i]))).append(" a").append(i);
-                        call.append(d[i] == 1 ? "LegacyHolders.wrap(a" + i + ")" : d[i] == 2 ? "a" + i + ".value()" : "a" + i);
+                    if (!linkable(om.desc)) continue;
+                    int[][] al = align(Type.getArgumentTypes(om.desc), Type.getArgumentTypes(nm.desc));
+                    if (al == null) continue;
+                    // prefer the candidate that keeps the most old arguments
+                    if (best == null || Type.getArgumentTypes(nm.desc).length > Type.getArgumentTypes(best.desc).length) {
+                        best = nm;
+                        bestAlign = al;
                     }
-                    code.append("    public static Object[] ").append(h).append('(').append(sig).append(") {\n        return new Object[]{")
-                        .append(call).append("};\n    }\n\n");
-                    lines.add("A " + c + " " + om.desc + " " + nm.desc + " " + INTERNAL + " " + h);
+                }
+                if (best == null) continue;
+                Type[] oa = Type.getArgumentTypes(om.desc);
+                String h = helperName(nc.name, "args");
+                StringBuilder sig = new StringBuilder(), call = new StringBuilder();
+                for (int i = 0; i < oa.length; i++) {
+                    if (i > 0) sig.append(", ");
+                    sig.append(src(mapType(oa[i]))).append(" a").append(i);
+                }
+                Type[] nbest = Type.getArgumentTypes(best.desc);
+                for (int i = 0; i < bestAlign.length; i++) {
+                    if (i > 0) call.append(", ");
+                    call.append(argExpr(bestAlign[i], nbest[i]));
+                }
+                code.append("    public static Object[] ").append(h).append('(').append(sig).append(") {\n        return new Object[]{")
+                    .append(call).append("};\n    }\n\n");
+                lines.add("A " + c + " " + om.desc + " " + best.desc + " " + INTERNAL + " " + h);
+            }
+        }
+    }
+
+    /**
+     * Members that were public in 1.20.1 and still exist (same name after SRG mapping, same descriptor
+     * after class renames) but are no longer public: an access transformer widens them again.
+     */
+    void accessWidening() {
+        for (String c : old.classNames()) {
+            if (!c.startsWith("net/minecraft/") && !c.startsWith("com/mojang/")) continue;
+            ClassNode oc = old.node(c), nc = now.node(mapClass(c));
+            if (oc == null || nc == null || (oc.access & Opcodes.ACC_PUBLIC) == 0) continue;
+            String dotted = nc.name.replace('/', '.');
+            if ((nc.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + dotted);
+            for (MethodNode om : oc.methods) {
+                if ((om.access & Opcodes.ACC_PUBLIC) == 0 || (om.access & Opcodes.ACC_SYNTHETIC) != 0 || om.name.equals("<clinit>")) continue;
+                String name = srgNames.getOrDefault(om.name, om.name);
+                String desc = mapDesc(om.desc);
+                for (MethodNode nm : nc.methods) {
+                    if (nm.name.equals(name) && nm.desc.equals(desc) && (nm.access & Opcodes.ACC_PUBLIC) == 0) {
+                        accessLines.add("public " + dotted + " " + name + desc);
+                    }
+                }
+            }
+            for (FieldNode of : oc.fields) {
+                if ((of.access & Opcodes.ACC_PUBLIC) == 0 || (of.access & Opcodes.ACC_SYNTHETIC) != 0) continue;
+                String name = srgNames.getOrDefault(of.name, of.name);
+                for (FieldNode nf : nc.fields) {
+                    if (nf.name.equals(name) && (nf.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + dotted + " " + name);
+                }
+            }
+        }
+        System.out.println(accessLines.size() + " access widenings");
+    }
+
+    private String mapDesc(String desc) {
+        Type t = Type.getMethodType(desc);
+        Type[] args = java.util.Arrays.stream(t.getArgumentTypes()).map(this::mapType).toArray(Type[]::new);
+        return Type.getMethodDescriptor(mapType(t.getReturnType()), args);
+    }
+
+    void writeAccess(Path at) throws java.io.IOException {
+        String begin = "# BEGIN Minecraft 1.20.1 public members (generated by tools LegacyGen)", end = "# END Minecraft 1.20.1 public members";
+        String text = Files.readString(at);
+        int b = text.indexOf(begin), e = text.indexOf(end);
+        if (b >= 0 && e > b) text = text.substring(0, b) + text.substring(e + end.length()).stripLeading();
+        if (!text.endsWith("\n")) text += "\n";
+        text += begin + "\n" + String.join("\n", accessLines) + "\n" + end + "\n";
+        Files.writeString(at, text);
+    }
+
+    /**
+     * Packets (and other network types) whose 1.20.1 {@code (FriendlyByteBuf)} constructor and
+     * {@code write(FriendlyByteBuf)} method became a private part of a {@code STREAM_CODEC}.
+     */
+    void packets() {
+        String fbb = "(Lnet/minecraft/network/FriendlyByteBuf;)V";
+        for (String c : old.classNames()) {
+            if (!c.startsWith("net/minecraft/")) continue;
+            ClassNode oc = old.node(c), nc = now.node(mapClass(c));
+            if (oc == null || nc == null || (nc.access & Opcodes.ACC_PUBLIC) == 0) continue;
+            boolean oldCtor = oc.methods.stream().anyMatch(m -> m.name.equals("<init>") && m.desc.equals(fbb) && (m.access & Opcodes.ACC_PUBLIC) != 0);
+            if (!oldCtor) continue;
+            boolean newCtor = nc.methods.stream().anyMatch(m -> m.name.equals("<init>") && m.desc.equals(fbb) && (m.access & Opcodes.ACC_PUBLIC) != 0);
+            if (newCtor) continue;
+            boolean codec = nc.fields.stream().anyMatch(f -> f.name.equals("STREAM_CODEC") && (f.access & Opcodes.ACC_STATIC) != 0 && (f.access & Opcodes.ACC_PUBLIC) != 0);
+            if (!codec) { skip("packet without public STREAM_CODEC"); continue; }
+            String owner = src(Type.getObjectType(nc.name));
+            String h = helperName(nc.name, "fromBuf");
+            code.append("    @SuppressWarnings({\"unchecked\", \"rawtypes\"})\n    public static ").append(owner).append(' ').append(h)
+                .append("(net.minecraft.network.FriendlyByteBuf buf) {\n        return (").append(owner).append(") ((net.minecraft.network.codec.StreamCodec) ")
+                .append(owner).append(".STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));\n    }\n\n");
+            lines.add("R " + c + " <init> " + fbb + " " + INTERNAL + " " + h);
+        }
+    }
+
+    /**
+     * Matches every new parameter to an old one of a compatible type (same, Holder wrap/unwrap, related
+     * reference type), in order; old parameters may be reordered or dropped (only primitives and
+     * booleans may be dropped). @return per new parameter {oldIndex, kind}, or null
+     */
+    /** new parameters that can be supplied when old callers do not have them */
+    private static final Map<String, String> SUPPLIERS = Map.of(
+        "Lnet/minecraft/core/HolderLookup$Provider;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()",
+        "Lnet/minecraft/core/RegistryAccess;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.access()");
+
+    private static String argExpr(int[] al, Type target) {
+        int j = al[0], k = al[1];
+        if (k == 9) return SUPPLIERS.get(target.getDescriptor());
+        return k == 1 ? "LegacyHolders.wrap(a" + j + ")" : k == 2 ? "a" + j + ".value()" : "a" + j;
+    }
+
+    private int[][] align(Type[] o, Type[] n) {
+        int[][] r = new int[n.length][];
+        boolean[] used = new boolean[o.length];
+        boolean changed = n.length != o.length;
+        for (int pass = 0; pass < 2; pass++) {
+            for (int i = 0; i < n.length; i++) {
+                if (r[i] != null) continue;
+                for (int j = 0; j < o.length; j++) {
+                    if (used[j]) continue;
+                    Type a = mapType(o[j]);
+                    int kind;
+                    if (a.equals(n[i])) kind = 0;
+                    else if (pass == 0) continue;
+                    else {
+                        int[] d = holderDiff(new Type[]{o[j]}, new Type[]{n[i]});
+                        // numeric conversions only for parameters that stay in place
+                        if (d == null || d.length == 0 || d[0] == 3 && a.getSort() != Type.OBJECT && j != i) continue;
+                        kind = d[0];
+                        if (kind == 4) continue;
+                    }
+                    r[i] = new int[]{j, kind};
+                    used[j] = true;
+                    if (j != i || kind != 0) changed = true;
                     break;
                 }
             }
         }
+        for (int i = 0; i < n.length; i++) {
+            if (r[i] != null) continue;
+            String supply = SUPPLIERS.get(n[i].getDescriptor());
+            if (supply == null) return null;
+            r[i] = new int[]{-1, 9};
+            changed = true;
+        }
+        for (int j = 0; j < o.length; j++) {
+            if (used[j]) continue;
+            if (o[j].getSort() == Type.OBJECT || o[j].getSort() == Type.ARRAY) return null; // never drop objects silently
+        }
+        return changed ? r : null;
     }
 
     private String helperName(String owner, String name) {
@@ -349,7 +544,7 @@ public final class LegacyGen {
             + "@SuppressWarnings({\"unchecked\", \"rawtypes\", \"deprecation\", \"removal\"})\npublic final class " + CLS + " {\n    private " + CLS + "() {}\n\n";
         Files.writeString(javaOut, header + code + "}\n");
         Files.writeString(linesOut, "# generated by tools LegacyGen (Holder bridges)\n" + String.join("\n", lines) + "\n");
-        System.out.println(lines.size() + " lines (" + evolutions + " evolutions); skipped " + skipped);
+        System.out.println(lines.size() + " lines (" + evolutions + " evolutions, " + aligned + " aligned redirects); skipped " + skipped);
     }
 
     /** class lookup over a platform's jars */

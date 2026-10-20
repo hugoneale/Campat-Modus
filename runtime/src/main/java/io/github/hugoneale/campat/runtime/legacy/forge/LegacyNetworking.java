@@ -82,5 +82,9 @@ public final class LegacyNetworking {
         public LegacySimpleChannel simpleChannel() {
             return new LegacySimpleChannel(name, version);
         }
+
+        public LegacyEventChannel eventNetworkChannel() {
+            return new LegacyEventChannel(name, version);
+        }
     }
 }

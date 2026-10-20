@@ -118,7 +118,8 @@ tasks.register('legacyGen', JavaExec) {
         envs.file('forge120_env.txt').asFile.absolutePath,
         envs.file('forge_env.txt').asFile.absolutePath,
         rootProject.file('runtime/src/main/java/io/github/hugoneale/campat/runtime/legacy/gen/HolderBridges.java').absolutePath,
-        rootProject.file('loader/src/main/resources/META-INF/campat/legacy/bridges.txt').absolutePath
+        rootProject.file('loader/src/main/resources/META-INF/campat/legacy/bridges.txt').absolutePath,
+        rootProject.file('runtime/src/main/resources/META-INF/accesstransformer.cfg').absolutePath
 }
 
 // ./gradlew :tools:kindDiff  NeoForge classes renamed to a Forge class of the other kind (class/interface)

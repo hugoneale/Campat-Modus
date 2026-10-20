@@ -84,6 +84,43 @@ public final class LegacyRegistries {
             new Class<?>[]{type}, h);
     }
 
+    private static final java.util.Map<Object, net.minecraft.core.DefaultedRegistry> DEFAULTED = new java.util.IdentityHashMap<>();
+
+    /** a built-in registry that was a DefaultedRegistry in 1.20.1 (potions, ...) but is a plain one now */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static synchronized net.minecraft.core.DefaultedRegistry defaulted(Object registry) {
+        if (registry instanceof net.minecraft.core.DefaultedRegistry d) return d;
+        net.minecraft.core.Registry r = (net.minecraft.core.Registry) registry;
+        return DEFAULTED.computeIfAbsent(r, k -> {
+            java.util.function.Supplier<net.minecraft.resources.ResourceLocation> defaultKey = () -> {
+                net.minecraft.resources.ResourceLocation empty = net.minecraft.resources.ResourceLocation.withDefaultNamespace("empty");
+                if (r.containsKey(empty)) return empty;
+                java.util.Iterator<net.minecraft.resources.ResourceLocation> it = r.keySet().iterator();
+                return it.hasNext() ? it.next() : empty;
+            };
+            java.lang.reflect.InvocationHandler h = (proxy, method, args) -> {
+                String n = method.getName();
+                if (n.equals("getDefaultKey") && method.getParameterCount() == 0) return defaultKey.get();
+                if (n.equals("equals") && method.getParameterCount() == 1) return proxy == args[0] || r == args[0];
+                if (n.equals("hashCode") && method.getParameterCount() == 0) return r.hashCode();
+                Object result;
+                try {
+                    result = method.invoke(r, args);
+                } catch (java.lang.reflect.InvocationTargetException e) {
+                    throw e.getCause();
+                }
+                // DefaultedRegistry: lookups of unknown ids answer the default entry
+                if (result == null && args != null && args.length == 1 && (n.equals("get") || n.equals("getKey"))) {
+                    if (n.equals("get") && args[0] instanceof net.minecraft.resources.ResourceLocation) return r.get(defaultKey.get());
+                    if (n.equals("getKey")) return defaultKey.get();
+                }
+                return result;
+            };
+            return (net.minecraft.core.DefaultedRegistry) java.lang.reflect.Proxy.newProxyInstance(LegacyRegistries.class.getClassLoader(),
+                new Class<?>[]{net.minecraft.core.DefaultedRegistry.class}, h);
+        });
+    }
+
     private static net.minecraft.core.Registry enchantments, bannerPatterns;
     private static net.minecraft.core.DefaultedRegistry paintings;
 

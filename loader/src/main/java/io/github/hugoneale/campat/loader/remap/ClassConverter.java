@@ -155,7 +155,7 @@ public final class ClassConverter {
             if (cn.methods.stream().anyMatch(m -> m.name.equals(d.name()) && m.desc.equals(d.desc()))) continue;
             // a mod superclass below the owner gets (or has) the implementation itself
             String sup = cn.superName;
-            if (sup != null && !hierarchy.isPlatform(sup) && hierarchy.isSubtypeOf(sup, d.owner())) continue;
+            if (sup != null && !sup.equals(d.owner()) && !hierarchy.isPlatform(sup) && hierarchy.knows(sup) && hierarchy.isSubtypeOf(sup, d.owner())) continue;
             // first platform ancestor: must be the owner itself or unrelated to it (then a mod class brings the interface)
             String p = sup;
             while (p != null && !hierarchy.isPlatform(p)) p = hierarchy.superClass(p);

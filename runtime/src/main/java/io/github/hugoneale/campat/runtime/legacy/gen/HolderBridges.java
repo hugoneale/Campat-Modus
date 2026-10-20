@@ -540,7 +540,7 @@ public final class HolderBridges {
     }
 
     public static net.minecraft.core.DefaultedRegistry BuiltInRegistries_POTION() {
-        return (net.minecraft.core.DefaultedRegistry) (Object) net.minecraft.core.registries.BuiltInRegistries.POTION;
+        return (net.minecraft.core.DefaultedRegistry) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.defaulted(net.minecraft.core.registries.BuiltInRegistries.POTION);
     }
 
     public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_MOUNT() {
@@ -1279,12 +1279,62 @@ public final class HolderBridges {
         return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_PYRAMID);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void BookModel_render(net.minecraft.client.model.BookModel self, com.mojang.blaze3d.vertex.PoseStack a0, com.mojang.blaze3d.vertex.VertexConsumer a1, int a2, int a3, float a4, float a5, float a6, float a7) throws Throwable {
+        self.render((com.mojang.blaze3d.vertex.PoseStack) (Object) a0, (com.mojang.blaze3d.vertex.VertexConsumer) (Object) a1, (int) a2, (int) a3, (int) a4);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ColorableAgeableListModel_setColor(net.minecraft.client.model.ColorableAgeableListModel self, float a0, float a1, float a2) throws Throwable {
+        self.setColor((int) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ModelPart_render(net.minecraft.client.model.geom.ModelPart self, com.mojang.blaze3d.vertex.PoseStack a0, com.mojang.blaze3d.vertex.VertexConsumer a1, int a2, int a3, float a4, float a5, float a6, float a7) throws Throwable {
+        self.render((com.mojang.blaze3d.vertex.PoseStack) (Object) a0, (com.mojang.blaze3d.vertex.VertexConsumer) (Object) a1, (int) a2, (int) a3, (int) a4);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static com.mojang.blaze3d.vertex.VertexConsumer ItemRenderer_getArmorFoilBuffer(net.minecraft.client.renderer.MultiBufferSource a0, net.minecraft.client.renderer.RenderType a1, boolean a2, boolean a3) throws Throwable {
+        return net.minecraft.client.renderer.entity.ItemRenderer.getArmorFoilBuffer((net.minecraft.client.renderer.MultiBufferSource) (Object) a0, (net.minecraft.client.renderer.RenderType) (Object) a1, (boolean) a2);
+    }
+
     public static java.util.function.Predicate ItemPredicateArgument_getItemPredicate(com.mojang.brigadier.context.CommandContext a0, java.lang.String a1) throws Throwable {
         return (java.util.function.Predicate) (Object) net.minecraft.commands.arguments.item.ItemPredicateArgument.getItemPredicate(a0, a1);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void StructureUtils_clearSpaceForStructure(net.minecraft.world.level.levelgen.structure.BoundingBox a0, int a1, net.minecraft.server.level.ServerLevel a2) throws Throwable {
+        net.minecraft.gametest.framework.StructureUtils.clearSpaceForStructure((net.minecraft.world.level.levelgen.structure.BoundingBox) (Object) a0, (net.minecraft.server.level.ServerLevel) (Object) a2);
+    }
+
     public static net.minecraft.nbt.CompoundTag NbtUtils_writeBlockPos(net.minecraft.core.BlockPos a0) throws Throwable {
         return (net.minecraft.nbt.CompoundTag) (Object) net.minecraft.nbt.NbtUtils.writeBlockPos(a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.chat.MutableComponent Component_Serializer_fromJson(com.google.gson.JsonElement a0) throws Throwable {
+        return net.minecraft.network.chat.Component.Serializer.fromJson((com.google.gson.JsonElement) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.chat.MutableComponent Component_Serializer_fromJson2(java.lang.String a0) throws Throwable {
+        return net.minecraft.network.chat.Component.Serializer.fromJson((java.lang.String) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static java.lang.String Component_Serializer_toJson(net.minecraft.network.chat.Component a0) throws Throwable {
+        return net.minecraft.network.chat.Component.Serializer.toJson((net.minecraft.network.chat.Component) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.chat.MutableComponent Component_Serializer_fromJsonLenient(java.lang.String a0) throws Throwable {
+        return net.minecraft.network.chat.Component.Serializer.fromJsonLenient((java.lang.String) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.server.bossevents.CustomBossEvent CustomBossEvent_load(net.minecraft.nbt.CompoundTag a0, net.minecraft.resources.ResourceLocation a1) throws Throwable {
+        return net.minecraft.server.bossevents.CustomBossEvent.load((net.minecraft.nbt.CompoundTag) (Object) a0, (net.minecraft.resources.ResourceLocation) (Object) a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
     }
 
     public static net.minecraft.world.item.Item GsonHelper_convertToItem(com.google.gson.JsonElement a0, java.lang.String a1) throws Throwable {
@@ -1297,6 +1347,11 @@ public final class HolderBridges {
 
     public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message(net.minecraft.server.level.ChunkHolder a0, java.lang.Runnable a1) throws Throwable {
         return net.minecraft.server.level.ChunkTaskPriorityQueueSorter.message((net.minecraft.server.level.GenerationChunkHolder) (Object) a0, a1);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void TraceCallbacks_onError(net.minecraft.commands.execution.TraceCallbacks self, int a0, java.lang.String a1) throws Throwable {
+        self.onError((java.lang.String) (Object) a1);
     }
 
     public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message2(net.minecraft.server.level.ChunkHolder a0, java.util.function.Function a1) throws Throwable {
@@ -1315,12 +1370,97 @@ public final class HolderBridges {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.goat.GoatAi.getTemptations();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.ForcedChunksSavedData ForcedChunksSavedData_load(net.minecraft.nbt.CompoundTag a0) throws Throwable {
+        return net.minecraft.world.level.ForcedChunksSavedData.load((net.minecraft.nbt.CompoundTag) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
     public static net.minecraft.world.level.block.state.BlockState CandleCakeBlock_byCandle(net.minecraft.world.level.block.Block a0) throws Throwable {
         return net.minecraft.world.level.block.CandleCakeBlock.byCandle((net.minecraft.world.level.block.CandleBlock) (Object) a0);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.block.entity.BlockEntity BlockEntity_loadStatic(net.minecraft.core.BlockPos a0, net.minecraft.world.level.block.state.BlockState a1, net.minecraft.nbt.CompoundTag a2) throws Throwable {
+        return net.minecraft.world.level.block.entity.BlockEntity.loadStatic((net.minecraft.core.BlockPos) (Object) a0, (net.minecraft.world.level.block.state.BlockState) (Object) a1, (net.minecraft.nbt.CompoundTag) (Object) a2, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.levelgen.structure.StructureFeatureIndexSavedData StructureFeatureIndexSavedData_load(net.minecraft.nbt.CompoundTag a0) throws Throwable {
+        return net.minecraft.world.level.levelgen.structure.StructureFeatureIndexSavedData.load((net.minecraft.nbt.CompoundTag) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.saveddata.maps.MapIndex MapIndex_load(net.minecraft.nbt.CompoundTag a0) throws Throwable {
+        return net.minecraft.world.level.saveddata.maps.MapIndex.load((net.minecraft.nbt.CompoundTag) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.saveddata.maps.MapItemSavedData MapItemSavedData_scaled(net.minecraft.world.level.saveddata.maps.MapItemSavedData self, int a0) throws Throwable {
+        return self.scaled();
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.saveddata.maps.MapItemSavedData MapItemSavedData_load(net.minecraft.nbt.CompoundTag a0) throws Throwable {
+        return net.minecraft.world.level.saveddata.maps.MapItemSavedData.load((net.minecraft.nbt.CompoundTag) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction.Builder EnchantWithLevelsFunction_enchantWithLevels(net.minecraft.world.level.storage.loot.providers.number.NumberProvider a0) throws Throwable {
+        return net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction.enchantWithLevels(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), (net.minecraft.world.level.storage.loot.providers.number.NumberProvider) (Object) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction.Builder EnchantedCountIncreaseFunction_lootingMultiplier(net.minecraft.world.level.storage.loot.providers.number.NumberProvider a0) throws Throwable {
+        return net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction.lootingMultiplier(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), (net.minecraft.world.level.storage.loot.providers.number.NumberProvider) (Object) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ColorableHierarchicalModel_setColor(net.minecraft.client.model.ColorableHierarchicalModel self, float a0, float a1, float a2) throws Throwable {
+        self.setColor((int) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ModelPart_Cube_compile(net.minecraft.client.model.geom.ModelPart.Cube self, com.mojang.blaze3d.vertex.PoseStack.Pose a0, com.mojang.blaze3d.vertex.VertexConsumer a1, int a2, int a3, float a4, float a5, float a6, float a7) throws Throwable {
+        self.compile((com.mojang.blaze3d.vertex.PoseStack.Pose) (Object) a0, (com.mojang.blaze3d.vertex.VertexConsumer) (Object) a1, (int) a2, (int) a3, (int) a4);
+    }
+
     public static com.mojang.blaze3d.shaders.EffectProgram EffectInstance_getOrCreate(net.minecraft.server.packs.resources.ResourceManager a0, com.mojang.blaze3d.shaders.Program.Type a1, java.lang.String a2) throws Throwable {
         return net.minecraft.client.renderer.EffectInstance.getOrCreate((net.minecraft.server.packs.resources.ResourceProvider) (Object) a0, a1, a2);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static java.util.Set PlayerMap_getAllPlayers(net.minecraft.server.level.PlayerMap self, long a0) throws Throwable {
+        return self.getAllPlayers();
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag BlockEntity_saveWithFullMetadata(net.minecraft.world.level.block.entity.BlockEntity self) throws Throwable {
+        return self.saveWithFullMetadata(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag BlockEntity_saveWithId(net.minecraft.world.level.block.entity.BlockEntity self) throws Throwable {
+        return self.saveWithId(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag BlockEntity_saveWithoutMetadata(net.minecraft.world.level.block.entity.BlockEntity self) throws Throwable {
+        return self.saveWithoutMetadata(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag ContainerHelper_saveAllItems(net.minecraft.nbt.CompoundTag a0, net.minecraft.core.NonNullList a1) throws Throwable {
+        return net.minecraft.world.ContainerHelper.saveAllItems((net.minecraft.nbt.CompoundTag) (Object) a0, (net.minecraft.core.NonNullList) (Object) a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag ContainerHelper_saveAllItems2(net.minecraft.nbt.CompoundTag a0, net.minecraft.core.NonNullList a1, boolean a2) throws Throwable {
+        return net.minecraft.world.ContainerHelper.saveAllItems((net.minecraft.nbt.CompoundTag) (Object) a0, (net.minecraft.core.NonNullList) (Object) a1, (boolean) a2, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ContainerHelper_loadAllItems(net.minecraft.nbt.CompoundTag a0, net.minecraft.core.NonNullList a1) throws Throwable {
+        net.minecraft.world.ContainerHelper.loadAllItems((net.minecraft.nbt.CompoundTag) (Object) a0, (net.minecraft.core.NonNullList) (Object) a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
     }
 
     public static boolean BrewedPotionTrigger_TriggerInstance_matches(net.minecraft.advancements.critereon.BrewedPotionTrigger.TriggerInstance self, net.minecraft.world.item.alchemy.Potion a0) throws Throwable {
@@ -1387,8 +1527,28 @@ public final class HolderBridges {
         return net.minecraft.world.Container.stillValidBlockEntity(a0, a1, (float) (Object) a2);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ConfirmLinkScreen_confirmLinkNow(java.lang.String a0, net.minecraft.client.gui.screens.Screen a1, boolean a2) throws Throwable {
+        net.minecraft.client.gui.screens.ConfirmLinkScreen.confirmLinkNow((net.minecraft.client.gui.screens.Screen) (Object) a1, (java.lang.String) (Object) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.client.gui.components.Button.OnPress ConfirmLinkScreen_confirmLink(java.lang.String a0, net.minecraft.client.gui.screens.Screen a1, boolean a2) throws Throwable {
+        return net.minecraft.client.gui.screens.ConfirmLinkScreen.confirmLink((net.minecraft.client.gui.screens.Screen) (Object) a1, (java.lang.String) (Object) a0);
+    }
+
     public static net.minecraft.world.item.crafting.Ingredient SnifferAi_getTemptations() throws Throwable {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.sniffer.SnifferAi.getTemptations();
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ServerPlayer_setKnownMovement(net.minecraft.server.level.ServerPlayer self, boolean a0, net.minecraft.world.phys.Vec3 a1) throws Throwable {
+        self.setKnownMovement((net.minecraft.world.phys.Vec3) (Object) a1);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void Player_disableShield(net.minecraft.world.entity.player.Player self, boolean a0) throws Throwable {
+        self.disableShield();
     }
 
     public static void ItemStack_enchant(net.minecraft.world.item.ItemStack self, net.minecraft.world.item.enchantment.Enchantment a0, int a1) throws Throwable {
@@ -1411,6 +1571,26 @@ public final class HolderBridges {
         return net.minecraft.world.item.enchantment.EnchantmentHelper.isEnchantmentCompatible(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1));
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void BeehiveBlockEntity_addOccupant(net.minecraft.world.level.block.entity.BeehiveBlockEntity self, net.minecraft.world.entity.Entity a0, boolean a1) throws Throwable {
+        self.addOccupant((net.minecraft.world.entity.Entity) (Object) a0);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void Entity_lerpTo(net.minecraft.world.entity.Entity self, double a0, double a1, double a2, float a3, float a4, int a5, boolean a6) throws Throwable {
+        self.lerpTo((double) a0, (double) a1, (double) a2, (float) a3, (float) a4, (int) a5);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static boolean BonemealableBlock_isValidBonemealTarget(net.minecraft.world.level.block.BonemealableBlock self, net.minecraft.world.level.LevelReader a0, net.minecraft.core.BlockPos a1, net.minecraft.world.level.block.state.BlockState a2, boolean a3) throws Throwable {
+        return self.isValidBonemealTarget((net.minecraft.world.level.LevelReader) (Object) a0, (net.minecraft.core.BlockPos) (Object) a1, (net.minecraft.world.level.block.state.BlockState) (Object) a2);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void Model_renderToBuffer(net.minecraft.client.model.Model self, com.mojang.blaze3d.vertex.PoseStack a0, com.mojang.blaze3d.vertex.VertexConsumer a1, int a2, int a3, float a4, float a5, float a6, float a7) throws Throwable {
+        self.renderToBuffer((com.mojang.blaze3d.vertex.PoseStack) (Object) a0, (com.mojang.blaze3d.vertex.VertexConsumer) (Object) a1, (int) a2, (int) a3, (int) a4);
+    }
+
     public static net.minecraft.commands.functions.CommandFunction CommandFunction_fromLines(net.minecraft.resources.ResourceLocation a0, com.mojang.brigadier.CommandDispatcher a1, net.minecraft.commands.CommandSourceStack a2, java.util.List a3) throws Throwable {
         return net.minecraft.commands.functions.CommandFunction.fromLines(a0, a1, (net.minecraft.commands.ExecutionCommandSource) (Object) a2, a3);
     }
@@ -1431,20 +1611,60 @@ public final class HolderBridges {
         return net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.addUniformBonusCount((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder EnchantRandomlyFunction_randomApplicableEnchantment() throws Throwable {
+        return (net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder) (Object) net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction.randomApplicableEnchantment(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
     public static net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder BonusLevelTableCondition_bonusLevelFlatChance(net.minecraft.world.item.enchantment.Enchantment a0, float[] a1) throws Throwable {
         return net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition.bonusLevelFlatChance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.storage.loot.predicates.LootItemCondition.Builder LootItemRandomChanceWithEnchantedBonusCondition_randomChanceAndLootingBoost(float a0, float a1) throws Throwable {
+        return net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), (float) a0, (float) a1);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void PlayerMap_removePlayer(net.minecraft.server.level.PlayerMap self, long a0, net.minecraft.server.level.ServerPlayer a1) throws Throwable {
+        self.removePlayer((net.minecraft.server.level.ServerPlayer) (Object) a1);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void PlayerMap_addPlayer(net.minecraft.server.level.PlayerMap self, long a0, net.minecraft.server.level.ServerPlayer a1, boolean a2) throws Throwable {
+        self.addPlayer((net.minecraft.server.level.ServerPlayer) (Object) a1, (boolean) a2);
     }
 
     public static net.minecraft.client.gui.components.MultiLineLabel MultiLineLabel_create(net.minecraft.client.gui.Font a0, net.minecraft.network.chat.FormattedText a1, int a2) throws Throwable {
         return net.minecraft.client.gui.components.MultiLineLabel.create(a0, (net.minecraft.network.chat.Component) (Object) a1, a2);
     }
 
+    public static Object[] RealmsCreateRealmScreen_args(com.mojang.realmsclient.dto.RealmsServer a0, com.mojang.realmsclient.RealmsMainScreen a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] WallHangingSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
     public static Object[] CreativeModeInventoryScreen_args(net.minecraft.world.entity.player.Player a0, net.minecraft.world.flag.FeatureFlagSet a1, boolean a2) {
         return new Object[]{a0, a1, a2};
     }
 
+    public static Object[] FocusableTextWidget_args(net.minecraft.client.gui.Font a0, net.minecraft.network.chat.Component a1, int a2) {
+        return new Object[]{a2, a1, a0};
+    }
+
+    public static Object[] EntityMinecartIdentifiersFix_args(com.mojang.datafixers.schemas.Schema a0, boolean a1) {
+        return new Object[]{a0};
+    }
+
     public static Object[] EnchantmentInstance_args(net.minecraft.world.item.enchantment.Enchantment a0, int a1) {
         return new Object[]{LegacyHolders.wrap(a0), a1};
+    }
+
+    public static Object[] VanillaChestLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
     }
 
     public static Object[] ClientboundRemoveMobEffectPacket_args(int a0, net.minecraft.world.effect.MobEffect a1) {
@@ -1463,6 +1683,14 @@ public final class HolderBridges {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4, a5};
     }
 
+    public static Object[] SocialInteractionsPlayerList_args(net.minecraft.client.gui.screens.social.SocialInteractionsScreen a0, net.minecraft.client.Minecraft a1, int a2, int a3, int a4, int a5, int a6) {
+        return new Object[]{a0, a1, a2, a3, a4, a5};
+    }
+
+    public static Object[] AxeItem_args(net.minecraft.world.item.Tier a0, float a1, float a2, net.minecraft.world.item.Item.Properties a3) {
+        return new Object[]{a0, a3};
+    }
+
     public static Object[] AttributeInstance_args(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) {
         return new Object[]{LegacyHolders.wrap(a0), a1};
     }
@@ -1471,16 +1699,56 @@ public final class HolderBridges {
         return new Object[]{a0};
     }
 
+    public static Object[] VanillaFishingLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] VanillaBlockLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] SignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
     public static Object[] ClientboundSetPlayerTeamPacket_Parameters_args(net.minecraft.network.FriendlyByteBuf a0) {
         return new Object[]{a0};
+    }
+
+    public static Object[] ButtonBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.BlockSetType a1, int a2, boolean a3) {
+        return new Object[]{a1, a2, a0};
+    }
+
+    public static Object[] FenceGateBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] VanillaGiftLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
     }
 
     public static Object[] VillagerTrades_SuspiciousStewForEmerald_args(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
+    public static Object[] CeilingHangingSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
     public static Object[] ClientboundUpdateAttributesPacket_AttributeSnapshot_args(net.minecraft.world.entity.ai.attributes.Attribute a0, double a1, java.util.Collection a2) {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2};
+    }
+
+    public static Object[] RealmsSelectFileToUploadScreen_args(long a0, int a1, com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen a2, java.lang.Runnable a3) {
+        return new Object[]{a3, a0, a1, a2};
+    }
+
+    public static Object[] RecipeManager_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] RecipeManager_args2(net.minecraftforge.common.crafting.conditions.ICondition.IContext a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), a0};
     }
 
     public static Object[] FlowerBlock_args(java.util.function.Supplier a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) {
@@ -1491,7 +1759,43 @@ public final class HolderBridges {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
+    public static Object[] ContainerObjectSelectionList_args(net.minecraft.client.Minecraft a0, int a1, int a2, int a3, int a4, int a5) {
+        return new Object[]{a0, a1, a2, a3, a4};
+    }
+
+    public static Object[] DoorBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.BlockSetType a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] RealmsUploadScreen_args(long a0, int a1, com.mojang.realmsclient.gui.screens.RealmsResetWorldScreen a2, net.minecraft.world.level.storage.LevelSummary a3, java.lang.Runnable a4) {
+        return new Object[]{a4, a0, a1, a2, a3};
+    }
+
+    public static Object[] MushroomBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.resources.ResourceKey a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] EntityZombieSplitFix_args(com.mojang.datafixers.schemas.Schema a0, boolean a1) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] VanillaPiglinBarterLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] DiggerItem_args(float a0, float a1, net.minecraft.world.item.Tier a2, net.minecraft.tags.TagKey a3, net.minecraft.world.item.Item.Properties a4) {
+        return new Object[]{a2, a3, a4};
+    }
+
+    public static Object[] AbstractHurtingProjectile_args(net.minecraft.world.entity.EntityType a0, double a1, double a2, double a3, double a4, double a5, double a6, net.minecraft.world.level.Level a7) {
+        return new Object[]{a0, a1, a2, a3, a7};
+    }
+
     public static Object[] TemptingSensor_args(net.minecraft.world.item.crafting.Ingredient a0) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] SignedMessageChain_DecodeException_args(net.minecraft.network.chat.Component a0, boolean a1) {
         return new Object[]{a0};
     }
 
@@ -1499,20 +1803,108 @@ public final class HolderBridges {
         return new Object[]{a0, a1, a2};
     }
 
+    public static Object[] HoeItem_args(net.minecraft.world.item.Tier a0, int a1, float a2, net.minecraft.world.item.Item.Properties a3) {
+        return new Object[]{a0, a3};
+    }
+
     public static Object[] PostChain_args(net.minecraft.client.renderer.texture.TextureManager a0, net.minecraft.server.packs.resources.ResourceManager a1, com.mojang.blaze3d.pipeline.RenderTarget a2, net.minecraft.resources.ResourceLocation a3) {
         return new Object[]{a0, a1, a2, a3};
+    }
+
+    public static Object[] KeyDispatchCodec_args(java.lang.String a0, com.mojang.serialization.Codec a1, java.util.function.Function a2, java.util.function.Function a3, java.util.function.Function a4, boolean a5) {
+        return new Object[]{a0, a1, a2, a3, a4};
+    }
+
+    public static Object[] ObjectSelectionList_args(net.minecraft.client.Minecraft a0, int a1, int a2, int a3, int a4, int a5) {
+        return new Object[]{a0, a1, a2, a3, a4};
     }
 
     public static Object[] GameEvent_ListenerInfo_args(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4};
     }
 
+    public static Object[] ShovelItem_args(net.minecraft.world.item.Tier a0, float a1, float a2, net.minecraft.world.item.Item.Properties a3) {
+        return new Object[]{a0, a3};
+    }
+
     public static Object[] EnchantmentPredicate_args(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) {
         return new Object[]{LegacyHolders.wrap(a0), a1};
     }
 
+    public static Object[] WorldSelectionList_args(net.minecraft.client.gui.screens.worldselection.SelectWorldScreen a0, net.minecraft.client.Minecraft a1, int a2, int a3, int a4, int a5, int a6, java.lang.String a7, net.minecraft.client.gui.screens.worldselection.WorldSelectionList a8) {
+        return new Object[]{a0, a1, a2, a3, a4, a5, a7, a8};
+    }
+
+    public static Object[] FollowOwnerGoal_args(net.minecraft.world.entity.TamableAnimal a0, double a1, float a2, float a3, boolean a4) {
+        return new Object[]{a0, a1, a2, a3};
+    }
+
+    public static Object[] EntityLootSubProvider_args(net.minecraft.world.flag.FeatureFlagSet a0) {
+        return new Object[]{a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] EntityLootSubProvider_args2(net.minecraft.world.flag.FeatureFlagSet a0, net.minecraft.world.flag.FeatureFlagSet a1) {
+        return new Object[]{a0, a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] DropExperienceBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.util.valueproviders.IntProvider a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] TextComponentTagVisitor_args(java.lang.String a0, int a1) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] ClientboundServerDataPacket_args(net.minecraft.network.chat.Component a0, java.util.Optional a1, boolean a2) {
+        return new Object[]{a0, a1};
+    }
+
+    public static Object[] BlockLootSubProvider_args(java.util.Set a0, net.minecraft.world.flag.FeatureFlagSet a1) {
+        return new Object[]{a0, a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] BlockLootSubProvider_args2(java.util.Set a0, net.minecraft.world.flag.FeatureFlagSet a1, java.util.Map a2) {
+        return new Object[]{a0, a1, a2, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] FungusBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.resources.ResourceKey a1, net.minecraft.world.level.block.Block a2) {
+        return new Object[]{a1, a2, a0};
+    }
+
+    public static Object[] VanillaEntityLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] WeightedPressurePlateBlock_args(int a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1, net.minecraft.world.level.block.state.properties.BlockSetType a2) {
+        return new Object[]{a0, a2, a1};
+    }
+
+    public static Object[] WallSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] DimensionDataStorage_args(java.io.File a0, com.mojang.datafixers.DataFixer a1) {
+        return new Object[]{a0, a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] AbstractArrow_args(net.minecraft.world.entity.EntityType a0, double a1, double a2, double a3, net.minecraft.world.level.Level a4) {
+        return new Object[]{a0, a4};
+    }
+
     public static Object[] EffectInstance_args(net.minecraft.server.packs.resources.ResourceManager a0, java.lang.String a1) {
         return new Object[]{a0, a1};
+    }
+
+    public static Object[] PickaxeItem_args(net.minecraft.world.item.Tier a0, int a1, float a2, net.minecraft.world.item.Item.Properties a3) {
+        return new Object[]{a0, a3};
+    }
+
+    public static Object[] StandingSignBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] SwordItem_args(net.minecraft.world.item.Tier a0, int a1, float a2, net.minecraft.world.item.Item.Properties a3) {
+        return new Object[]{a0, a3};
     }
 
     public static Object[] TripWireBlock_args(net.minecraft.world.level.block.TripWireHookBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) {
@@ -1527,8 +1919,44 @@ public final class HolderBridges {
         return new Object[]{a0, a1, a2, a3};
     }
 
+    public static Object[] VanillaArchaeologyLoot_args() {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] AnimalMakeLove_args(net.minecraft.world.entity.EntityType a0, float a1) {
+        return new Object[]{a0};
+    }
+
     public static Object[] ChorusFlowerBlock_args(net.minecraft.world.level.block.ChorusPlantBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) {
         return new Object[]{a0, a1};
+    }
+
+    public static Object[] AbstractSelectionList_args(net.minecraft.client.Minecraft a0, int a1, int a2, int a3, int a4, int a5) {
+        return new Object[]{a0, a1, a2, a3, a4};
+    }
+
+    public static Object[] VillagerTradeFix_args(com.mojang.datafixers.schemas.Schema a0, boolean a1) {
+        return new Object[]{a0};
+    }
+
+    public static Object[] RealmsObjectSelectionList_args(int a0, int a1, int a2, int a3, int a4) {
+        return new Object[]{a0, a1, a2, a3};
+    }
+
+    public static Object[] BrushableBlock_args(net.minecraft.world.level.block.Block a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1, net.minecraft.sounds.SoundEvent a2, net.minecraft.sounds.SoundEvent a3) {
+        return new Object[]{a0, a2, a3, a1};
+    }
+
+    public static Object[] TestFunction_args(java.lang.String a0, java.lang.String a1, java.lang.String a2, net.minecraft.world.level.block.Rotation a3, int a4, long a5, boolean a6, int a7, int a8, java.util.function.Consumer a9) {
+        return new Object[]{a0, a1, a2, a3, a4, a5, a6, a9};
+    }
+
+    public static Object[] WallTorchBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.core.particles.ParticleOptions a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] CommandBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, boolean a1) {
+        return new Object[]{a1, a0};
     }
 
     public static Object[] MobEffectInstance_args(net.minecraft.world.effect.MobEffect a0) {
@@ -1551,8 +1979,845 @@ public final class HolderBridges {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4, a5};
     }
 
-    public static Object[] ArmorItem_args(net.minecraft.world.item.ArmorMaterial a0, net.minecraft.world.item.ArmorItem.Type a1, net.minecraft.world.item.Item.Properties a2) {
-        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
+    public static Object[] ServerSelectionList_args(net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen a0, net.minecraft.client.Minecraft a1, int a2, int a3, int a4, int a5, int a6) {
+        return new Object[]{a0, a1, a2, a3, a4, a5};
+    }
+
+    public static Object[] TorchBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.core.particles.ParticleOptions a1) {
+        return new Object[]{a1, a0};
+    }
+
+    public static Object[] Fireball_args(net.minecraft.world.entity.EntityType a0, double a1, double a2, double a3, double a4, double a5, double a6, net.minecraft.world.level.Level a7) {
+        return new Object[]{a0, a7};
+    }
+
+    public static Object[] TrapDoorBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.BlockSetType a1) {
+        return new Object[]{a1, a0};
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ServerboundKeyPacket ServerboundKeyPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ServerboundKeyPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ServerboundKeyPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundContainerClosePacket ClientboundContainerClosePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundContainerClosePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundContainerClosePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket ClientboundContainerSetSlotPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ServerboundHelloPacket ServerboundHelloPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ServerboundHelloPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ServerboundHelloPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundRecipeBookSeenRecipePacket ServerboundRecipeBookSeenRecipePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundRecipeBookSeenRecipePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundRecipeBookSeenRecipePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ClientboundHelloPacket ClientboundHelloPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ClientboundHelloPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ClientboundHelloPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetDisplayObjectivePacket ClientboundSetDisplayObjectivePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetDisplayObjectivePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetDisplayObjectivePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ServerboundResourcePackPacket ServerboundResourcePackPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ServerboundResourcePackPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ServerboundResourcePackPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket ClientboundPlayerInfoUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetSimulationDistancePacket ClientboundSetSimulationDistancePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetSimulationDistancePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetSimulationDistancePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundJigsawGeneratePacket ServerboundJigsawGeneratePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundJigsawGeneratePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundJigsawGeneratePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ServerboundCustomQueryAnswerPacket ServerboundCustomQueryAnswerPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ServerboundCustomQueryAnswerPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ServerboundCustomQueryAnswerPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket ClientboundLoginCompressionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ClientboundLoginCompressionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ServerboundPongPacket ServerboundPongPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ServerboundPongPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ServerboundPongPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetStructureBlockPacket ServerboundSetStructureBlockPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetStructureBlockPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetStructureBlockPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket ClientboundRemoveMobEffectPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundStopSoundPacket ClientboundStopSoundPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundStopSoundPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundStopSoundPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundCommandSuggestionsPacket ClientboundCommandSuggestionsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundCommandSuggestionsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundCommandSuggestionsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundChangeDifficultyPacket ServerboundChangeDifficultyPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundChangeDifficultyPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundChangeDifficultyPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket ClientboundLevelChunkWithLightPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.status.ClientboundStatusResponsePacket ClientboundStatusResponsePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.status.ClientboundStatusResponsePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.status.ClientboundStatusResponsePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundCooldownPacket ClientboundCooldownPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundCooldownPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundCooldownPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ClientboundCustomQueryPacket ClientboundCustomQueryPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ClientboundCustomQueryPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ClientboundCustomQueryPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetCameraPacket ClientboundSetCameraPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetCameraPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetCameraPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundUseItemOnPacket ServerboundUseItemOnPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundUseItemOnPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundUseItemOnPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket ClientboundHorseScreenOpenPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundHorseScreenOpenPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetObjectivePacket ClientboundSetObjectivePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetObjectivePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetObjectivePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket ClientboundUpdateMobEffectPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetCommandBlockPacket ServerboundSetCommandBlockPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetCommandBlockPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetCommandBlockPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundTeleportToEntityPacket ServerboundTeleportToEntityPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundTeleportToEntityPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundTeleportToEntityPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetScorePacket ClientboundSetScorePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetScorePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetScorePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket ClientboundTeleportEntityPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundChatCommandPacket ServerboundChatCommandPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundChatCommandPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundChatCommandPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundRespawnPacket ClientboundRespawnPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundRespawnPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundRespawnPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerCombatKillPacket ClientboundPlayerCombatKillPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerCombatKillPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerCombatKillPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundAnimatePacket ClientboundAnimatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundAnimatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundAnimatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.configuration.ClientboundUpdateEnabledFeaturesPacket ClientboundUpdateEnabledFeaturesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.configuration.ClientboundUpdateEnabledFeaturesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.configuration.ClientboundUpdateEnabledFeaturesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundRecipePacket ClientboundRecipePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundRecipePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundRecipePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket ClientboundSetTitlesAnimationPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPlayerAbilitiesPacket ServerboundPlayerAbilitiesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPlayerAbilitiesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPlayerAbilitiesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundMerchantOffersPacket ClientboundMerchantOffersPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundMerchantOffersPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundMerchantOffersPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundInteractPacket ServerboundInteractPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundInteractPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundInteractPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundOpenBookPacket ClientboundOpenBookPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundOpenBookPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundOpenBookPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBossEventPacket ClientboundBossEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBossEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBossEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket ServerboundPlaceRecipePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPlaceRecipePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket ClientboundContainerSetContentPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket ServerboundCustomPayloadPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetBeaconPacket ServerboundSetBeaconPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetBeaconPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetBeaconPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundCommandsPacket ClientboundCommandsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundCommandsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundCommandsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundEntityEventPacket ClientboundEntityEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundEntityEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundEntityEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundRecipeBookChangeSettingsPacket ServerboundRecipeBookChangeSettingsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundRecipeBookChangeSettingsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundRecipeBookChangeSettingsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket ClientboundLevelParticlesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetCarriedItemPacket ServerboundSetCarriedItemPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetCarriedItemPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetCarriedItemPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBlockChangedAckPacket ClientboundBlockChangedAckPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBlockChangedAckPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBlockChangedAckPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetJigsawBlockPacket ServerboundSetJigsawBlockPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetJigsawBlockPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetJigsawBlockPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundClearTitlesPacket ClientboundClearTitlesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundClearTitlesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundClearTitlesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPlayerInputPacket ServerboundPlayerInputPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPlayerInputPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPlayerInputPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundAddEntityPacket ClientboundAddEntityPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundAddEntityPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundAddEntityPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket ClientboundSetActionBarTextPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket ClientboundBlockEntityDataPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundLoginPacket ClientboundLoginPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundLoginPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundLoginPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundDeleteChatPacket ClientboundDeleteChatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundDeleteChatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundDeleteChatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundDamageEventPacket ClientboundDamageEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundDamageEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundDamageEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket ClientboundForgetLevelChunkPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ClientboundKeepAlivePacket ClientboundKeepAlivePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ClientboundKeepAlivePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ClientboundKeepAlivePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket ClientboundPlayerInfoRemovePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetBorderLerpSizePacket ClientboundSetBorderLerpSizePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetBorderLerpSizePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetBorderLerpSizePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket ClientboundSetTitleTextPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundLightUpdatePacket ClientboundLightUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundLightUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundLightUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket ServerboundLockDifficultyPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundLockDifficultyPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundTakeItemEntityPacket ClientboundTakeItemEntityPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundTakeItemEntityPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundTakeItemEntityPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ClientboundDisconnectPacket ClientboundDisconnectPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ClientboundDisconnectPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ClientboundDisconnectPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundMapItemDataPacket ClientboundMapItemDataPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundMapItemDataPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundMapItemDataPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPickItemPacket ServerboundPickItemPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPickItemPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPickItemPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundLevelEventPacket ClientboundLevelEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundLevelEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundLevelEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket ClientboundUpdateAdvancementsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundUpdateAdvancementsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerAbilitiesPacket ClientboundPlayerAbilitiesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerAbilitiesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerAbilitiesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket ClientboundBlockDestructionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket ClientboundSetEntityMotionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ServerboundClientInformationPacket ServerboundClientInformationPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ServerboundClientInformationPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ServerboundClientInformationPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket ClientboundPlayerCombatEnterPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerCombatEnterPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket ClientboundSetEntityLinkPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundContainerSetDataPacket ClientboundContainerSetDataPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundContainerSetDataPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundContainerSetDataPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerLookAtPacket ClientboundPlayerLookAtPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerLookAtPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerLookAtPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket ClientboundSetCarriedItemPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetCarriedItemPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundChatPacket ServerboundChatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundChatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundChatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket ServerboundAcceptTeleportationPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundAcceptTeleportationPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket ClientboundLoginDisconnectPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ClientboundLoginDisconnectPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSelectTradePacket ServerboundSelectTradePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSelectTradePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSelectTradePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.ping.ClientboundPongResponsePacket ClientboundPongResponsePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.ping.ClientboundPongResponsePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.ping.ClientboundPongResponsePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundUseItemPacket ServerboundUseItemPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundUseItemPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundUseItemPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket ClientboundSetEquipmentPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetEquipmentPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundAddExperienceOrbPacket ClientboundAddExperienceOrbPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundAddExperienceOrbPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundAddExperienceOrbPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket ServerboundCommandSuggestionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundCommandSuggestionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetChunkCacheCenterPacket ClientboundSetChunkCacheCenterPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetChunkCacheCenterPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetChunkCacheCenterPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket ClientboundBlockUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundHurtAnimationPacket ClientboundHurtAnimationPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundHurtAnimationPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundHurtAnimationPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetHealthPacket ClientboundSetHealthPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetHealthPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetHealthPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetCreativeModeSlotPacket ServerboundSetCreativeModeSlotPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetCreativeModeSlotPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetCreativeModeSlotPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket ClientboundSetEntityDataPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundExplodePacket ClientboundExplodePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundExplodePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundExplodePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlaceGhostRecipePacket ClientboundPlaceGhostRecipePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlaceGhostRecipePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlaceGhostRecipePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundServerDataPacket ClientboundServerDataPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundServerDataPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundServerDataPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetPassengersPacket ClientboundSetPassengersPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetPassengersPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetPassengersPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPlayerActionPacket ServerboundPlayerActionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPlayerActionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPlayerActionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundOpenScreenPacket ClientboundOpenScreenPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundOpenScreenPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundOpenScreenPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket ClientboundSetPlayerTeamPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundContainerClosePacket ServerboundContainerClosePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundContainerClosePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundContainerClosePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetBorderCenterPacket ClientboundSetBorderCenterPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetBorderCenterPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetBorderCenterPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSoundEntityPacket ClientboundSoundEntityPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSoundEntityPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSoundEntityPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket ClientboundRemoveEntitiesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSeenAdvancementsPacket ServerboundSeenAdvancementsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSeenAdvancementsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSeenAdvancementsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPaddleBoatPacket ServerboundPaddleBoatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPaddleBoatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPaddleBoatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSignUpdatePacket ServerboundSignUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSignUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSignUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket ServerboundMoveVehiclePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetTimePacket ClientboundSetTimePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetTimePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetTimePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket ClientboundUpdateAttributesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerCombatEndPacket ClientboundPlayerCombatEndPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerCombatEndPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerCombatEndPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundChangeDifficultyPacket ClientboundChangeDifficultyPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundChangeDifficultyPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundChangeDifficultyPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.login.ClientboundGameProfilePacket ClientboundGameProfilePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.login.ClientboundGameProfilePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.login.ClientboundGameProfilePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundRenameItemPacket ServerboundRenameItemPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundRenameItemPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundRenameItemPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundOpenSignEditorPacket ClientboundOpenSignEditorPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundOpenSignEditorPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundOpenSignEditorPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket ClientboundSetBorderWarningDelayPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetBorderWarningDelayPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetDefaultSpawnPositionPacket ClientboundSetDefaultSpawnPositionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetDefaultSpawnPositionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetDefaultSpawnPositionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetExperiencePacket ClientboundSetExperiencePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetExperiencePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetExperiencePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.ping.ServerboundPingRequestPacket ServerboundPingRequestPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.ping.ServerboundPingRequestPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.ping.ServerboundPingRequestPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket ServerboundChatSessionUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundChatSessionUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSetCommandMinecartPacket ServerboundSetCommandMinecartPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSetCommandMinecartPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSetCommandMinecartPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundTabListPacket ClientboundTabListPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundTabListPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundTabListPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundClientCommandPacket ServerboundClientCommandPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundClientCommandPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundClientCommandPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundInitializeBorderPacket ClientboundInitializeBorderPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundInitializeBorderPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundInitializeBorderPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSectionBlocksUpdatePacket ClientboundSectionBlocksUpdatePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSectionBlocksUpdatePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSectionBlocksUpdatePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSystemChatPacket ClientboundSystemChatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSystemChatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSystemChatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundTagQueryPacket ClientboundTagQueryPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundTagQueryPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundTagQueryPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundBlockEntityTagQueryPacket ServerboundBlockEntityTagQueryPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundBlockEntityTagQueryPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundBlockEntityTagQueryPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket ClientboundResourcePackPushPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetBorderSizePacket ClientboundSetBorderSizePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetBorderSizePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetBorderSizePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundChunksBiomesPacket ClientboundChunksBiomesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundChunksBiomesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundChunksBiomesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ServerboundKeepAlivePacket ServerboundKeepAlivePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ServerboundKeepAlivePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ServerboundKeepAlivePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket ServerboundPlayerCommandPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundPlayerCommandPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSelectAdvancementsTabPacket ClientboundSelectAdvancementsTabPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSelectAdvancementsTabPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSelectAdvancementsTabPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket ClientboundUpdateRecipesPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundContainerClickPacket ServerboundContainerClickPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundContainerClickPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundContainerClickPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundSwingPacket ServerboundSwingPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundSwingPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundSwingPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundChatAckPacket ServerboundChatAckPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundChatAckPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundChatAckPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.status.ServerboundStatusRequestPacket ServerboundStatusRequestPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.status.ServerboundStatusRequestPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.status.ServerboundStatusRequestPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket ClientboundDisguisedChatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundDisguisedChatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket ClientboundSetChunkCacheRadiusPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundCustomChatCompletionsPacket ClientboundCustomChatCompletionsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundCustomChatCompletionsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundCustomChatCompletionsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.handshake.ClientIntentionPacket ClientIntentionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.handshake.ClientIntentionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.handshake.ClientIntentionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundAwardStatsPacket ClientboundAwardStatsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundAwardStatsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundAwardStatsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket ClientboundSetSubtitleTextPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundContainerButtonClickPacket ServerboundContainerButtonClickPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundContainerButtonClickPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundContainerButtonClickPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundEditBookPacket ServerboundEditBookPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundEditBookPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundEditBookPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundMoveVehiclePacket ClientboundMoveVehiclePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundMoveVehiclePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundMoveVehiclePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSoundPacket ClientboundSoundPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSoundPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSoundPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket ClientboundPlayerPositionPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ClientboundUpdateTagsPacket ClientboundUpdateTagsPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ClientboundUpdateTagsPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ClientboundUpdateTagsPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.common.ClientboundPingPacket ClientboundPingPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.common.ClientboundPingPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.common.ClientboundPingPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundSetBorderWarningDistancePacket ClientboundSetBorderWarningDistancePacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundSetBorderWarningDistancePacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundSetBorderWarningDistancePacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundRotateHeadPacket ClientboundRotateHeadPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundRotateHeadPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundRotateHeadPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundPlayerChatPacket ClientboundPlayerChatPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundPlayerChatPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundPlayerChatPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundBlockEventPacket ClientboundBlockEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundBlockEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundBlockEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ServerboundEntityTagQueryPacket ServerboundEntityTagQueryPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ServerboundEntityTagQueryPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ServerboundEntityTagQueryPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.network.protocol.game.ClientboundGameEventPacket ClientboundGameEventPacket_fromBuf(net.minecraft.network.FriendlyByteBuf buf) {
+        return (net.minecraft.network.protocol.game.ClientboundGameEventPacket) ((net.minecraft.network.codec.StreamCodec) net.minecraft.network.protocol.game.ClientboundGameEventPacket.STREAM_CODEC).decode(io.github.hugoneale.campat.runtime.legacy.LegacyBufs.registryBuf(buf));
     }
 
 }

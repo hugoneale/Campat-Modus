@@ -213,3 +213,86 @@ V net/minecraft/client/gui/components/events/GuiEventListener mouseScrolled (DDD
 V net/minecraft/client/gui/screens/Screen renderBackground (Lnet/minecraft/client/gui/GuiGraphics;)V renderBackground (Lnet/minecraft/client/gui/GuiGraphics;IIF)V super:o0,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroI()I,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroI()I,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroF()F n0
 R net/minecraft/client/gui/screens/Screen renderBackground (Lnet/minecraft/client/gui/GuiGraphics;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi noop (Ljava/lang/Object;Ljava/lang/Object;)V
 R net/minecraft/client/gui/components/EditBox tick ()V io/github/hugoneale/campat/runtime/legacy/LegacyApi noop (Ljava/lang/Object;)V
+
+# ---- armor materials: interface -> registered record ----
+C net/minecraft/world/item/ArmorMaterial io/github/hugoneale/campat/runtime/legacy/LegacyArmorMaterial
+C net/minecraft/world/item/ArmorMaterials io/github/hugoneale/campat/runtime/legacy/LegacyArmorMaterials
+M net/minecraft/world/item/ArmorMaterial getDurabilityForType (Lnet/minecraft/world/item/ArmorItem$Type;)I getDurabilityForType
+M net/minecraft/world/item/ArmorMaterial getDefenseForType (Lnet/minecraft/world/item/ArmorItem$Type;)I getDefenseForType
+M net/minecraft/world/item/ArmorMaterial getEnchantmentValue ()I getEnchantmentValue
+M net/minecraft/world/item/ArmorMaterial getEquipSound ()Lnet/minecraft/sounds/SoundEvent; getEquipSound
+M net/minecraft/world/item/ArmorMaterial getRepairIngredient ()Lnet/minecraft/world/item/crafting/Ingredient; getRepairIngredient
+M net/minecraft/world/item/ArmorMaterial getName ()Ljava/lang/String; getName
+M net/minecraft/world/item/ArmorMaterial getToughness ()F getToughness
+M net/minecraft/world/item/ArmorMaterial getKnockbackResistance ()F getKnockbackResistance
+A net/minecraft/world/item/ArmorItem (Lnet/minecraft/world/item/ArmorMaterial;Lnet/minecraft/world/item/ArmorItem$Type;Lnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/core/Holder;Lnet/minecraft/world/item/ArmorItem$Type;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyArmor armorItemArgs
+R net/minecraft/world/item/ArmorItem getMaterial ()Lnet/minecraft/world/item/ArmorMaterial; io/github/hugoneale/campat/runtime/legacy/LegacyArmor getMaterial
+
+# ---- tools: damage / speed became attributes, mining level became a tag ----
+A net/minecraft/world/item/SwordItem (Lnet/minecraft/world/item/Tier;IFLnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools sword
+A net/minecraft/world/item/PickaxeItem (Lnet/minecraft/world/item/Tier;IFLnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools diggerInt
+A net/minecraft/world/item/HoeItem (Lnet/minecraft/world/item/Tier;IFLnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools diggerInt
+A net/minecraft/world/item/AxeItem (Lnet/minecraft/world/item/Tier;FFLnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools diggerFloat
+A net/minecraft/world/item/ShovelItem (Lnet/minecraft/world/item/Tier;FFLnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools diggerFloat
+A net/minecraft/world/item/DiggerItem (FFLnet/minecraft/world/item/Tier;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/Item$Properties;)V (Lnet/minecraft/world/item/Tier;Lnet/minecraft/tags/TagKey;Lnet/minecraft/world/item/Item$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTools digger
+M net/minecraft/world/item/Tier getLevel ()I getLevel
+D net/minecraft/world/item/Tier getIncorrectBlocksForDrops ()Lnet/minecraft/tags/TagKey; io/github/hugoneale/campat/runtime/legacy/LegacyTools incorrectBlocksForDrops
+
+# ---- advancement triggers: JSON instances -> codecs, registration by id ----
+C net/minecraft/advancements/critereon/AbstractCriterionTriggerInstance io/github/hugoneale/campat/runtime/legacy/LegacyCriterionInstance
+C net/minecraft/advancements/critereon/DeserializationContext io/github/hugoneale/campat/runtime/legacy/LegacyCriteria$DeserializationContext
+C net/minecraft/advancements/critereon/SerializationContext io/github/hugoneale/campat/runtime/legacy/LegacyCriteria$SerializationContext
+M net/minecraft/advancements/critereon/AbstractCriterionTriggerInstance getCriterion ()Lnet/minecraft/resources/ResourceLocation; getCriterion
+M net/minecraft/advancements/critereon/AbstractCriterionTriggerInstance getPlayerPredicate ()Lnet/minecraft/advancements/critereon/ContextAwarePredicate; getPlayerPredicate
+M net/minecraft/advancements/critereon/AbstractCriterionTriggerInstance serializeToJson (Lnet/minecraft/advancements/critereon/SerializationContext;)Lcom/google/gson/JsonObject; serializeToJson
+M net/minecraft/advancements/CriterionTrigger getId ()Lnet/minecraft/resources/ResourceLocation; getId
+M net/minecraft/advancements/critereon/SimpleCriterionTrigger createInstance (Lcom/google/gson/JsonObject;Lnet/minecraft/advancements/critereon/ContextAwarePredicate;Lnet/minecraft/advancements/critereon/DeserializationContext;)Lnet/minecraft/advancements/critereon/AbstractCriterionTriggerInstance; createInstance
+R net/minecraft/advancements/critereon/SimpleCriterionTrigger createInstance (Lcom/google/gson/JsonObject;Lnet/minecraft/advancements/critereon/DeserializationContext;)Lnet/minecraft/advancements/critereon/AbstractCriterionTriggerInstance; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria createInstance
+D net/minecraft/advancements/critereon/SimpleCriterionTrigger codec ()Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria codec
+R net/minecraft/advancements/CriteriaTriggers register (Lnet/minecraft/advancements/CriterionTrigger;)Lnet/minecraft/advancements/CriterionTrigger; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria register
+S net/minecraft/advancements/critereon/ContextAwarePredicate ANY Lnet/minecraft/advancements/critereon/ContextAwarePredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria anyPlayer
+S net/minecraft/advancements/critereon/ItemPredicate ANY Lnet/minecraft/advancements/critereon/ItemPredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria anyItem
+S net/minecraft/advancements/critereon/LocationPredicate ANY Lnet/minecraft/advancements/critereon/LocationPredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria anyLocation
+R net/minecraft/advancements/critereon/EntityPredicate fromJson (Lcom/google/gson/JsonObject;Ljava/lang/String;Lnet/minecraft/advancements/critereon/DeserializationContext;)Lnet/minecraft/advancements/critereon/ContextAwarePredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria entityPredicate
+R net/minecraft/advancements/critereon/ItemPredicate fromJson (Lcom/google/gson/JsonElement;)Lnet/minecraft/advancements/critereon/ItemPredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria itemPredicate
+R net/minecraft/advancements/critereon/ItemPredicate fromJsonArray (Lcom/google/gson/JsonElement;)[Lnet/minecraft/advancements/critereon/ItemPredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria itemPredicates
+R net/minecraft/advancements/critereon/LocationPredicate fromJson (Lcom/google/gson/JsonElement;)Lnet/minecraft/advancements/critereon/LocationPredicate; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria locationPredicate
+R net/minecraft/advancements/critereon/MinMaxBounds$Ints fromJson (Lcom/google/gson/JsonElement;)Lnet/minecraft/advancements/critereon/MinMaxBounds$Ints; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria ints
+R net/minecraft/advancements/critereon/MinMaxBounds$Doubles fromJson (Lcom/google/gson/JsonElement;)Lnet/minecraft/advancements/critereon/MinMaxBounds$Doubles; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria doubles
+R net/minecraft/advancements/critereon/ItemPredicate serializeToJson ()Lcom/google/gson/JsonElement; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria serialize (Ljava/lang/Object;)Lcom/google/gson/JsonElement;
+R net/minecraft/advancements/critereon/LocationPredicate serializeToJson ()Lcom/google/gson/JsonElement; io/github/hugoneale/campat/runtime/legacy/LegacyCriteria serialize (Ljava/lang/Object;)Lcom/google/gson/JsonElement;
+
+# ---- chat component Gson adapter ----
+C net/minecraft/network/chat/Component$Serializer io/github/hugoneale/campat/runtime/legacy/LegacyComponentSerializer
+M net/minecraft/network/chat/Component$Serializer toJsonTree (Lnet/minecraft/network/chat/Component;)Lcom/google/gson/JsonElement; toJsonTree
+M net/minecraft/network/chat/Component$Serializer toStableJson (Lnet/minecraft/network/chat/Component;)Ljava/lang/String; toStableJson
+M net/minecraft/network/chat/Component$Serializer fromJsonLenient (Ljava/lang/String;)Lnet/minecraft/network/chat/MutableComponent; fromJsonLenient
+
+# ---- blocks ----
+C net/minecraft/world/level/block/PressurePlateBlock$Sensitivity io/github/hugoneale/campat/runtime/legacy/LegacyPressurePlates$Sensitivity
+A net/minecraft/world/level/block/PressurePlateBlock (Lnet/minecraft/world/level/block/PressurePlateBlock$Sensitivity;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyPressurePlates pressurePlate
+
+# ---- packets ----
+R net/minecraft/network/protocol/Packet write (Lnet/minecraft/network/FriendlyByteBuf;)V io/github/hugoneale/campat/runtime/legacy/LegacyPackets write
+
+# ---- Forge 47 event network channels ----
+C net/minecraftforge/network/NetworkEvent io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworkEvent
+C net/minecraftforge/network/event/EventNetworkChannel io/github/hugoneale/campat/runtime/legacy/forge/LegacyEventChannel
+C net/minecraftforge/network/ICustomPacket io/github/hugoneale/campat/runtime/legacy/forge/LegacyEventChannel$LegacyCustomPacket
+K net/minecraftforge/network/ICustomPacket
+R net/minecraftforge/network/NetworkRegistry newEventChannel (Lnet/minecraft/resources/ResourceLocation;Ljava/util/function/Supplier;Ljava/util/function/Predicate;Ljava/util/function/Predicate;)Lnet/minecraftforge/network/event/EventNetworkChannel; io/github/hugoneale/campat/runtime/legacy/forge/LegacyEventChannel newEventChannel
+R net/minecraftforge/network/NetworkDirection buildPacket (Lorg/apache/commons/lang3/tuple/Pair;Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraftforge/network/ICustomPacket; io/github/hugoneale/campat/runtime/legacy/forge/LegacyEventChannel buildPacket
+
+# ---- Forge 47 crafting: JSON serializers -> codecs, moved ingredient classes ----
+C net/minecraftforge/common/crafting/CraftingHelper io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting
+C net/minecraftforge/common/crafting/IIngredientSerializer io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting$IngredientSerializer
+C net/minecraftforge/common/crafting/conditions/IConditionSerializer io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting$ConditionSerializer
+C net/minecraftforge/common/crafting/AbstractIngredient net/minecraftforge/common/crafting/ingredients/AbstractIngredient
+C net/minecraftforge/common/crafting/CompoundIngredient net/minecraftforge/common/crafting/ingredients/CompoundIngredient
+C net/minecraftforge/common/crafting/DifferenceIngredient net/minecraftforge/common/crafting/ingredients/DifferenceIngredient
+C net/minecraftforge/common/crafting/IntersectionIngredient net/minecraftforge/common/crafting/ingredients/IntersectionIngredient
+C net/minecraftforge/common/crafting/PartialNBTIngredient net/minecraftforge/common/crafting/ingredients/PartialNBTIngredient
+C net/minecraftforge/common/crafting/StrictNBTIngredient net/minecraftforge/common/crafting/ingredients/StrictNBTIngredient
+D net/minecraftforge/common/crafting/AbstractIngredient serializer ()Lnet/minecraftforge/common/crafting/ingredients/IIngredientSerializer; io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting serializer
+D net/minecraftforge/common/crafting/conditions/ICondition test (Lnet/minecraftforge/common/crafting/conditions/ICondition$IContext;Lcom/mojang/serialization/DynamicOps;)Z io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting test
+D net/minecraftforge/common/crafting/conditions/ICondition codec ()Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting conditionCodec
