@@ -46,6 +46,13 @@ public class LegacyBufferBuilder extends BufferBuilder {
         return current != null;
     }
 
+    /** hands the started 1.21 builder to its new owner (the particle engine builds and draws it) */
+    BufferBuilder takeCurrent() {
+        BufferBuilder b = current;
+        current = null;
+        return b;
+    }
+
     MeshData legacyEnd() {
         BufferBuilder b = current;
         current = null;

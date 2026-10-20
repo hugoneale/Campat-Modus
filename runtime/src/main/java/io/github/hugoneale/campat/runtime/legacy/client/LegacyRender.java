@@ -71,6 +71,36 @@ public final class LegacyRender {
         return MultiBufferSource.immediate(buffer);
     }
 
+    // ---- particle render types: 1.20.1 began the builder it was given ----
+
+    private static final Map<Class<?>, java.lang.reflect.Method> PARTICLE_BEGIN = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** ParticleRenderType.begin(tesselator, textures) of a 1.20.1 render type */
+    public static BufferBuilder particleBegin(net.minecraft.client.particle.ParticleRenderType type, Tesselator tesselator, net.minecraft.client.renderer.texture.TextureManager textures) {
+        java.lang.reflect.Method old = PARTICLE_BEGIN.computeIfAbsent(type.getClass(), c -> {
+            for (Class<?> k = c; k != null; k = k.getSuperclass()) {
+                try {
+                    java.lang.reflect.Method m = k.getDeclaredMethod("begin", BufferBuilder.class, net.minecraft.client.renderer.texture.TextureManager.class);
+                    m.setAccessible(true);
+                    return m;
+                } catch (NoSuchMethodException ignored) {
+                }
+            }
+            return null;
+        });
+        if (old == null) return null;
+        LegacyBufferBuilder legacy = (LegacyBufferBuilder) getBuilder(tesselator);
+        try {
+            old.invoke(type, legacy, textures);
+        } catch (java.lang.reflect.InvocationTargetException e) {
+            if (e.getCause() instanceof RuntimeException r) throw r;
+            throw new IllegalStateException(e.getCause());
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+        return legacy.takeCurrent();
+    }
+
     // ---- VertexConsumer methods without a 1.21 counterpart ----
 
     public static void endVertex(VertexConsumer consumer) {
