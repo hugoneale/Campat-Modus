@@ -106,6 +106,30 @@ public final class LegacyGame {
         return PotionContents.getColor(effects);
     }
 
+    /** Potion.getName(prefix): the potion's id path after the prefix */
+    public static String potionName(Potion potion, String prefix) {
+        ResourceLocation id = net.minecraft.core.registries.BuiltInRegistries.POTION.getKey(potion);
+        return prefix + (id == null ? "empty" : id.getPath());
+    }
+
+    // ---- cauldron interactions: Map fields became InteractionMap records ----
+
+    public static Map cauldronEmpty() {
+        return net.minecraft.core.cauldron.CauldronInteraction.EMPTY.map();
+    }
+
+    public static Map cauldronWater() {
+        return net.minecraft.core.cauldron.CauldronInteraction.WATER.map();
+    }
+
+    public static Map cauldronLava() {
+        return net.minecraft.core.cauldron.CauldronInteraction.LAVA.map();
+    }
+
+    public static Map cauldronPowderSnow() {
+        return net.minecraft.core.cauldron.CauldronInteraction.POWDER_SNOW.map();
+    }
+
     // ---- loot: LootDataManager -> reloadable registries ----
 
     /** the 1.20.1 {@code LootDataManager}, answering from the server's reloadable registries */

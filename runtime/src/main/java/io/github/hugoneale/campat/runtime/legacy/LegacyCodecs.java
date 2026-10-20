@@ -25,6 +25,50 @@ public final class LegacyCodecs {
         return MAP_CODECS.computeIfAbsent(codec, c -> MapCodec.assumeMapUnsafe(c));
     }
 
+    // ---- DFU 6 -> 8: dispatch functions answered Codecs, now MapCodecs (same erasure) ----
+
+    private static java.util.function.Function toMap(java.util.function.Function f) {
+        return k -> {
+            Object c = f.apply(k);
+            return c instanceof MapCodec ? c : mapCodec((Codec) c);
+        };
+    }
+
+    public static Codec dispatch(Codec self, java.util.function.Function type, java.util.function.Function codec) {
+        return self.dispatch(type, toMap(codec));
+    }
+
+    public static Codec dispatch(Codec self, String key, java.util.function.Function type, java.util.function.Function codec) {
+        return self.dispatch(key, type, toMap(codec));
+    }
+
+    public static Codec dispatchStable(Codec self, java.util.function.Function type, java.util.function.Function codec) {
+        return self.dispatchStable(type, toMap(codec));
+    }
+
+    public static MapCodec dispatchMap(Codec self, java.util.function.Function type, java.util.function.Function codec) {
+        return self.dispatchMap(type, toMap(codec));
+    }
+
+    public static MapCodec dispatchMap(Codec self, String key, java.util.function.Function type, java.util.function.Function codec) {
+        return self.dispatchMap(key, type, toMap(codec));
+    }
+
+    public static Codec partialDispatch(Codec self, String key, java.util.function.Function type, java.util.function.Function codec) {
+        java.util.function.Function f = k -> ((com.mojang.serialization.DataResult) codec.apply(k)).map(c -> c instanceof MapCodec ? c : mapCodec((Codec) c));
+        return self.partialDispatch(key, type, f);
+    }
+
+    /** ExtraCodecs.validate(codec, check) */
+    public static Codec validate(Codec codec, java.util.function.Function check) {
+        return codec.validate(check);
+    }
+
+    /** ExtraCodecs.lazyInitializedCodec(supplier) */
+    public static Codec lazyInitializedCodec(Supplier supplier) {
+        return Codec.lazyInitialized(supplier);
+    }
+
     /** constructors that took a Codec and take a MapCodec now */
     public static Object[] typeArgs(Codec codec) {
         return new Object[]{mapCodec(codec)};

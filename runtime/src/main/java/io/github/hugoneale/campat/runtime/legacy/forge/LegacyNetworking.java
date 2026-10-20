@@ -55,6 +55,17 @@ public final class LegacyNetworking {
         return getReceptionSide(direction) == LogicalSide.SERVER ? LogicalSide.CLIENT : LogicalSide.SERVER;
     }
 
+    /** NetworkDirection was an enum in Forge 47 */
+    public static NetworkDirection[] directions() {
+        return new NetworkDirection[]{NetworkDirection.PLAY_TO_SERVER, NetworkDirection.PLAY_TO_CLIENT, NetworkDirection.LOGIN_TO_SERVER, NetworkDirection.LOGIN_TO_CLIENT};
+    }
+
+    public static int ordinal(NetworkDirection d) {
+        NetworkDirection[] all = directions();
+        for (int i = 0; i < all.length; i++) if (all[i] == d) return i;
+        return all.length;
+    }
+
     /** Forge 47's {@code NetworkRegistry.ChannelBuilder} */
     public static final class ChannelBuilder {
         private ResourceLocation name;

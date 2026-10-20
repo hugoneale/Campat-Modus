@@ -59,7 +59,9 @@ public final class LegacyGen {
         "net/minecraft/core/HolderLookup$Provider", RT + "LegacyRegistries.provider()Lnet/minecraft/core/HolderLookup$Provider;",
         "net/minecraft/core/RegistryAccess", RT + "LegacyRegistries.access()Lnet/minecraft/core/RegistryAccess;",
         "net/minecraft/world/InteractionHand", RT + "Evo.mainHand()Lnet/minecraft/world/InteractionHand;",
-        "net/minecraft/commands/CommandBuildContext", RT + "LegacyRegistries.buildContext()Lnet/minecraft/commands/CommandBuildContext;");
+        "net/minecraft/commands/CommandBuildContext", RT + "LegacyRegistries.buildContext()Lnet/minecraft/commands/CommandBuildContext;",
+        "net/minecraft/core/RegistrationInfo", RT + "LegacyApi.builtInRegistration()Lnet/minecraft/core/RegistrationInfo;",
+        "java/util/Optional", RT + "LegacyApi.emptyOptional()Ljava/util/Optional;");
 
     /** conversion helper from {@code a} to {@code b}, "" when equal, null when not convertible */
     private String conv(Type a, Type b) {
@@ -546,7 +548,9 @@ public final class LegacyGen {
     private static final Map<String, String> SUPPLIERS = Map.of(
         "Lnet/minecraft/core/HolderLookup$Provider;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()",
         "Lnet/minecraft/core/RegistryAccess;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.access()",
-        "Lnet/minecraft/commands/CommandBuildContext;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext()");
+        "Lnet/minecraft/commands/CommandBuildContext;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext()",
+        "Lnet/minecraft/core/RegistrationInfo;", "net.minecraft.core.RegistrationInfo.BUILT_IN",
+        "Ljava/util/Optional;", "java.util.Optional.empty()");
 
     private static String argExpr(int[] al, Type target) {
         int j = al[0], k = al[1];
@@ -592,7 +596,7 @@ public final class LegacyGen {
         }
         for (int j = 0; j < o.length; j++) {
             if (used[j]) continue;
-            if (o[j].getSort() == Type.OBJECT || o[j].getSort() == Type.ARRAY) return null; // never drop objects silently
+            if ((o[j].getSort() == Type.OBJECT || o[j].getSort() == Type.ARRAY) && !o[j].getDescriptor().equals("Lcom/mojang/serialization/Lifecycle;")) return null; // never drop objects silently
         }
         return changed ? r : null;
     }

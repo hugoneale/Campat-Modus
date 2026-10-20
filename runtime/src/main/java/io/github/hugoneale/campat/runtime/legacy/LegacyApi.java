@@ -212,6 +212,14 @@ public final class LegacyApi {
         return new AABB(Vec3.atLowerCornerOf(a), Vec3.atLowerCornerOf(b));
     }
 
+    public static net.minecraft.core.RegistrationInfo builtInRegistration() {
+        return net.minecraft.core.RegistrationInfo.BUILT_IN;
+    }
+
+    public static java.util.Optional emptyOptional() {
+        return java.util.Optional.empty();
+    }
+
     public static int zeroI() {
         return 0;
     }

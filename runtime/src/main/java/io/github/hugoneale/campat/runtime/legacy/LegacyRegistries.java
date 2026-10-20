@@ -89,6 +89,45 @@ public final class LegacyRegistries {
             new Class<?>[]{type}, h);
     }
 
+    private static net.minecraft.core.Registry root;
+
+    /** BuiltInRegistries.REGISTRY still answering for the registries that became data driven */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static synchronized net.minecraft.core.Registry rootRegistry() {
+        if (root != null) return root;
+        net.minecraft.core.Registry real = net.minecraft.core.registries.BuiltInRegistries.REGISTRY;
+        java.util.function.Function<net.minecraft.resources.ResourceLocation, Object> moved = rl -> {
+            if (rl == null) return null;
+            if (rl.equals(net.minecraft.core.registries.Registries.ENCHANTMENT.location())) return enchantmentRegistry();
+            if (rl.equals(net.minecraft.core.registries.Registries.BANNER_PATTERN.location())) return bannerPatternRegistry();
+            if (rl.equals(net.minecraft.core.registries.Registries.PAINTING_VARIANT.location())) return paintingVariantRegistry();
+            return null;
+        };
+        java.lang.reflect.InvocationHandler h = (proxy, method, args) -> {
+            Object r;
+            try {
+                r = method.invoke(real, args);
+            } catch (java.lang.reflect.InvocationTargetException e) {
+                throw e.getCause();
+            }
+            String n = method.getName();
+            if (args != null && args.length == 1 && (r == null || r instanceof java.util.Optional<?> o && o.isEmpty())) {
+                net.minecraft.resources.ResourceLocation rl = args[0] instanceof net.minecraft.resources.ResourceLocation l ? l
+                    : args[0] instanceof net.minecraft.resources.ResourceKey<?> k ? k.location() : null;
+                Object m = (n.equals("get") || n.equals("getOptional") || n.equals("getOrThrow")) ? moved.apply(rl) : null;
+                if (m != null) return r instanceof java.util.Optional<?> ? java.util.Optional.of(m) : m;
+            }
+            if (n.equals("containsKey") && args != null && args.length == 1 && Boolean.FALSE.equals(r)) {
+                net.minecraft.resources.ResourceLocation rl = args[0] instanceof net.minecraft.resources.ResourceLocation l ? l
+                    : args[0] instanceof net.minecraft.resources.ResourceKey<?> k ? k.location() : null;
+                return moved.apply(rl) != null;
+            }
+            return r;
+        };
+        root = (net.minecraft.core.Registry) java.lang.reflect.Proxy.newProxyInstance(LegacyRegistries.class.getClassLoader(), new Class<?>[]{net.minecraft.core.Registry.class}, h);
+        return root;
+    }
+
     private static final java.util.Map<Object, net.minecraft.core.DefaultedRegistry> DEFAULTED = new java.util.IdentityHashMap<>();
 
     /** a built-in registry that was a DefaultedRegistry in 1.20.1 (potions, ...) but is a plain one now */

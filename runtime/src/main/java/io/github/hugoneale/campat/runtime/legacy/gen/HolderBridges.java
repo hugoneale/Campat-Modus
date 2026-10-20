@@ -1555,6 +1555,11 @@ public final class HolderBridges {
         self.write((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.core.Holder.Reference WritableRegistry_register(net.minecraft.core.WritableRegistry self, net.minecraft.resources.ResourceKey a0, java.lang.Object a1, com.mojang.serialization.Lifecycle a2) throws Throwable {
+        return self.register((net.minecraft.resources.ResourceKey) (Object) a0, (java.lang.Object) (Object) a1, net.minecraft.core.RegistrationInfo.BUILT_IN);
+    }
+
     public static java.util.Optional TrimPatterns_getFromTemplate(net.minecraft.core.RegistryAccess a0, net.minecraft.world.item.ItemStack a1) throws Throwable {
         return net.minecraft.world.item.armortrim.TrimPatterns.getFromTemplate((net.minecraft.core.HolderLookup.Provider) (Object) a0, a1);
     }
@@ -1800,12 +1805,20 @@ public final class HolderBridges {
         return new Object[]{a1, a2, a0};
     }
 
+    public static Object[] PackMetadataSection_args(net.minecraft.network.chat.Component a0, int a1) {
+        return new Object[]{a0, a1, java.util.Optional.empty()};
+    }
+
     public static Object[] FenceGateBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.world.level.block.state.properties.WoodType a1) {
         return new Object[]{a1, a0};
     }
 
     public static Object[] VanillaGiftLoot_args() {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()};
+    }
+
+    public static Object[] SinglePoolElement_args(com.mojang.datafixers.util.Either a0, net.minecraft.core.Holder a1, net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection a2) {
+        return new Object[]{a0, a1, a2, java.util.Optional.empty()};
     }
 
     public static Object[] VillagerTrades_SuspiciousStewForEmerald_args(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
@@ -2048,6 +2061,10 @@ public final class HolderBridges {
         return new Object[]{a1, a0};
     }
 
+    public static Object[] SpawnData_args(net.minecraft.nbt.CompoundTag a0, java.util.Optional a1) {
+        return new Object[]{a0, a1, java.util.Optional.empty()};
+    }
+
     public static Object[] MobEffectInstance_args(net.minecraft.world.effect.MobEffect a0) {
         return new Object[]{LegacyHolders.wrap(a0)};
     }
@@ -2074,6 +2091,10 @@ public final class HolderBridges {
 
     public static Object[] TorchBlock_args(net.minecraft.world.level.block.state.BlockBehaviour.Properties a0, net.minecraft.core.particles.ParticleOptions a1) {
         return new Object[]{a1, a0};
+    }
+
+    public static Object[] LegacySinglePoolElement_args(com.mojang.datafixers.util.Either a0, net.minecraft.core.Holder a1, net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool.Projection a2) {
+        return new Object[]{a0, a1, a2, java.util.Optional.empty()};
     }
 
     public static Object[] Fireball_args(net.minecraft.world.entity.EntityType a0, double a1, double a2, double a3, double a4, double a5, double a6, net.minecraft.world.level.Level a7) {
