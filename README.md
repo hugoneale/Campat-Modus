@@ -20,7 +20,7 @@ What happened to each jar is written to `.campat/report.txt`.
 | Forge 1.20.1 API layer | the same test mod and headless client, plus 14 popular 1.20.1 client/common mods (AppleSkin, Jade, Patchouli, GeckoLib, Tom's Storage, Cloth Config, ...) converted and loaded together; the client joins the server | 65/65 checks pass, world joined |
 | Real Forge 1.20.1 mods | 138 most downloaded Forge 1.20.1 mods, each booted on a Forge 1.21.1 dedicated server with its dependencies; static link audit of all 207 jars (`./gradlew :tools:audit`) | **108 of 138 boot**; see below |
 
-Latest server boot matrix (NeoForge 1.21.1 corpus): **BOOT_OK of 197 boot**, see the end of this
+Latest server boot matrix (NeoForge 1.21.1 corpus): **148 of 198 boot**, see the end of this
 file for what the rest need.
 
 ## How it works
