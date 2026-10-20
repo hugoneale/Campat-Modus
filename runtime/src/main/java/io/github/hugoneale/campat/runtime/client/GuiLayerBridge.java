@@ -80,7 +80,10 @@ public final class GuiLayerBridge {
             placeholders.put(r, p);
             layers.add(new GuiLayerManager.NamedLayer(r, p));
         }
-        NeoLifecycle.postModBus(new RegisterGuiLayersEvent(layers));
+        RegisterGuiLayersEvent neoEvent = new RegisterGuiLayersEvent(layers);
+        NeoLifecycle.postModBus(neoEvent);
+        // Forge 47 (Minecraft 1.20.1) mods register overlays through the same layer list
+        NeoLifecycle.postModBus(new io.github.hugoneale.campat.runtime.legacy.client.LegacyGuiOverlays.RegisterGuiOverlaysEvent(neoEvent));
 
         ResourceLocation previousVanilla = null;
         List<GuiLayerManager.NamedLayer> leading = new ArrayList<>();
@@ -139,8 +142,10 @@ public final class GuiLayerBridge {
         @Override
         public void render(net.minecraft.client.gui.GuiGraphics g, net.minecraft.client.DeltaTracker t) {
             if (MinecraftForge.EVENT_BUS.post(new RenderGuiLayerEvent.Pre(g, t, name, inner))) return;
+            if (io.github.hugoneale.campat.runtime.legacy.client.LegacyGuiOverlays.fireLayerPre(name, g, t)) return;
             inner.render(g, t);
             MinecraftForge.EVENT_BUS.post(new RenderGuiLayerEvent.Post(g, t, name, inner));
+            io.github.hugoneale.campat.runtime.legacy.client.LegacyGuiOverlays.fireLayerPost(name, g, t);
         }
     }
 }

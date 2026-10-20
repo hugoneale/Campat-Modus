@@ -16,10 +16,12 @@ public abstract class GuiRenderEventMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void campat$pre(GuiGraphics graphics, DeltaTracker delta, CallbackInfo ci) {
         if (MinecraftForge.EVENT_BUS.post(new RenderGuiEvent.Pre(graphics, delta))) ci.cancel();
+        else if (io.github.hugoneale.campat.runtime.legacy.client.LegacyGuiOverlays.firePre(graphics, delta)) ci.cancel();
     }
 
     @Inject(method = "render", at = @At("RETURN"))
     private void campat$post(GuiGraphics graphics, DeltaTracker delta, CallbackInfo ci) {
         MinecraftForge.EVENT_BUS.post(new RenderGuiEvent.Post(graphics, delta));
+        io.github.hugoneale.campat.runtime.legacy.client.LegacyGuiOverlays.firePost(graphics, delta);
     }
 }

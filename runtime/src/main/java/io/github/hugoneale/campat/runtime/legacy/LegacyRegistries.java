@@ -32,6 +32,11 @@ public final class LegacyRegistries {
         return access();
     }
 
+    /** a command build context for 1.20.1 argument types that did not need one */
+    public static net.minecraft.commands.CommandBuildContext buildContext() {
+        return net.minecraft.commands.Commands.createValidationContext(provider());
+    }
+
     public static RegistryAccess builtin() {
         if (builtin == null) builtin = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
         return builtin;

@@ -56,7 +56,8 @@ public final class LegacyGen {
     private static final Map<String, String> SUPPLY = Map.of(
         "net/minecraft/core/HolderLookup$Provider", RT + "LegacyRegistries.provider()Lnet/minecraft/core/HolderLookup$Provider;",
         "net/minecraft/core/RegistryAccess", RT + "LegacyRegistries.access()Lnet/minecraft/core/RegistryAccess;",
-        "net/minecraft/world/InteractionHand", RT + "Evo.mainHand()Lnet/minecraft/world/InteractionHand;");
+        "net/minecraft/world/InteractionHand", RT + "Evo.mainHand()Lnet/minecraft/world/InteractionHand;",
+        "net/minecraft/commands/CommandBuildContext", RT + "LegacyRegistries.buildContext()Lnet/minecraft/commands/CommandBuildContext;");
 
     /** conversion helper from {@code a} to {@code b}, "" when equal, null when not convertible */
     private String conv(Type a, Type b) {
@@ -134,6 +135,14 @@ public final class LegacyGen {
             if (p.length < 7 || p[2].isEmpty()) continue;
             g.member(p[0], p[1], p[2], p[3], p[4], p[5], p[6]);
         }
+        if (a.length > 7) {
+            // classes the hand written rules rename are emulated: nothing generated may mention them
+            for (String l : Files.readAllLines(Path.of(a[7]))) {
+                String[] p = l.strip().split("\\s+");
+                if (p.length >= 3 && p[0].equals("C")) EMULATED.add(p[1]);
+            }
+        }
+        g.forgeMembers();
         g.constructors();
         g.packets();
         g.kindChanges();
@@ -224,10 +233,10 @@ public final class LegacyGen {
     }
 
     /** classes emulated by hand written rules (tools/legacy/rules.txt); nothing is generated that mentions them */
-    private static final List<String> EMULATED = List.of("net/minecraft/world/item/ArmorMaterial");
+    private static final List<String> EMULATED = new ArrayList<>(List.of("net/minecraft/world/item/ArmorMaterial"));
 
     private static boolean emulated(String... texts) {
-        for (String t : texts) for (String e : EMULATED) if (t.contains(e)) return true;
+        for (String t : texts) for (String e : EMULATED) if (t.contains(e + ";") || t.equals(e) || t.contains("L" + e + "$") || t.equals(e + "$")) return true;
         return false;
     }
 
@@ -300,6 +309,30 @@ public final class LegacyGen {
         code.append("    }\n\n");
         lines.add("R " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
         if (itf && !st) skip("(info) interface instance bridges");
+    }
+
+    /** Forge 47 -> Forge 52 methods (same class and name, changed parameters); Forge names are not obfuscated */
+    void forgeMembers() {
+        int before = lines.size();
+        for (String c : old.classNames()) {
+            if (!c.startsWith("net/minecraftforge/") || emulated(c)) continue;
+            ClassNode oc = old.node(c), nc = now.node(mapClass(c));
+            if (oc == null || nc == null) continue;
+            for (MethodNode om : oc.methods) {
+                if ((om.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0 || (om.access & Opcodes.ACC_SYNTHETIC) != 0 || om.name.startsWith("<")) continue;
+                if (om.name.startsWith("m_") || om.name.startsWith("f_")) continue; // vanilla overrides, handled through SRG
+                String desc = mapDesc(om.desc);
+                if (nc.methods.stream().anyMatch(m -> m.name.equals(om.name) && m.desc.equals(desc))) continue;
+                for (MethodNode nm : nc.methods) {
+                    if (!nm.name.equals(om.name) || (nm.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
+                    if (((nm.access ^ om.access) & Opcodes.ACC_STATIC) != 0) continue;
+                    int n = lines.size();
+                    member(om.name, c, om.name, om.desc, nc.name, nm.name, nm.desc);
+                    if (lines.size() > n) break;
+                }
+            }
+        }
+        System.out.println((lines.size() - before) + " Forge 47 -> 52 member lines");
     }
 
     /** a public method whose parameters were reordered, dropped, converted or gained a registry access */
@@ -474,7 +507,8 @@ public final class LegacyGen {
     /** new parameters that can be supplied when old callers do not have them */
     private static final Map<String, String> SUPPLIERS = Map.of(
         "Lnet/minecraft/core/HolderLookup$Provider;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider()",
-        "Lnet/minecraft/core/RegistryAccess;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.access()");
+        "Lnet/minecraft/core/RegistryAccess;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.access()",
+        "Lnet/minecraft/commands/CommandBuildContext;", "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext()");
 
     private static String argExpr(int[] al, Type target) {
         int j = al[0], k = al[1];

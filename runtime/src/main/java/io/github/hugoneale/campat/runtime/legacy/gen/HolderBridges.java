@@ -1337,12 +1337,37 @@ public final class HolderBridges {
         return net.minecraft.server.bossevents.CustomBossEvent.load((net.minecraft.nbt.CompoundTag) (Object) a0, (net.minecraft.resources.ResourceLocation) (Object) a1, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void BossBarCommands_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.BossBarCommands.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void ScoreboardCommand_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.ScoreboardCommand.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
+    }
+
     public static net.minecraft.world.item.Item GsonHelper_convertToItem(com.google.gson.JsonElement a0, java.lang.String a1) throws Throwable {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.convertToItem(a0, a1)).value();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void TeamCommand_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.TeamCommand.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void TellRawCommand_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.TellRawCommand.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
+    }
+
     public static net.minecraft.world.item.Item GsonHelper_getAsItem(com.google.gson.JsonObject a0, java.lang.String a1) throws Throwable {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.getAsItem(a0, a1)).value();
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void TitleCommand_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.TitleCommand.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
     }
 
     public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message(net.minecraft.server.level.ChunkHolder a0, java.lang.Runnable a1) throws Throwable {
@@ -1421,6 +1446,11 @@ public final class HolderBridges {
 
     public static com.mojang.blaze3d.shaders.EffectProgram EffectInstance_getOrCreate(net.minecraft.server.packs.resources.ResourceManager a0, com.mojang.blaze3d.shaders.Program.Type a1, java.lang.String a2) throws Throwable {
         return net.minecraft.client.renderer.EffectInstance.getOrCreate((net.minecraft.server.packs.resources.ResourceProvider) (Object) a0, a1, a2);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void RaidCommand_register(com.mojang.brigadier.CommandDispatcher a0) throws Throwable {
+        net.minecraft.server.commands.RaidCommand.register((com.mojang.brigadier.CommandDispatcher) (Object) a0, io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -1625,8 +1655,35 @@ public final class HolderBridges {
         self.addPlayer((net.minecraft.server.level.ServerPlayer) (Object) a1, (boolean) a2);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.commands.arguments.ComponentArgument ComponentArgument_textComponent() throws Throwable {
+        return net.minecraft.commands.arguments.ComponentArgument.textComponent(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.buildContext());
+    }
+
     public static net.minecraft.client.gui.components.MultiLineLabel MultiLineLabel_create(net.minecraft.client.gui.Font a0, net.minecraft.network.chat.FormattedText a1, int a2) throws Throwable {
         return net.minecraft.client.gui.components.MultiLineLabel.create(a0, (net.minecraft.network.chat.Component) (Object) a1, a2);
+    }
+
+    public static net.minecraftforge.network.PacketDistributor.PacketTarget PacketDistributor_with(net.minecraftforge.network.PacketDistributor self, java.util.function.Supplier a0) throws Throwable {
+        return self.with((java.lang.Object) (Object) a0);
+    }
+
+    public static boolean ForgeHooks_onAnvilChange(net.minecraft.world.inventory.AnvilMenu a0, net.minecraft.world.item.ItemStack a1, net.minecraft.world.item.ItemStack a2, net.minecraft.world.Container a3, java.lang.String a4, int a5, net.minecraft.world.entity.player.Player a6) throws Throwable {
+        return net.minecraftforge.common.ForgeHooks.onAnvilChange(a0, a1, a2, a3, a4, (long) (Object) a5, a6);
+    }
+
+    public static net.minecraft.world.InteractionResult ForgeHooks_onInteractEntityAt(net.minecraft.world.entity.player.Player a0, net.minecraft.world.entity.Entity a1, net.minecraft.world.phys.Vec3 a2, net.minecraft.world.InteractionHand a3) throws Throwable {
+        return net.minecraftforge.common.ForgeHooks.onInteractEntityAt((net.minecraft.world.entity.Entity) (Object) a0, (net.minecraft.world.entity.player.Player) (Object) a1, a2, a3);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.nbt.CompoundTag CapabilityDispatcher_serializeNBT(net.minecraftforge.common.capabilities.CapabilityDispatcher self) throws Throwable {
+        return self.serializeNBT(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider());
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static void CapabilityDispatcher_deserializeNBT(net.minecraftforge.common.capabilities.CapabilityDispatcher self, net.minecraft.nbt.CompoundTag a0) throws Throwable {
+        self.deserializeNBT(io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), (net.minecraft.nbt.CompoundTag) (Object) a0);
     }
 
     public static Object[] RealmsCreateRealmScreen_args(com.mojang.realmsclient.dto.RealmsServer a0, com.mojang.realmsclient.RealmsMainScreen a1) {

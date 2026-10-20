@@ -296,3 +296,66 @@ C net/minecraftforge/common/crafting/StrictNBTIngredient net/minecraftforge/comm
 D net/minecraftforge/common/crafting/AbstractIngredient serializer ()Lnet/minecraftforge/common/crafting/ingredients/IIngredientSerializer; io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting serializer
 D net/minecraftforge/common/crafting/conditions/ICondition test (Lnet/minecraftforge/common/crafting/conditions/ICondition$IContext;Lcom/mojang/serialization/DynamicOps;)Z io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting test
 D net/minecraftforge/common/crafting/conditions/ICondition codec ()Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgeCrafting conditionCodec
+
+# ---- potions on NBT -> PotionContents component ----
+R net/minecraft/world/item/alchemy/PotionUtils getPotion (Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/alchemy/Potion; io/github/hugoneale/campat/runtime/legacy/LegacyGame getPotion
+R net/minecraft/world/item/alchemy/PotionUtils getPotion (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/item/alchemy/Potion; io/github/hugoneale/campat/runtime/legacy/LegacyGame getPotion
+R net/minecraft/world/item/alchemy/PotionUtils setPotion (Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyGame setPotion
+R net/minecraft/world/item/alchemy/PotionUtils getMobEffects (Lnet/minecraft/world/item/ItemStack;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyGame getMobEffects
+R net/minecraft/world/item/alchemy/PotionUtils getCustomEffects (Lnet/minecraft/world/item/ItemStack;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyGame getCustomEffects
+R net/minecraft/world/item/alchemy/PotionUtils setCustomEffects (Lnet/minecraft/world/item/ItemStack;Ljava/util/Collection;)Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyGame setCustomEffects
+R net/minecraft/world/item/alchemy/PotionUtils getAllEffects (Lnet/minecraft/world/item/alchemy/Potion;Ljava/util/Collection;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyGame getAllEffects
+R net/minecraft/world/item/alchemy/PotionUtils getColor (Lnet/minecraft/world/item/ItemStack;)I io/github/hugoneale/campat/runtime/legacy/LegacyGame getColor
+R net/minecraft/world/item/alchemy/PotionUtils getColor (Lnet/minecraft/world/item/alchemy/Potion;)I io/github/hugoneale/campat/runtime/legacy/LegacyGame getColor
+R net/minecraft/world/item/alchemy/PotionUtils getColor (Ljava/util/Collection;)I io/github/hugoneale/campat/runtime/legacy/LegacyGame getColor
+S net/minecraft/world/item/alchemy/Potions EMPTY Lnet/minecraft/world/item/alchemy/Potion; io/github/hugoneale/campat/runtime/legacy/LegacyPotions empty
+
+# ---- loot data manager -> reloadable registries ----
+C net/minecraft/world/level/storage/loot/LootDataManager io/github/hugoneale/campat/runtime/legacy/LegacyGame$LootData
+R net/minecraft/server/MinecraftServer getLootData ()Lnet/minecraft/world/level/storage/loot/LootDataManager; io/github/hugoneale/campat/runtime/legacy/LegacyGame getLootData
+M net/minecraft/world/level/storage/loot/LootDataResolver getLootTable (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/world/level/storage/loot/LootTable; getLootTable
+
+# ---- resource packs ----
+C net/minecraft/server/packs/repository/Pack$ResourcesSupplier io/github/hugoneale/campat/runtime/legacy/LegacyGame$ResourcesSupplier
+M net/minecraft/server/packs/repository/Pack$ResourcesSupplier open (Ljava/lang/String;)Lnet/minecraft/server/packs/PackResources; open
+R net/minecraft/server/packs/repository/Pack readMetaAndCreate (Ljava/lang/String;Lnet/minecraft/network/chat/Component;ZLnet/minecraft/server/packs/repository/Pack$ResourcesSupplier;Lnet/minecraft/server/packs/PackType;Lnet/minecraft/server/packs/repository/Pack$Position;Lnet/minecraft/server/packs/repository/PackSource;)Lnet/minecraft/server/packs/repository/Pack; io/github/hugoneale/campat/runtime/legacy/LegacyGame readMetaAndCreate
+R net/minecraft/server/packs/PathPackResources <init> (Ljava/lang/String;Ljava/nio/file/Path;Z)V io/github/hugoneale/campat/runtime/legacy/LegacyGame pathPackResources
+C net/minecraftforge/resource/PathPackResources io/github/hugoneale/campat/runtime/legacy/forge/LegacyForgePathPack
+
+# ---- recipe lookups: RecipeHolders ----
+R net/minecraft/world/item/crafting/RecipeManager getRecipeFor (Lnet/minecraft/world/item/crafting/RecipeType;Lnet/minecraft/world/Container;Lnet/minecraft/world/level/Level;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/legacy/LegacyGame getRecipeFor
+R net/minecraft/world/item/crafting/RecipeManager getRecipeFor (Lnet/minecraft/world/item/crafting/RecipeType;Lnet/minecraft/world/Container;Lnet/minecraft/world/level/Level;Lnet/minecraft/resources/ResourceLocation;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/legacy/LegacyGame getRecipeFor
+R net/minecraft/world/item/crafting/RecipeManager getAllRecipesFor (Lnet/minecraft/world/item/crafting/RecipeType;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyGame getAllRecipesFor
+R net/minecraft/world/item/crafting/RecipeManager getRecipesFor (Lnet/minecraft/world/item/crafting/RecipeType;Lnet/minecraft/world/Container;Lnet/minecraft/world/level/Level;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyGame getRecipesFor
+R net/minecraft/world/item/crafting/RecipeManager getRemainingItemsFor (Lnet/minecraft/world/item/crafting/RecipeType;Lnet/minecraft/world/Container;Lnet/minecraft/world/level/Level;)Lnet/minecraft/core/NonNullList; io/github/hugoneale/campat/runtime/legacy/LegacyGame getRemainingItemsFor
+R net/minecraft/world/item/crafting/RecipeManager byType (Lnet/minecraft/world/item/crafting/RecipeType;)Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/LegacyGame byType
+R net/minecraft/world/item/crafting/RecipeManager byKey (Lnet/minecraft/resources/ResourceLocation;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/legacy/LegacyGame byKey
+R net/minecraft/world/item/crafting/RecipeManager getRecipes ()Ljava/util/Collection; io/github/hugoneale/campat/runtime/legacy/LegacyGame getRecipes
+R net/minecraft/world/item/crafting/RecipeManager replaceRecipes (Ljava/lang/Iterable;)V io/github/hugoneale/campat/runtime/legacy/LegacyGame replaceRecipes
+
+# ---- misc ----
+R net/minecraft/advancements/Advancement getId ()Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/LegacyGame advancementId
+C net/minecraft/network/chat/contents/LiteralContents net/minecraft/network/chat/contents/PlainTextContents$LiteralContents
+V net/minecraft/world/item/SpawnEggItem getType (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/entity/EntityType; getType (Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/entity/EntityType; o0:io/github/hugoneale/campat/runtime/legacy/LegacyGame.eggStack(Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/item/ItemStack; n0:io/github/hugoneale/campat/runtime/legacy/LegacyGame.eggTag(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/nbt/CompoundTag;
+
+# ---- Forge 47 HUD overlays -> GUI layers ----
+C net/minecraftforge/client/gui/overlay/IGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$IGuiOverlay
+C net/minecraftforge/client/gui/overlay/NamedGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$NamedGuiOverlay
+C net/minecraftforge/client/gui/overlay/VanillaGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$VanillaGuiOverlay
+C net/minecraftforge/client/gui/overlay/ForgeGui io/github/hugoneale/campat/runtime/legacy/client/LegacyForgeGui
+C net/minecraftforge/client/event/RegisterGuiOverlaysEvent io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$RegisterGuiOverlaysEvent
+C net/minecraftforge/client/event/RenderGuiOverlayEvent io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$RenderGuiOverlayEvent
+C net/minecraftforge/client/event/RenderGuiEvent io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$RenderGuiEvent
+
+# ---- brewing, entity data serializers, style Gson adapter ----
+C net/minecraftforge/common/brewing/BrewingRecipeRegistry io/github/hugoneale/campat/runtime/legacy/forge/LegacyBrewing
+D net/minecraft/network/syncher/EntityDataSerializer codec ()Lnet/minecraft/network/codec/StreamCodec; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers codec
+M net/minecraft/network/syncher/EntityDataSerializer write (Lnet/minecraft/network/FriendlyByteBuf;Ljava/lang/Object;)V write
+M net/minecraft/network/syncher/EntityDataSerializer read (Lnet/minecraft/network/FriendlyByteBuf;)Ljava/lang/Object; read
+R net/minecraft/network/syncher/EntityDataSerializer write (Lnet/minecraft/network/FriendlyByteBuf;Ljava/lang/Object;)V io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers write
+R net/minecraft/network/syncher/EntityDataSerializer read (Lnet/minecraft/network/FriendlyByteBuf;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers read
+R net/minecraft/network/syncher/EntityDataSerializer simple (Lnet/minecraft/network/FriendlyByteBuf$Writer;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Lnet/minecraft/network/syncher/EntityDataSerializer; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers simple
+R net/minecraft/network/syncher/EntityDataSerializer optional (Lnet/minecraft/network/FriendlyByteBuf$Writer;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Lnet/minecraft/network/syncher/EntityDataSerializer; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers optional
+R net/minecraft/network/syncher/EntityDataSerializer simpleEnum (Ljava/lang/Class;)Lnet/minecraft/network/syncher/EntityDataSerializer; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers simpleEnum
+R net/minecraft/network/syncher/EntityDataSerializer simpleId (Lnet/minecraft/core/IdMap;)Lnet/minecraft/network/syncher/EntityDataSerializer; io/github/hugoneale/campat/runtime/legacy/LegacyDataSerializers simpleId
+C net/minecraft/network/chat/Style$Serializer io/github/hugoneale/campat/runtime/legacy/LegacyStyleSerializer
