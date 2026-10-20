@@ -63,7 +63,9 @@ public final class NeoRemapper extends Remapper {
 
     @Override
     public String mapInvokeDynamicMethodName(String name, String descriptor) {
-        return name;
+        // lambdas implementing a Minecraft functional interface name its SRG method
+        String srg = mappings.globalName(name);
+        return srg != null ? srg : name;
     }
 
     private static final java.util.regex.Pattern SRG = java.util.regex.Pattern.compile("\\b[fm]_\\d+_\\b");
