@@ -57,10 +57,12 @@ public final class ResourceRewriter {
         if (name.endsWith(".json") && !name.contains("/")) {
             // mixin configs and refmaps live at the jar root
             String text = new String(data, StandardCharsets.UTF_8);
+            String nonFatal = nonFatalMixinConfig(text);
+            if (nonFatal != null) text = nonFatal;
             if (text.contains("net/neoforged") || text.contains("net.neoforged")) {
                 return new Rewritten(name, remapJsonStrings(text).getBytes(StandardCharsets.UTF_8));
             }
-            return new Rewritten(name, data);
+            return nonFatal != null ? new Rewritten(name, text.getBytes(StandardCharsets.UTF_8)) : new Rewritten(name, data);
         }
         if (name.startsWith("data/")) {
             String newName = name;
@@ -82,6 +84,28 @@ public final class ResourceRewriter {
             return new Rewritten(newName, data);
         }
         return new Rewritten(name, data);
+    }
+
+    /**
+     * Mixins written against NeoForge's patched classes can miss on Forge's (other lambda numbers,
+     * constructors Forge patches differently): a mixin config is made non-required, so a failing
+     * mixin is logged and skipped (it may disable part of that mod) instead of stopping the game.
+     * @return the rewritten config, or null when the JSON is not a mixin config
+     */
+    static String nonFatalMixinConfig(String text) {
+        try {
+            JsonElement el = JsonParser.parseString(text);
+            if (!el.isJsonObject()) return null;
+            JsonObject o = el.getAsJsonObject();
+            if (!o.has("package") || !(o.has("mixins") || o.has("client") || o.has("server"))) return null;
+            o.addProperty("required", false);
+            JsonObject inj = o.has("injectors") && o.get("injectors").isJsonObject() ? o.getAsJsonObject("injectors") : new JsonObject();
+            inj.addProperty("defaultRequire", 0);
+            o.add("injectors", inj);
+            return GSON.toJson(o);
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     private String remapJsonStrings(String json) {

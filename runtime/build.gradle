@@ -73,7 +73,7 @@ jar {
             'Specification-Title': 'campat_modus',
             'Implementation-Title': 'Campat Modus Runtime',
             'Implementation-Version': project.version,
-            'MixinConfigs': 'campat_modus.mixins.json',
+            'MixinConfigs': 'campat_modus.mixins.json,campat_modus.ext.mixins.json',
         )
     }
 }

@@ -89,7 +89,7 @@ tasks.register('extGen', JavaExec) {
         args([neoSrc, envs.file('neo_env.txt').asFile.absolutePath, envs.file('forge_env.txt').asFile.absolutePath,
               rootProject.file('loader/src/main/resources/META-INF/campat/mappings/classes.txt').absolutePath,
               rootProject.file('runtime/src/main/java').absolutePath,
-              rootProject.file('runtime/src/main/resources/campat_modus.mixins.json').absolutePath] + (project.findProperty('ifaces') ?: '').split(',').toList())
+              rootProject.file('runtime/src/main/resources/campat_modus.ext.mixins.json').absolutePath] + (project.findProperty('ifaces') ?: '').split(',').toList())
     }
 }
 

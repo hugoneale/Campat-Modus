@@ -238,6 +238,14 @@ public final class JarConverter {
             if (!modIds.contains(ep.modId())) warnings.add("@Mod class " + ep.className() + " references unknown mod id " + ep.modId());
         }
         out.put(FORGE_TOML, toml.modsToml().getBytes(StandardCharsets.UTF_8));
+        // NeoForge ignores a declared access transformer the jar does not have; Forge refuses the jar
+        for (String at : toml.accessTransformers()) {
+            String path = at.startsWith("/") ? at.substring(1) : at;
+            if (!out.containsKey(path)) {
+                out.put(path, new byte[0]);
+                warnings.add("declared access transformer " + at + " is missing; an empty one was added");
+            }
+        }
         // NeoForge synthesises pack metadata for mod jars; Forge requires a pack.mcmeta and shows a
         // loading warning (and skips the mod's resources) without one.
         if (!out.containsKey("pack.mcmeta")) {

@@ -291,7 +291,73 @@ public final class ClassConverter {
         return false;
     }
 
+    private static final java.util.Set<String> ONLY_IN = java.util.Set.of("Lnet/neoforged/api/distmarker/OnlyIn;", "Lnet/minecraftforge/api/distmarker/OnlyIn;");
+
+    /** set when converting for a dedicated server (part of the cache key) */
+    private static volatile boolean dedicatedServer;
+
+    public static void setDedicatedServer(boolean server) {
+        dedicatedServer = server;
+    }
+
+    private static boolean clientOnly(List<AnnotationNode> anns) {
+        if (anns == null) return false;
+        for (AnnotationNode a : anns) {
+            if (!ONLY_IN.contains(a.desc) || a.values == null) continue;
+            for (int i = 0; i + 1 < a.values.size(); i += 2) {
+                if ("value".equals(a.values.get(i)) && a.values.get(i + 1) instanceof String[] e && e.length == 2 && "CLIENT".equals(e[1])) return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Client-only methods on a dedicated server. NeoForge leaves them in place, but its server runs
+     * the full joined jar; Forge's server jar holds only part of the client classes, so verifying
+     * such a method (a Screen argument, ...) can hit a client class whose parents are missing.
+     * Their bodies become a throw, which is what calling one on a server would end in anyway.
+     */
+    private static void neuterClientOnlyMethods(ClassNode cn) {
+        if (!dedicatedServer) return;
+        java.util.Set<String> targets = new java.util.HashSet<>();
+        for (MethodNode m : cn.methods) {
+            if (clientOnly(m.visibleAnnotations) || clientOnly(m.invisibleAnnotations)) targets.add(m.name + m.desc);
+        }
+        if (targets.isEmpty()) return;
+        // lambdas written inside client-only methods are client-only too
+        java.util.Deque<String> work = new java.util.ArrayDeque<>(targets);
+        while (!work.isEmpty()) {
+            String t = work.pop();
+            for (MethodNode m : cn.methods) {
+                if (!(m.name + m.desc).equals(t) || m.instructions == null) continue;
+                for (AbstractInsnNode insn : m.instructions) {
+                    if (!(insn instanceof org.objectweb.asm.tree.InvokeDynamicInsnNode indy)) continue;
+                    for (Object a : indy.bsmArgs) {
+                        if (a instanceof org.objectweb.asm.Handle h && h.getOwner().equals(cn.name) && h.getName().startsWith("lambda$") && targets.add(h.getName() + h.getDesc())) work.push(h.getName() + h.getDesc());
+                    }
+                }
+            }
+        }
+        for (MethodNode m : cn.methods) {
+            if ((m.access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0 || m.instructions == null || m.instructions.size() == 0) continue;
+            if (!targets.contains(m.name + m.desc)) continue;
+            m.instructions.clear();
+            m.tryCatchBlocks.clear();
+            m.localVariables = null;
+            m.visibleLocalVariableAnnotations = null;
+            m.invisibleLocalVariableAnnotations = null;
+            m.instructions.add(new org.objectweb.asm.tree.TypeInsnNode(Opcodes.NEW, "java/lang/IllegalStateException"));
+            m.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.DUP));
+            m.instructions.add(new org.objectweb.asm.tree.LdcInsnNode("client-only method " + cn.name + "." + m.name + " called on a dedicated server"));
+            m.instructions.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, "java/lang/IllegalStateException", "<init>", "(Ljava/lang/String;)V", false));
+            m.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ATHROW));
+            m.maxStack = 3;
+            m.maxLocals = (org.objectweb.asm.Type.getArgumentsAndReturnSizes(m.desc) >> 2) - ((m.access & Opcodes.ACC_STATIC) != 0 ? 1 : 0);
+        }
+    }
+
     private static void stripOnlyIn(ClassNode cn) {
+        neuterClientOnlyMethods(cn);
         java.util.function.Consumer<List<AnnotationNode>> strip = l -> { if (l != null) l.removeIf(a -> NEO_ONLY_IN.contains(a.desc)); };
         strip.accept(cn.visibleAnnotations);
         strip.accept(cn.invisibleAnnotations);

@@ -25,7 +25,20 @@ import java.util.stream.Stream;
 final class ConversionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConversionService.class);
     /** Bump whenever the converter output changes for the same input. */
-    static final int CONVERTER_VERSION = 6;
+    static final int CONVERTER_VERSION = 7;
+
+    /** converted classes differ per side (client-only method bodies, see ClassConverter) */
+    private static final boolean DEDICATED_SERVER = dedicatedServer();
+
+    private static boolean dedicatedServer() {
+        try {
+            boolean server = net.minecraftforge.fml.loading.FMLEnvironment.dist == net.minecraftforge.api.distmarker.Dist.DEDICATED_SERVER;
+            io.github.hugoneale.campat.loader.remap.ClassConverter.setDedicatedServer(server);
+            return server;
+        } catch (Throwable t) {
+            return false; // offline tools
+        }
+    }
 
     record Converted(Path source, Path output, JarConverter.Report report, String error) {}
 
@@ -56,7 +69,8 @@ final class ConversionService {
         List<Path> keep = new ArrayList<>();
         for (var e : contents.entrySet()) {
             Path src = e.getKey();
-            String key = Hashing.sha256(e.getValue(), env.fingerprint().getBytes(), Integer.toString(CONVERTER_VERSION).getBytes()).substring(0, 20);
+            String key = Hashing.sha256(e.getValue(), env.fingerprint().getBytes(), Integer.toString(CONVERTER_VERSION).getBytes(),
+                (DEDICATED_SERVER ? "server" : "client").getBytes()).substring(0, 20);
             String base = src.getFileName().toString();
             base = base.substring(0, base.length() - 4);
             Path out = cacheDir.resolve(base + "-campat-" + key + ".jar");
