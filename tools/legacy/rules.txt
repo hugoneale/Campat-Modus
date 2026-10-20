@@ -472,3 +472,7 @@ M net/minecraft/world/item/DyeableLeatherItem hasCustomColor (Lnet/minecraft/wor
 M net/minecraft/world/item/DyeableLeatherItem getColor (Lnet/minecraft/world/item/ItemStack;)I getColor
 M net/minecraft/world/item/DyeableLeatherItem clearColor (Lnet/minecraft/world/item/ItemStack;)V clearColor
 M net/minecraft/world/item/DyeableLeatherItem setColor (Lnet/minecraft/world/item/ItemStack;I)V setColor
+
+# ---- client models: additional models by plain id ----
+R net/minecraftforge/client/event/ModelEvent$RegisterAdditional register (Lnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/legacy/client/LegacyModels register
+R net/minecraft/client/resources/model/ModelManager getModel (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/BakedModel; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModel # forge
