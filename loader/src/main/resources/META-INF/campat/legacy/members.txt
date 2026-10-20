@@ -479,3 +479,4 @@ R net/minecraftforge/client/event/ModelEvent$RegisterAdditional register (Lnet/m
 R net/minecraft/client/resources/model/ModelManager getModel (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/BakedModel; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModel (Lnet/minecraft/client/resources/model/ModelManager;Ljava/lang/Object;)Lnet/minecraft/client/resources/model/BakedModel;
 R net/minecraftforge/client/event/ModelEvent$ModifyBakingResult getModels ()Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModels
 R net/minecraftforge/client/event/ModelEvent$BakingCompleted getModels ()Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModels
+W net/minecraft/client/resources/model/ModelResourceLocation net/minecraft/resources/ResourceLocation io/github/hugoneale/campat/runtime/legacy/client/LegacyModels asLocation

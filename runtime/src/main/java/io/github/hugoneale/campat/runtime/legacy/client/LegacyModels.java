@@ -11,6 +11,11 @@ import net.minecraftforge.client.event.ModelEvent;
 public final class LegacyModels {
     private LegacyModels() {}
 
+    /** a 1.20.1 ModelResourceLocation used as a ResourceLocation (it was one): its id */
+    public static ResourceLocation asLocation(Object value) {
+        return value instanceof ModelResourceLocation m ? m.id() : (ResourceLocation) value;
+    }
+
     /** ModelResourceLocation extended ResourceLocation in 1.20.1, so either may arrive here */
     private static ModelResourceLocation location(Object id) {
         return id instanceof ModelResourceLocation m ? m : ClientEventBridge.standalone((ResourceLocation) id);

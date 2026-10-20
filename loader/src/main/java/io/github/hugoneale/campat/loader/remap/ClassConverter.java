@@ -75,6 +75,9 @@ public final class ClassConverter {
             if (NEO_MOD_ANNOTATION.equals(an.desc)) entrypoints.add(readEntrypoint(cn.name, an));
         }
 
+        // 1-. values of classes that lost a supertype, flowing into slots of that supertype
+        for (String[] w : mappings.lostSubtypes()) new SubtypeLossPass(w[0], w[1], w[2], w[3], hierarchy).apply(cn, bytes);
+
         // 1a. classes extending a platform class that cannot be extended any more get a stand-in parent
         String newSuper = cn.superName == null ? null : mappings.superReplacement(cn.superName);
         if (newSuper != null) {

@@ -41,6 +41,8 @@ import java.util.function.Predicate;
  *                                                 a constructor whose parameters changed: every call (also super(...)
  *                                                 from subclasses) passes the old arguments to the static adapter,
  *                                                 which returns the new arguments as an Object[] (primitives boxed)
+ * W  sub  sup  convOwner  convName                sub no longer extends sup: values of sub flowing into sup slots are
+ *                                                 converted with the static helper (Object)sup
  * Z  oldSuper  newSuper                          mod classes extending oldSuper (now final / a record) extend newSuper
  * Y  type  helperOwner  helperName                casts (CHECKCAST) to the type call the static helper (Object)type instead
  * X  target  member  helperOwner  helperName       a mixin accessor / invoker of a member that is gone: calls of
@@ -74,6 +76,7 @@ public final class Mappings {
     private final Map<String, Redirect> accessorReplacements = new HashMap<>(); // target.member -> helper
     private final Map<String, Redirect> castRedirects = new HashMap<>();
     private final Map<String, String> superReplacements = new HashMap<>();
+    private final List<String[]> lostSubtypes = new ArrayList<>();
     /** owners that have any member entry, so lookups can be skipped quickly */
     private final Set<String> memberOwners = java.util.concurrent.ConcurrentHashMap.newKeySet();
     private final Map<String, String> globalNames = new HashMap<>();
@@ -121,6 +124,7 @@ public final class Mappings {
                 fieldRedirects.put(new MemberKey(p[1], p[2], p[3]), new Redirect(p[4], p[5], p.length > 6 ? p[6] : null));
                 memberOwners.add(p[1]);
             }
+            case "W" -> lostSubtypes.add(new String[]{p[1], p[2], p[3], p[4]});
             case "Z" -> superReplacements.put(p[1], p[2]);
             case "Y" -> castRedirects.put(p[1], new Redirect(p[2], p[3], "(Ljava/lang/Object;)L" + p[1] + ";"));
             case "X" -> accessorReplacements.put(p[1] + "." + p[2], new Redirect(p[3], p[4], null));
@@ -212,6 +216,10 @@ public final class Mappings {
         if (r == null) return;
         methodRedirects.put(new MemberKey(accessor, method, desc), r);
         memberOwners.add(accessor);
+    }
+
+    public List<String[]> lostSubtypes() {
+        return lostSubtypes;
     }
 
     public String superReplacement(String superName) {
