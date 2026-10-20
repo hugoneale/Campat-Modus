@@ -50,11 +50,22 @@ file for what the rest need.
 
 * SRG member names are chained through Fabric intermediary names (stable across Minecraft
   versions) to 1.21.1 Mojang names: ~64k members, 116 renamed classes;
-* generated bridges for members that changed mechanically (registry objects becoming
-  `Holder`s, narrowed types, float/double) and evolutions for overridable methods (for example
-  `BlockEntity.load/saveAdditional` gaining a `HolderLookup.Provider`);
+* generated from a diff of 1.20.1 and 1.21.1 (`tools/.../LegacyGen.java`): bridges for members
+  whose types changed mechanically (registry objects becoming `Holder`s / `ResourceKey`s, narrowed
+  types, Codec to MapCodec), constructor and method adapters that reorder, drop, convert or supply
+  arguments (block constructors, `register(...)` methods, ...), packet constructors via their
+  `STREAM_CODEC`, evolutions for overridable methods and access widening for members that were
+  public in 1.20.1; the same diff runs over Forge 47 and Forge 52;
+* converter features beyond renaming: constructor adapters that also work for `super(...)` calls,
+  generated implementations of abstract methods platform types gained (`codec()`, ...), bridges
+  for changed override hooks (`Block.use` to `useItemOn`, `playerWillDestroy`, ...), lambdas of
+  changed functional interfaces, stand-in parents for classes that became final (enchantments),
+  cast redirects and accessor redirects for mixin accessors of removed members;
 * emulation of removed APIs: item NBT on data components (with Mojang's data fixers for old NBT),
-  Forge 47 `SimpleChannel` networking on Forge 52 channels, the old `BufferBuilder` lifecycle, ...;
+  recipes on `Container`s, JSON recipe / ingredient / condition / loot serializers as codecs,
+  advancement triggers, armor materials and tool tiers, entity data definition, Forge 47
+  `SimpleChannel` / event channels, HUD overlays, brewing, potions, resource packs, the old
+  `BufferBuilder` lifecycle, ...;
 * data packs: singular folder names, recipe results, Forge 47 conditions, loot functions.
 
 ## Building and testing
