@@ -72,7 +72,8 @@
     "legacy.EntityDefineDataMixin",
     "legacy.EntityDefineDataInvoker",
     "legacy.ParticleTypeMixin",
-    "legacy.RecipeManagerIdMixin"
+    "legacy.RecipeManagerIdMixin",
+    "legacy.ItemStackModifiersMixin"
   ],
   "client": [
     "client.BlockRenderPropertiesMixin",

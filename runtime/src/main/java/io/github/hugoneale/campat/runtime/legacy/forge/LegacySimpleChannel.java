@@ -18,7 +18,7 @@ public class LegacySimpleChannel {
     private final SimpleChannel channel;
 
     public LegacySimpleChannel(ResourceLocation name, Supplier<String> version) {
-        int v = version == null ? 0 : version.get().hashCode();
+        int v = version == null ? 0 : version.get().hashCode() & 0x7fffffff;
         this.channel = ChannelBuilder.named(name).networkProtocolVersion(v).optional().simpleChannel();
     }
 

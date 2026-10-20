@@ -276,13 +276,23 @@ public final class LegacyGen {
             if (v != null) { lines.add(v); evolutions++; return; }
             skip("evolution: no argument alignment");
         }
-        if ((mn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0) { skip("method not public"); return; }
+        if ((mn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0) {
+            // public in 1.20.1: widen it again so the generated helper may call it
+            boolean wasPublic = old.node(owner120) != null && old.node(owner120).methods.stream()
+                .anyMatch(m -> m.name.equals(srg) && m.desc.equals(desc120) && (m.access & Opcodes.ACC_PUBLIC) != 0 && (m.access & Opcodes.ACC_STATIC) != 0);
+            if (!wasPublic || (mn.access & Opcodes.ACC_STATIC) == 0) { skip("method not public"); return; }
+            accessLines.add("public " + nc.name.replace('/', '.') + " " + name121 + desc121);
+            if ((nc.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + nc.name.replace('/', '.'));
+        }
         Type[] oa = Type.getArgumentTypes(desc120), na = Type.getArgumentTypes(desc121);
         int[] args = holderDiff(oa, na);
         int[] ret = holderDiff(new Type[]{Type.getReturnType(desc120)}, new Type[]{Type.getReturnType(desc121)});
         if (args == null && ret != null && !(nc.access == 0)) {
             int[][] al = align(oa, na);
             boolean sameOwner = mapClass(owner120).equals(owner121) || (mn.access & Opcodes.ACC_STATIC) != 0;
+            ClassNode oldOwner = old.node(owner120);
+            boolean oldStatic = oldOwner != null && oldOwner.methods.stream().anyMatch(m -> m.name.equals(srg) && m.desc.equals(desc120) && (m.access & Opcodes.ACC_STATIC) != 0);
+            if (oldStatic != ((mn.access & Opcodes.ACC_STATIC) != 0)) sameOwner = false;
             if (al != null && sameOwner) { alignedRedirect(srg, owner120, desc120, owner121, name121, desc121, mn, nc, al, ret); return; }
         }
         if (args == null || ret == null) { skip("method: not a holder change"); return; }
@@ -301,6 +311,12 @@ public final class LegacyGen {
             call.append(k == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : k == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : k == 3 ? "(" + src(na[i]) + ") (Object) a" + i : "a" + i);
         }
         String target = (st ? src(Type.getObjectType(owner121)) : "self") + "." + name121 + "(" + call + ")";
+        if (st && ((mn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0)) {
+            // only public at runtime (access transformer): call through a method handle
+            Type nr = Type.getReturnType(desc121);
+            String inv = "io.github.hugoneale.campat.runtime.legacy.LegacyAccess.invokeStatic(\"" + owner121 + "\", \"" + name121 + "\", \"" + desc121 + "\"" + (call.length() > 0 ? ", " + call : "") + ")";
+            target = nr.getSort() == Type.VOID ? inv : "((" + src(boxed(nr)) + ") " + inv + ")";
+        }
         int rk = ret.length == 0 ? 0 : ret[0];
         code.append("    public static ").append(src(r)).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        ");
         if (r.getSort() == Type.VOID) code.append(target).append(";\n");
@@ -356,6 +372,12 @@ public final class LegacyGen {
             call.append(al[i][1] == 9 ? e : "(" + src(na[i]) + ") " + (na[i].getSort() == Type.OBJECT || na[i].getSort() == Type.ARRAY ? "(Object) " : "") + e);
         }
         String target = (st ? src(Type.getObjectType(owner121)) : "self") + "." + name121 + "(" + call + ")";
+        if (st && ((mn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0)) {
+            // only public at runtime (access transformer): call through a method handle
+            Type nr = Type.getReturnType(desc121);
+            String inv = "io.github.hugoneale.campat.runtime.legacy.LegacyAccess.invokeStatic(\"" + owner121 + "\", \"" + name121 + "\", \"" + desc121 + "\"" + (call.length() > 0 ? ", " + call : "") + ")";
+            target = nr.getSort() == Type.VOID ? inv : "((" + src(boxed(nr)) + ") " + inv + ")";
+        }
         int rk = ret.length == 0 ? 0 : ret[0];
         code.append("    @SuppressWarnings({\"unchecked\", \"rawtypes\"})\n    public static ").append(src(r)).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        ");
         if (r.getSort() == Type.VOID) code.append(target).append(";\n");
@@ -369,6 +391,20 @@ public final class LegacyGen {
     }
 
     private int aligned;
+
+    private static Type boxed(Type t) {
+        return switch (t.getSort()) {
+            case Type.BOOLEAN -> Type.getObjectType("java/lang/Boolean");
+            case Type.INT -> Type.getObjectType("java/lang/Integer");
+            case Type.LONG -> Type.getObjectType("java/lang/Long");
+            case Type.FLOAT -> Type.getObjectType("java/lang/Float");
+            case Type.DOUBLE -> Type.getObjectType("java/lang/Double");
+            case Type.SHORT -> Type.getObjectType("java/lang/Short");
+            case Type.BYTE -> Type.getObjectType("java/lang/Byte");
+            case Type.CHAR -> Type.getObjectType("java/lang/Character");
+            default -> t;
+        };
+    }
 
     /** classes that became interfaces (DFU's DataResult, ...) or the other way round */
     void kindChanges() {
@@ -515,6 +551,7 @@ public final class LegacyGen {
     private static String argExpr(int[] al, Type target) {
         int j = al[0], k = al[1];
         if (k == 9) return SUPPLIERS.get(target.getDescriptor());
+        if (k == 5) return "io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a" + j + ")";
         return k == 1 ? "LegacyHolders.wrap(a" + j + ")" : k == 2 ? "a" + j + ".value()" : "a" + j;
     }
 
@@ -531,6 +568,7 @@ public final class LegacyGen {
                     int kind;
                     if (a.equals(n[i])) kind = 0;
                     else if (pass == 0) continue;
+                    else if (a.getDescriptor().equals("Lcom/mojang/serialization/Codec;") && n[i].getDescriptor().equals("Lcom/mojang/serialization/MapCodec;")) kind = 5;
                     else {
                         int[] d = holderDiff(new Type[]{o[j]}, new Type[]{n[i]});
                         // numeric conversions only for parameters that stay in place

@@ -22,7 +22,7 @@ public class LegacyEventChannel {
 
     LegacyEventChannel(ResourceLocation name, Supplier<String> version) {
         this.name = name;
-        int v = version == null ? 0 : version.get().hashCode();
+        int v = version == null ? 0 : version.get().hashCode() & 0x7fffffff;
         this.channel = ChannelBuilder.named(name).networkProtocolVersion(v).optional().eventNetworkChannel();
         CHANNELS.put(name, this);
     }

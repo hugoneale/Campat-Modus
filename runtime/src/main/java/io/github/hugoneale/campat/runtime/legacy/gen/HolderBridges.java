@@ -1382,12 +1382,26 @@ public final class HolderBridges {
         return (net.minecraft.world.item.Item) ((net.minecraft.core.Holder) net.minecraft.util.GsonHelper.getAsItem(a0, a1, (net.minecraft.core.Holder) LegacyHolders.wrap(a2))).value();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.util.valueproviders.FloatProviderType FloatProviderType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.util.valueproviders.FloatProviderType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.util.valueproviders.IntProviderType IntProviderType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.util.valueproviders.IntProviderType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
+    }
+
     public static net.minecraft.world.item.crafting.Ingredient AxolotlAi_getTemptations() throws Throwable {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.axolotl.AxolotlAi.getTemptations();
     }
 
     public static net.minecraft.world.item.crafting.Ingredient GoatAi_getTemptations() throws Throwable {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.goat.GoatAi.getTemptations();
+    }
+
+    public static net.minecraft.advancements.DisplayInfo DisplayInfo_fromNetwork(net.minecraft.network.FriendlyByteBuf a0) throws Throwable {
+        return ((net.minecraft.advancements.DisplayInfo) io.github.hugoneale.campat.runtime.legacy.LegacyAccess.invokeStatic("net/minecraft/advancements/DisplayInfo", "fromNetwork", "(Lnet/minecraft/network/RegistryFriendlyByteBuf;)Lnet/minecraft/advancements/DisplayInfo;", (net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0));
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -1500,6 +1514,11 @@ public final class HolderBridges {
         self.igniteForSeconds((float) (Object) a0);
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType StructurePoolElementType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.world.level.levelgen.structure.pools.StructurePoolElementType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
+    }
+
     public static void Util_shuffle(it.unimi.dsi.fastutil.objects.ObjectArrayList a0, net.minecraft.util.RandomSource a1) throws Throwable {
         net.minecraft.Util.shuffle((java.util.List) (Object) a0, a1);
     }
@@ -1604,6 +1623,21 @@ public final class HolderBridges {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static boolean BonemealableBlock_isValidBonemealTarget(net.minecraft.world.level.block.BonemealableBlock self, net.minecraft.world.level.LevelReader a0, net.minecraft.core.BlockPos a1, net.minecraft.world.level.block.state.BlockState a2, boolean a3) throws Throwable {
         return self.isValidBonemealTarget((net.minecraft.world.level.LevelReader) (Object) a0, (net.minecraft.core.BlockPos) (Object) a1, (net.minecraft.world.level.block.state.BlockState) (Object) a2);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.levelgen.structure.templatesystem.PosRuleTestType PosRuleTestType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.world.level.levelgen.structure.templatesystem.PosRuleTestType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType RuleTestType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.world.level.levelgen.structure.templatesystem.RuleTestType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType StructureProcessorType_register(java.lang.String a0, com.mojang.serialization.Codec a1) throws Throwable {
+        return net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType.register((java.lang.String) (Object) a0, (com.mojang.serialization.MapCodec) (Object) io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a1));
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -1798,6 +1832,10 @@ public final class HolderBridges {
         return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.provider(), a0};
     }
 
+    public static Object[] KeyDispatchDataCodec_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
+    }
+
     public static Object[] FlowerBlock_args(java.util.function.Supplier a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) {
         return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
@@ -1864,6 +1902,10 @@ public final class HolderBridges {
 
     public static Object[] ObjectSelectionList_args(net.minecraft.client.Minecraft a0, int a1, int a2, int a3, int a4, int a5) {
         return new Object[]{a0, a1, a2, a3, a4};
+    }
+
+    public static Object[] SpriteSourceType_args(com.mojang.serialization.Codec a0) {
+        return new Object[]{io.github.hugoneale.campat.runtime.legacy.LegacyCodecs.mapCodec(a0)};
     }
 
     public static Object[] GameEvent_ListenerInfo_args(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) {

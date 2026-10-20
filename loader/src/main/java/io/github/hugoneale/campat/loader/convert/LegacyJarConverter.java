@@ -91,6 +91,38 @@ public final class LegacyJarConverter {
         }
     }
 
+    private static boolean hasSrgClasses(Map<String, byte[]> jar) {
+        for (var e : jar.entrySet()) {
+            if (e.getKey().endsWith(".class") && LegacyTomlConverter.hasSrgNames(e.getValue())) return true;
+        }
+        return false;
+    }
+
+    private byte[] convertLibrary(Map<String, byte[]> in, List<String> warnings) throws IOException {
+        indexAccessors(in);
+        java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
+        try (java.util.zip.ZipOutputStream zout = new java.util.zip.ZipOutputStream(bytes)) {
+            for (var e : in.entrySet()) {
+                String name = e.getKey();
+                if (JarConverter.isSignature(name)) continue;
+                byte[] data = e.getValue();
+                if (name.endsWith(".class") && !name.startsWith("META-INF/versions/")) {
+                    try {
+                        ClassConverter.Output o = classConverter.convert(data);
+                        warnings.addAll(o.problems());
+                        data = o.bytes();
+                    } catch (RuntimeException ex) {
+                        warnings.add("failed to convert library class " + name + ": " + ex);
+                    }
+                }
+                zout.putNextEntry(new java.util.zip.ZipEntry(name));
+                zout.write(data);
+                zout.closeEntry();
+            }
+        }
+        return bytes.toByteArray();
+    }
+
     public JarConverter.Result convert(String fileName, byte[] jar) throws IOException {
         Map<String, byte[]> in = JarConverter.read(jar);
         if (!isLegacyMod(in)) throw new IOException(fileName + " is not a Minecraft 1.20.1 Forge mod");
@@ -124,6 +156,9 @@ public final class LegacyJarConverter {
                     JarConverter.Result r = convert(name.substring(name.lastIndexOf('/') + 1), data);
                     nested.add(r.report());
                     out.put(name, r.jar());
+                } else if (hasSrgClasses(n)) {
+                    // a plain library compiled against 1.20.1 (Registrate, ...): classes only
+                    out.put(name, convertLibrary(n, warnings));
                 } else {
                     out.put(name, data);
                 }

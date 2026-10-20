@@ -77,6 +77,8 @@ public final class EvolutionPass {
             }
         }
         cn.methods.addAll(synthetic.values());
+        // 1b. lambdas implementing a functional interface whose method evolved (e.g. a type's codec())
+        lambdas(cn, itf);
         // 2. overrides
         List<MethodNode> bridges = new ArrayList<>();
         for (MethodNode mn : cn.methods) {
@@ -89,6 +91,94 @@ public final class EvolutionPass {
             }
         }
         cn.methods.addAll(bridges);
+    }
+
+    private static final String LMF = "java/lang/invoke/LambdaMetafactory";
+
+    /** the evolution a lambda's interface method falls under, bridge maps only */
+    private Mappings.Evolution findForLambda(String itfName, String name, String desc) {
+        for (Mappings.Evolution ev : mappings.evolutions(name)) {
+            if (ev.bridgeMap().equals(NONE)) continue;
+            if (ev.oldDesc().equals(desc) && (itfName.equals(ev.owner()) || hierarchy.isSubtypeOf(itfName, ev.owner()))) return ev;
+        }
+        return null;
+    }
+
+    /**
+     * Rewrites {@code LambdaMetafactory.metafactory} call sites whose functional method has an
+     * evolution: the lambda now implements the new method through a synthetic static adapter that
+     * converts the new arguments with the bridge map, calls the original implementation and converts
+     * its result.
+     */
+    private void lambdas(ClassNode cn, boolean itf) {
+        List<MethodNode> added = new ArrayList<>();
+        for (MethodNode mn : cn.methods) {
+            if (mn.instructions == null) continue;
+            for (AbstractInsnNode insn : mn.instructions.toArray()) {
+                if (!(insn instanceof org.objectweb.asm.tree.InvokeDynamicInsnNode indy)) continue;
+                if (!indy.bsm.getOwner().equals(LMF) || !indy.bsm.getName().equals("metafactory") || indy.bsmArgs.length < 3) continue;
+                if (!(indy.bsmArgs[0] instanceof Type sam) || !(indy.bsmArgs[1] instanceof org.objectweb.asm.Handle impl) || !(indy.bsmArgs[2] instanceof Type inst)) continue;
+                String itfName = Type.getReturnType(indy.desc).getInternalName();
+                Mappings.Evolution ev = findForLambda(itfName, indy.name, sam.getDescriptor());
+                if (ev == null) continue;
+                MethodNode adapter = lambdaAdapter(cn, indy, impl, sam, inst, ev, added.size(), itf);
+                if (adapter == null) continue;
+                added.add(adapter);
+                Type newSam = Type.getMethodType(ev.newDesc());
+                indy.name = ev.newName();
+                indy.bsmArgs = new Object[]{newSam, new org.objectweb.asm.Handle(Opcodes.H_INVOKESTATIC, cn.name, adapter.name, adapter.desc, itf), newSam};
+            }
+        }
+        cn.methods.addAll(added);
+    }
+
+    private MethodNode lambdaAdapter(ClassNode cn, org.objectweb.asm.tree.InvokeDynamicInsnNode indy, org.objectweb.asm.Handle impl, Type sam, Type inst,
+                                     Mappings.Evolution ev, int index, boolean itf) {
+        Type[] captured = Type.getArgumentTypes(indy.desc);
+        Type[] newArgs = Type.getArgumentTypes(ev.newDesc()), oldArgs = sam.getArgumentTypes(), instArgs = inst.getArgumentTypes();
+        Type newRet = Type.getReturnType(ev.newDesc()), oldRet = sam.getReturnType();
+        Type implType = Type.getMethodType(impl.getDesc());
+        Type implRet = impl.getTag() == Opcodes.H_NEWINVOKESPECIAL ? Type.getObjectType(impl.getOwner()) : implType.getReturnType();
+        // only reference / identical types are handled; LambdaMetafactory's boxing rules are not repeated here
+        if (implRet.getSort() != oldRet.getSort() && !(isRef(implRet) && isRef(oldRet))) return null;
+        Type[] all = new Type[captured.length + newArgs.length];
+        System.arraycopy(captured, 0, all, 0, captured.length);
+        System.arraycopy(newArgs, 0, all, captured.length, newArgs.length);
+        String desc = Type.getMethodDescriptor(newRet, all);
+        MethodNode m = new MethodNode(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_SYNTHETIC, "campat$lambda$" + index, desc, null, null);
+        InsnList il = m.instructions;
+        if (impl.getTag() == Opcodes.H_NEWINVOKESPECIAL) {
+            il.add(new TypeInsnNode(Opcodes.NEW, impl.getOwner()));
+            il.add(new InsnNode(Opcodes.DUP));
+        }
+        int[] slots = slots(all, 0);
+        for (int i = 0; i < captured.length; i++) il.add(new VarInsnNode(captured[i].getOpcode(Opcodes.ILOAD), slots[i]));
+        Parsed map = parse(ev.bridgeMap(), oldArgs.length);
+        int[] newSlots = new int[newArgs.length];
+        System.arraycopy(slots, captured.length, newSlots, 0, newArgs.length);
+        for (int j = 0; j < oldArgs.length; j++) {
+            load(il, map.entries.get(j), newArgs, newSlots, oldArgs[j]);
+            Type want = j < instArgs.length ? instArgs[j] : oldArgs[j];
+            if (isRef(want) && !want.equals(oldArgs[j])) il.add(new TypeInsnNode(Opcodes.CHECKCAST, want.getInternalName()));
+        }
+        switch (impl.getTag()) {
+            case Opcodes.H_INVOKESTATIC -> il.add(new MethodInsnNode(Opcodes.INVOKESTATIC, impl.getOwner(), impl.getName(), impl.getDesc(), impl.isInterface()));
+            case Opcodes.H_INVOKEVIRTUAL -> il.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, impl.getOwner(), impl.getName(), impl.getDesc(), false));
+            case Opcodes.H_INVOKEINTERFACE -> il.add(new MethodInsnNode(Opcodes.INVOKEINTERFACE, impl.getOwner(), impl.getName(), impl.getDesc(), true));
+            case Opcodes.H_INVOKESPECIAL -> il.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, impl.getOwner(), impl.getName(), impl.getDesc(), impl.isInterface()));
+            case Opcodes.H_NEWINVOKESPECIAL -> il.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, impl.getOwner(), "<init>", impl.getDesc(), false));
+            default -> { return null; }
+        }
+        if (map.ret != null && map.ret.startsWith("=n")) return null;
+        convertReturn(il, map.ret, oldRet.getSort() == Type.VOID ? implRet : oldRet, newRet);
+        il.add(new InsnNode(newRet.getOpcode(Opcodes.IRETURN)));
+        m.maxLocals = all.length == 0 ? 0 : slots[slots.length - 1] + all[all.length - 1].getSize();
+        m.maxStack = 6 + Type.getArgumentsAndReturnSizes(impl.getDesc());
+        return m;
+    }
+
+    private static boolean isRef(Type t) {
+        return t.getSort() == Type.OBJECT || t.getSort() == Type.ARRAY;
     }
 
     private Mappings.Evolution find(String owner, String name, String desc) {

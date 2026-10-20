@@ -25,6 +25,15 @@ public final class LegacyCodecs {
         return MAP_CODECS.computeIfAbsent(codec, c -> MapCodec.assumeMapUnsafe(c));
     }
 
+    /** constructors that took a Codec and take a MapCodec now */
+    public static Object[] typeArgs(Codec codec) {
+        return new Object[]{mapCodec(codec)};
+    }
+
+    public static net.minecraft.util.KeyDispatchDataCodec keyDispatch(Codec codec) {
+        return net.minecraft.util.KeyDispatchDataCodec.of(mapCodec(codec));
+    }
+
     /** casts to Codec in 1.20.1 code: registered serializers are MapCodecs now */
     public static Codec asCodec(Object value) {
         if (value instanceof MapCodec<?> m) return m.codec();
