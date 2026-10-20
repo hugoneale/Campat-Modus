@@ -160,3 +160,4 @@ R net/neoforged/neoforge/event/AddPackFindersEvent addPackFinders (Lnet/minecraf
 R net/neoforged/neoforge/event/AddPackFindersEvent isTrusted ()Z io/github/hugoneale/campat/runtime/bridge/EventBridge isTrusted
 R net/neoforged/fml/ModLoadingException <init> (Lnet/neoforged/fml/ModLoadingIssue;)V io/github/hugoneale/campat/runtime/bridge/EventBridge modLoadingException
 R net/neoforged/fml/ModLoadingException <init> (Ljava/util/List;)V io/github/hugoneale/campat/runtime/bridge/EventBridge modLoadingException
+R net/neoforged/neoforge/common/ModConfigSpec$Builder gameRestart ()Lnet/neoforged/neoforge/common/ModConfigSpec$Builder; io/github/hugoneale/campat/runtime/bridge/ConfigBridge gameRestart

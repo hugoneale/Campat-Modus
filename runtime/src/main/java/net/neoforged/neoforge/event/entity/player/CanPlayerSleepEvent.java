@@ -41,7 +41,7 @@ public class CanPlayerSleepEvent extends PlayerEvent {
     public CanPlayerSleepEvent(ServerPlayer player, BlockPos pos, @Nullable BedSleepingProblem problem) {
         super(player);
         this.pos = pos;
-        this.state = player.level().getBlockState(pos);
+        this.state = player == null ? null : player.level().getBlockState(pos);
         this.vanillaProblem = this.problem = problem;
     }
 

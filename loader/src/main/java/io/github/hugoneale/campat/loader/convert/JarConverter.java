@@ -137,7 +137,7 @@ public final class JarConverter {
                 }
             } else if (isNestedJar(n)) {
                 Map<String, byte[]> nested = read(e.getValue());
-                if (isNeoForgeMod(nested)) index(nested, hierarchy);
+                if (isNeoForgeMod(nested) || referencesNeoForge(nested)) index(nested, hierarchy);
             }
         }
     }
@@ -209,6 +209,11 @@ public final class JarConverter {
                     Result r = convert(simple, data, inherited);
                     nestedReports.add(r.report());
                     out.put(name, r.jar());
+                } else if (referencesNeoForge(nested)) {
+                    // a plain library compiled against NeoForge (Registrate, ...): classes only
+                    Result r = convertLibrary(simple, nested);
+                    nestedReports.add(r.report());
+                    out.put(name, r.jar());
                 } else {
                     out.put(name, data);
                 }
@@ -259,6 +264,50 @@ public final class JarConverter {
         manifest.getEntries().clear(); // per entry digests are invalid now
 
         return new Result(write(manifest, out), new Report(fileName, modIds, warnings, missing, nestedReports));
+    }
+
+    private static final byte[] NEO_PACKAGE = "net/neoforged/".getBytes(StandardCharsets.ISO_8859_1);
+
+    static boolean referencesNeoForge(Map<String, byte[]> entries) {
+        for (var e : entries.entrySet()) {
+            if (e.getKey().endsWith(".class") && contains(e.getValue(), NEO_PACKAGE)) return true;
+        }
+        return false;
+    }
+
+    /** Converts the classes and service files of a non-mod library jar; everything else is kept. */
+    private Result convertLibrary(String fileName, Map<String, byte[]> in) throws IOException {
+        Manifest manifest = new Manifest();
+        if (in.containsKey("META-INF/MANIFEST.MF")) manifest.read(new ByteArrayInputStream(in.get("META-INF/MANIFEST.MF")));
+        List<String> warnings = new ArrayList<>();
+        Set<String> missing = new TreeSet<>();
+        Map<String, byte[]> out = new LinkedHashMap<>();
+        for (var e : in.entrySet()) {
+            String name = e.getKey();
+            byte[] data = e.getValue();
+            if (name.equals("META-INF/MANIFEST.MF") || isSignature(name)) continue;
+            if (name.equals("module-info.class") || (name.startsWith("META-INF/versions/") && name.endsWith("/module-info.class"))) continue;
+            if (name.endsWith(".class") && !name.startsWith("META-INF/versions/")) {
+                try {
+                    ClassConverter.Output o = classConverter.convert(data);
+                    warnings.addAll(o.problems());
+                    for (String ref : o.referencedNeoClasses()) {
+                        if (mappings.mapClass(ref).equals(ref) && !providedByRuntime.test(ref)) missing.add(ref);
+                    }
+                    out.put(name, o.bytes());
+                } catch (RuntimeException ex) {
+                    warnings.add("failed to convert " + name + ": " + ex);
+                    out.put(name, data);
+                }
+            } else if (name.startsWith("META-INF/services/")) {
+                ResourceRewriter.Rewritten r = resources.rewrite(name, data, List.of());
+                if (r != null) out.put(r.name(), r.data());
+            } else {
+                out.put(name, data);
+            }
+        }
+        manifest.getEntries().clear();
+        return new Result(write(manifest, out), new Report(fileName, List.of(), warnings, missing, List.of()));
     }
 
     /** An empty Forge mod carrying the ids of a mod whose purpose Forge fulfils natively. */

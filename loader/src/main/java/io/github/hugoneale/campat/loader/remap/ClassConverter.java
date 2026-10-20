@@ -307,7 +307,21 @@ public final class ClassConverter {
         private String superOf(String c) {
             if (c.equals("java/lang/Object")) return null;
             String s = hierarchy.superClass(c);
-            return s == null ? "java/lang/Object" : s;
+            if (s != null) return s;
+            // JDK types (exceptions merged at catch handlers, ...) are not in the hierarchy
+            // JDK and library types (exceptions merged at catch handlers, gson, guava, ...) are not in the
+            // hierarchy; the loader can see them without initialising anything
+            for (ClassLoader cl : new ClassLoader[]{ClassLoader.getPlatformClassLoader(), ClassConverter.class.getClassLoader()}) {
+                try {
+                    Class<?> k = Class.forName(c.replace('/', '.'), false, cl);
+                    if (k.isInterface()) return "java/lang/Object";
+                    Class<?> sup = k.getSuperclass();
+                    return sup == null ? "java/lang/Object" : sup.getName().replace('.', '/');
+                } catch (ReflectiveOperationException | LinkageError e) {
+                    // try the next loader
+                }
+            }
+            return "java/lang/Object";
         }
 
         private java.util.Map<String, String> reverse;

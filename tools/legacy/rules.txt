@@ -95,3 +95,8 @@ R com/mojang/blaze3d/vertex/VertexConsumer uv2 (I)Lcom/mojang/blaze3d/vertex/Ver
 R com/mojang/blaze3d/vertex/VertexConsumer normal (Lorg/joml/Matrix3f;FFF)Lcom/mojang/blaze3d/vertex/VertexConsumer; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender normal
 R com/mojang/blaze3d/systems/RenderSystem getModelViewStack ()Lcom/mojang/blaze3d/vertex/PoseStack; io/github/hugoneale/campat/runtime/legacy/client/LegacyRender getModelViewStack
 V com/mojang/blaze3d/vertex/VertexConsumer overlayCoords (II)Lcom/mojang/blaze3d/vertex/VertexConsumer; setUv1 (II)Lcom/mojang/blaze3d/vertex/VertexConsumer; o0,o1 n0,n1
+
+# ---- registries that became data driven ----
+S net/minecraft/core/registries/BuiltInRegistries ENCHANTMENT Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries enchantmentRegistry
+S net/minecraft/core/registries/BuiltInRegistries BANNER_PATTERN Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries bannerPatternRegistry
+S net/minecraft/core/registries/BuiltInRegistries PAINTING_VARIANT Lnet/minecraft/core/DefaultedRegistry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries paintingVariantRegistry

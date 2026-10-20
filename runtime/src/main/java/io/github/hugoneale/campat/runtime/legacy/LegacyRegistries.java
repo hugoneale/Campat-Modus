@@ -36,4 +36,51 @@ public final class LegacyRegistries {
         if (builtin == null) builtin = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
         return builtin;
     }
+
+    // ---- built-in registries that became data driven in 1.21 (enchantments, banner patterns, paintings) ----
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.core.Registry dynamic(net.minecraft.resources.ResourceKey key) {
+        return dynamic(key, net.minecraft.core.Registry.class);
+    }
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static net.minecraft.core.Registry dynamic(net.minecraft.resources.ResourceKey key, Class<?> type) {
+        java.lang.reflect.InvocationHandler h = (proxy, method, args) -> {
+            switch (method.getName()) {
+                case "key": if (method.getParameterCount() == 0) return key; break;
+                case "toString": if (method.getParameterCount() == 0) return "LegacyDynamicRegistry[" + key.location() + "]"; break;
+                case "hashCode": if (method.getParameterCount() == 0) return key.hashCode(); break;
+                case "equals": if (method.getParameterCount() == 1) return proxy == args[0]; break;
+                default:
+            }
+            Object target = access().registryOrThrow(key);
+            if (!method.getDeclaringClass().isInstance(target)) return null; // DefaultedRegistry extras
+            try {
+                return method.invoke(target, args);
+            } catch (java.lang.reflect.InvocationTargetException e) {
+                throw e.getCause();
+            }
+        };
+        return (net.minecraft.core.Registry) java.lang.reflect.Proxy.newProxyInstance(LegacyRegistries.class.getClassLoader(),
+            new Class<?>[]{type}, h);
+    }
+
+    private static net.minecraft.core.Registry enchantments, bannerPatterns;
+    private static net.minecraft.core.DefaultedRegistry paintings;
+
+    public static net.minecraft.core.Registry enchantmentRegistry() {
+        if (enchantments == null) enchantments = dynamic(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        return enchantments;
+    }
+
+    public static net.minecraft.core.Registry bannerPatternRegistry() {
+        if (bannerPatterns == null) bannerPatterns = dynamic(net.minecraft.core.registries.Registries.BANNER_PATTERN);
+        return bannerPatterns;
+    }
+
+    public static net.minecraft.core.DefaultedRegistry paintingVariantRegistry() {
+        if (paintings == null) paintings = (net.minecraft.core.DefaultedRegistry) dynamic(net.minecraft.core.registries.Registries.PAINTING_VARIANT, net.minecraft.core.DefaultedRegistry.class);
+        return paintings;
+    }
 }

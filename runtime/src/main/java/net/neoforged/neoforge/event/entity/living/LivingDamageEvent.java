@@ -104,7 +104,7 @@ public abstract class LivingDamageEvent extends LivingEvent {
     public static class Post extends LivingDamageEvent {
     /** campat: Forge's event bus needs a public no-arg constructor to build listener lists */
     public Post() {
-        this((LivingEntity) null, (DamageContainer) null);
+        this((LivingEntity) null, new DamageContainer(null, 0f));
     }
 
         private final float originalDamage;

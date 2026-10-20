@@ -78,4 +78,8 @@ public final class ConfigBridge {
     public static double getAsDouble(ForgeConfigSpec.DoubleValue v) {
         return v.get();
     }
+
+    public static ForgeConfigSpec.Builder gameRestart(ForgeConfigSpec.Builder b) {
+        return b.worldRestart();
+    }
 }
