@@ -17,7 +17,8 @@ What happened to each jar is written to `.campat/report.txt`.
 |---|---|---|
 | NeoForge 1.21.1 API coverage | a NeoForge test mod exercising mod loading, registries, networking, config, capabilities, attachments, data maps, custom ingredients, GUI layers, menus, client extensions, ticks, ... on a real Forge server **and** a real (headless) client that joins it | 65/65 checks pass |
 | Real NeoForge 1.21.1 mods | the 200 most downloaded NeoForge 1.21.1 mods on Modrinth, each booted on a Forge 1.21.1 dedicated server with its dependencies | see `tools/test/boot_matrix.py`; latest run below |
-| Forge 1.20.1 mods | 150 most downloaded Forge 1.20.1 mods, converted and link-checked against Forge 1.21.1 | conversion works for all; most large mods still reference removed 1.21 APIs |
+| Forge 1.20.1 API layer | the same test mod and headless client, plus 14 popular 1.20.1 client/common mods (AppleSkin, Jade, Patchouli, GeckoLib, Tom's Storage, Cloth Config, ...) converted and loaded together; the client joins the server | 65/65 checks pass, world joined |
+| Real Forge 1.20.1 mods | 138 most downloaded Forge 1.20.1 mods, each booted on a Forge 1.21.1 dedicated server with its dependencies; static link audit of all 207 jars (`./gradlew :tools:audit`) | **108 of 138 boot**; see below |
 
 Latest server boot matrix (NeoForge 1.21.1 corpus): **BOOT_OK of 197 boot**, see the end of this
 file for what the rest need.
@@ -88,7 +89,8 @@ python3 tools/test/boot_matrix.py <modsDir> <outDir>   # boot each mod (and its 
 * **Kotlin mods** need Kotlin for Forge (the Forge build) installed, as they need it on NeoForge.
 * **Client-only mods on a server**: some reference client classes that are not in any server jar;
   they fail on NeoForge servers as well.
-* **1.20.1 mods** are best effort. Minecraft changed a great deal between 1.20.1 and 1.21.1
+* **1.20.1 mods** are best effort (108 of 138 popular mods boot a server; of the rest, about half
+  are Kotlin, client-only, Fabric-based or FML-internal mods that cannot work this way). Minecraft changed a great deal between 1.20.1 and 1.21.1
   (data components, holders, rendering); small and mid-sized mods have the best chance, large
   content mods usually still hit removed APIs. Their mixins are made non-fatal, which keeps the
   game running but may disable parts of a mod.
