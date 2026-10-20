@@ -342,6 +342,7 @@ V net/minecraft/world/item/SpawnEggItem getType (Lnet/minecraft/nbt/CompoundTag;
 C net/minecraftforge/client/gui/overlay/IGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$IGuiOverlay
 C net/minecraftforge/client/gui/overlay/NamedGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$NamedGuiOverlay
 C net/minecraftforge/client/gui/overlay/VanillaGuiOverlay io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$VanillaGuiOverlay
+C net/minecraftforge/client/gui/overlay/GuiOverlayManager io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$GuiOverlayManager
 C net/minecraftforge/client/gui/overlay/ForgeGui io/github/hugoneale/campat/runtime/legacy/client/LegacyForgeGui
 C net/minecraftforge/client/event/RegisterGuiOverlaysEvent io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$RegisterGuiOverlaysEvent
 C net/minecraftforge/client/event/RenderGuiOverlayEvent io/github/hugoneale/campat/runtime/legacy/client/LegacyGuiOverlays$RenderGuiOverlayEvent

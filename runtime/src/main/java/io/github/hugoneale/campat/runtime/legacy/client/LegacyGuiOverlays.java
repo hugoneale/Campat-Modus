@@ -111,6 +111,23 @@ public final class LegacyGuiOverlays {
         return MODDED.get(layer);
     }
 
+    /** Forge 47's {@code GuiOverlayManager} */
+    public static final class GuiOverlayManager {
+        private GuiOverlayManager() {
+        }
+
+        public static NamedGuiOverlay findOverlay(ResourceLocation id) {
+            return overlayOf(layerOf(id));
+        }
+
+        public static java.util.List<NamedGuiOverlay> getOverlays() {
+            java.util.List<NamedGuiOverlay> all = new java.util.ArrayList<>();
+            for (VanillaGuiOverlay o : VanillaGuiOverlay.values()) all.add(o.type());
+            all.addAll(MODDED.values());
+            return java.util.Collections.unmodifiableList(all);
+        }
+    }
+
     private static LayeredDraw.Layer layer(IGuiOverlay overlay) {
         return (g, delta) -> {
             Window w = Minecraft.getInstance().getWindow();
