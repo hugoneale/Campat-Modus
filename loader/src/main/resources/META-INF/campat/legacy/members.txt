@@ -475,5 +475,5 @@ N m_41123_ clearColor
 N m_41115_ setColor
 
 # ---- client models: additional models by plain id ----
-R net/minecraftforge/client/event/ModelEvent$RegisterAdditional register (Lnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/legacy/client/LegacyModels register
-R net/minecraft/client/resources/model/ModelManager getModel (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/BakedModel; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModel
+R net/minecraftforge/client/event/ModelEvent$RegisterAdditional register (Lnet/minecraft/resources/ResourceLocation;)V io/github/hugoneale/campat/runtime/legacy/client/LegacyModels register (Lnet/minecraftforge/client/event/ModelEvent$RegisterAdditional;Ljava/lang/Object;)V
+R net/minecraft/client/resources/model/ModelManager getModel (Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/resources/model/BakedModel; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels getModel (Lnet/minecraft/client/resources/model/ModelManager;Ljava/lang/Object;)Lnet/minecraft/client/resources/model/BakedModel;
