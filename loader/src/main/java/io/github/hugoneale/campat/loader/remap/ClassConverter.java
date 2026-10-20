@@ -78,6 +78,7 @@ public final class ClassConverter {
         // 1b. evolved virtual method signatures (legacy layer): bridges and adapted calls. The
         // generated methods are straight line code with explicit max stack/locals, no frames needed.
         evolutions.apply(cn);
+        addDefaultImpls(cn);
         fixKindChanges(cn);
         mixinRetypes.apply(cn);
 
@@ -141,6 +142,43 @@ public final class ClassConverter {
         ClassWriter cw = ctorRedirect ? new HierarchyClassWriter(hierarchy, mappings) : new ClassWriter(0);
         cn.accept(new ClassRemapper(cw, remapper));
         return new Output(cw.toByteArray(), entrypoints, neoRefs, problems);
+    }
+
+    /**
+     * Implements abstract methods a platform type gained ({@code D} lines) in the topmost mod class
+     * below it, by calling a static helper with {@code this} and the arguments.
+     */
+    private void addDefaultImpls(ClassNode cn) {
+        if (mappings.defaultImpls().isEmpty() || (cn.access & Opcodes.ACC_INTERFACE) != 0) return;
+        for (Mappings.DefaultImpl d : mappings.defaultImpls()) {
+            if (!hierarchy.isSubtypeOf(cn.name, d.owner()) || cn.name.equals(d.owner())) continue;
+            if (cn.methods.stream().anyMatch(m -> m.name.equals(d.name()) && m.desc.equals(d.desc()))) continue;
+            // a mod superclass below the owner gets (or has) the implementation itself
+            String sup = cn.superName;
+            if (sup != null && !hierarchy.isPlatform(sup) && hierarchy.isSubtypeOf(sup, d.owner())) continue;
+            // first platform ancestor: must be the owner itself or unrelated to it (then a mod class brings the interface)
+            String p = sup;
+            while (p != null && !hierarchy.isPlatform(p)) p = hierarchy.superClass(p);
+            if (p != null && !p.equals(d.owner()) && hierarchy.isSubtypeOf(p, d.owner())) continue;
+            org.objectweb.asm.Type[] args = org.objectweb.asm.Type.getArgumentTypes(d.desc());
+            org.objectweb.asm.Type ret = org.objectweb.asm.Type.getReturnType(d.desc());
+            MethodNode m = new MethodNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_SYNTHETIC, d.name(), d.desc(), null, null);
+            m.instructions.add(new org.objectweb.asm.tree.VarInsnNode(Opcodes.ALOAD, 0));
+            int slot = 1;
+            org.objectweb.asm.Type[] helperArgs = new org.objectweb.asm.Type[args.length + 1];
+            helperArgs[0] = org.objectweb.asm.Type.getObjectType(d.owner());
+            for (int i = 0; i < args.length; i++) {
+                m.instructions.add(new org.objectweb.asm.tree.VarInsnNode(args[i].getOpcode(Opcodes.ILOAD), slot));
+                slot += args[i].getSize();
+                helperArgs[i + 1] = args[i];
+            }
+            m.instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, d.helperOwner(), d.helperName(),
+                org.objectweb.asm.Type.getMethodDescriptor(ret, helperArgs), false));
+            m.instructions.add(new org.objectweb.asm.tree.InsnNode(ret.getOpcode(Opcodes.IRETURN)));
+            m.maxLocals = slot;
+            m.maxStack = Math.max(slot, ret.getSize());
+            cn.methods.add(m);
+        }
     }
 
     /** call opcodes for owners that changed between class and interface */

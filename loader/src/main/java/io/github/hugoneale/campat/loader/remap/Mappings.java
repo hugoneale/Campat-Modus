@@ -37,6 +37,13 @@ import java.util.function.Predicate;
  *                                                 turns values written through setters/shadows into Forge's type
  * I  class / K  class                              the class became an interface / the interface became a class:
  *                                                 call opcodes are fixed up
+ * A  owner  oldDesc  newDesc  adapterOwner  adapterName
+ *                                                 a constructor whose parameters changed: every call (also super(...)
+ *                                                 from subclasses) passes the old arguments to the static adapter,
+ *                                                 which returns the new arguments as an Object[] (primitives boxed)
+ * D  owner  name  desc  helperOwner  helperName
+ *                                                 an abstract method the platform type gained: mod classes that extend
+ *                                                 it get an implementation calling the static helper(self, args...)
  * V  owner  name  oldDesc  newName  newDesc  callMap  bridgeMap
  *                                                 a virtual method whose signature evolved; see {@link EvolutionPass}
  * </pre>
@@ -49,11 +56,17 @@ public final class Mappings {
 
     public record Redirect(String targetOwner, String targetName, String targetDesc) {}
 
+    public record DefaultImpl(String owner, String name, String desc, String helperOwner, String helperName) {}
+
+    public record CtorAdapter(String newDesc, String adapterOwner, String adapterName) {}
+
     private final Map<String, String> classes = new HashMap<>();
     private final Map<String, String> fieldRenames = new HashMap<>(); // owner.name -> newName
     private final Map<MemberKey, String> methodRenames = new HashMap<>();
     private final Map<MemberKey, Redirect> methodRedirects = new HashMap<>();
     private final Map<MemberKey, Redirect> fieldRedirects = new HashMap<>();
+    private final Map<MemberKey, CtorAdapter> ctorAdapters = new HashMap<>();
+    private final List<DefaultImpl> defaultImpls = new ArrayList<>();
     /** owners that have any member entry, so lookups can be skipped quickly */
     private final Set<String> memberOwners = new HashSet<>();
     private final Map<String, String> globalNames = new HashMap<>();
@@ -101,6 +114,8 @@ public final class Mappings {
                 fieldRedirects.put(new MemberKey(p[1], p[2], p[3]), new Redirect(p[4], p[5], p.length > 6 ? p[6] : null));
                 memberOwners.add(p[1]);
             }
+            case "D" -> defaultImpls.add(new DefaultImpl(p[1], p[2], p[3], p[4], p[5]));
+            case "A" -> ctorAdapters.put(new MemberKey(p[1], "<init>", p[2]), new CtorAdapter(p[3], p[4], p[5]));
             case "N" -> globalNames.put(p[1], p[2]);
             case "T" -> fieldRetypes.put(p[1] + "." + p[2], new String[]{p[3], p[4], p.length > 5 ? p[5] : null});
             case "I" -> kindChanges.put(p[1], true);
@@ -176,6 +191,14 @@ public final class Mappings {
 
     public Redirect methodRedirect(String owner, String name, String desc) {
         return methodRedirects.get(new MemberKey(owner, name, desc));
+    }
+
+    public List<DefaultImpl> defaultImpls() {
+        return defaultImpls;
+    }
+
+    public CtorAdapter ctorAdapter(String owner, String desc) {
+        return ctorAdapters.isEmpty() ? null : ctorAdapters.get(new MemberKey(owner, "<init>", desc));
     }
 
     public Redirect fieldRedirect(String owner, String name, String desc) {

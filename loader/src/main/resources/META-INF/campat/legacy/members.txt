@@ -101,3 +101,116 @@ V com/mojang/blaze3d/vertex/VertexConsumer m_7122_ (II)Lcom/mojang/blaze3d/verte
 S net/minecraft/core/registries/BuiltInRegistries f_256876_ Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries enchantmentRegistry
 S net/minecraft/core/registries/BuiltInRegistries f_256878_ Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries bannerPatternRegistry
 S net/minecraft/core/registries/BuiltInRegistries f_257051_ Lnet/minecraft/core/DefaultedRegistry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries paintingVariantRegistry
+
+# ---- more Forge 47 classes ----
+C net/minecraftforge/network/simple/IndexedMessageCodec$MessageHandler io/github/hugoneale/campat/runtime/legacy/forge/LegacyMessageHandler
+C net/minecraftforge/common/util/FakePlayer net/neoforged/neoforge/common/util/FakePlayer
+C net/minecraftforge/common/util/FakePlayerFactory net/neoforged/neoforge/common/util/FakePlayerFactory
+
+# ---- FriendlyByteBuf.Writer / Reader -> StreamEncoder / StreamDecoder ----
+C net/minecraft/network/FriendlyByteBuf$Writer io/github/hugoneale/campat/runtime/legacy/LegacyBufs$Writer
+C net/minecraft/network/FriendlyByteBuf$Reader io/github/hugoneale/campat/runtime/legacy/LegacyBufs$Reader
+R net/minecraft/network/FriendlyByteBuf m_236828_ (Ljava/util/Collection;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeCollection
+R net/minecraft/network/FriendlyByteBuf m_236838_ (Ljava/util/function/IntFunction;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/util/Collection; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readCollection
+R net/minecraft/network/FriendlyByteBuf m_236845_ (Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readList
+R net/minecraft/network/FriendlyByteBuf m_236831_ (Ljava/util/Map;Lnet/minecraft/network/FriendlyByteBuf$Writer;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeMap
+R net/minecraft/network/FriendlyByteBuf m_236841_ (Ljava/util/function/IntFunction;Lnet/minecraft/network/FriendlyByteBuf$Reader;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readMap
+R net/minecraft/network/FriendlyByteBuf m_236847_ (Lnet/minecraft/network/FriendlyByteBuf$Reader;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readMap
+R net/minecraft/network/FriendlyByteBuf m_236835_ (Ljava/util/Optional;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeOptional
+R net/minecraft/network/FriendlyByteBuf m_236860_ (Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readOptional
+R net/minecraft/network/FriendlyByteBuf m_236821_ (Ljava/lang/Object;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeNullable
+R net/minecraft/network/FriendlyByteBuf m_236868_ (Lnet/minecraft/network/FriendlyByteBuf$Reader;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readNullable
+R net/minecraft/network/FriendlyByteBuf m_236810_ (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/network/FriendlyByteBuf$Writer;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeEither
+R net/minecraft/network/FriendlyByteBuf m_236862_ (Lnet/minecraft/network/FriendlyByteBuf$Reader;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Lcom/mojang/datafixers/util/Either; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readEither
+R net/minecraft/network/FriendlyByteBuf m_263218_ (Lnet/minecraft/core/IdMap;Lnet/minecraft/core/Holder;Lnet/minecraft/network/FriendlyByteBuf$Writer;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeId
+R net/minecraft/network/FriendlyByteBuf m_263187_ (Lnet/minecraft/core/IdMap;Lnet/minecraft/network/FriendlyByteBuf$Reader;)Lnet/minecraft/core/Holder; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readById
+R net/minecraft/network/FriendlyByteBuf m_130083_ (Lnet/minecraft/network/chat/Component;)Lnet/minecraft/network/FriendlyByteBuf; io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeComponent
+R net/minecraft/network/FriendlyByteBuf m_130238_ ()Lnet/minecraft/network/chat/Component; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readComponent
+
+# ---- recipes: Container -> RecipeInput, ids, JSON / network serializers -> codecs ----
+R net/minecraft/world/item/crafting/Ingredient m_43940_ (Lnet/minecraft/network/FriendlyByteBuf;)Lnet/minecraft/world/item/crafting/Ingredient; io/github/hugoneale/campat/runtime/legacy/LegacyApi ingredientFromNetwork
+R net/minecraft/world/item/crafting/Ingredient m_43923_ (Lnet/minecraft/network/FriendlyByteBuf;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi ingredientToNetwork
+R net/minecraft/world/item/crafting/Ingredient m_43917_ (Lcom/google/gson/JsonElement;)Lnet/minecraft/world/item/crafting/Ingredient; io/github/hugoneale/campat/runtime/legacy/LegacyApi ingredientFromJson
+R net/minecraft/world/item/crafting/Ingredient m_288218_ (Lcom/google/gson/JsonElement;Z)Lnet/minecraft/world/item/crafting/Ingredient; io/github/hugoneale/campat/runtime/legacy/LegacyApi ingredientFromJson
+R net/minecraft/world/item/crafting/Ingredient m_43942_ ()Lcom/google/gson/JsonElement; io/github/hugoneale/campat/runtime/legacy/LegacyApi ingredientToJson
+R net/minecraft/world/item/crafting/ShapedRecipe m_151274_ (Lcom/google/gson/JsonObject;)Lnet/minecraft/world/item/ItemStack; io/github/hugoneale/campat/runtime/legacy/LegacyApi itemStackFromJson
+R net/minecraft/world/item/crafting/Recipe m_6423_ ()Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/LegacyRecipes getId
+N m_6729_ fromJson
+N m_8005_ fromNetwork
+N m_6178_ toNetwork
+D net/minecraft/world/item/crafting/RecipeSerializer codec ()Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/LegacyRecipes serializerCodec
+D net/minecraft/world/item/crafting/RecipeSerializer streamCodec ()Lnet/minecraft/network/codec/StreamCodec; io/github/hugoneale/campat/runtime/legacy/LegacyRecipes serializerStreamCodec
+V net/minecraft/world/item/crafting/Recipe m_5818_ (Lnet/minecraft/world/Container;Lnet/minecraft/world/level/Level;)Z matches (Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/world/level/Level;)Z o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toInput(Lnet/minecraft/world/Container;)Lnet/minecraft/world/item/crafting/RecipeInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toContainer(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/Container;,n1
+V net/minecraft/world/item/crafting/Recipe m_5874_ (Lnet/minecraft/world/Container;Lnet/minecraft/core/RegistryAccess;)Lnet/minecraft/world/item/ItemStack; assemble (Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack; o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toInput(Lnet/minecraft/world/Container;)Lnet/minecraft/world/item/crafting/RecipeInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toContainer(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/Container;,n1:!cast
+V net/minecraft/world/item/crafting/Recipe m_7457_ (Lnet/minecraft/world/Container;)Lnet/minecraft/core/NonNullList; getRemainingItems (Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/core/NonNullList; o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toInput(Lnet/minecraft/world/Container;)Lnet/minecraft/world/item/crafting/RecipeInput; n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toContainer(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/Container;
+V net/minecraft/world/item/crafting/ShapedRecipe m_5818_ (Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/world/level/Level;)Z matches (Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingInput(Lnet/minecraft/world/inventory/CraftingContainer;)Lnet/minecraft/world/item/crafting/CraftingInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingContainer(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/inventory/CraftingContainer;,n1
+V net/minecraft/world/item/crafting/ShapedRecipe m_5874_ (Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/core/RegistryAccess;)Lnet/minecraft/world/item/ItemStack; assemble (Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack; o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingInput(Lnet/minecraft/world/inventory/CraftingContainer;)Lnet/minecraft/world/item/crafting/CraftingInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingContainer(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/inventory/CraftingContainer;,n1:!cast
+V net/minecraft/world/item/crafting/ShapelessRecipe m_5818_ (Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/world/level/Level;)Z matches (Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/world/level/Level;)Z o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingInput(Lnet/minecraft/world/inventory/CraftingContainer;)Lnet/minecraft/world/item/crafting/CraftingInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingContainer(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/inventory/CraftingContainer;,n1
+V net/minecraft/world/item/crafting/ShapelessRecipe m_5874_ (Lnet/minecraft/world/inventory/CraftingContainer;Lnet/minecraft/core/RegistryAccess;)Lnet/minecraft/world/item/ItemStack; assemble (Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack; o0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingInput(Lnet/minecraft/world/inventory/CraftingContainer;)Lnet/minecraft/world/item/crafting/CraftingInput;,o1 n0:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.toCraftingContainer(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/inventory/CraftingContainer;,n1:!cast
+A net/minecraft/world/item/crafting/CustomRecipe (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/world/item/crafting/CraftingBookCategory;)V (Lnet/minecraft/world/item/crafting/CraftingBookCategory;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors customRecipe
+A net/minecraft/world/item/crafting/ShapedRecipe (Lnet/minecraft/resources/ResourceLocation;Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;IILnet/minecraft/core/NonNullList;Lnet/minecraft/world/item/ItemStack;)V (Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;Lnet/minecraft/world/item/crafting/ShapedRecipePattern;Lnet/minecraft/world/item/ItemStack;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors shapedRecipe
+A net/minecraft/world/item/crafting/ShapedRecipe (Lnet/minecraft/resources/ResourceLocation;Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;IILnet/minecraft/core/NonNullList;Lnet/minecraft/world/item/ItemStack;Z)V (Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;Lnet/minecraft/world/item/crafting/ShapedRecipePattern;Lnet/minecraft/world/item/ItemStack;Z)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors shapedRecipe
+A net/minecraft/world/item/crafting/ShapelessRecipe (Lnet/minecraft/resources/ResourceLocation;Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/NonNullList;)V (Ljava/lang/String;Lnet/minecraft/world/item/crafting/CraftingBookCategory;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/core/NonNullList;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors shapelessRecipe
+A net/minecraft/data/recipes/RecipeProvider (Lnet/minecraft/data/PackOutput;)V (Lnet/minecraft/data/PackOutput;Ljava/util/concurrent/CompletableFuture;)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors recipeProvider
+
+# ---- particles: Deserializer + Codec -> MapCodec + StreamCodec ----
+C net/minecraft/core/particles/ParticleOptions$Deserializer io/github/hugoneale/campat/runtime/legacy/LegacyParticles$Deserializer
+N m_5739_ fromCommand
+N m_6507_ fromNetwork
+N m_7711_ writeToNetwork
+N m_5942_ writeToString
+A net/minecraft/core/particles/ParticleType (ZLnet/minecraft/core/particles/ParticleOptions$Deserializer;)V (Z)V io/github/hugoneale/campat/runtime/legacy/LegacyCtors particleType
+D net/minecraft/core/particles/ParticleType codec ()Lcom/mojang/serialization/MapCodec; io/github/hugoneale/campat/runtime/legacy/LegacyParticles codec
+D net/minecraft/core/particles/ParticleType streamCodec ()Lnet/minecraft/network/codec/StreamCodec; io/github/hugoneale/campat/runtime/legacy/LegacyParticles streamCodec
+
+# ---- items ----
+C net/minecraft/world/item/RecordItem io/github/hugoneale/campat/runtime/legacy/LegacyRecordItem
+N m_43051_ getSound
+N m_43049_ getAnalogOutput
+N m_43036_ getLengthInTicks
+N m_43050_ getDisplayName
+N m_43040_ getBySound
+R net/minecraft/world/item/DyeColor m_41068_ ()[F io/github/hugoneale/campat/runtime/legacy/LegacyApi getTextureDiffuseColor
+R net/minecraft/world/item/Item m_41473_ ()Lnet/minecraft/world/food/FoodProperties; io/github/hugoneale/campat/runtime/legacy/LegacyApi getFoodProperties
+R net/minecraft/world/item/Item m_41472_ ()Z io/github/hugoneale/campat/runtime/legacy/LegacyApi isEdible
+N m_38744_ nutrition
+R net/minecraft/world/food/FoodProperties m_38749_ ()Ljava/util/List; io/github/hugoneale/campat/runtime/legacy/LegacyApi foodEffects
+R net/minecraft/world/food/FoodProperties m_38746_ ()Z io/github/hugoneale/campat/runtime/legacy/LegacyApi isMeat
+
+# ---- entities ----
+V net/minecraft/world/entity/Entity m_8097_ ()V defineSynchedData (Lnet/minecraft/network/syncher/SynchedEntityData$Builder;)V s:io/github/hugoneale/campat/runtime/legacy/LegacyEntityData.builder()Lnet/minecraft/network/syncher/SynchedEntityData$Builder; -
+R net/minecraft/network/syncher/SynchedEntityData m_135372_ (Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V io/github/hugoneale/campat/runtime/legacy/LegacyEntityData define
+R net/minecraft/world/entity/LivingEntity m_21190_ (Lnet/minecraft/world/InteractionHand;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi broadcastBreakEvent
+R net/minecraft/world/entity/LivingEntity m_21166_ (Lnet/minecraft/world/entity/EquipmentSlot;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi broadcastBreakEvent
+R net/minecraft/world/entity/ai/attributes/AttributeModifier <init> (Ljava/util/UUID;Ljava/lang/String;DLnet/minecraft/world/entity/ai/attributes/AttributeModifier$Operation;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi attributeModifier
+R net/minecraft/world/entity/ai/attributes/AttributeModifier <init> (Ljava/lang/String;DLnet/minecraft/world/entity/ai/attributes/AttributeModifier$Operation;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi attributeModifier
+R net/minecraft/world/entity/ai/attributes/AttributeModifier <init> (Ljava/util/UUID;Ljava/util/function/Supplier;DLnet/minecraft/world/entity/ai/attributes/AttributeModifier$Operation;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi attributeModifier
+N m_22218_ amount
+N m_22217_ operation
+R net/minecraft/world/entity/ai/attributes/AttributeModifier m_22209_ ()Ljava/util/UUID; io/github/hugoneale/campat/runtime/legacy/LegacyApi modifierUuid
+R net/minecraft/world/entity/ai/attributes/AttributeModifier m_22214_ ()Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/LegacyApi modifierName
+F net/minecraft/world/entity/ai/attributes/AttributeModifier$Operation ADDITION ADD_VALUE
+F net/minecraft/world/entity/ai/attributes/AttributeModifier$Operation MULTIPLY_BASE ADD_MULTIPLIED_BASE
+F net/minecraft/world/entity/ai/attributes/AttributeModifier$Operation MULTIPLY_TOTAL ADD_MULTIPLIED_TOTAL
+
+# ---- saved data, NBT, misc ----
+R net/minecraft/world/level/storage/DimensionDataStorage m_164861_ (Ljava/util/function/Function;Ljava/util/function/Supplier;Ljava/lang/String;)Lnet/minecraft/world/level/saveddata/SavedData; io/github/hugoneale/campat/runtime/legacy/LegacyApi computeIfAbsent
+R net/minecraft/world/level/storage/DimensionDataStorage m_164858_ (Ljava/util/function/Function;Ljava/lang/String;)Lnet/minecraft/world/level/saveddata/SavedData; io/github/hugoneale/campat/runtime/legacy/LegacyApi get
+R net/minecraft/nbt/NbtUtils m_129239_ (Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/core/BlockPos; io/github/hugoneale/campat/runtime/legacy/LegacyApi readBlockPos
+R net/minecraft/nbt/NbtUtils m_129224_ (Lnet/minecraft/core/BlockPos;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyApi writeBlockPos
+R net/minecraft/nbt/NbtUtils m_129228_ (Lnet/minecraft/nbt/CompoundTag;)Lcom/mojang/authlib/GameProfile; io/github/hugoneale/campat/runtime/legacy/LegacyApi readGameProfile
+R net/minecraft/nbt/NbtUtils m_129230_ (Lnet/minecraft/nbt/CompoundTag;Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyApi writeGameProfile
+R net/minecraft/SharedConstants m_136188_ (C)Z io/github/hugoneale/campat/runtime/legacy/LegacyApi isAllowedChatCharacter
+R net/minecraft/world/phys/AABB <init> (Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi aabb
+N m_7727_ level
+N m_7961_ pos
+N m_6414_ state
+
+# ---- client: GUI ----
+A net/minecraft/client/gui/components/AbstractSelectionList (Lnet/minecraft/client/Minecraft;IIIII)V (Lnet/minecraft/client/Minecraft;IIII)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClientCtors selectionList
+A net/minecraft/client/gui/components/ObjectSelectionList (Lnet/minecraft/client/Minecraft;IIIII)V (Lnet/minecraft/client/Minecraft;IIII)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClientCtors selectionList
+A net/minecraft/client/gui/components/ContainerObjectSelectionList (Lnet/minecraft/client/Minecraft;IIIII)V (Lnet/minecraft/client/Minecraft;IIII)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClientCtors selectionList
+V net/minecraft/client/gui/components/events/GuiEventListener m_6050_ (DDD)Z mouseScrolled (DDDD)Z o0,o1,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroD()D,o2 n0,n1,n3
+V net/minecraft/client/gui/screens/Screen m_280273_ (Lnet/minecraft/client/gui/GuiGraphics;)V renderBackground (Lnet/minecraft/client/gui/GuiGraphics;IIF)V super:o0,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroI()I,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroI()I,s:io/github/hugoneale/campat/runtime/legacy/LegacyApi.zeroF()F n0
+R net/minecraft/client/gui/screens/Screen m_280273_ (Lnet/minecraft/client/gui/GuiGraphics;)V io/github/hugoneale/campat/runtime/legacy/LegacyApi noop (Ljava/lang/Object;Ljava/lang/Object;)V
+R net/minecraft/client/gui/components/EditBox m_94120_ ()V io/github/hugoneale/campat/runtime/legacy/LegacyApi noop (Ljava/lang/Object;)V

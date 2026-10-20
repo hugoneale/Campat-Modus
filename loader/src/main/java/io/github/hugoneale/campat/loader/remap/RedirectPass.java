@@ -5,6 +5,9 @@ import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.LdcInsnNode;
+import org.objectweb.asm.tree.VarInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -69,8 +72,11 @@ public final class RedirectPass {
                 if (mi.name.equals("<init>") && mi.getOpcode() == Opcodes.INVOKESPECIAL) {
                     if (!pendingNew.isEmpty() && pendingNew.peek().desc.equals(mi.owner)) matchedNew = pendingNew.pop();
                 }
-                Found f = findMethod(mi.owner, mi.name, mi.desc);
-                if (f != null) {
+                Mappings.CtorAdapter ca = mi.name.equals("<init>") ? mappings.ctorAdapter(mi.owner, mi.desc) : null;
+                Found f = ca != null ? null : findMethod(mi.owner, mi.name, mi.desc);
+                if (ca != null) {
+                    adaptConstructorCall(mn, mi, ca);
+                } else if (f != null) {
                     if (mi.name.equals("<init>")) {
                         AbstractInsnNode dup = matchedNew == null ? null : matchedNew.getNext();
                         if (matchedNew == null || dup == null || dup.getOpcode() != Opcodes.DUP) {
@@ -120,6 +126,68 @@ public final class RedirectPass {
             }
             insn = next;
         }
+    }
+
+    /**
+     * Rewrites a constructor call (NEW site or super/this call) whose parameters changed: the old
+     * arguments are spilled to fresh locals (legal before the super call, {@code this} stays on the
+     * stack untouched), converted by the static adapter into an Object[] and unpacked again.
+     * Straight line code, so existing stack map frames stay valid.
+     */
+    private static void adaptConstructorCall(MethodNode mn, MethodInsnNode mi, Mappings.CtorAdapter ca) {
+        Type[] oldArgs = Type.getArgumentTypes(mi.desc);
+        Type[] newArgs = Type.getArgumentTypes(ca.newDesc());
+        InsnList code = new InsnList();
+        int base = mn.maxLocals;
+        int[] slots = new int[oldArgs.length];
+        int next = base;
+        for (int i = 0; i < oldArgs.length; i++) {
+            slots[i] = next;
+            next += oldArgs[i].getSize();
+        }
+        for (int i = oldArgs.length - 1; i >= 0; i--) code.add(new VarInsnNode(oldArgs[i].getOpcode(Opcodes.ISTORE), slots[i]));
+        for (int i = 0; i < oldArgs.length; i++) code.add(new VarInsnNode(oldArgs[i].getOpcode(Opcodes.ILOAD), slots[i]));
+        code.add(new MethodInsnNode(Opcodes.INVOKESTATIC, ca.adapterOwner(), ca.adapterName(),
+            Type.getMethodDescriptor(Type.getType(Object[].class), oldArgs), false));
+        int arr = next;
+        code.add(new VarInsnNode(Opcodes.ASTORE, arr));
+        int newSlots = 0;
+        for (int i = 0; i < newArgs.length; i++) {
+            code.add(new VarInsnNode(Opcodes.ALOAD, arr));
+            code.add(new LdcInsnNode(i));
+            code.add(new InsnNode(Opcodes.AALOAD));
+            unbox(code, newArgs[i]);
+            newSlots += newArgs[i].getSize();
+        }
+        mn.instructions.insertBefore(mi, code);
+        mi.desc = ca.newDesc();
+        mn.maxLocals = arr + 1;
+        mn.maxStack += newSlots + 4;
+    }
+
+    private static void unbox(InsnList code, Type t) {
+        String box = switch (t.getSort()) {
+            case Type.BOOLEAN -> "java/lang/Boolean";
+            case Type.CHAR -> "java/lang/Character";
+            case Type.BYTE, Type.SHORT, Type.INT, Type.LONG, Type.FLOAT, Type.DOUBLE -> "java/lang/Number";
+            default -> null;
+        };
+        if (box == null) {
+            code.add(new TypeInsnNode(Opcodes.CHECKCAST, t.getInternalName()));
+            return;
+        }
+        code.add(new TypeInsnNode(Opcodes.CHECKCAST, box));
+        String m = switch (t.getSort()) {
+            case Type.BOOLEAN -> "booleanValue";
+            case Type.CHAR -> "charValue";
+            case Type.BYTE -> "byteValue";
+            case Type.SHORT -> "shortValue";
+            case Type.INT -> "intValue";
+            case Type.LONG -> "longValue";
+            case Type.FLOAT -> "floatValue";
+            default -> "doubleValue";
+        };
+        code.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, box, m, "()" + t.getDescriptor(), false));
     }
 
     private org.objectweb.asm.Handle redirectHandle(org.objectweb.asm.Handle h) {

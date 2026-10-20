@@ -32,11 +32,15 @@ import java.util.Map;
  * <pre>
  * callMap   one entry per NEW argument:  o&lt;i&gt;  |  o&lt;i&gt;:&lt;conv&gt;  |  s:&lt;supplier&gt;
  * bridgeMap one entry per OLD argument:  n&lt;i&gt;  |  n&lt;i&gt;:&lt;conv&gt;  |  s:&lt;supplier&gt;
+ *           a {@code super:} prefix adapts only super calls (other calls are left to a redirect)
  * conv / supplier:  owner.name(desc)  -- a public static method; results are cast to the target type
  * </pre>
  * Runs on pre-rename names, after nothing else has touched the class.
  */
 public final class EvolutionPass {
+    /** callMap prefix: only {@code super} calls are adapted */
+    private static final String SUPER_ONLY = "super:";
+
     private final Mappings mappings;
     private final ClassHierarchy hierarchy;
 
@@ -57,6 +61,7 @@ public final class EvolutionPass {
                 Mappings.Evolution ev = find(mi.owner, mi.name, mi.desc);
                 if (ev == null) continue;
                 boolean special = mi.getOpcode() == Opcodes.INVOKESPECIAL;
+                if (!special && ev.callMap().startsWith(SUPER_ONLY)) continue; // other calls are handled by a redirect
                 if (special && itf) continue; // default method super calls: rare, leave
                 String key = mi.getOpcode() + " " + mi.owner + " " + ev.name() + ev.oldDesc() + "->" + ev.newName() + ev.newDesc();
                 MethodNode s = synthetic.computeIfAbsent(key, k -> callAdapter(cn, mi, ev, special, synthetic.size()));
@@ -115,7 +120,7 @@ public final class EvolutionPass {
         InsnList il = m.instructions;
         il.add(new VarInsnNode(Opcodes.ALOAD, 0));
         int[] slots = slots(oldArgs, firstArg);
-        Parsed map = parse(ev.callMap(), newArgs.length);
+        Parsed map = parse(ev.callMap().startsWith(SUPER_ONLY) ? ev.callMap().substring(SUPER_ONLY.length()) : ev.callMap(), newArgs.length);
         for (int j = 0; j < newArgs.length; j++) load(il, map.entries.get(j), oldArgs, slots, newArgs[j]);
         int op = special ? Opcodes.INVOKESPECIAL : mi.getOpcode();
         il.add(new MethodInsnNode(op, mi.owner, ev.newName(), ev.newDesc(), mi.itf));

@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SERVER = ROOT / "build/envs/forge-server"
-CAMPAT = ROOT / "build/libs/campat-modus-0.1.0.jar"
+CAMPAT = Path(os.environ["CAMPAT_JAR"]) if os.environ.get("CAMPAT_JAR") else ROOT / "build/libs/campat-modus-0.1.0.jar"
 BUILTIN = {"minecraft", "neoforge", "forge", "java", "fml", "javafml", "lowcodefml"}
 
 

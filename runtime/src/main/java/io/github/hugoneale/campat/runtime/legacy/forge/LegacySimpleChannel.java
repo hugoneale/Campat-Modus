@@ -26,12 +26,12 @@ public class LegacySimpleChannel {
         return channel;
     }
 
-    public <M> void registerMessage(int index, Class<M> type, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder,
+    public <M> LegacyMessageHandler<M> registerMessage(int index, Class<M> type, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder,
                                     BiConsumer<M, Supplier<LegacyNetworkContext>> handler) {
-        registerMessage(index, type, encoder, decoder, handler, Optional.empty());
+        return registerMessage(index, type, encoder, decoder, handler, Optional.empty());
     }
 
-    public <M> void registerMessage(int index, Class<M> type, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder,
+    public <M> LegacyMessageHandler<M> registerMessage(int index, Class<M> type, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder,
                                     BiConsumer<M, Supplier<LegacyNetworkContext>> handler, Optional<NetworkDirection> direction) {
         SimpleChannel.MessageBuilder b = direction.isPresent() ? channel.messageBuilder(type, index, (NetworkDirection) direction.get()) : channel.messageBuilder(type, index);
         b.encoder((BiConsumer) encoder).decoder((Function) decoder)
@@ -40,6 +40,7 @@ public class LegacySimpleChannel {
                 handler.accept(msg, () -> legacy);
             })
             .add();
+        return new LegacyMessageHandler<>(type, index);
     }
 
     public <M> MessageBuilder<M> messageBuilder(Class<M> type, int id) {

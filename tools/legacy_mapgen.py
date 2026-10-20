@@ -235,7 +235,8 @@ def translate_rules(rules, members, by_named):
                 p[2] = srg
         elif p[0] == "F":
             srg = by_named.get((p[1], p[2], None))
-            if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/", "com/mojang/math/", "com/mojang/realmsclient/")):
+            # enum constants keep their names in SRG: plain owner keyed F line
+            if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/", "com/mojang/math/", "com/mojang/realmsclient/")) and not p[2].isupper():
                 sys.exit(f"rules.txt:{no}: no 1.20.1 field {p[1]}.{p[2]}")
             if srg:
                 # SRG names are global: an N line keyed on the id renames it everywhere

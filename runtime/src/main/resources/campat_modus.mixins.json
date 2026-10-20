@@ -68,7 +68,11 @@
     "ext.ITagAppenderExtension_TagsProvider_TagAppenderMixin",
     "ext.ITagBuilderExtension_TagBuilderMixin",
     "ext.ITransformationExtension_TransformationMixin",
-    "ext.TooltipFlagExtension_TooltipFlagMixin"
+    "ext.TooltipFlagExtension_TooltipFlagMixin",
+    "legacy.EntityDefineDataMixin",
+    "legacy.EntityDefineDataInvoker",
+    "legacy.ParticleTypeMixin",
+    "legacy.RecipeManagerIdMixin"
   ],
   "client": [
     "client.BlockRenderPropertiesMixin",

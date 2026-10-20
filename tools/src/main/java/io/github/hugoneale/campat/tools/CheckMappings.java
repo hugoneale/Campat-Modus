@@ -62,6 +62,31 @@ public final class CheckMappings {
             String l = line.contains("#") ? line.substring(0, line.indexOf('#')).strip() : line.strip();
             if (l.isEmpty()) continue;
             String[] p = l.split("\\s+");
+            if (p[0].equals("A") || p[0].equals("D") || p[0].equals("V")) {
+                checked++;
+                List<String[]> refs = new ArrayList<>(); // {owner, name, desc}
+                if (p[0].equals("A")) {
+                    refs.add(new String[]{p[4], p[5], Type.getMethodDescriptor(Type.getType(Object[].class), Type.getArgumentTypes(p[2]))});
+                } else if (p[0].equals("D")) {
+                    Type[] args = Type.getArgumentTypes(p[3]);
+                    Type[] withSelf = new Type[args.length + 1];
+                    withSelf[0] = Type.getObjectType(p[1]);
+                    System.arraycopy(args, 0, withSelf, 1, args.length);
+                    refs.add(new String[]{p[4], p[5], Type.getMethodDescriptor(Type.getReturnType(p[3]), withSelf)});
+                } else {
+                    java.util.regex.Matcher mm = java.util.regex.Pattern.compile("([\\w/$]+)\\.([\\w$<>]+)(\\([^)]*\\)(?:\\[*L[^;]+;|\\[*[ZBCSIJFDV]))").matcher(p[6] + " " + p[7]);
+                    while (mm.find()) refs.add(new String[]{mm.group(1), mm.group(2), mm.group(3)});
+                }
+                for (String[] r : refs) {
+                    if (!r[0].startsWith("io/github/hugoneale/")) continue;
+                    String mapped = mapDesc(r[2], m);
+                    ClassNode helper = runtime.get(r[0]);
+                    boolean found = helper != null && helper.methods.stream().anyMatch(mn -> mn.name.equals(r[1]) && mn.desc.equals(mapped)
+                        && (mn.access & Opcodes.ACC_STATIC) != 0 && (mn.access & Opcodes.ACC_PUBLIC) != 0);
+                    if (!found) errors.add("missing public static " + r[0] + "." + r[1] + mapped + "  <- " + l);
+                }
+                continue;
+            }
             if (!p[0].equals("R") && !p[0].equals("S")) continue;
             checked++;
             String owner = p[1], name = p[2], desc = p[3], tOwner = p[4], tName = p[5];

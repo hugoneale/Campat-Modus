@@ -67,12 +67,72 @@ public final class HolderBridges {
         return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.CROSSBOW_QUICK_CHARGE_3.value();
     }
 
+    public static net.minecraft.sounds.SoundEvent SoundEvents_GENERIC_EXPLODE() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.GENERIC_EXPLODE.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_11() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_11.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_13() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_13.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_BLOCKS() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_BLOCKS.value();
+    }
+
     public static net.minecraft.sounds.SoundEvent SoundEvents_LLAMA_SWAG() {
         return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.LLAMA_SWAG.value();
     }
 
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_CAT() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_CAT.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_CHIRP() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_CHIRP.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_FAR() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_FAR.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_MALL() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_MALL.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_MELLOHI() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_MELLOHI.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_PIGSTEP() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_PIGSTEP.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_STAL() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_STAL.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_STRAD() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_STRAD.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_WAIT() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_WAIT.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_WARD() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_WARD.value();
+    }
+
     public static net.minecraft.core.particles.SimpleParticleType ParticleTypes_ENTITY_EFFECT() {
         return (net.minecraft.core.particles.SimpleParticleType) (Object) net.minecraft.core.particles.ParticleTypes.ENTITY_EFFECT;
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_SOUL_ESCAPE() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.SOUL_ESCAPE.value();
     }
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_RIPTIDE_1() {
@@ -93,6 +153,110 @@ public final class HolderBridges {
 
     public static net.minecraft.sounds.SoundEvent SoundEvents_TRIDENT_THUNDER() {
         return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.TRIDENT_THUNDER.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_FLUID_PLACE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.FLUID_PLACE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_HIT_GROUND() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.HIT_GROUND.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_LIGHTNING_STRIKE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.LIGHTNING_STRIKE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_PRIME_FUSE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.PRIME_FUSE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_PROJECTILE_LAND() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.PROJECTILE_LAND.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_PROJECTILE_SHOOT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.PROJECTILE_SHOOT.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_SHEAR() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.SHEAR.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_SPLASH() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.SPLASH.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_STEP() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.STEP.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_SWIM() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.SWIM.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_ATTACH() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_ATTACH.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_CHANGE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_CHANGE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_CLOSE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_CLOSE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_DESTROY() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_DESTROY.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_DETACH() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_DETACH.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_OPEN() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_OPEN.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_PLACE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_PLACE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_CONTAINER_CLOSE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.CONTAINER_CLOSE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_CONTAINER_OPEN() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.CONTAINER_OPEN.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_EAT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.EAT.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_PLACE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_PLACE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_EQUIP() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.EQUIP.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_EXPLODE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.EXPLODE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_FLAP() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.FLAP.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_FLUID_PICKUP() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.FLUID_PICKUP.value();
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_OTHERSIDE() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_OTHERSIDE.value();
     }
 
     public static net.minecraft.world.effect.MobEffect MobEffects_UNLUCK() {
@@ -223,8 +387,28 @@ public final class HolderBridges {
         return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.LUCK.value();
     }
 
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_5() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_5.value();
+    }
+
     public static net.minecraft.world.effect.MobEffect MobEffects_DARKNESS() {
         return (net.minecraft.world.effect.MobEffect) (Object) net.minecraft.world.effect.MobEffects.DARKNESS.value();
+    }
+
+    public static net.minecraft.world.entity.animal.FrogVariant FrogVariant_TEMPERATE() {
+        return (net.minecraft.world.entity.animal.FrogVariant) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.entity.animal.FrogVariant.TEMPERATE);
+    }
+
+    public static net.minecraft.world.entity.animal.FrogVariant FrogVariant_WARM() {
+        return (net.minecraft.world.entity.animal.FrogVariant) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.entity.animal.FrogVariant.WARM);
+    }
+
+    public static net.minecraft.world.entity.animal.FrogVariant FrogVariant_COLD() {
+        return (net.minecraft.world.entity.animal.FrogVariant) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.entity.animal.FrogVariant.COLD);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SWIFT_SNEAK() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SWIFT_SNEAK);
     }
 
     public static net.minecraft.world.entity.ai.attributes.Attribute Attributes_MAX_HEALTH() {
@@ -279,12 +463,184 @@ public final class HolderBridges {
         return (net.minecraft.world.entity.ai.attributes.Attribute) (Object) net.minecraft.world.entity.ai.attributes.Attributes.JUMP_STRENGTH.value();
     }
 
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_INSTRUMENT_PLAY() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.INSTRUMENT_PLAY.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ITEM_INTERACT_FINISH() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ITEM_INTERACT_FINISH.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ITEM_INTERACT_START() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ITEM_INTERACT_START.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_NOTE_BLOCK_PLAY() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.NOTE_BLOCK_PLAY.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_SCULK_SENSOR_TENDRILS_CLICKING() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.SCULK_SENSOR_TENDRILS_CLICKING.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_SHRIEK() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.SHRIEK.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_ACTIVATE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_ACTIVATE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_BLOCK_DEACTIVATE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.BLOCK_DEACTIVATE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_DRINK() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.DRINK.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ELYTRA_GLIDE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ELYTRA_GLIDE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_DAMAGE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_DAMAGE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_DIE() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_DIE.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_INTERACT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_INTERACT.value();
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_ANCIENT_CITY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.ANCIENT_CITY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_ANCIENT_CITY_ICE_BOX() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.ANCIENT_CITY_ICE_BOX);
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_TELEPORT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.TELEPORT.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_JUKEBOX_STOP_PLAY() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.JUKEBOX_STOP_PLAY.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_JUKEBOX_PLAY() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.JUKEBOX_PLAY.value();
+    }
+
     public static net.minecraft.util.StringRepresentable.EnumCodec CraftingBookCategory_CODEC() {
         return (net.minecraft.util.StringRepresentable.EnumCodec) (Object) net.minecraft.world.item.crafting.CraftingBookCategory.CODEC;
     }
 
     public static net.minecraft.core.DefaultedRegistry BuiltInRegistries_POTION() {
         return (net.minecraft.core.DefaultedRegistry) (Object) net.minecraft.core.registries.BuiltInRegistries.POTION;
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_MOUNT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_MOUNT.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_ENTITY_DISMOUNT() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.ENTITY_DISMOUNT.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_9() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_9.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_10() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_10.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_15() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_15.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_14() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_14.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_8() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_8.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_6() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_6.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_2() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_2.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_4() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_4.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_12() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_12.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_1() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_1.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_13() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_13.value();
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_OCEAN_RUIN_WARM_ARCHAEOLOGY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.OCEAN_RUIN_WARM_ARCHAEOLOGY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_OCEAN_RUIN_COLD_ARCHAEOLOGY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.OCEAN_RUIN_COLD_ARCHAEOLOGY);
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_11() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_11.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_7() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_7.value();
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_DESERT_PYRAMID_ARCHAEOLOGY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_PYRAMID_ARCHAEOLOGY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_DESERT_WELL_ARCHAEOLOGY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_WELL_ARCHAEOLOGY);
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_3() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_3.value();
+    }
+
+    public static net.minecraft.world.level.gameevent.GameEvent GameEvent_RESONATE_5() {
+        return (net.minecraft.world.level.gameevent.GameEvent) (Object) net.minecraft.world.level.gameevent.GameEvent.RESONATE_5.value();
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_TRAIL_RUINS_ARCHAEOLOGY_COMMON() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_COMMON);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_TRAIL_RUINS_ARCHAEOLOGY_RARE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.TRAIL_RUINS_ARCHAEOLOGY_RARE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SNIFFER_DIGGING() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SNIFFER_DIGGING);
+    }
+
+    public static net.minecraft.sounds.SoundEvent SoundEvents_MUSIC_DISC_RELIC() {
+        return (net.minecraft.sounds.SoundEvent) (Object) net.minecraft.sounds.SoundEvents.MUSIC_DISC_RELIC.value();
     }
 
     public static net.minecraft.world.effect.MobEffect Spider_SpiderEffectsGroupData_effect(net.minecraft.world.entity.monster.Spider.SpiderEffectsGroupData self) {
@@ -463,6 +819,466 @@ public final class HolderBridges {
         return (net.minecraft.world.item.enchantment.Enchantment) (Object) self.enchantment.value();
     }
 
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_INFINITY() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.INFINITY);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_LUCK_OF_THE_SEA() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.LUCK_OF_THE_SEA);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_LURE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.LURE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_LOYALTY() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.LOYALTY);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_IMPALING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.IMPALING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_RIPTIDE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.RIPTIDE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_CHANNELING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.CHANNELING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_MULTISHOT() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.MULTISHOT);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_QUICK_CHARGE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.QUICK_CHARGE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_PIERCING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.PIERCING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_MENDING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.MENDING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_VANISHING_CURSE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.VANISHING_CURSE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_PROTECTION() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.PROTECTION);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FIRE_PROTECTION() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FIRE_PROTECTION);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FEATHER_FALLING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FEATHER_FALLING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_BLAST_PROTECTION() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.BLAST_PROTECTION);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_PROJECTILE_PROTECTION() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.PROJECTILE_PROTECTION);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_RESPIRATION() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.RESPIRATION);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_AQUA_AFFINITY() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.AQUA_AFFINITY);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_THORNS() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.THORNS);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_DEPTH_STRIDER() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.DEPTH_STRIDER);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FROST_WALKER() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FROST_WALKER);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_BINDING_CURSE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.BINDING_CURSE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SOUL_SPEED() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SOUL_SPEED);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SHARPNESS() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SMITE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SMITE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_BANE_OF_ARTHROPODS() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.BANE_OF_ARTHROPODS);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_KNOCKBACK() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.KNOCKBACK);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FIRE_ASPECT() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FIRE_ASPECT);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_LOOTING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.LOOTING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SWEEPING_EDGE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SWEEPING_EDGE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_EFFICIENCY() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.EFFICIENCY);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_SILK_TOUCH() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.SILK_TOUCH);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_UNBREAKING() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.UNBREAKING);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FORTUNE() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FORTUNE);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_POWER() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.POWER);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_PUNCH() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.PUNCH);
+    }
+
+    public static net.minecraft.world.item.enchantment.Enchantment Enchantments_FLAME() {
+        return (net.minecraft.world.item.enchantment.Enchantment) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.item.enchantment.Enchantments.FLAME);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_JUNGLE_TEMPLE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.JUNGLE_TEMPLE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_JUNGLE_TEMPLE_DISPENSER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.JUNGLE_TEMPLE_DISPENSER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_IGLOO_CHEST() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.IGLOO_CHEST);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_WOODLAND_MANSION() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.WOODLAND_MANSION);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_UNDERWATER_RUIN_SMALL() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.UNDERWATER_RUIN_SMALL);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_UNDERWATER_RUIN_BIG() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.UNDERWATER_RUIN_BIG);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BURIED_TREASURE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BURIED_TREASURE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHIPWRECK_MAP() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHIPWRECK_MAP);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHIPWRECK_SUPPLY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHIPWRECK_SUPPLY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHIPWRECK_TREASURE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHIPWRECK_TREASURE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_PILLAGER_OUTPOST() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.PILLAGER_OUTPOST);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BASTION_TREASURE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BASTION_TREASURE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BASTION_OTHER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BASTION_OTHER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BASTION_BRIDGE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BASTION_BRIDGE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BASTION_HOGLIN_STABLE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BASTION_HOGLIN_STABLE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_RUINED_PORTAL() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.RUINED_PORTAL);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_WHITE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_WHITE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_ORANGE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_ORANGE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_MAGENTA() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_MAGENTA);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_LIGHT_BLUE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_LIGHT_BLUE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_YELLOW() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_YELLOW);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_LIME() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_LIME);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_PINK() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_PINK);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_GRAY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_GRAY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_LIGHT_GRAY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_LIGHT_GRAY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_CYAN() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_CYAN);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_EMPTY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.EMPTY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_PURPLE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_PURPLE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_BLUE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_BLUE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_BROWN() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_BROWN);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_GREEN() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_GREEN);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_RED() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_RED);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEEP_BLACK() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEEP_BLACK);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FISHING() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FISHING);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FISHING_JUNK() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FISHING_JUNK);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FISHING_TREASURE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FISHING_TREASURE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FISHING_FISH() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FISHING_FISH);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_CAT_MORNING_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.CAT_MORNING_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_ARMORER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.ARMORER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_BUTCHER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.BUTCHER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_CARTOGRAPHER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.CARTOGRAPHER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_CLERIC_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.CLERIC_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FARMER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FARMER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FISHERMAN_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FISHERMAN_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_FLETCHER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.FLETCHER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_LEATHERWORKER_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.LEATHERWORKER_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_LIBRARIAN_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.LIBRARIAN_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_MASON_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.MASON_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SHEPHERD_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SHEPHERD_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_TOOLSMITH_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.TOOLSMITH_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_WEAPONSMITH_GIFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.WEAPONSMITH_GIFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_PIGLIN_BARTERING() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.PIGLIN_BARTERING);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SPAWN_BONUS_CHEST() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SPAWN_BONUS_CHEST);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_END_CITY_TREASURE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.END_CITY_TREASURE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_SIMPLE_DUNGEON() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.SIMPLE_DUNGEON);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_WEAPONSMITH() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_WEAPONSMITH);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_TOOLSMITH() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_TOOLSMITH);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_ARMORER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_ARMORER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_CARTOGRAPHER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_CARTOGRAPHER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_MASON() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_MASON);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_SHEPHERD() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_SHEPHERD);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_BUTCHER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_BUTCHER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_FLETCHER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_FLETCHER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_FISHER() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_FISHER);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_TANNERY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_TANNERY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_TEMPLE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_TEMPLE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_DESERT_HOUSE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_DESERT_HOUSE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_PLAINS_HOUSE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_PLAINS_HOUSE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_TAIGA_HOUSE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_TAIGA_HOUSE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_SNOWY_HOUSE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_SNOWY_HOUSE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_VILLAGE_SAVANNA_HOUSE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.VILLAGE_SAVANNA_HOUSE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_ABANDONED_MINESHAFT() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.ABANDONED_MINESHAFT);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_NETHER_BRIDGE() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.NETHER_BRIDGE);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_STRONGHOLD_LIBRARY() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.STRONGHOLD_LIBRARY);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_STRONGHOLD_CROSSING() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.STRONGHOLD_CROSSING);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_STRONGHOLD_CORRIDOR() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.STRONGHOLD_CORRIDOR);
+    }
+
+    public static net.minecraft.resources.ResourceLocation BuiltInLootTables_DESERT_PYRAMID() {
+        return (net.minecraft.resources.ResourceLocation) io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(net.minecraft.world.level.storage.loot.BuiltInLootTables.DESERT_PYRAMID);
+    }
+
     public static java.util.function.Predicate ItemPredicateArgument_getItemPredicate(com.mojang.brigadier.context.CommandContext a0, java.lang.String a1) throws Throwable {
         return (java.util.function.Predicate) (Object) net.minecraft.commands.arguments.item.ItemPredicateArgument.getItemPredicate(a0, a1);
     }
@@ -623,120 +1439,120 @@ public final class HolderBridges {
         return net.minecraft.client.gui.components.MultiLineLabel.create(a0, (net.minecraft.network.chat.Component) (Object) a1, a2);
     }
 
-    public static net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen CreativeModeInventoryScreen_new(net.minecraft.world.entity.player.Player a0, net.minecraft.world.flag.FeatureFlagSet a1, boolean a2) throws Throwable {
-        return new net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen((net.minecraft.client.player.LocalPlayer) (Object) a0, a1, a2);
+    public static Object[] CreativeModeInventoryScreen_args(net.minecraft.world.entity.player.Player a0, net.minecraft.world.flag.FeatureFlagSet a1, boolean a2) {
+        return new Object[]{a0, a1, a2};
     }
 
-    public static net.minecraft.world.item.enchantment.EnchantmentInstance EnchantmentInstance_new(net.minecraft.world.item.enchantment.Enchantment a0, int a1) throws Throwable {
-        return new net.minecraft.world.item.enchantment.EnchantmentInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    public static Object[] EnchantmentInstance_args(net.minecraft.world.item.enchantment.Enchantment a0, int a1) {
+        return new Object[]{LegacyHolders.wrap(a0), a1};
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket ClientboundRemoveMobEffectPacket_new(int a0, net.minecraft.world.effect.MobEffect a1) throws Throwable {
-        return new net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket(a0, (net.minecraft.core.Holder) LegacyHolders.wrap(a1));
+    public static Object[] ClientboundRemoveMobEffectPacket_args(int a0, net.minecraft.world.effect.MobEffect a1) {
+        return new Object[]{a0, LegacyHolders.wrap(a1)};
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4) throws Throwable {
-        return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
+    public static Object[] VibrationInfo_args(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4};
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new2(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, net.minecraft.world.entity.Entity a3) throws Throwable {
-        return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3);
+    public static Object[] VibrationInfo_args2(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, net.minecraft.world.entity.Entity a3) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3};
     }
 
-    public static net.minecraft.world.level.gameevent.vibrations.VibrationInfo VibrationInfo_new3(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4, net.minecraft.world.entity.Entity a5) throws Throwable {
-        return new net.minecraft.world.level.gameevent.vibrations.VibrationInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4, a5);
+    public static Object[] VibrationInfo_args3(net.minecraft.world.level.gameevent.GameEvent a0, float a1, net.minecraft.world.phys.Vec3 a2, java.util.UUID a3, java.util.UUID a4, net.minecraft.world.entity.Entity a5) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4, a5};
     }
 
-    public static net.minecraft.world.entity.ai.attributes.AttributeInstance AttributeInstance_new(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) throws Throwable {
-        return new net.minecraft.world.entity.ai.attributes.AttributeInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    public static Object[] AttributeInstance_args(net.minecraft.world.entity.ai.attributes.Attribute a0, java.util.function.Consumer a1) {
+        return new Object[]{LegacyHolders.wrap(a0), a1};
     }
 
-    public static net.minecraft.world.level.validation.DirectoryValidator DirectoryValidator_new(net.minecraft.world.level.validation.PathAllowList a0) throws Throwable {
-        return new net.minecraft.world.level.validation.DirectoryValidator((java.nio.file.PathMatcher) (Object) a0);
+    public static Object[] DirectoryValidator_args(net.minecraft.world.level.validation.PathAllowList a0) {
+        return new Object[]{a0};
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket.Parameters ClientboundSetPlayerTeamPacket_Parameters_new(net.minecraft.network.FriendlyByteBuf a0) throws Throwable {
-        return new net.minecraft.network.protocol.game.ClientboundSetPlayerTeamPacket.Parameters((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0);
+    public static Object[] ClientboundSetPlayerTeamPacket_Parameters_args(net.minecraft.network.FriendlyByteBuf a0) {
+        return new Object[]{a0};
     }
 
-    public static net.minecraft.world.entity.npc.VillagerTrades.SuspiciousStewForEmerald VillagerTrades_SuspiciousStewForEmerald_new(net.minecraft.world.effect.MobEffect a0, int a1, int a2) throws Throwable {
-        return new net.minecraft.world.entity.npc.VillagerTrades.SuspiciousStewForEmerald((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
+    public static Object[] VillagerTrades_SuspiciousStewForEmerald_args(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot ClientboundUpdateAttributesPacket_AttributeSnapshot_new(net.minecraft.world.entity.ai.attributes.Attribute a0, double a1, java.util.Collection a2) throws Throwable {
-        return new net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
+    public static Object[] ClientboundUpdateAttributesPacket_AttributeSnapshot_args(net.minecraft.world.entity.ai.attributes.Attribute a0, double a1, java.util.Collection a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
-    public static net.minecraft.world.level.block.FlowerBlock FlowerBlock_new(java.util.function.Supplier a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
-        return new net.minecraft.world.level.block.FlowerBlock((net.minecraft.core.Holder) LegacyHolders.wrap(a0), (float) (Object) a1, a2);
+    public static Object[] FlowerBlock_args(java.util.function.Supplier a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
-    public static net.minecraft.world.level.block.FlowerBlock FlowerBlock_new2(net.minecraft.world.effect.MobEffect a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
-        return new net.minecraft.world.level.block.FlowerBlock((net.minecraft.core.Holder) LegacyHolders.wrap(a0), (float) (Object) a1, a2);
+    public static Object[] FlowerBlock_args2(net.minecraft.world.effect.MobEffect a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
-    public static net.minecraft.world.entity.ai.sensing.TemptingSensor TemptingSensor_new(net.minecraft.world.item.crafting.Ingredient a0) throws Throwable {
-        return new net.minecraft.world.entity.ai.sensing.TemptingSensor((java.util.function.Predicate) (Object) a0);
+    public static Object[] TemptingSensor_args(net.minecraft.world.item.crafting.Ingredient a0) {
+        return new Object[]{a0};
     }
 
-    public static net.minecraft.world.level.block.AmethystClusterBlock AmethystClusterBlock_new(int a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) throws Throwable {
-        return new net.minecraft.world.level.block.AmethystClusterBlock((float) (Object) a0, (float) (Object) a1, a2);
+    public static Object[] AmethystClusterBlock_args(int a0, int a1, net.minecraft.world.level.block.state.BlockBehaviour.Properties a2) {
+        return new Object[]{a0, a1, a2};
     }
 
-    public static net.minecraft.client.renderer.PostChain PostChain_new(net.minecraft.client.renderer.texture.TextureManager a0, net.minecraft.server.packs.resources.ResourceManager a1, com.mojang.blaze3d.pipeline.RenderTarget a2, net.minecraft.resources.ResourceLocation a3) throws Throwable {
-        return new net.minecraft.client.renderer.PostChain(a0, (net.minecraft.server.packs.resources.ResourceProvider) (Object) a1, a2, a3);
+    public static Object[] PostChain_args(net.minecraft.client.renderer.texture.TextureManager a0, net.minecraft.server.packs.resources.ResourceManager a1, com.mojang.blaze3d.pipeline.RenderTarget a2, net.minecraft.resources.ResourceLocation a3) {
+        return new Object[]{a0, a1, a2, a3};
     }
 
-    public static net.minecraft.world.level.gameevent.GameEvent.ListenerInfo GameEvent_ListenerInfo_new(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) throws Throwable {
-        return new net.minecraft.world.level.gameevent.GameEvent.ListenerInfo((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
+    public static Object[] GameEvent_ListenerInfo_args(net.minecraft.world.level.gameevent.GameEvent a0, net.minecraft.world.phys.Vec3 a1, net.minecraft.world.level.gameevent.GameEvent.Context a2, net.minecraft.world.level.gameevent.GameEventListener a3, net.minecraft.world.phys.Vec3 a4) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4};
     }
 
-    public static net.minecraft.advancements.critereon.EnchantmentPredicate EnchantmentPredicate_new(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) throws Throwable {
-        return new net.minecraft.advancements.critereon.EnchantmentPredicate((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    public static Object[] EnchantmentPredicate_args(net.minecraft.world.item.enchantment.Enchantment a0, net.minecraft.advancements.critereon.MinMaxBounds.Ints a1) {
+        return new Object[]{LegacyHolders.wrap(a0), a1};
     }
 
-    public static net.minecraft.client.renderer.EffectInstance EffectInstance_new(net.minecraft.server.packs.resources.ResourceManager a0, java.lang.String a1) throws Throwable {
-        return new net.minecraft.client.renderer.EffectInstance((net.minecraft.server.packs.resources.ResourceProvider) (Object) a0, a1);
+    public static Object[] EffectInstance_args(net.minecraft.server.packs.resources.ResourceManager a0, java.lang.String a1) {
+        return new Object[]{a0, a1};
     }
 
-    public static net.minecraft.world.level.block.TripWireBlock TripWireBlock_new(net.minecraft.world.level.block.TripWireHookBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) throws Throwable {
-        return new net.minecraft.world.level.block.TripWireBlock((net.minecraft.world.level.block.Block) (Object) a0, a1);
+    public static Object[] TripWireBlock_args(net.minecraft.world.level.block.TripWireHookBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) {
+        return new Object[]{a0, a1};
     }
 
-    public static net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData ClientboundLevelChunkPacketData_new(net.minecraft.network.FriendlyByteBuf a0, int a1, int a2) throws Throwable {
-        return new net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData((net.minecraft.network.RegistryFriendlyByteBuf) (Object) a0, a1, a2);
+    public static Object[] ClientboundLevelChunkPacketData_args(net.minecraft.network.FriendlyByteBuf a0, int a1, int a2) {
+        return new Object[]{a0, a1, a2};
     }
 
-    public static net.minecraft.world.entity.ai.goal.TemptGoal TemptGoal_new(net.minecraft.world.entity.PathfinderMob a0, double a1, net.minecraft.world.item.crafting.Ingredient a2, boolean a3) throws Throwable {
-        return new net.minecraft.world.entity.ai.goal.TemptGoal(a0, a1, (java.util.function.Predicate) (Object) a2, a3);
+    public static Object[] TemptGoal_args(net.minecraft.world.entity.PathfinderMob a0, double a1, net.minecraft.world.item.crafting.Ingredient a2, boolean a3) {
+        return new Object[]{a0, a1, a2, a3};
     }
 
-    public static net.minecraft.world.level.block.ChorusFlowerBlock ChorusFlowerBlock_new(net.minecraft.world.level.block.ChorusPlantBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) throws Throwable {
-        return new net.minecraft.world.level.block.ChorusFlowerBlock((net.minecraft.world.level.block.Block) (Object) a0, a1);
+    public static Object[] ChorusFlowerBlock_args(net.minecraft.world.level.block.ChorusPlantBlock a0, net.minecraft.world.level.block.state.BlockBehaviour.Properties a1) {
+        return new Object[]{a0, a1};
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new(net.minecraft.world.effect.MobEffect a0) throws Throwable {
-        return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0));
+    public static Object[] MobEffectInstance_args(net.minecraft.world.effect.MobEffect a0) {
+        return new Object[]{LegacyHolders.wrap(a0)};
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new2(net.minecraft.world.effect.MobEffect a0, int a1) throws Throwable {
-        return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1);
+    public static Object[] MobEffectInstance_args2(net.minecraft.world.effect.MobEffect a0, int a1) {
+        return new Object[]{LegacyHolders.wrap(a0), a1};
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new3(net.minecraft.world.effect.MobEffect a0, int a1, int a2) throws Throwable {
-        return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
+    public static Object[] MobEffectInstance_args3(net.minecraft.world.effect.MobEffect a0, int a1, int a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new4(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4) throws Throwable {
-        return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4);
+    public static Object[] MobEffectInstance_args4(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4};
     }
 
-    public static net.minecraft.world.effect.MobEffectInstance MobEffectInstance_new5(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4, boolean a5) throws Throwable {
-        return new net.minecraft.world.effect.MobEffectInstance((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2, a3, a4, a5);
+    public static Object[] MobEffectInstance_args5(net.minecraft.world.effect.MobEffect a0, int a1, int a2, boolean a3, boolean a4, boolean a5) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2, a3, a4, a5};
     }
 
-    public static net.minecraft.world.item.ArmorItem ArmorItem_new(net.minecraft.world.item.ArmorMaterial a0, net.minecraft.world.item.ArmorItem.Type a1, net.minecraft.world.item.Item.Properties a2) throws Throwable {
-        return new net.minecraft.world.item.ArmorItem((net.minecraft.core.Holder) LegacyHolders.wrap(a0), a1, a2);
+    public static Object[] ArmorItem_args(net.minecraft.world.item.ArmorMaterial a0, net.minecraft.world.item.ArmorItem.Type a1, net.minecraft.world.item.Item.Properties a2) {
+        return new Object[]{LegacyHolders.wrap(a0), a1, a2};
     }
 
 }

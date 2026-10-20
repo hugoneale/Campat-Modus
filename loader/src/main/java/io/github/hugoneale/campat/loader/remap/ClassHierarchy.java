@@ -21,6 +21,8 @@ import java.util.function.Predicate;
 public final class ClassHierarchy {
     /** class -> [super, interfaces...] */
     private final Map<String, String[]> supers = new ConcurrentHashMap<>();
+    /** classes from the platform index (everything else was added from mod jars) */
+    private final Set<String> platform = ConcurrentHashMap.newKeySet();
 
     public static ClassHierarchy load(InputStream platformIndex) throws IOException {
         ClassHierarchy h = new ClassHierarchy();
@@ -34,6 +36,7 @@ public final class ClassHierarchy {
                     System.arraycopy(p, 1, s, 0, s.length);
                     for (int i = 0; i < s.length; i++) if (s[i].equals("-")) s[i] = null;
                     h.supers.put(p[0], s);
+                    h.platform.add(p[0]);
                 }
             }
         }
@@ -51,6 +54,10 @@ public final class ClassHierarchy {
     public String superClass(String name) {
         String[] s = supers.get(name);
         return s == null ? null : s[0];
+    }
+
+    public boolean isPlatform(String name) {
+        return platform.contains(name);
     }
 
     public boolean knows(String name) {

@@ -37,6 +37,24 @@ public final class LegacyRegistries {
         return builtin;
     }
 
+    /** value of a key in a (possibly data driven) registry, or null while that registry is not loaded */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static Object resolveKey(net.minecraft.resources.ResourceKey key) {
+        if (key == null) return null;
+        try {
+            return access().registry(ResourceKeyAccess.registryOf(key)).map(r -> ((net.minecraft.core.Registry) r).get(key)).orElse(null);
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
+    private static final class ResourceKeyAccess {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        static net.minecraft.resources.ResourceKey registryOf(net.minecraft.resources.ResourceKey key) {
+            return net.minecraft.resources.ResourceKey.createRegistryKey(key.registry());
+        }
+    }
+
     // ---- built-in registries that became data driven in 1.21 (enchantments, banner patterns, paintings) ----
 
     @SuppressWarnings({"unchecked", "rawtypes"})

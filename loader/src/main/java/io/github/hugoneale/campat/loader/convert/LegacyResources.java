@@ -157,7 +157,8 @@ final class LegacyResources {
                 continue;
             }
             v = convert(v, kind);
-            if (kind.equals("recipe") && k.equals("result") && v.isJsonObject() && v.getAsJsonObject().has("item")) {
+            // only recipe types read by 1.21.1 code; a mod's own serializer still reads its 1.20.1 format
+            if (kind.equals("recipe") && k.equals("result") && v.isJsonObject() && v.getAsJsonObject().has("item") && isPlatformType(in)) {
                 JsonObject r = v.getAsJsonObject();
                 JsonObject nr = new JsonObject();
                 for (Map.Entry<String, JsonElement> re : r.entrySet()) nr.add(re.getKey().equals("item") ? "id" : re.getKey(), re.getValue());
@@ -180,6 +181,14 @@ final class LegacyResources {
         if (kind.equals("loot_table") || kind.equals("item_modifier")) lootFixes(out);
         // forge: common tags became c: tags in Forge 1.21
         return out;
+    }
+
+    private static boolean isPlatformType(JsonObject recipe) {
+        if (!recipe.has("type") || !recipe.get("type").isJsonPrimitive()) return false;
+        String type = recipe.get("type").getAsString();
+        int colon = type.indexOf(':');
+        String ns = colon < 0 ? "minecraft" : type.substring(0, colon);
+        return ns.equals("minecraft") || ns.equals("forge") || ns.equals("neoforge");
     }
 
     private static boolean isResultId(JsonObject recipe) {

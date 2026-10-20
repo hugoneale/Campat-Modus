@@ -164,12 +164,23 @@ public final class LegacyGen {
         for (int i = 0; i < o.length; i++) {
             Type a = mapType(o[i]), b = n[i];
             if (a.equals(b)) continue;
-            if (b.getSort() == Type.OBJECT && b.getInternalName().equals(HOLDER) && a.getSort() == Type.OBJECT) { r[i] = 1; any = true; }
-            else if (a.getSort() == Type.OBJECT && a.getInternalName().equals(HOLDER) && b.getSort() == Type.OBJECT) { r[i] = 2; any = true; }
+            if (b.getSort() == Type.OBJECT && isHolder(b.getInternalName()) && a.getSort() == Type.OBJECT) { r[i] = 1; any = true; }
+            else if (a.getSort() == Type.OBJECT && isHolder(a.getInternalName()) && b.getSort() == Type.OBJECT) { r[i] = 2; any = true; }
+            else if (b.getSort() == Type.OBJECT && b.getInternalName().equals(RESOURCE_KEY) && a.getSort() == Type.OBJECT && !isHolder(a.getInternalName())
+                && !a.getInternalName().startsWith("java/") && allowKeys) { r[i] = 4; any = true; }
             else if (castable(a, b)) { r[i] = 3; any = true; }
             else return null;
         }
         return any ? r : new int[0];
+    }
+
+    /** registry objects that became ResourceKeys can only be resolved for field reads */
+    private boolean allowKeys;
+
+    private static final String RESOURCE_KEY = "net/minecraft/resources/ResourceKey";
+
+    private static boolean isHolder(String c) {
+        return c.equals(HOLDER) || c.equals(HOLDER + "$Reference");
     }
 
     /** related reference types (either way) or numeric primitives */
@@ -214,14 +225,18 @@ public final class LegacyGen {
         if (field) {
             FieldNode fn = nc.fields.stream().filter(f -> f.name.equals(name121) && f.desc.equals(desc121)).findFirst().orElse(null);
             if (fn == null || (fn.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_PUBLIC) == 0) { skip("field not public"); return; }
+            allowKeys = true;
             int[] d = holderDiff(new Type[]{Type.getType(desc120)}, new Type[]{Type.getType(desc121)});
-            if (d == null || d.length == 0 || (d[0] != 1 && d[0] != 3)) { skip("field: not a holder change"); return; }
+            allowKeys = false;
+            if (d == null || d.length == 0 || (d[0] != 1 && d[0] != 3 && d[0] != 4)) { skip("field: not a holder change"); return; }
             boolean st = (fn.access & Opcodes.ACC_STATIC) != 0;
             Type value = mapType(Type.getType(desc120));
             String h = helperName(owner121, name121);
             String recv = st ? "" : src(Type.getObjectType(owner121)) + " self";
             code.append("    public static ").append(src(value)).append(' ').append(h).append('(').append(recv).append(") {\n")
-                .append("        return (").append(src(value)).append(") (Object) ").append(st ? src(Type.getObjectType(owner121)) : "self").append('.').append(name121).append(d[0] == 1 ? ".value();\n    }\n\n" : ";\n    }\n\n");
+                .append("        return (").append(src(value)).append(") ").append(d[0] == 4 ? "io.github.hugoneale.campat.runtime.legacy.LegacyRegistries.resolveKey(" : "(Object) ")
+                .append(st ? src(Type.getObjectType(owner121)) : "self").append('.').append(name121)
+                .append(d[0] == 1 ? ".value();\n    }\n\n" : d[0] == 4 ? ");\n    }\n\n" : ";\n    }\n\n");
             lines.add("S " + owner120 + " " + srg + " " + desc120 + " " + INTERNAL + " " + h);
             return;
         }
@@ -281,32 +296,31 @@ public final class LegacyGen {
         System.out.println(n + " classes changed between class and interface");
     }
 
-    /** constructors whose arguments changed by Holder only */
+    /** constructors whose arguments changed by Holder only: argument adapters (A lines, also used by super calls) */
     void constructors() {
         for (String c : old.classNames()) {
             if (!c.startsWith("net/minecraft/") && !c.startsWith("com/mojang/")) continue;
             ClassNode oc = old.node(c), nc = now.node(mapClass(c));
-            if (oc == null || nc == null || (nc.access & Opcodes.ACC_PUBLIC) == 0 || (nc.access & Opcodes.ACC_ABSTRACT) != 0) continue;
+            if (oc == null || nc == null || (nc.access & Opcodes.ACC_PUBLIC) == 0) continue;
             for (MethodNode om : oc.methods) {
-                if (!om.name.equals("<init>") || (om.access & Opcodes.ACC_PUBLIC) == 0) continue;
+                if (!om.name.equals("<init>") || (om.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
                 String mapped = Type.getMethodDescriptor(Type.VOID_TYPE, java.util.Arrays.stream(Type.getArgumentTypes(om.desc)).map(this::mapType).toArray(Type[]::new));
                 if (nc.methods.stream().anyMatch(m -> m.name.equals("<init>") && m.desc.equals(mapped))) continue;
                 for (MethodNode nm : nc.methods) {
-                    if (!nm.name.equals("<init>") || (nm.access & Opcodes.ACC_PUBLIC) == 0) continue;
+                    if (!nm.name.equals("<init>") || (nm.access & (Opcodes.ACC_PUBLIC | Opcodes.ACC_PROTECTED)) == 0) continue;
                     int[] d = holderDiff(Type.getArgumentTypes(om.desc), Type.getArgumentTypes(nm.desc));
                     if (d == null || d.length == 0 || !linkable(om.desc)) continue;
                     Type[] oa = Type.getArgumentTypes(om.desc), na = Type.getArgumentTypes(nm.desc);
-                    String owner = src(Type.getObjectType(nc.name));
-                    String h = helperName(nc.name, "new");
+                    String h = helperName(nc.name, "args");
                     StringBuilder sig = new StringBuilder(), call = new StringBuilder();
                     for (int i = 0; i < oa.length; i++) {
                         if (i > 0) { sig.append(", "); call.append(", "); }
                         sig.append(src(mapType(oa[i]))).append(" a").append(i);
-                        call.append(d[i] == 1 ? "(net.minecraft.core.Holder) LegacyHolders.wrap(a" + i + ")" : d[i] == 2 ? "(" + src(na[i]) + ") a" + i + ".value()" : d[i] == 3 ? "(" + src(na[i]) + ") (Object) a" + i : "a" + i);
+                        call.append(d[i] == 1 ? "LegacyHolders.wrap(a" + i + ")" : d[i] == 2 ? "a" + i + ".value()" : "a" + i);
                     }
-                    code.append("    public static ").append(owner).append(' ').append(h).append('(').append(sig).append(") throws Throwable {\n        return new ")
-                        .append(owner).append('(').append(call).append(");\n    }\n\n");
-                    lines.add("R " + c + " <init> " + om.desc + " " + INTERNAL + " " + h);
+                    code.append("    public static Object[] ").append(h).append('(').append(sig).append(") {\n        return new Object[]{")
+                        .append(call).append("};\n    }\n\n");
+                    lines.add("A " + c + " " + om.desc + " " + nm.desc + " " + INTERNAL + " " + h);
                     break;
                 }
             }
