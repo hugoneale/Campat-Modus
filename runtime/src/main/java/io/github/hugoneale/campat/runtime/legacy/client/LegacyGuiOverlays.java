@@ -33,8 +33,6 @@ public final class LegacyGuiOverlays {
     /** Forge 47's {@code NamedGuiOverlay} */
     public record NamedGuiOverlay(ResourceLocation id, IGuiOverlay overlay) {}
 
-    private static final IGuiOverlay NONE = (gui, g, pt, w, h) -> {};
-
     /** Forge 47's {@code VanillaGuiOverlay}, each mapped to the layer that draws it now */
     public enum VanillaGuiOverlay {
         VIGNETTE("vignette", VanillaGuiLayers.CAMERA_OVERLAYS),
@@ -71,7 +69,7 @@ public final class LegacyGuiOverlays {
         VanillaGuiOverlay(String id, ResourceLocation layer) {
             this.id = ResourceLocation.withDefaultNamespace(id);
             this.layer = layer;
-            this.type = new NamedGuiOverlay(this.id, NONE);
+            this.type = new NamedGuiOverlay(this.id, (gui, g, pt, w, h) -> {});
         }
 
         public ResourceLocation id() {
@@ -87,24 +85,28 @@ public final class LegacyGuiOverlays {
         }
     }
 
-    private static final Map<ResourceLocation, VanillaGuiOverlay> BY_LAYER = new HashMap<>();
-    private static final Map<ResourceLocation, ResourceLocation> LEGACY_TO_LAYER = new HashMap<>();
     private static final Map<ResourceLocation, NamedGuiOverlay> MODDED = new HashMap<>();
 
-    static {
-        for (VanillaGuiOverlay o : VanillaGuiOverlay.values()) {
-            BY_LAYER.putIfAbsent(o.layer, o);
-            LEGACY_TO_LAYER.put(o.id, o.layer);
+    /** built on first use: the enum's constants must be initialized first */
+    private static final class Index {
+        static final Map<ResourceLocation, VanillaGuiOverlay> BY_LAYER = new HashMap<>();
+        static final Map<ResourceLocation, ResourceLocation> LEGACY_TO_LAYER = new HashMap<>();
+
+        static {
+            for (VanillaGuiOverlay o : VanillaGuiOverlay.values()) {
+                BY_LAYER.putIfAbsent(o.layer, o);
+                LEGACY_TO_LAYER.put(o.id, o.layer);
+            }
         }
     }
 
     private static ResourceLocation layerOf(ResourceLocation legacyId) {
-        return LEGACY_TO_LAYER.getOrDefault(legacyId, legacyId);
+        return Index.LEGACY_TO_LAYER.getOrDefault(legacyId, legacyId);
     }
 
     /** the 1.20.1 overlay describing a layer, for RenderGuiOverlayEvent */
     public static NamedGuiOverlay overlayOf(ResourceLocation layer) {
-        VanillaGuiOverlay v = BY_LAYER.get(layer);
+        VanillaGuiOverlay v = Index.BY_LAYER.get(layer);
         if (v != null) return v.type();
         return MODDED.get(layer);
     }
