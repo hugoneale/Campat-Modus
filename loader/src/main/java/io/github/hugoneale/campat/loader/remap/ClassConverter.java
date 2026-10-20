@@ -75,6 +75,20 @@ public final class ClassConverter {
             if (NEO_MOD_ANNOTATION.equals(an.desc)) entrypoints.add(readEntrypoint(cn.name, an));
         }
 
+        // 1a. classes extending a platform class that cannot be extended any more get a stand-in parent
+        String newSuper = cn.superName == null ? null : mappings.superReplacement(cn.superName);
+        if (newSuper != null) {
+            String oldSuper = cn.superName;
+            cn.superName = newSuper;
+            hierarchy.add(cn.name, newSuper, cn.interfaces);
+            for (MethodNode mn : cn.methods) {
+                if (mn.instructions == null) continue;
+                for (AbstractInsnNode insn : mn.instructions) {
+                    if (insn instanceof MethodInsnNode mi && mi.getOpcode() == Opcodes.INVOKESPECIAL && mi.owner.equals(oldSuper)) mi.owner = newSuper;
+                }
+            }
+        }
+
         // 1b. evolved virtual method signatures (legacy layer): bridges and adapted calls. The
         // generated methods are straight line code with explicit max stack/locals, no frames needed.
         evolutions.apply(cn);

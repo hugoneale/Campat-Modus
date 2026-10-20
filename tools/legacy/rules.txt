@@ -408,3 +408,36 @@ V net/minecraft/world/level/levelgen/structure/templatesystem/rule/blockentity/R
 A net/minecraft/util/KeyDispatchDataCodec (Lcom/mojang/serialization/Codec;)V (Lcom/mojang/serialization/MapCodec;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs typeArgs
 A net/minecraft/client/renderer/texture/atlas/SpriteSourceType (Lcom/mojang/serialization/Codec;)V (Lcom/mojang/serialization/MapCodec;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs typeArgs
 R net/minecraft/util/KeyDispatchDataCodec of (Lcom/mojang/serialization/Codec;)Lnet/minecraft/util/KeyDispatchDataCodec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs keyDispatch
+R net/minecraft/network/FriendlyByteBuf writeGameProfile (Lcom/mojang/authlib/GameProfile;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeGameProfile
+R net/minecraft/network/FriendlyByteBuf readGameProfile ()Lcom/mojang/authlib/GameProfile; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readGameProfile
+R net/minecraft/network/FriendlyByteBuf writeGameProfileProperties (Lcom/mojang/authlib/properties/PropertyMap;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeGameProfileProperties
+R net/minecraft/network/FriendlyByteBuf readGameProfileProperties ()Lcom/mojang/authlib/properties/PropertyMap; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readGameProfileProperties
+
+# ---- 1.20.1 enchantments: subclasses of the (now final, data driven) Enchantment get a stand-in parent ----
+Z net/minecraft/world/item/enchantment/Enchantment io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantment
+Y net/minecraft/world/item/enchantment/Enchantment io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments cast
+C net/minecraft/world/item/enchantment/Enchantment$Rarity io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantment$Rarity
+C net/minecraft/world/item/enchantment/EnchantmentCategory io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantmentCategory
+C net/minecraft/world/entity/MobType io/github/hugoneale/campat/runtime/legacy/ench/LegacyMobType
+M net/minecraft/world/item/enchantment/Enchantment getRarity ()Lnet/minecraft/world/item/enchantment/Enchantment$Rarity; getRarity
+M net/minecraft/world/item/enchantment/Enchantment getMinLevel ()I getMinLevel
+M net/minecraft/world/item/enchantment/Enchantment getMaxLevel ()I getMaxLevel
+M net/minecraft/world/item/enchantment/Enchantment getMinCost (I)I getMinCost
+M net/minecraft/world/item/enchantment/Enchantment getMaxCost (I)I getMaxCost
+M net/minecraft/world/item/enchantment/Enchantment getDamageProtection (ILnet/minecraft/world/damagesource/DamageSource;)I getDamageProtection
+M net/minecraft/world/item/enchantment/Enchantment getDamageBonus (ILnet/minecraft/world/entity/MobType;)F getDamageBonus
+M net/minecraft/world/item/enchantment/Enchantment checkCompatibility (Lnet/minecraft/world/item/enchantment/Enchantment;)Z checkCompatibility
+M net/minecraft/world/item/enchantment/Enchantment getOrCreateDescriptionId ()Ljava/lang/String; getOrCreateDescriptionId
+M net/minecraft/world/item/enchantment/Enchantment getDescriptionId ()Ljava/lang/String; getDescriptionId
+M net/minecraft/world/item/enchantment/Enchantment canEnchant (Lnet/minecraft/world/item/ItemStack;)Z canEnchant
+M net/minecraft/world/item/enchantment/Enchantment doPostAttack (Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/Entity;I)V doPostAttack
+M net/minecraft/world/item/enchantment/Enchantment doPostHurt (Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/Entity;I)V doPostHurt
+M net/minecraft/world/item/enchantment/Enchantment isTreasureOnly ()Z isTreasureOnly
+M net/minecraft/world/item/enchantment/Enchantment isCurse ()Z isCurse
+M net/minecraft/world/item/enchantment/Enchantment isTradeable ()Z isTradeable
+M net/minecraft/world/item/enchantment/Enchantment isDiscoverable ()Z isDiscoverable
+M net/minecraft/world/item/enchantment/EnchantmentCategory canEnchant (Lnet/minecraft/world/item/Item;)Z canEnchant
+S net/minecraftforge/registries/ForgeRegistries ENCHANTMENTS Lnet/minecraftforge/registries/IForgeRegistry; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments forgeRegistry
+S net/minecraftforge/registries/ForgeRegistries$Keys ENCHANTMENTS Lnet/minecraft/resources/ResourceKey; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments key
+R net/minecraftforge/registries/DeferredRegister create (Lnet/minecraft/resources/ResourceKey;Ljava/lang/String;)Lnet/minecraftforge/registries/DeferredRegister; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments create
+R net/minecraft/world/entity/LivingEntity getMobType ()Lnet/minecraft/world/entity/MobType; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments mobType

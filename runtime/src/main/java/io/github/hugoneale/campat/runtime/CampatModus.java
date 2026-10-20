@@ -19,6 +19,7 @@ public final class CampatModus {
         modBus.addListener(io.github.hugoneale.campat.runtime.registry.NeoRegistries::onNewRegistry);
         modBus.addListener(io.github.hugoneale.campat.runtime.crafting.CustomIngredients::onRegister);
         modBus.addListener(io.github.hugoneale.campat.runtime.legacy.LegacyCriteria::onRegister);
+        modBus.addListener(io.github.hugoneale.campat.runtime.legacy.ench.LegacyEnchantments::onNewRegistry);
         modBus.addListener(io.github.hugoneale.campat.runtime.legacy.forge.LegacyForgeCrafting::onRegister);
         io.github.hugoneale.campat.runtime.crafting.CustomIngredients.registerBuiltins(modBus);
         io.github.hugoneale.campat.runtime.registry.RuntimeRegistrations.register(modBus);

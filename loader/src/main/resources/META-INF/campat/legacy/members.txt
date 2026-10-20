@@ -409,3 +409,36 @@ V net/minecraft/world/level/levelgen/structure/templatesystem/rule/blockentity/R
 A net/minecraft/util/KeyDispatchDataCodec (Lcom/mojang/serialization/Codec;)V (Lcom/mojang/serialization/MapCodec;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs typeArgs
 A net/minecraft/client/renderer/texture/atlas/SpriteSourceType (Lcom/mojang/serialization/Codec;)V (Lcom/mojang/serialization/MapCodec;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs typeArgs
 R net/minecraft/util/KeyDispatchDataCodec m_216236_ (Lcom/mojang/serialization/Codec;)Lnet/minecraft/util/KeyDispatchDataCodec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs keyDispatch
+R net/minecraft/network/FriendlyByteBuf m_236803_ (Lcom/mojang/authlib/GameProfile;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeGameProfile
+R net/minecraft/network/FriendlyByteBuf m_236875_ ()Lcom/mojang/authlib/GameProfile; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readGameProfile
+R net/minecraft/network/FriendlyByteBuf m_246636_ (Lcom/mojang/authlib/properties/PropertyMap;)V io/github/hugoneale/campat/runtime/legacy/LegacyBufs writeGameProfileProperties
+R net/minecraft/network/FriendlyByteBuf m_246981_ ()Lcom/mojang/authlib/properties/PropertyMap; io/github/hugoneale/campat/runtime/legacy/LegacyBufs readGameProfileProperties
+
+# ---- 1.20.1 enchantments: subclasses of the (now final, data driven) Enchantment get a stand-in parent ----
+Z net/minecraft/world/item/enchantment/Enchantment io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantment
+Y net/minecraft/world/item/enchantment/Enchantment io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments cast
+C net/minecraft/world/item/enchantment/Enchantment$Rarity io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantment$Rarity
+C net/minecraft/world/item/enchantment/EnchantmentCategory io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantmentCategory
+C net/minecraft/world/entity/MobType io/github/hugoneale/campat/runtime/legacy/ench/LegacyMobType
+N m_44699_ getRarity
+N m_44702_ getMinLevel
+N m_6586_ getMaxLevel
+N m_6183_ getMinCost
+N m_6175_ getMaxCost
+N m_7205_ getDamageProtection
+N m_7335_ getDamageBonus
+N m_5975_ checkCompatibility
+N m_44703_ getOrCreateDescriptionId
+N m_44704_ getDescriptionId
+N m_6081_ canEnchant
+N m_7677_ doPostAttack
+N m_7675_ doPostHurt
+N m_6591_ isTreasureOnly
+N m_6589_ isCurse
+N m_6594_ isTradeable
+N m_6592_ isDiscoverable
+N m_7454_ canEnchant
+S net/minecraftforge/registries/ForgeRegistries ENCHANTMENTS Lnet/minecraftforge/registries/IForgeRegistry; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments forgeRegistry
+S net/minecraftforge/registries/ForgeRegistries$Keys ENCHANTMENTS Lnet/minecraft/resources/ResourceKey; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments key
+R net/minecraftforge/registries/DeferredRegister create (Lnet/minecraft/resources/ResourceKey;Ljava/lang/String;)Lnet/minecraftforge/registries/DeferredRegister; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments create
+R net/minecraft/world/entity/LivingEntity m_6336_ ()Lnet/minecraft/world/entity/MobType; io/github/hugoneale/campat/runtime/legacy/ench/LegacyEnchantments mobType

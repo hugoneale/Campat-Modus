@@ -139,6 +139,24 @@ public final class LegacyBufs {
         return id == 0 ? Holder.direct(direct.apply(buf)) : map.byIdOrThrow(id - 1);
     }
 
+    // ---- game profiles ----
+
+    public static void writeGameProfile(FriendlyByteBuf buf, com.mojang.authlib.GameProfile profile) {
+        net.minecraft.network.codec.ByteBufCodecs.GAME_PROFILE.encode(buf, profile);
+    }
+
+    public static com.mojang.authlib.GameProfile readGameProfile(FriendlyByteBuf buf) {
+        return net.minecraft.network.codec.ByteBufCodecs.GAME_PROFILE.decode(buf);
+    }
+
+    public static void writeGameProfileProperties(FriendlyByteBuf buf, com.mojang.authlib.properties.PropertyMap properties) {
+        net.minecraft.network.codec.ByteBufCodecs.GAME_PROFILE_PROPERTIES.encode(buf, properties);
+    }
+
+    public static com.mojang.authlib.properties.PropertyMap readGameProfileProperties(FriendlyByteBuf buf) {
+        return net.minecraft.network.codec.ByteBufCodecs.GAME_PROFILE_PROPERTIES.decode(buf);
+    }
+
     // ---- chat components: 1.21.1 needs a registry aware buffer ----
 
     public static RegistryFriendlyByteBuf registryBuf(FriendlyByteBuf buf) {
