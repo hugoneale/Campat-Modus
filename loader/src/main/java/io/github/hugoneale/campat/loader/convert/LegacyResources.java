@@ -133,30 +133,50 @@ final class LegacyResources {
 
     /** 1.20.1 data JSON -> 1.21.1. Recursive; {@code kind} is the data folder (recipe, loot_table, ...). */
     static JsonElement convert(JsonElement el, String kind) {
+        return convert(el, kind, true);
+    }
+
+    /**
+     * {@code top}: the file's own object. Nested typed objects (a mod's own condition holding
+     * "conditions", e.g. YUNG's API {@code all_of}) keep their fields; nested untyped ones are
+     * Forge's {@code {conditions, recipe}} entries.
+     */
+    /** registry ids renamed between 1.20.1 and 1.21.1 (exact string values) */
+    private static final Map<String, String> ID_RENAMES = Map.of(
+        "minecraft:grass", "minecraft:short_grass",
+        "minecraft:scute", "minecraft:turtle_scute",
+        "minecraft:sweeping", "minecraft:sweeping_edge");
+
+    private static JsonElement convert(JsonElement el, String kind, boolean top) {
+        if (el.isJsonPrimitive() && el.getAsJsonPrimitive().isString()) {
+            String r = ID_RENAMES.get(el.getAsString());
+            return r == null ? el : new JsonPrimitive(r);
+        }
         if (el.isJsonArray()) {
             JsonArray out = new JsonArray();
-            for (JsonElement e : el.getAsJsonArray()) out.add(convert(e, kind));
+            for (JsonElement e : el.getAsJsonArray()) out.add(convert(e, kind, false));
             return out;
         }
         if (!el.isJsonObject()) return el;
         JsonObject in = el.getAsJsonObject();
+        boolean forgeConditions = top || !in.has("type");
         JsonObject out = new JsonObject();
         for (Map.Entry<String, JsonElement> e : in.entrySet()) {
             String k = e.getKey();
             JsonElement v = e.getValue();
-            if (k.equals("conditions") && v.isJsonArray() && looksLikeForgeConditions(v.getAsJsonArray())) {
+            if (forgeConditions && k.equals("conditions") && v.isJsonArray() && looksLikeForgeConditions(v.getAsJsonArray())) {
                 // Forge 47: list that must all pass. Forge 52: one condition object.
-                JsonArray arr = convert(v, kind).getAsJsonArray();
+                JsonArray arr = convert(v, kind, false).getAsJsonArray();
                 JsonElement cond = arr.size() == 1 ? arr.get(0) : and(arr);
                 out.add("forge:condition", cond);
                 continue;
             }
             if (k.equals("forge:conditions") && v.isJsonArray()) {
-                JsonArray arr = convert(v, kind).getAsJsonArray();
+                JsonArray arr = convert(v, kind, false).getAsJsonArray();
                 out.add("forge:condition", arr.size() == 1 ? arr.get(0) : and(arr));
                 continue;
             }
-            v = convert(v, kind);
+            v = convert(v, kind, false);
             // only recipe types read by 1.21.1 code; a mod's own serializer still reads its 1.20.1 format
             if (kind.equals("recipe") && k.equals("result") && v.isJsonObject() && v.getAsJsonObject().has("item") && isPlatformType(in)) {
                 JsonObject r = v.getAsJsonObject();

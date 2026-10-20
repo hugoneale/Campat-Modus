@@ -48,7 +48,8 @@ public final class LegacyRecipes {
         else CURRENT_ID.set(id);
     }
 
-    private static ResourceLocation currentId() {
+    /** the id of the recipe being parsed, for 1.20.1 factories that took one */
+    public static ResourceLocation currentId() {
         ResourceLocation id = CURRENT_ID.get();
         return id == null ? UNKNOWN_ID : id;
     }

@@ -93,6 +93,31 @@ public final class LegacyCodecs {
         return value instanceof Codec<?> c && !(value instanceof MapCodec<?>) ? mapCodec(c) : value;
     }
 
+    /** RegisterEvent.register(key, consumer) of 1.20.1 code: the helper adapts registered Codecs */
+    public static void register(net.minecraftforge.registries.RegisterEvent event, net.minecraft.resources.ResourceKey key, java.util.function.Consumer consumer) {
+        event.register(key, (java.util.function.Consumer<net.minecraftforge.registries.RegisterEvent.RegisterHelper<Object>>) helper -> consumer.accept(new net.minecraftforge.registries.RegisterEvent.RegisterHelper<Object>() {
+            @Override
+            public void register(String name, Object value) {
+                helper.register(name, adapt(value));
+            }
+
+            @Override
+            public void register(net.minecraft.resources.ResourceKey<Object> k, Object value) {
+                helper.register(k, adapt(value));
+            }
+
+            @Override
+            public void register(net.minecraft.resources.ResourceLocation id, Object value) {
+                helper.register(id, adapt(value));
+            }
+        }));
+    }
+
+    /** RegisterEvent.register(key, id, supplier) of 1.20.1 code */
+    public static void register(net.minecraftforge.registries.RegisterEvent event, net.minecraft.resources.ResourceKey key, net.minecraft.resources.ResourceLocation id, Supplier supplier) {
+        event.register(key, id, () -> adapt(supplier.get()));
+    }
+
     /** DeferredRegister.register(name, supplier) of 1.20.1 code */
     public static RegistryObject register(DeferredRegister register, String name, Supplier supplier) {
         return register.register(name, () -> adapt(supplier.get()));

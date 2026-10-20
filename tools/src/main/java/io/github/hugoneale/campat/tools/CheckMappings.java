@@ -139,10 +139,29 @@ public final class CheckMappings {
 
     private static Boolean staticMethod(PlatformEnv env, String owner, String name, String desc) {
         String decl = env.declaringMethod(owner, name + desc, new HashSet<>());
-        if (decl == null) return null;
+        if (decl == null) return jdkMethod(env, owner, name, desc);
         ClassNode cn = node(env, decl);
-        if (cn == null) return null;
+        if (cn == null) return jdkMethod(env, owner, name, desc);
         for (MethodNode mn : cn.methods) if (mn.name.equals(name) && mn.desc.equals(desc)) return (mn.access & Opcodes.ACC_STATIC) != 0;
+        return jdkMethod(env, owner, name, desc);
+    }
+
+    /** members inherited from a JDK super class (Enum.ordinal, ...), which the env does not index */
+    private static Boolean jdkMethod(PlatformEnv env, String owner, String name, String desc) {
+        String c = owner;
+        while (c != null && !c.startsWith("java/")) {
+            ClassNode cn = node(env, c);
+            c = cn == null ? null : cn.superName;
+        }
+        if (c == null) return null;
+        try {
+            for (Class<?> k = Class.forName(c.replace('/', '.')); k != null; k = k.getSuperclass()) {
+                for (java.lang.reflect.Method m : k.getDeclaredMethods()) {
+                    if (m.getName().equals(name) && org.objectweb.asm.Type.getMethodDescriptor(m).equals(desc)) return java.lang.reflect.Modifier.isStatic(m.getModifiers());
+                }
+            }
+        } catch (ClassNotFoundException ignored) {
+        }
         return null;
     }
 

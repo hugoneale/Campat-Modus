@@ -1,3 +1,93 @@
+com/mojang/authlib/AuthenticationService java/lang/Object
+com/mojang/authlib/Environment java/lang/Record
+com/mojang/authlib/EnvironmentParser java/lang/Object
+com/mojang/authlib/GameProfile java/lang/Object
+com/mojang/authlib/GameProfile$Serializer java/lang/Object com/google/gson/JsonSerializer com/google/gson/JsonDeserializer
+com/mojang/authlib/GameProfileRepository java/lang/Object
+com/mojang/authlib/HttpAuthenticationService java/lang/Object com/mojang/authlib/AuthenticationService
+com/mojang/authlib/ProfileLookupCallback java/lang/Object
+com/mojang/authlib/SignatureState java/lang/Enum
+com/mojang/authlib/exceptions/AuthenticationException java/lang/Exception
+com/mojang/authlib/exceptions/AuthenticationUnavailableException com/mojang/authlib/exceptions/AuthenticationException
+com/mojang/authlib/exceptions/ForcedUsernameChangeException com/mojang/authlib/exceptions/AuthenticationException
+com/mojang/authlib/exceptions/InsufficientPrivilegesException com/mojang/authlib/exceptions/AuthenticationException
+com/mojang/authlib/exceptions/InvalidCredentialsException com/mojang/authlib/exceptions/AuthenticationException
+com/mojang/authlib/exceptions/MinecraftClientException java/lang/RuntimeException
+com/mojang/authlib/exceptions/MinecraftClientException$ErrorType java/lang/Enum
+com/mojang/authlib/exceptions/MinecraftClientHttpException com/mojang/authlib/exceptions/MinecraftClientException
+com/mojang/authlib/exceptions/UserBannedException com/mojang/authlib/exceptions/AuthenticationException
+com/mojang/authlib/minecraft/BanDetails java/lang/Record
+com/mojang/authlib/minecraft/InsecurePublicKeyException java/lang/RuntimeException
+com/mojang/authlib/minecraft/InsecurePublicKeyException$InvalidException com/mojang/authlib/minecraft/InsecurePublicKeyException
+com/mojang/authlib/minecraft/InsecurePublicKeyException$MissingException com/mojang/authlib/minecraft/InsecurePublicKeyException
+com/mojang/authlib/minecraft/MinecraftProfileTexture java/lang/Object
+com/mojang/authlib/minecraft/MinecraftProfileTexture$Type java/lang/Enum
+com/mojang/authlib/minecraft/MinecraftProfileTextures java/lang/Record
+com/mojang/authlib/minecraft/MinecraftSessionService java/lang/Object
+com/mojang/authlib/minecraft/TelemetryEvent java/lang/Object com/mojang/authlib/minecraft/TelemetryPropertyContainer
+com/mojang/authlib/minecraft/TelemetryEvent$1 java/lang/Object com/mojang/authlib/minecraft/TelemetryEvent
+com/mojang/authlib/minecraft/TelemetryPropertyContainer java/lang/Object
+com/mojang/authlib/minecraft/TelemetryPropertyContainer$1 java/lang/Object com/mojang/authlib/minecraft/TelemetryPropertyContainer
+com/mojang/authlib/minecraft/TelemetrySession java/lang/Object
+com/mojang/authlib/minecraft/TelemetrySession$1 java/lang/Object com/mojang/authlib/minecraft/TelemetrySession
+com/mojang/authlib/minecraft/UserApiService java/lang/Object
+com/mojang/authlib/minecraft/UserApiService$1 java/lang/Object com/mojang/authlib/minecraft/UserApiService
+com/mojang/authlib/minecraft/UserApiService$UserFlag java/lang/Enum
+com/mojang/authlib/minecraft/UserApiService$UserProperties java/lang/Record
+com/mojang/authlib/minecraft/client/MinecraftClient java/lang/Object
+com/mojang/authlib/minecraft/client/ObjectMapper java/lang/Object
+com/mojang/authlib/minecraft/report/AbuseReport java/lang/Record
+com/mojang/authlib/minecraft/report/AbuseReportLimits java/lang/Record
+com/mojang/authlib/minecraft/report/ReportChatMessage java/lang/Record
+com/mojang/authlib/minecraft/report/ReportEvidence java/lang/Record
+com/mojang/authlib/minecraft/report/ReportedEntity java/lang/Record
+com/mojang/authlib/properties/Property java/lang/Record
+com/mojang/authlib/properties/PropertyMap com/google/common/collect/ForwardingMultimap
+com/mojang/authlib/properties/PropertyMap$Serializer java/lang/Object com/google/gson/JsonSerializer com/google/gson/JsonDeserializer
+com/mojang/authlib/yggdrasil/ProfileActionType java/lang/Enum
+com/mojang/authlib/yggdrasil/ProfileNotFoundException java/lang/RuntimeException
+com/mojang/authlib/yggdrasil/ProfileResult java/lang/Record
+com/mojang/authlib/yggdrasil/ServicesKeyInfo java/lang/Object
+com/mojang/authlib/yggdrasil/ServicesKeySet java/lang/Object
+com/mojang/authlib/yggdrasil/ServicesKeyType java/lang/Enum
+com/mojang/authlib/yggdrasil/TextureUrlChecker java/lang/Object
+com/mojang/authlib/yggdrasil/YggdrasilAuthenticationService com/mojang/authlib/HttpAuthenticationService
+com/mojang/authlib/yggdrasil/YggdrasilEnvironment java/lang/Enum
+com/mojang/authlib/yggdrasil/YggdrasilGameProfileRepository java/lang/Object com/mojang/authlib/GameProfileRepository
+com/mojang/authlib/yggdrasil/YggdrasilMinecraftSessionService java/lang/Object com/mojang/authlib/minecraft/MinecraftSessionService
+com/mojang/authlib/yggdrasil/YggdrasilMinecraftSessionService$1 com/google/common/cache/CacheLoader
+com/mojang/authlib/yggdrasil/YggdrasilMinecraftSessionService$2 java/lang/Object
+com/mojang/authlib/yggdrasil/YggdrasilServicesKeyInfo java/lang/Object com/mojang/authlib/yggdrasil/ServicesKeyInfo
+com/mojang/authlib/yggdrasil/YggdrasilServicesKeyInfo$1 java/lang/Object java/lang/Runnable
+com/mojang/authlib/yggdrasil/YggdrasilServicesKeyInfo$2 java/lang/Object
+com/mojang/authlib/yggdrasil/YggdrasilServicesKeyInfo$KeyData java/lang/Record
+com/mojang/authlib/yggdrasil/YggdrasilServicesKeyInfo$KeySetResponse java/lang/Record
+com/mojang/authlib/yggdrasil/YggdrasilUserApiService java/lang/Object com/mojang/authlib/minecraft/UserApiService
+com/mojang/authlib/yggdrasil/YggdrassilTelemetryEvent java/lang/Object com/mojang/authlib/minecraft/TelemetryEvent
+com/mojang/authlib/yggdrasil/YggdrassilTelemetrySession java/lang/Object com/mojang/authlib/minecraft/TelemetrySession
+com/mojang/authlib/yggdrasil/request/AbuseReportRequest java/lang/Record
+com/mojang/authlib/yggdrasil/request/AbuseReportRequest$ClientInfo java/lang/Record
+com/mojang/authlib/yggdrasil/request/AbuseReportRequest$RealmInfo java/lang/Record
+com/mojang/authlib/yggdrasil/request/AbuseReportRequest$ThirdPartyServerInfo java/lang/Record
+com/mojang/authlib/yggdrasil/request/JoinMinecraftServerRequest java/lang/Record
+com/mojang/authlib/yggdrasil/request/TelemetryEventsRequest java/lang/Record
+com/mojang/authlib/yggdrasil/request/TelemetryEventsRequest$Event java/lang/Record
+com/mojang/authlib/yggdrasil/response/BlockListResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/ErrorResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/HasJoinedMinecraftServerResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/KeyPairResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/KeyPairResponse$KeyPair java/lang/Record
+com/mojang/authlib/yggdrasil/response/MinecraftProfilePropertiesResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/MinecraftTexturesPayload java/lang/Record
+com/mojang/authlib/yggdrasil/response/ProfileAction java/lang/Record
+com/mojang/authlib/yggdrasil/response/ProfileSearchResultsResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/ProfileSearchResultsResponse$Serializer java/lang/Object com/google/gson/JsonDeserializer
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse java/lang/Record
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse$BanStatus java/lang/Record
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse$BanStatus$BannedScope java/lang/Record
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse$Privileges java/lang/Record
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse$Privileges$Privilege java/lang/Record
+com/mojang/authlib/yggdrasil/response/UserAttributesResponse$ProfanityFilterPreferences java/lang/Record
 com/mojang/blaze3d/Blaze3D java/lang/Object
 com/mojang/blaze3d/DontObfuscate java/lang/Object java/lang/annotation/Annotation
 com/mojang/blaze3d/FieldsAreNonnullByDefault java/lang/Object java/lang/annotation/Annotation
@@ -129,6 +219,403 @@ com/mojang/blaze3d/vertex/VertexMultiConsumer$Multiple java/lang/Record com/moja
 com/mojang/blaze3d/vertex/VertexSorting java/lang/Object
 com/mojang/blaze3d/vertex/VertexSorting$DistanceFunction java/lang/Object
 com/mojang/blaze3d/vertex/package-info java/lang/Object
+com/mojang/brigadier/AmbiguityConsumer java/lang/Object
+com/mojang/brigadier/Command java/lang/Object
+com/mojang/brigadier/CommandDispatcher java/lang/Object
+com/mojang/brigadier/CommandDispatcher$1 java/lang/Object java/util/function/Predicate
+com/mojang/brigadier/ImmutableStringReader java/lang/Object
+com/mojang/brigadier/LiteralMessage java/lang/Object com/mojang/brigadier/Message
+com/mojang/brigadier/Message java/lang/Object
+com/mojang/brigadier/ParseResults java/lang/Object
+com/mojang/brigadier/RedirectModifier java/lang/Object
+com/mojang/brigadier/ResultConsumer java/lang/Object
+com/mojang/brigadier/SingleRedirectModifier java/lang/Object
+com/mojang/brigadier/StringReader java/lang/Object com/mojang/brigadier/ImmutableStringReader
+com/mojang/brigadier/arguments/ArgumentType java/lang/Object
+com/mojang/brigadier/arguments/BoolArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/DoubleArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/FloatArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/IntegerArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/LongArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/StringArgumentType java/lang/Object com/mojang/brigadier/arguments/ArgumentType
+com/mojang/brigadier/arguments/StringArgumentType$StringType java/lang/Enum
+com/mojang/brigadier/builder/ArgumentBuilder java/lang/Object
+com/mojang/brigadier/builder/LiteralArgumentBuilder com/mojang/brigadier/builder/ArgumentBuilder
+com/mojang/brigadier/builder/RequiredArgumentBuilder com/mojang/brigadier/builder/ArgumentBuilder
+com/mojang/brigadier/context/CommandContext java/lang/Object
+com/mojang/brigadier/context/CommandContextBuilder java/lang/Object
+com/mojang/brigadier/context/ContextChain java/lang/Object
+com/mojang/brigadier/context/ContextChain$Stage java/lang/Enum
+com/mojang/brigadier/context/ParsedArgument java/lang/Object
+com/mojang/brigadier/context/ParsedCommandNode java/lang/Object
+com/mojang/brigadier/context/StringRange java/lang/Object
+com/mojang/brigadier/context/SuggestionContext java/lang/Object
+com/mojang/brigadier/exceptions/BuiltInExceptionProvider java/lang/Object
+com/mojang/brigadier/exceptions/BuiltInExceptions java/lang/Object com/mojang/brigadier/exceptions/BuiltInExceptionProvider
+com/mojang/brigadier/exceptions/CommandExceptionType java/lang/Object
+com/mojang/brigadier/exceptions/CommandSyntaxException java/lang/Exception
+com/mojang/brigadier/exceptions/Dynamic2CommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/exceptions/Dynamic2CommandExceptionType$Function java/lang/Object
+com/mojang/brigadier/exceptions/Dynamic3CommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/exceptions/Dynamic3CommandExceptionType$Function java/lang/Object
+com/mojang/brigadier/exceptions/Dynamic4CommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/exceptions/Dynamic4CommandExceptionType$Function java/lang/Object
+com/mojang/brigadier/exceptions/DynamicCommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/exceptions/DynamicNCommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/exceptions/DynamicNCommandExceptionType$Function java/lang/Object
+com/mojang/brigadier/exceptions/SimpleCommandExceptionType java/lang/Object com/mojang/brigadier/exceptions/CommandExceptionType
+com/mojang/brigadier/suggestion/IntegerSuggestion com/mojang/brigadier/suggestion/Suggestion
+com/mojang/brigadier/suggestion/Suggestion java/lang/Object java/lang/Comparable
+com/mojang/brigadier/suggestion/SuggestionProvider java/lang/Object
+com/mojang/brigadier/suggestion/Suggestions java/lang/Object
+com/mojang/brigadier/suggestion/SuggestionsBuilder java/lang/Object
+com/mojang/brigadier/tree/ArgumentCommandNode com/mojang/brigadier/tree/CommandNode
+com/mojang/brigadier/tree/CommandNode java/lang/Object java/lang/Comparable
+com/mojang/brigadier/tree/LiteralCommandNode com/mojang/brigadier/tree/CommandNode
+com/mojang/brigadier/tree/RootCommandNode com/mojang/brigadier/tree/CommandNode
+com/mojang/datafixers/DSL java/lang/Object
+com/mojang/datafixers/DSL$Instances java/lang/Object
+com/mojang/datafixers/DSL$Instances$TaggedChoiceCacheKey java/lang/Record
+com/mojang/datafixers/DSL$TypeReference java/lang/Object
+com/mojang/datafixers/DataFix java/lang/Object
+com/mojang/datafixers/DataFix$NamedFunctionWrapper java/lang/Object java/util/function/Function
+com/mojang/datafixers/DataFixUtils java/lang/Object
+com/mojang/datafixers/DataFixer java/lang/Object
+com/mojang/datafixers/DataFixerBuilder java/lang/Object
+com/mojang/datafixers/DataFixerBuilder$Result java/lang/Object
+com/mojang/datafixers/DataFixerUpper java/lang/Object com/mojang/datafixers/DataFixer
+com/mojang/datafixers/FamilyOptic java/lang/Object
+com/mojang/datafixers/FieldFinder java/lang/Object com/mojang/datafixers/OpticFinder
+com/mojang/datafixers/FieldFinder$Matcher java/lang/Object com/mojang/datafixers/types/Type$TypeMatcher
+com/mojang/datafixers/FunctionType java/lang/Object java/util/function/Function com/mojang/datafixers/kinds/App2 com/mojang/datafixers/kinds/App
+com/mojang/datafixers/FunctionType$Instance java/lang/Enum com/mojang/datafixers/optics/profunctors/TraversalP com/mojang/datafixers/optics/profunctors/MonoidProfunctor com/mojang/datafixers/optics/profunctors/Mapping com/mojang/datafixers/optics/profunctors/Monoidal com/mojang/datafixers/kinds/App
+com/mojang/datafixers/FunctionType$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/TraversalP$Mu com/mojang/datafixers/optics/profunctors/MonoidProfunctor$Mu com/mojang/datafixers/optics/profunctors/Mapping$Mu com/mojang/datafixers/optics/profunctors/Monoidal$Mu
+com/mojang/datafixers/FunctionType$Instance$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/FunctionType$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/FunctionType$ReaderInstance java/lang/Object com/mojang/datafixers/kinds/Representable
+com/mojang/datafixers/FunctionType$ReaderInstance$Mu java/lang/Object com/mojang/datafixers/kinds/Representable$Mu
+com/mojang/datafixers/FunctionType$ReaderMu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/NamedChoiceFinder java/lang/Object com/mojang/datafixers/OpticFinder
+com/mojang/datafixers/NamedChoiceFinder$Matcher java/lang/Object com/mojang/datafixers/types/Type$TypeMatcher
+com/mojang/datafixers/OpticFinder java/lang/Object
+com/mojang/datafixers/OpticFinder$1 java/lang/Object com/mojang/datafixers/OpticFinder
+com/mojang/datafixers/Products java/lang/Object
+com/mojang/datafixers/Products$P1 java/lang/Object
+com/mojang/datafixers/Products$P10 java/lang/Object
+com/mojang/datafixers/Products$P11 java/lang/Object
+com/mojang/datafixers/Products$P12 java/lang/Object
+com/mojang/datafixers/Products$P13 java/lang/Object
+com/mojang/datafixers/Products$P14 java/lang/Object
+com/mojang/datafixers/Products$P15 java/lang/Object
+com/mojang/datafixers/Products$P16 java/lang/Object
+com/mojang/datafixers/Products$P2 java/lang/Object
+com/mojang/datafixers/Products$P3 java/lang/Object
+com/mojang/datafixers/Products$P4 java/lang/Object
+com/mojang/datafixers/Products$P5 java/lang/Object
+com/mojang/datafixers/Products$P6 java/lang/Object
+com/mojang/datafixers/Products$P7 java/lang/Object
+com/mojang/datafixers/Products$P8 java/lang/Object
+com/mojang/datafixers/Products$P9 java/lang/Object
+com/mojang/datafixers/RewriteResult java/lang/Record
+com/mojang/datafixers/TypeRewriteRule java/lang/Object
+com/mojang/datafixers/TypeRewriteRule$All java/lang/Object com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$CheckOnce java/lang/Record com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$Everywhere java/lang/Object com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$IfSame java/lang/Object com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$Nop java/lang/Enum com/mojang/datafixers/TypeRewriteRule java/util/function/Supplier
+com/mojang/datafixers/TypeRewriteRule$One java/lang/Record com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$OrElse java/lang/Object com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/TypeRewriteRule$Seq java/lang/Object com/mojang/datafixers/TypeRewriteRule
+com/mojang/datafixers/Typed java/lang/Object
+com/mojang/datafixers/Typed$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/Typed$2 com/google/common/reflect/TypeToken
+com/mojang/datafixers/Typed$3 com/google/common/reflect/TypeToken
+com/mojang/datafixers/Typed$4 com/google/common/reflect/TypeToken
+com/mojang/datafixers/Typed$5 com/google/common/reflect/TypeToken
+com/mojang/datafixers/Typed$6 com/google/common/reflect/TypeToken
+com/mojang/datafixers/TypedOptic java/lang/Record
+com/mojang/datafixers/TypedOptic$Element java/lang/Record
+com/mojang/datafixers/View java/lang/Record com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/View$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/functions/Apply com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Bang com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Comp com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Fold com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Fold$HmapCacheKey java/lang/Record
+com/mojang/datafixers/functions/FunctionWrapper com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Functions java/lang/Object
+com/mojang/datafixers/functions/Id com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/In com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/Out com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/functions/PointFree java/lang/Object
+com/mojang/datafixers/functions/PointFreeRule java/lang/Object
+com/mojang/datafixers/functions/PointFreeRule$All java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$AppNest java/lang/Enum com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$BangEta java/lang/Enum com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$CataFuseDifferent java/lang/Enum com/mojang/datafixers/functions/PointFreeRule$CompRewrite
+com/mojang/datafixers/functions/PointFreeRule$CataFuseSame java/lang/Enum com/mojang/datafixers/functions/PointFreeRule$CompRewrite
+com/mojang/datafixers/functions/PointFreeRule$Choice java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$Choice2 java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$CompRewrite java/lang/Object com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$Everywhere java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$LensAppId java/lang/Enum com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$LensComp java/lang/Enum com/mojang/datafixers/functions/PointFreeRule$CompRewrite
+com/mojang/datafixers/functions/PointFreeRule$Many java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$Nop java/lang/Enum com/mojang/datafixers/functions/PointFreeRule java/util/function/Supplier
+com/mojang/datafixers/functions/PointFreeRule$Once java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$One java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$Seq java/lang/Record com/mojang/datafixers/functions/PointFreeRule
+com/mojang/datafixers/functions/PointFreeRule$SortInj java/lang/Enum com/mojang/datafixers/functions/PointFreeRule$CompRewrite
+com/mojang/datafixers/functions/PointFreeRule$SortProj java/lang/Enum com/mojang/datafixers/functions/PointFreeRule$CompRewrite
+com/mojang/datafixers/functions/ProfunctorTransformer com/mojang/datafixers/functions/PointFree
+com/mojang/datafixers/kinds/App java/lang/Object
+com/mojang/datafixers/kinds/App2 java/lang/Object
+com/mojang/datafixers/kinds/Applicative java/lang/Object com/mojang/datafixers/kinds/Functor
+com/mojang/datafixers/kinds/Applicative$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu
+com/mojang/datafixers/kinds/CartesianLike java/lang/Object com/mojang/datafixers/kinds/Functor com/mojang/datafixers/kinds/Traversable
+com/mojang/datafixers/kinds/CartesianLike$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu com/mojang/datafixers/kinds/Traversable$Mu
+com/mojang/datafixers/kinds/CocartesianLike java/lang/Object com/mojang/datafixers/kinds/Functor com/mojang/datafixers/kinds/Traversable
+com/mojang/datafixers/kinds/CocartesianLike$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu com/mojang/datafixers/kinds/Traversable$Mu
+com/mojang/datafixers/kinds/Const java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/Const$Instance java/lang/Object com/mojang/datafixers/kinds/Applicative
+com/mojang/datafixers/kinds/Const$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Applicative$Mu
+com/mojang/datafixers/kinds/Const$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/Functor java/lang/Object com/mojang/datafixers/kinds/Kind1
+com/mojang/datafixers/kinds/Functor$Mu java/lang/Object com/mojang/datafixers/kinds/Kind1$Mu
+com/mojang/datafixers/kinds/IdF java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/IdF$Instance java/lang/Enum com/mojang/datafixers/kinds/Functor com/mojang/datafixers/kinds/Applicative
+com/mojang/datafixers/kinds/IdF$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu com/mojang/datafixers/kinds/Applicative$Mu
+com/mojang/datafixers/kinds/IdF$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/K1 java/lang/Object
+com/mojang/datafixers/kinds/K2 java/lang/Object
+com/mojang/datafixers/kinds/Kind1 java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/Kind1$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/Kind2 java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/Kind2$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/ListBox java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/ListBox$Instance java/lang/Enum com/mojang/datafixers/kinds/Traversable
+com/mojang/datafixers/kinds/ListBox$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Traversable$Mu
+com/mojang/datafixers/kinds/ListBox$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/Monoid java/lang/Object
+com/mojang/datafixers/kinds/Monoid$1 java/lang/Object com/mojang/datafixers/kinds/Monoid
+com/mojang/datafixers/kinds/OptionalBox java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/kinds/OptionalBox$Instance java/lang/Enum com/mojang/datafixers/kinds/Applicative com/mojang/datafixers/kinds/Traversable
+com/mojang/datafixers/kinds/OptionalBox$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Applicative$Mu com/mojang/datafixers/kinds/Traversable$Mu
+com/mojang/datafixers/kinds/OptionalBox$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/kinds/Representable java/lang/Object com/mojang/datafixers/kinds/Functor
+com/mojang/datafixers/kinds/Representable$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu
+com/mojang/datafixers/kinds/Traversable java/lang/Object com/mojang/datafixers/kinds/Functor
+com/mojang/datafixers/kinds/Traversable$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu
+com/mojang/datafixers/optics/Adapter java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Adapter$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/Adapter$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Affine java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Affine$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP
+com/mojang/datafixers/optics/Affine$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Forget java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/Forget$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Cartesian com/mojang/datafixers/optics/profunctors/ReCocartesian com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/Forget$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Cartesian$Mu com/mojang/datafixers/optics/profunctors/ReCocartesian$Mu
+com/mojang/datafixers/optics/Forget$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ForgetE java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ForgetE$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ForgetE$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/ForgetE$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ForgetOpt java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ForgetOpt$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ForgetOpt$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/ForgetOpt$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Getter java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Getter$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/GetterP
+com/mojang/datafixers/optics/Getter$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Grate java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Grate$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Closed
+com/mojang/datafixers/optics/Grate$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/IdAdapter java/lang/Object com/mojang/datafixers/optics/Adapter
+com/mojang/datafixers/optics/Inj1 java/lang/Object com/mojang/datafixers/optics/Prism
+com/mojang/datafixers/optics/Inj2 java/lang/Object com/mojang/datafixers/optics/Prism
+com/mojang/datafixers/optics/InjTagged java/lang/Object com/mojang/datafixers/optics/Prism
+com/mojang/datafixers/optics/Lens java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Lens$Box java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/Lens$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Cartesian
+com/mojang/datafixers/optics/Lens$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Lens$Mu2 java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ListTraversal java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/optics/Optic java/lang/Object
+com/mojang/datafixers/optics/Optic$CompositionOptic java/lang/Record com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Optics java/lang/Object
+com/mojang/datafixers/optics/Optics$1 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/optics/Optics$10 java/lang/Object com/mojang/datafixers/optics/PStore
+com/mojang/datafixers/optics/Optics$11 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/optics/Optics$2 java/lang/Object com/mojang/datafixers/optics/Adapter
+com/mojang/datafixers/optics/Optics$3 java/lang/Object com/mojang/datafixers/optics/Lens
+com/mojang/datafixers/optics/Optics$4 java/lang/Object com/mojang/datafixers/optics/Prism
+com/mojang/datafixers/optics/Optics$5 java/lang/Object com/mojang/datafixers/optics/Affine
+com/mojang/datafixers/optics/Optics$6 java/lang/Object com/mojang/datafixers/optics/ReForgetEP
+com/mojang/datafixers/optics/Optics$7 java/lang/Object com/mojang/datafixers/optics/ReForgetE
+com/mojang/datafixers/optics/Optics$8 java/lang/Object com/mojang/datafixers/optics/ReForgetP
+com/mojang/datafixers/optics/Optics$9 java/lang/Object com/mojang/datafixers/optics/ReForgetC
+com/mojang/datafixers/optics/PStore java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/PStore$Instance java/lang/Object com/mojang/datafixers/kinds/Functor
+com/mojang/datafixers/optics/PStore$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Functor$Mu
+com/mojang/datafixers/optics/PStore$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/optics/Prism java/lang/Object com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Prism$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Cocartesian
+com/mojang/datafixers/optics/Prism$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Procompose java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/Procompose$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Procompose$ProfunctorInstance java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/Proj1 java/lang/Object com/mojang/datafixers/optics/Lens
+com/mojang/datafixers/optics/Proj2 java/lang/Object com/mojang/datafixers/optics/Lens
+com/mojang/datafixers/optics/ReForget java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ReForget$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/ReCartesian com/mojang/datafixers/optics/profunctors/Cocartesian com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ReForget$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/ReCartesian$Mu com/mojang/datafixers/optics/profunctors/Cocartesian$Mu
+com/mojang/datafixers/optics/ReForget$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ReForgetC java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ReForgetC$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ReForgetC$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/ReForgetC$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ReForgetE java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ReForgetE$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Cocartesian com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ReForgetE$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Cocartesian$Mu
+com/mojang/datafixers/optics/ReForgetE$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ReForgetEP java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ReForgetEP$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ReForgetEP$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/ReForgetEP$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/ReForgetP java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/ReForgetP$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/ReForgetP$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/ReForgetP$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Traversal java/lang/Object com/mojang/datafixers/optics/Wander com/mojang/datafixers/kinds/App2 com/mojang/datafixers/optics/Optic
+com/mojang/datafixers/optics/Traversal$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/TraversalP
+com/mojang/datafixers/optics/Traversal$Instance$1 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/optics/Traversal$Instance$2 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/optics/Traversal$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/Wander java/lang/Object
+com/mojang/datafixers/optics/profunctors/AffineP java/lang/Object com/mojang/datafixers/optics/profunctors/Cartesian com/mojang/datafixers/optics/profunctors/Cocartesian
+com/mojang/datafixers/optics/profunctors/AffineP$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Cartesian$Mu com/mojang/datafixers/optics/profunctors/Cocartesian$Mu
+com/mojang/datafixers/optics/profunctors/AffineP$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/optics/profunctors/Bicontravariant java/lang/Object com/mojang/datafixers/kinds/Kind2
+com/mojang/datafixers/optics/profunctors/Bicontravariant$Mu java/lang/Object com/mojang/datafixers/kinds/Kind2$Mu
+com/mojang/datafixers/optics/profunctors/Cartesian java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/Cartesian$1 java/lang/Object com/mojang/datafixers/optics/profunctors/FunctorProfunctor
+com/mojang/datafixers/optics/profunctors/Cartesian$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/Cartesian$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/optics/profunctors/Closed java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/Closed$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/Closed$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/optics/profunctors/Cocartesian java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/Cocartesian$1 java/lang/Object com/mojang/datafixers/optics/profunctors/FunctorProfunctor
+com/mojang/datafixers/optics/profunctors/Cocartesian$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/Cocartesian$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/optics/profunctors/FunctorProfunctor java/lang/Object com/mojang/datafixers/kinds/Kind2
+com/mojang/datafixers/optics/profunctors/FunctorProfunctor$Mu java/lang/Object com/mojang/datafixers/kinds/Kind2$Mu
+com/mojang/datafixers/optics/profunctors/GetterP java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor com/mojang/datafixers/optics/profunctors/Bicontravariant
+com/mojang/datafixers/optics/profunctors/GetterP$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu com/mojang/datafixers/optics/profunctors/Bicontravariant$Mu
+com/mojang/datafixers/optics/profunctors/Mapping java/lang/Object com/mojang/datafixers/optics/profunctors/TraversalP
+com/mojang/datafixers/optics/profunctors/Mapping$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/TraversalP$Mu
+com/mojang/datafixers/optics/profunctors/MonoidProfunctor java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/MonoidProfunctor$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/Monoidal java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/Monoidal$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/Profunctor java/lang/Object com/mojang/datafixers/kinds/Kind2
+com/mojang/datafixers/optics/profunctors/Profunctor$Mu java/lang/Object com/mojang/datafixers/kinds/Kind2$Mu
+com/mojang/datafixers/optics/profunctors/Profunctor$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/optics/profunctors/ProfunctorFunctorWrapper java/lang/Object com/mojang/datafixers/kinds/App2
+com/mojang/datafixers/optics/profunctors/ProfunctorFunctorWrapper$Instance java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor com/mojang/datafixers/kinds/App
+com/mojang/datafixers/optics/profunctors/ProfunctorFunctorWrapper$Instance$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/ProfunctorFunctorWrapper$Mu java/lang/Object com/mojang/datafixers/kinds/K2
+com/mojang/datafixers/optics/profunctors/ReCartesian java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/ReCartesian$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/ReCocartesian java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor
+com/mojang/datafixers/optics/profunctors/ReCocartesian$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/Profunctor$Mu
+com/mojang/datafixers/optics/profunctors/TraversalP java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP
+com/mojang/datafixers/optics/profunctors/TraversalP$1 java/lang/Object com/mojang/datafixers/optics/Wander
+com/mojang/datafixers/optics/profunctors/TraversalP$2 java/lang/Object com/mojang/datafixers/optics/profunctors/FunctorProfunctor
+com/mojang/datafixers/optics/profunctors/TraversalP$Mu java/lang/Object com/mojang/datafixers/optics/profunctors/AffineP$Mu
+com/mojang/datafixers/optics/profunctors/TraversalP$Mu$1 com/google/common/reflect/TypeToken
+com/mojang/datafixers/schemas/Schema java/lang/Object
+com/mojang/datafixers/types/Func com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/Type java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/types/Type$Continue com/mojang/datafixers/types/Type$FieldNotFoundException
+com/mojang/datafixers/types/Type$FieldNotFoundException com/mojang/datafixers/types/Type$TypeError
+com/mojang/datafixers/types/Type$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/types/Type$RewriteCacheKey java/lang/Record
+com/mojang/datafixers/types/Type$TypeError java/lang/Object
+com/mojang/datafixers/types/Type$TypeMatcher java/lang/Object
+com/mojang/datafixers/types/constant/EmptyPart com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/constant/EmptyPartPassthrough com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/families/Algebra java/lang/Object
+com/mojang/datafixers/types/families/ListAlgebra java/lang/Object com/mojang/datafixers/types/families/Algebra
+com/mojang/datafixers/types/families/RecursiveTypeFamily java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/families/TypeFamily java/lang/Object
+com/mojang/datafixers/types/templates/Check java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Check$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/Check$CheckType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/CompoundList java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/CompoundList$CompoundListType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Const java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Const$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/Const$PrimitiveType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Hook java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Hook$HookFunction java/lang/Object
+com/mojang/datafixers/types/templates/Hook$HookFunction$1 java/lang/Object com/mojang/datafixers/types/templates/Hook$HookFunction
+com/mojang/datafixers/types/templates/Hook$HookType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Hook$HookType$1 java/lang/Object com/mojang/serialization/Codec
+com/mojang/datafixers/types/templates/List java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/List$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/List$ListType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Named java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Named$NamedType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Named$NamedType$1 java/lang/Object com/mojang/serialization/Codec
+com/mojang/datafixers/types/templates/Product java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Product$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/Product$2 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/types/templates/Product$ProductType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/RecursivePoint java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/RecursivePoint$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/RecursivePoint$RecursivePointType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/RecursivePoint$RecursivePointType$1 java/lang/Object com/mojang/serialization/Codec
+com/mojang/datafixers/types/templates/Sum java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Sum$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/Sum$SumType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/Sum$SumType$1 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/types/templates/Tag java/lang/Record com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/Tag$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/types/templates/Tag$TagType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/TaggedChoice java/lang/Object com/mojang/datafixers/types/templates/TypeTemplate
+com/mojang/datafixers/types/templates/TaggedChoice$TaggedChoiceType com/mojang/datafixers/types/Type
+com/mojang/datafixers/types/templates/TaggedChoice$TaggedChoiceType$1 java/lang/Object com/mojang/datafixers/optics/Lens
+com/mojang/datafixers/types/templates/TaggedChoice$TaggedChoiceType$2 java/lang/Object com/mojang/datafixers/optics/Affine
+com/mojang/datafixers/types/templates/TaggedChoice$TaggedChoiceType$3 java/lang/Object com/mojang/datafixers/optics/Traversal
+com/mojang/datafixers/types/templates/TaggedChoice$TaggedChoiceType$RewriteFunc java/lang/Object java/util/function/Function
+com/mojang/datafixers/types/templates/TypeTemplate java/lang/Object
+com/mojang/datafixers/types/templates/TypeTemplate$1 java/lang/Object com/mojang/datafixers/types/families/TypeFamily
+com/mojang/datafixers/util/Either java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/util/Either$Instance java/lang/Object com/mojang/datafixers/kinds/Applicative com/mojang/datafixers/kinds/Traversable com/mojang/datafixers/kinds/CocartesianLike
+com/mojang/datafixers/util/Either$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Applicative$Mu com/mojang/datafixers/kinds/Traversable$Mu com/mojang/datafixers/kinds/CocartesianLike$Mu
+com/mojang/datafixers/util/Either$Left com/mojang/datafixers/util/Either
+com/mojang/datafixers/util/Either$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/util/Either$Right com/mojang/datafixers/util/Either
+com/mojang/datafixers/util/Function10 java/lang/Object
+com/mojang/datafixers/util/Function11 java/lang/Object
+com/mojang/datafixers/util/Function12 java/lang/Object
+com/mojang/datafixers/util/Function13 java/lang/Object
+com/mojang/datafixers/util/Function14 java/lang/Object
+com/mojang/datafixers/util/Function15 java/lang/Object
+com/mojang/datafixers/util/Function16 java/lang/Object
+com/mojang/datafixers/util/Function3 java/lang/Object
+com/mojang/datafixers/util/Function4 java/lang/Object
+com/mojang/datafixers/util/Function5 java/lang/Object
+com/mojang/datafixers/util/Function6 java/lang/Object
+com/mojang/datafixers/util/Function7 java/lang/Object
+com/mojang/datafixers/util/Function8 java/lang/Object
+com/mojang/datafixers/util/Function9 java/lang/Object
+com/mojang/datafixers/util/Pair java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/datafixers/util/Pair$Instance java/lang/Object com/mojang/datafixers/kinds/Traversable com/mojang/datafixers/kinds/CartesianLike
+com/mojang/datafixers/util/Pair$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Traversable$Mu com/mojang/datafixers/kinds/CartesianLike$Mu
+com/mojang/datafixers/util/Pair$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/datafixers/util/Unit java/lang/Enum
 com/mojang/logging/LogQueues java/lang/Object
 com/mojang/logging/LogUtils java/lang/Object
 com/mojang/logging/LogUtils$1 java/lang/Object
@@ -341,6 +828,148 @@ com/mojang/realmsclient/util/task/RestoreTask com/mojang/realmsclient/util/task/
 com/mojang/realmsclient/util/task/SwitchMinigameTask com/mojang/realmsclient/util/task/LongRunningTask
 com/mojang/realmsclient/util/task/SwitchSlotTask com/mojang/realmsclient/util/task/LongRunningTask
 com/mojang/realmsclient/util/task/package-info java/lang/Object
+com/mojang/serialization/Codec java/lang/Object com/mojang/serialization/Encoder com/mojang/serialization/Decoder
+com/mojang/serialization/Codec$1 java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/Codec$10 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$11 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$12 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$13 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$14 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$15 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$16 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$17 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$18 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$19 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$2 java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/Codec$20 java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/Codec$3 com/mojang/serialization/MapCodec
+com/mojang/serialization/Codec$4 java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/Codec$5 java/lang/Object com/mojang/serialization/Codec$ResultFunction
+com/mojang/serialization/Codec$6 java/lang/Object com/mojang/serialization/Codec$ResultFunction
+com/mojang/serialization/Codec$7 java/lang/Object com/mojang/serialization/Codec$ResultFunction
+com/mojang/serialization/Codec$8 java/lang/Object com/mojang/serialization/Codec$ResultFunction
+com/mojang/serialization/Codec$9 java/lang/Object com/mojang/serialization/codecs/PrimitiveCodec
+com/mojang/serialization/Codec$RecursiveCodec java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/Codec$ResultFunction java/lang/Object
+com/mojang/serialization/Compressable java/lang/Object com/mojang/serialization/Keyable
+com/mojang/serialization/CompressorHolder java/lang/Object com/mojang/serialization/Compressable
+com/mojang/serialization/DataResult java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/serialization/DataResult$Error java/lang/Record com/mojang/serialization/DataResult
+com/mojang/serialization/DataResult$Instance java/lang/Enum com/mojang/datafixers/kinds/Applicative
+com/mojang/serialization/DataResult$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Applicative$Mu
+com/mojang/serialization/DataResult$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/serialization/DataResult$Success java/lang/Record com/mojang/serialization/DataResult
+com/mojang/serialization/Decoder java/lang/Object
+com/mojang/serialization/Decoder$1 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$2 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$3 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$4 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$5 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/Decoder$6 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$Boxed java/lang/Object
+com/mojang/serialization/Decoder$Boxed$1 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$Simple java/lang/Object
+com/mojang/serialization/Decoder$Simple$1 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Decoder$Terminal java/lang/Object
+com/mojang/serialization/Decoder$Terminal$1 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/Dynamic com/mojang/serialization/DynamicLike
+com/mojang/serialization/DynamicLike java/lang/Object
+com/mojang/serialization/DynamicOps java/lang/Object
+com/mojang/serialization/Encoder java/lang/Object
+com/mojang/serialization/Encoder$1 java/lang/Object com/mojang/serialization/Encoder
+com/mojang/serialization/Encoder$2 java/lang/Object com/mojang/serialization/Encoder
+com/mojang/serialization/Encoder$3 java/lang/Object com/mojang/serialization/Encoder
+com/mojang/serialization/Encoder$4 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/Encoder$5 java/lang/Object com/mojang/serialization/Encoder
+com/mojang/serialization/JavaOps java/lang/Object com/mojang/serialization/DynamicOps
+com/mojang/serialization/JavaOps$1 java/lang/Object com/mojang/serialization/MapLike
+com/mojang/serialization/JavaOps$FixedMapBuilder com/mojang/serialization/RecordBuilder$AbstractUniversalBuilder
+com/mojang/serialization/JsonOps java/lang/Object com/mojang/serialization/DynamicOps
+com/mojang/serialization/JsonOps$1 java/lang/Object com/mojang/serialization/MapLike
+com/mojang/serialization/JsonOps$ArrayBuilder java/lang/Object com/mojang/serialization/ListBuilder
+com/mojang/serialization/JsonOps$JsonRecordBuilder com/mojang/serialization/RecordBuilder$AbstractStringBuilder
+com/mojang/serialization/KeyCompressor java/lang/Object
+com/mojang/serialization/Keyable java/lang/Object
+com/mojang/serialization/Keyable$1 java/lang/Object com/mojang/serialization/Keyable
+com/mojang/serialization/Lifecycle java/lang/Object
+com/mojang/serialization/Lifecycle$1 com/mojang/serialization/Lifecycle
+com/mojang/serialization/Lifecycle$2 com/mojang/serialization/Lifecycle
+com/mojang/serialization/Lifecycle$Deprecated com/mojang/serialization/Lifecycle
+com/mojang/serialization/ListBuilder java/lang/Object
+com/mojang/serialization/ListBuilder$Builder java/lang/Object com/mojang/serialization/ListBuilder
+com/mojang/serialization/MapCodec com/mojang/serialization/CompressorHolder com/mojang/serialization/MapDecoder com/mojang/serialization/MapEncoder
+com/mojang/serialization/MapCodec$1 com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$2 com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$3 com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$4 com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$5 java/lang/Object com/mojang/serialization/MapCodec$ResultFunction
+com/mojang/serialization/MapCodec$6 java/lang/Object com/mojang/serialization/MapCodec$ResultFunction
+com/mojang/serialization/MapCodec$7 java/lang/Object com/mojang/serialization/MapCodec$ResultFunction
+com/mojang/serialization/MapCodec$8 java/lang/Object com/mojang/serialization/MapCodec$ResultFunction
+com/mojang/serialization/MapCodec$9 java/lang/Object com/mojang/serialization/MapCodec$ResultFunction
+com/mojang/serialization/MapCodec$Dependent com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$MapCodecCodec java/lang/Record com/mojang/serialization/Codec
+com/mojang/serialization/MapCodec$RecursiveMapCodec com/mojang/serialization/MapCodec
+com/mojang/serialization/MapCodec$ResultFunction java/lang/Object
+com/mojang/serialization/MapDecoder java/lang/Object com/mojang/serialization/Keyable
+com/mojang/serialization/MapDecoder$1 java/lang/Object com/mojang/serialization/MapLike
+com/mojang/serialization/MapDecoder$2 java/lang/Object com/mojang/serialization/Decoder
+com/mojang/serialization/MapDecoder$3 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/MapDecoder$4 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/MapDecoder$5 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/MapDecoder$6 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/MapDecoder$Implementation com/mojang/serialization/CompressorHolder com/mojang/serialization/MapDecoder
+com/mojang/serialization/MapEncoder java/lang/Object com/mojang/serialization/Keyable
+com/mojang/serialization/MapEncoder$1 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/MapEncoder$1CompressedRecordBuilder com/mojang/serialization/RecordBuilder$AbstractUniversalBuilder
+com/mojang/serialization/MapEncoder$2 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/MapEncoder$3 java/lang/Object com/mojang/serialization/Encoder
+com/mojang/serialization/MapEncoder$4 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/MapEncoder$Implementation com/mojang/serialization/CompressorHolder com/mojang/serialization/MapEncoder
+com/mojang/serialization/MapLike java/lang/Object
+com/mojang/serialization/MapLike$1 java/lang/Object com/mojang/serialization/MapLike
+com/mojang/serialization/OptionalDynamic com/mojang/serialization/DynamicLike
+com/mojang/serialization/RecordBuilder java/lang/Object
+com/mojang/serialization/RecordBuilder$AbstractBuilder java/lang/Object com/mojang/serialization/RecordBuilder
+com/mojang/serialization/RecordBuilder$AbstractStringBuilder com/mojang/serialization/RecordBuilder$AbstractBuilder
+com/mojang/serialization/RecordBuilder$AbstractUniversalBuilder com/mojang/serialization/RecordBuilder$AbstractBuilder
+com/mojang/serialization/RecordBuilder$MapBuilder com/mojang/serialization/RecordBuilder$AbstractUniversalBuilder
+com/mojang/serialization/codecs/BaseMapCodec java/lang/Object
+com/mojang/serialization/codecs/CompoundListCodec java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/codecs/DispatchedMapCodec java/lang/Record com/mojang/serialization/Codec
+com/mojang/serialization/codecs/EitherCodec java/lang/Record com/mojang/serialization/Codec
+com/mojang/serialization/codecs/EitherMapCodec com/mojang/serialization/MapCodec
+com/mojang/serialization/codecs/FieldDecoder com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/FieldEncoder com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/KeyDispatchCodec com/mojang/serialization/MapCodec
+com/mojang/serialization/codecs/ListCodec java/lang/Record com/mojang/serialization/Codec
+com/mojang/serialization/codecs/ListCodec$DecoderState java/lang/Object
+com/mojang/serialization/codecs/OptionalFieldCodec com/mojang/serialization/MapCodec
+com/mojang/serialization/codecs/PairCodec java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/codecs/PairMapCodec com/mojang/serialization/MapCodec
+com/mojang/serialization/codecs/PrimitiveCodec java/lang/Object com/mojang/serialization/Codec
+com/mojang/serialization/codecs/RecordCodecBuilder java/lang/Object com/mojang/datafixers/kinds/App
+com/mojang/serialization/codecs/RecordCodecBuilder$1 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$2 com/mojang/serialization/MapCodec
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance java/lang/Object com/mojang/datafixers/kinds/Applicative
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$1 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$2 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$3 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$4 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$5 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$6 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$7 com/mojang/serialization/MapDecoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$8 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$9 com/mojang/serialization/MapEncoder$Implementation
+com/mojang/serialization/codecs/RecordCodecBuilder$Instance$Mu java/lang/Object com/mojang/datafixers/kinds/Applicative$Mu
+com/mojang/serialization/codecs/RecordCodecBuilder$Mu java/lang/Object com/mojang/datafixers/kinds/K1
+com/mojang/serialization/codecs/SimpleMapCodec com/mojang/serialization/MapCodec com/mojang/serialization/codecs/BaseMapCodec
+com/mojang/serialization/codecs/UnboundedMapCodec java/lang/Record com/mojang/serialization/codecs/BaseMapCodec com/mojang/serialization/Codec
+com/mojang/serialization/codecs/XorCodec java/lang/Record com/mojang/serialization/Codec
+com/mojang/util/ByteBufferTypeAdapter com/google/gson/TypeAdapter
+com/mojang/util/InstantTypeAdapter com/google/gson/TypeAdapter
+com/mojang/util/UUIDTypeAdapter com/google/gson/TypeAdapter
+com/mojang/util/UndashedUuid java/lang/Object
 net/minecraft/BlockUtil java/lang/Object
 net/minecraft/BlockUtil$FoundRectangle java/lang/Object
 net/minecraft/BlockUtil$IntBounds java/lang/Object

@@ -66,6 +66,14 @@ public final class LegacyNetworking {
         return all.length;
     }
 
+    public static String name(NetworkDirection d) {
+        if (d == NetworkDirection.PLAY_TO_SERVER) return "PLAY_TO_SERVER";
+        if (d == NetworkDirection.PLAY_TO_CLIENT) return "PLAY_TO_CLIENT";
+        if (d == NetworkDirection.LOGIN_TO_SERVER) return "LOGIN_TO_SERVER";
+        if (d == NetworkDirection.LOGIN_TO_CLIENT) return "LOGIN_TO_CLIENT";
+        return d.toString();
+    }
+
     /** Forge 47's {@code NetworkRegistry.ChannelBuilder} */
     public static final class ChannelBuilder {
         private ResourceLocation name;

@@ -364,6 +364,8 @@ C net/minecraft/network/chat/Style$Serializer io/github/hugoneale/campat/runtime
 # ---- mixin accessors of members that are gone ----
 X net/minecraft/advancements/CriteriaTriggers CRITERIA io/github/hugoneale/campat/runtime/legacy/LegacyCriteria criteriaMap
 R net/minecraftforge/registries/DeferredRegister register (Ljava/lang/String;Ljava/util/function/Supplier;)Lnet/minecraftforge/registries/RegistryObject; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs register
+R net/minecraftforge/registries/RegisterEvent register (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Consumer;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs register
+R net/minecraftforge/registries/RegisterEvent register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/resources/ResourceLocation;Ljava/util/function/Supplier;)V io/github/hugoneale/campat/runtime/legacy/LegacyCodecs register
 Y com/mojang/serialization/Codec io/github/hugoneale/campat/runtime/legacy/LegacyCodecs asCodec
 
 # ---- loot: Gson serializers -> codecs ----
@@ -453,6 +455,8 @@ R com/mojang/serialization/Codec partialDispatch (Ljava/lang/String;Ljava/util/f
 R net/minecraft/util/ExtraCodecs validate (Lcom/mojang/serialization/Codec;Ljava/util/function/Function;)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs validate
 R net/minecraft/util/ExtraCodecs lazyInitializedCodec (Ljava/util/function/Supplier;)Lcom/mojang/serialization/Codec; io/github/hugoneale/campat/runtime/legacy/LegacyCodecs lazyInitializedCodec
 R net/minecraftforge/network/NetworkDirection values ()[Lnet/minecraftforge/network/NetworkDirection; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking directions
+R net/minecraftforge/network/NetworkDirection ordinal ()I io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking ordinal
+R net/minecraftforge/network/NetworkDirection name ()Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworking name
 S net/minecraft/core/registries/BuiltInRegistries REGISTRY Lnet/minecraft/core/Registry; io/github/hugoneale/campat/runtime/legacy/LegacyRegistries rootRegistry
 R net/minecraft/world/item/alchemy/Potion getName (Ljava/lang/String;)Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/LegacyGame potionName
 S net/minecraft/core/cauldron/CauldronInteraction EMPTY Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/LegacyGame cauldronEmpty
@@ -482,3 +486,14 @@ R net/minecraftforge/client/event/ModelEvent$BakingCompleted getModels ()Ljava/u
 W net/minecraft/client/resources/model/ModelResourceLocation net/minecraft/resources/ResourceLocation io/github/hugoneale/campat/runtime/legacy/client/LegacyModels asLocation
 S net/minecraft/client/resources/model/ModelBakery MISSING_MODEL_LOCATION Lnet/minecraft/client/resources/model/ModelResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyModels missingModelLocation
 S net/minecraftforge/event/TickEvent$RenderTickEvent renderTickTime F io/github/hugoneale/campat/runtime/legacy/client/LegacyClient renderTickTime
+# SimpleCraftingRecipeSerializer.Factory lost the recipe id (lambdas and implementations)
+V net/minecraft/world/item/crafting/SimpleCraftingRecipeSerializer$Factory create (Lnet/minecraft/resources/ResourceLocation;Lnet/minecraft/world/item/crafting/CraftingBookCategory;)Lnet/minecraft/world/item/crafting/CraftingRecipe; create (Lnet/minecraft/world/item/crafting/CraftingBookCategory;)Lnet/minecraft/world/item/crafting/CraftingRecipe; o1 s:io/github/hugoneale/campat/runtime/legacy/LegacyRecipes.currentId()Lnet/minecraft/resources/ResourceLocation;,n0
+# CommandBuildContext became a HolderLookup.Provider; HolderLookup.filterElements moved to RegistryLookup
+R net/minecraft/commands/CommandBuildContext holderLookup (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/core/HolderLookup; io/github/hugoneale/campat/runtime/legacy/LegacyCommandContext holderLookup
+D net/minecraft/commands/CommandBuildContext lookup (Lnet/minecraft/resources/ResourceKey;)Ljava/util/Optional; io/github/hugoneale/campat/runtime/legacy/LegacyCommandContext lookup
+D net/minecraft/commands/CommandBuildContext listRegistries ()Ljava/util/stream/Stream; io/github/hugoneale/campat/runtime/legacy/LegacyCommandContext listRegistries
+R net/minecraft/core/HolderLookup filterElements (Ljava/util/function/Predicate;)Lnet/minecraft/core/HolderLookup; io/github/hugoneale/campat/runtime/legacy/LegacyCommandContext filterElements
+# EntityAttributeModificationEvent takes Holder<Attribute> # forge
+R net/minecraftforge/event/entity/EntityAttributeModificationEvent add (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;D)V io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents add # forge
+R net/minecraftforge/event/entity/EntityAttributeModificationEvent add (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;)V io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents add # forge
+R net/minecraftforge/event/entity/EntityAttributeModificationEvent has (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/entity/ai/attributes/Attribute;)Z io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents has # forge
