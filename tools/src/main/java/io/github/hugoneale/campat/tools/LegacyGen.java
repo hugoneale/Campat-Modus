@@ -475,23 +475,29 @@ public final class LegacyGen {
             if (!c.startsWith("net/minecraft/") && !c.startsWith("com/mojang/")) continue;
             ClassNode oc = old.node(c), nc = now.node(mapClass(c));
             if (oc == null || nc == null || (oc.access & Opcodes.ACC_PUBLIC) == 0) continue;
-            String dotted = nc.name.replace('/', '.');
-            if ((nc.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + dotted);
+            if ((nc.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + nc.name.replace('/', '.'));
             for (MethodNode om : oc.methods) {
                 if ((om.access & Opcodes.ACC_PUBLIC) == 0 || (om.access & Opcodes.ACC_SYNTHETIC) != 0 || om.name.equals("<clinit>")) continue;
                 String name = srgNames.getOrDefault(om.name, om.name);
                 String desc = mapDesc(om.desc);
-                for (MethodNode nm : nc.methods) {
-                    if (nm.name.equals(name) && nm.desc.equals(desc) && (nm.access & Opcodes.ACC_PUBLIC) == 0) {
-                        accessLines.add("public " + dotted + " " + name + desc);
-                    }
+                // the member may have moved up into a (new) superclass
+                for (ClassNode k = nc; k != null; k = k.superName == null ? null : now.node(k.superName)) {
+                    MethodNode hit = null;
+                    for (MethodNode nm : k.methods) if (nm.name.equals(name) && nm.desc.equals(desc)) hit = nm;
+                    if (hit == null) continue;
+                    if ((hit.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + k.name.replace('/', '.') + " " + name + desc);
+                    break;
                 }
             }
             for (FieldNode of : oc.fields) {
                 if ((of.access & Opcodes.ACC_PUBLIC) == 0 || (of.access & Opcodes.ACC_SYNTHETIC) != 0) continue;
                 String name = srgNames.getOrDefault(of.name, of.name);
-                for (FieldNode nf : nc.fields) {
-                    if (nf.name.equals(name) && (nf.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + dotted + " " + name);
+                for (ClassNode k = nc; k != null; k = k.superName == null ? null : now.node(k.superName)) {
+                    FieldNode hit = null;
+                    for (FieldNode nf : k.fields) if (nf.name.equals(name)) hit = nf;
+                    if (hit == null) continue;
+                    if ((hit.access & Opcodes.ACC_PUBLIC) == 0) accessLines.add("public " + k.name.replace('/', '.') + " " + name);
+                    break;
                 }
             }
         }
