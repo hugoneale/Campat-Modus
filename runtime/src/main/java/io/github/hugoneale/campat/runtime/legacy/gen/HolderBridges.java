@@ -1349,11 +1349,6 @@ public final class HolderBridges {
         return net.minecraft.server.level.ChunkTaskPriorityQueueSorter.message((net.minecraft.server.level.GenerationChunkHolder) (Object) a0, a1);
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static void TraceCallbacks_onError(net.minecraft.commands.execution.TraceCallbacks self, int a0, java.lang.String a1) throws Throwable {
-        self.onError((java.lang.String) (Object) a1);
-    }
-
     public static net.minecraft.server.level.ChunkTaskPriorityQueueSorter.Message ChunkTaskPriorityQueueSorter_message2(net.minecraft.server.level.ChunkHolder a0, java.util.function.Function a1) throws Throwable {
         return net.minecraft.server.level.ChunkTaskPriorityQueueSorter.message((net.minecraft.server.level.GenerationChunkHolder) (Object) a0, a1);
     }
@@ -1539,11 +1534,6 @@ public final class HolderBridges {
 
     public static net.minecraft.world.item.crafting.Ingredient SnifferAi_getTemptations() throws Throwable {
         return (net.minecraft.world.item.crafting.Ingredient) (Object) net.minecraft.world.entity.animal.sniffer.SnifferAi.getTemptations();
-    }
-
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static void ServerPlayer_setKnownMovement(net.minecraft.server.level.ServerPlayer self, boolean a0, net.minecraft.world.phys.Vec3 a1) throws Throwable {
-        self.setKnownMovement((net.minecraft.world.phys.Vec3) (Object) a1);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

@@ -271,7 +271,8 @@ public final class LegacyGen {
         int[] ret = holderDiff(new Type[]{Type.getReturnType(desc120)}, new Type[]{Type.getReturnType(desc121)});
         if (args == null && ret != null && !(nc.access == 0)) {
             int[][] al = align(oa, na);
-            if (al != null) { alignedRedirect(srg, owner120, desc120, owner121, name121, desc121, mn, nc, al, ret); return; }
+            boolean sameOwner = mapClass(owner120).equals(owner121) || (mn.access & Opcodes.ACC_STATIC) != 0;
+            if (al != null && sameOwner) { alignedRedirect(srg, owner120, desc120, owner121, name121, desc121, mn, nc, al, ret); return; }
         }
         if (args == null || ret == null) { skip("method: not a holder change"); return; }
         if (args.length == 0 && ret.length == 0) { skip("method: unchanged"); return; }
