@@ -227,7 +227,8 @@ def translate_rules(rules, members, by_named):
             # Forge patched overloads keep their names (marked "# forge" when their descriptor does not show it)
             forge_added = (p[0] != "S" and "net/minecraftforge/" in p[3]) or "# forge" in line
             if srg is None and p[1].startswith(("net/minecraft/", "com/mojang/blaze3d/", "com/mojang/math/", "com/mojang/realmsclient/")) \
-                    and not p[1].startswith("com/mojang/blaze3d/systems/") and not p[2].startswith("<") and not forge_added:  # RenderSystem is not obfuscated
+                    and not p[1].startswith("com/mojang/blaze3d/systems/") and not p[2].startswith("<") and not forge_added \
+                    and not (p[0] == "S" and p[2].isupper()):  # RenderSystem is not obfuscated; enum constants keep their names
                 sys.exit(f"rules.txt:{no}: no 1.20.1 member {p[1]}.{p[2]}{p[3] if p[0] != 'S' else ''}")
             if srg and p[0] == "M":
                 # SRG ids are renamed globally (N), which wins over owner keyed M renames

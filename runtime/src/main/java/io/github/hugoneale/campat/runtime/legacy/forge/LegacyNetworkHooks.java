@@ -26,7 +26,22 @@ public final class LegacyNetworkHooks {
         player.openMenu(provider, buf -> extraData.accept(buf));
     }
 
+    private static final ThreadLocal<net.minecraft.server.level.ServerEntity> PAIRING = new ThreadLocal<>();
+
+    /** set around ServerEntity.sendPairingData (see the mixin) */
+    public static void pairing(net.minecraft.server.level.ServerEntity entity) {
+        if (entity == null) PAIRING.remove();
+        else PAIRING.set(entity);
+    }
+
+    /** the ServerEntity a 1.20.1 getAddEntityPacket() override's super call needs */
+    public static net.minecraft.server.level.ServerEntity currentServerEntity() {
+        return PAIRING.get();
+    }
+
     public static Packet getEntitySpawningPacket(Entity entity) {
+        net.minecraft.server.level.ServerEntity tracked = PAIRING.get();
+        if (tracked != null) return new ClientboundAddEntityPacket(entity, tracked);
         return new ClientboundAddEntityPacket(entity, 0, entity.blockPosition());
     }
 }

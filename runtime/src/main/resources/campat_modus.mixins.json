@@ -12,6 +12,7 @@
     "accessor.AbstractHorseAccessor",
     "accessor.BlockEntityTypeAccessor",
     "legacy.ItemStackCopyMixin",
+    "legacy.ServerEntityPairingMixin",
     "accessor.CustomDataAccessor",
     "EntityTickMixins",
     "ForgeHooksMixin",

@@ -126,4 +126,56 @@ public final class LegacyBlocks {
             super(properties);
         }
     }
+
+    /** {@code new FallingBlock(properties)}: FallingBlock is abstract in 1.21.1 */
+    public static net.minecraft.world.level.block.FallingBlock fallingBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        return new SimpleFallingBlock(properties);
+    }
+
+    public static class SimpleFallingBlock extends net.minecraft.world.level.block.FallingBlock {
+        public static final com.mojang.serialization.MapCodec<SimpleFallingBlock> CODEC = simpleCodec(SimpleFallingBlock::new);
+
+        public SimpleFallingBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        protected com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.FallingBlock> codec() {
+            return CODEC;
+        }
+    }
+
+    private static net.minecraft.core.cauldron.CauldronInteraction.InteractionMap interactions(java.util.Map map) {
+        return new net.minecraft.core.cauldron.CauldronInteraction.InteractionMap("campat_legacy", map);
+    }
+
+    /** AbstractCauldronBlock(properties, map) -> (properties, interaction map) */
+    public static Object[] cauldronArgs(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties, java.util.Map map) {
+        return new Object[]{properties, interactions(map)};
+    }
+
+    /** LayeredCauldronBlock(properties, fillPredicate, map) -> (precipitation, interaction map, properties) */
+    public static Object[] layeredCauldronArgs(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties, java.util.function.Predicate fill, java.util.Map map) {
+        net.minecraft.world.level.biome.Biome.Precipitation p = net.minecraft.world.level.biome.Biome.Precipitation.NONE;
+        for (net.minecraft.world.level.biome.Biome.Precipitation c : new net.minecraft.world.level.biome.Biome.Precipitation[]{
+            net.minecraft.world.level.biome.Biome.Precipitation.RAIN, net.minecraft.world.level.biome.Biome.Precipitation.SNOW}) {
+            if (fill != null && fill.test(c)) { p = c; break; }
+        }
+        return new Object[]{p, interactions(map), properties};
+    }
+
+    /** FenceGateBlock(properties, open, close): 1.21.1 also wants a wood type */
+    public static Object[] fenceGateArgs(net.minecraft.world.level.block.state.BlockBehaviour.Properties properties, net.minecraft.sounds.SoundEvent open, net.minecraft.sounds.SoundEvent close) {
+        return new Object[]{net.minecraft.world.level.block.state.properties.WoodType.OAK, properties, open, close};
+    }
+
+    /** WitherRoseBlock(effect, properties): 1.20.1 applied the effect for 8 seconds */
+    public static Object[] witherRoseArgs(net.minecraft.world.effect.MobEffect effect, net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        return new Object[]{LegacyHolders.wrap(effect), 8f, properties};
+    }
+
+    /** Forge 47's StairBlock(stateSupplier, properties) */
+    public static Object[] stairArgs(java.util.function.Supplier supplier, net.minecraft.world.level.block.state.BlockBehaviour.Properties properties) {
+        return new Object[]{supplier.get(), properties};
+    }
 }

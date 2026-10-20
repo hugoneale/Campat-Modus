@@ -525,3 +525,60 @@ C net/minecraft/world/item/BowlFoodItem io/github/hugoneale/campat/runtime/legac
 C net/minecraft/world/item/SimpleFoiledItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$SimpleFoiledItem
 C net/minecraft/world/item/EnchantedGoldenAppleItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$EnchantedGoldenAppleItem
 C net/minecraft/world/item/DyeableArmorItem io/github/hugoneale/campat/runtime/legacy/LegacyItems$DyeableArmorItem
+# FallingBlock became abstract; cauldrons take an InteractionMap
+R net/minecraft/world/level/block/FallingBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks fallingBlock
+A net/minecraft/world/level/block/AbstractCauldronBlock (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Ljava/util/Map;)V (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/core/cauldron/CauldronInteraction$InteractionMap;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks cauldronArgs
+A net/minecraft/world/level/block/LayeredCauldronBlock (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Ljava/util/function/Predicate;Ljava/util/Map;)V (Lnet/minecraft/world/level/biome/Biome$Precipitation;Lnet/minecraft/core/cauldron/CauldronInteraction$InteractionMap;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks layeredCauldronArgs
+C net/minecraftforge/network/HandshakeHandler io/github/hugoneale/campat/runtime/legacy/forge/LegacyHandshake
+C net/minecraftforge/common/BasicItemListing io/github/hugoneale/campat/runtime/legacy/forge/LegacyBasicItemListing
+R net/minecraft/world/effect/MobEffect addAttributeModifier (Lnet/minecraft/world/entity/ai/attributes/Attribute;Ljava/lang/String;DLnet/minecraft/world/entity/ai/attributes/AttributeModifier$Operation;)Lnet/minecraft/world/effect/MobEffect; io/github/hugoneale/campat/runtime/legacy/forge/LegacyAttributeEvents addAttributeModifier
+# ---- frequently used members found by the static audit ----
+R net/minecraft/commands/Commands performPrefixedCommand (Lnet/minecraft/commands/CommandSourceStack;Ljava/lang/String;)I io/github/hugoneale/campat/runtime/legacy/LegacyMisc performPrefixedCommand
+R net/minecraft/util/random/WeightedEntry$Wrapper getData ()Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyMisc wrapperData
+R net/minecraft/world/food/FoodProperties getSaturationModifier ()F io/github/hugoneale/campat/runtime/legacy/LegacyMisc saturationModifier
+R net/minecraft/world/item/ItemStack isEdible ()Z io/github/hugoneale/campat/runtime/legacy/LegacyMisc isEdible
+S net/minecraft/world/entity/EquipmentSlot$Type ARMOR Lnet/minecraft/world/entity/EquipmentSlot$Type; io/github/hugoneale/campat/runtime/legacy/LegacyMisc armorSlotType
+S net/minecraft/world/item/ItemStack ATTRIBUTE_MODIFIER_FORMAT Ljava/text/DecimalFormat; io/github/hugoneale/campat/runtime/legacy/LegacyMisc attributeModifierFormat
+R net/minecraft/SharedConstants filterText (Ljava/lang/String;)Ljava/lang/String; io/github/hugoneale/campat/runtime/legacy/LegacyMisc filterText
+R net/minecraft/nbt/NbtAccounter <init> (J)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc nbtAccounter
+R net/minecraft/network/FriendlyByteBuf readById (Lnet/minecraft/core/IdMap;)Ljava/lang/Object; io/github/hugoneale/campat/runtime/legacy/LegacyMisc readById
+R net/minecraft/network/FriendlyByteBuf writeId (Lnet/minecraft/core/IdMap;Ljava/lang/Object;)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc writeId
+R net/minecraft/nbt/NbtIo readCompressed (Ljava/io/InputStream;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyMisc readCompressed
+R net/minecraft/nbt/NbtIo readCompressed (Ljava/io/File;)Lnet/minecraft/nbt/CompoundTag; io/github/hugoneale/campat/runtime/legacy/LegacyMisc readCompressed
+R net/minecraft/nbt/NbtIo writeCompressed (Lnet/minecraft/nbt/CompoundTag;Ljava/io/File;)V io/github/hugoneale/campat/runtime/legacy/LegacyMisc writeCompressed
+R net/minecraft/world/effect/MobEffectUtil formatDuration (Lnet/minecraft/world/effect/MobEffectInstance;F)Lnet/minecraft/network/chat/Component; io/github/hugoneale/campat/runtime/legacy/LegacyMisc formatDuration
+R net/minecraft/world/item/ItemStack getAttributeModifiers (Lnet/minecraft/world/entity/EquipmentSlot;)Lcom/google/common/collect/Multimap; io/github/hugoneale/campat/runtime/legacy/LegacyMisc attributeModifiers
+R net/minecraft/world/item/enchantment/EnchantmentHelper getEnchantments (Lnet/minecraft/world/item/ItemStack;)Ljava/util/Map; io/github/hugoneale/campat/runtime/legacy/LegacyMisc enchantments
+S net/minecraftforge/common/ForgeMod BLOCK_REACH Lnet/minecraftforge/registries/RegistryObject; io/github/hugoneale/campat/runtime/legacy/LegacyMisc blockReach
+S net/minecraftforge/common/ForgeMod ENTITY_REACH Lnet/minecraftforge/registries/RegistryObject; io/github/hugoneale/campat/runtime/legacy/LegacyMisc entityReach
+S com/mojang/blaze3d/vertex/DefaultVertexFormat POSITION_COLOR_TEX Lcom/mojang/blaze3d/vertex/VertexFormat; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient positionColorTex
+R net/minecraft/client/player/AbstractClientPlayer getSkinTextureLocation ()Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient skinTexture
+R net/minecraft/client/player/AbstractClientPlayer getCloakTextureLocation ()Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient capeTexture
+R net/minecraft/client/multiplayer/PlayerInfo getSkinLocation ()Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient skinLocation
+R net/minecraft/client/resources/DefaultPlayerSkin getDefaultSkin (Ljava/util/UUID;)Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient defaultSkin
+R net/minecraftforge/client/event/RenderLevelStageEvent getPoseStack ()Lcom/mojang/blaze3d/vertex/PoseStack; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient poseStack # forge
+R com/mojang/blaze3d/vertex/VertexFormat getIntegerSize ()I io/github/hugoneale/campat/runtime/legacy/client/LegacyClient integerSize
+R net/minecraft/client/Minecraft getPartialTick ()F io/github/hugoneale/campat/runtime/legacy/client/LegacyClient partialTick # forge
+R net/minecraft/client/Minecraft isConnectedToRealms ()Z io/github/hugoneale/campat/runtime/legacy/client/LegacyClient isConnectedToRealms
+R net/minecraft/client/User getGameProfile ()Lcom/mojang/authlib/GameProfile; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient gameProfile
+R net/minecraft/client/gui/components/EditBox moveCursorTo (I)V io/github/hugoneale/campat/runtime/legacy/client/LegacyClient moveCursorTo
+R net/minecraftforge/client/event/ScreenEvent$MouseScrolled getScrollDelta ()D io/github/hugoneale/campat/runtime/legacy/client/LegacyClient scrollDelta # forge
+R net/minecraft/client/renderer/RenderType glintDirect ()Lnet/minecraft/client/renderer/RenderType; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient glintDirect
+R net/minecraft/client/renderer/GameRenderer getPositionColorTexShader ()Lnet/minecraft/client/renderer/ShaderInstance; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient positionColorTexShader
+S net/minecraft/client/gui/screens/Screen BACKGROUND_LOCATION Lnet/minecraft/resources/ResourceLocation; io/github/hugoneale/campat/runtime/legacy/client/LegacyClient backgroundLocation
+C net/minecraft/client/gui/components/toasts/SystemToast$SystemToastIds net/minecraft/client/gui/components/toasts/SystemToast$SystemToastId
+# block constructors and properties
+C net/minecraft/world/level/block/grower/AbstractTreeGrower io/github/hugoneale/campat/runtime/legacy/LegacyTreeGrowers$AbstractTreeGrower
+C net/minecraft/world/level/block/grower/AbstractMegaTreeGrower io/github/hugoneale/campat/runtime/legacy/LegacyTreeGrowers$AbstractMegaTreeGrower
+A net/minecraft/world/level/block/SaplingBlock (Lnet/minecraft/world/level/block/grower/AbstractTreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V (Lnet/minecraft/world/level/block/grower/TreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyTreeGrowers saplingArgs
+A net/minecraft/world/level/block/FenceGateBlock (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundEvent;)V (Lnet/minecraft/world/level/block/state/properties/WoodType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundEvent;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks fenceGateArgs
+A net/minecraft/world/level/block/WitherRoseBlock (Lnet/minecraft/world/effect/MobEffect;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V (Lnet/minecraft/core/Holder;FLnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks witherRoseArgs
+A net/minecraft/world/level/block/StairBlock (Ljava/util/function/Supplier;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V io/github/hugoneale/campat/runtime/legacy/LegacyBlocks stairArgs
+R net/minecraft/world/item/Item$Properties defaultDurability (I)Lnet/minecraft/world/item/Item$Properties; io/github/hugoneale/campat/runtime/legacy/LegacyMisc defaultDurability
+R net/minecraft/world/item/Item$Properties setNoRepair ()Lnet/minecraft/world/item/Item$Properties; io/github/hugoneale/campat/runtime/legacy/LegacyMisc setNoRepair # forge
+# Forge 52 serializables take a registry provider; loot modifier codecs are MapCodecs # forge
+V net/minecraftforge/common/util/INBTSerializable serializeNBT ()Lnet/minecraft/nbt/Tag; serializeNBT (Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/Tag; s:io/github/hugoneale/campat/runtime/legacy/LegacyRegistries.provider()Lnet/minecraft/core/HolderLookup$Provider; -
+V net/minecraftforge/common/util/INBTSerializable deserializeNBT (Lnet/minecraft/nbt/Tag;)V deserializeNBT (Lnet/minecraft/core/HolderLookup$Provider;Lnet/minecraft/nbt/Tag;)V s:io/github/hugoneale/campat/runtime/legacy/LegacyRegistries.provider()Lnet/minecraft/core/HolderLookup$Provider;,o0 n1
+V net/minecraftforge/common/loot/IGlobalLootModifier codec ()Lcom/mojang/serialization/Codec; codec ()Lcom/mojang/serialization/MapCodec; -;r:io/github/hugoneale/campat/runtime/legacy/LegacyCodecs.codec(Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/Codec; -;r:io/github/hugoneale/campat/runtime/legacy/LegacyCodecs.mapCodec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/MapCodec;
+# 1.21.1 hands entities their ServerEntity for the spawn packet
+V net/minecraft/world/entity/Entity getAddEntityPacket ()Lnet/minecraft/network/protocol/Packet; getAddEntityPacket (Lnet/minecraft/server/level/ServerEntity;)Lnet/minecraft/network/protocol/Packet; s:io/github/hugoneale/campat/runtime/legacy/forge/LegacyNetworkHooks.currentServerEntity()Lnet/minecraft/server/level/ServerEntity; -

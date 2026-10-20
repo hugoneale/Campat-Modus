@@ -63,6 +63,51 @@ public final class ClassConverter {
         hierarchy.add(cr.getClassName(), cr.getSuperName(), List.of(cr.getInterfaces()));
     }
 
+    /**
+     * Synthetic lambda methods returning a type listed in a Z mapping are re-declared to return
+     * Object, where every indy site using them has an erased functional interface return of Object
+     * (Supplier and friends): only those sites call javac's lambda methods.
+     */
+    private void widenLambdaReturns(ClassNode cn) {
+        java.util.Map<String, String> widened = new java.util.HashMap<>();
+        for (MethodNode mn : cn.methods) {
+            if ((mn.access & Opcodes.ACC_SYNTHETIC) == 0 || !mn.name.startsWith("lambda$")) continue;
+            Type ret = Type.getReturnType(mn.desc);
+            if (ret.getSort() != Type.OBJECT || mappings.superReplacement(ret.getInternalName()) == null) continue;
+            widened.put(mn.name + mn.desc, Type.getMethodDescriptor(Type.getType(Object.class), Type.getArgumentTypes(mn.desc)));
+        }
+        if (widened.isEmpty()) return;
+        // only when every use is an indy whose functional interface already returns Object
+        java.util.List<org.objectweb.asm.tree.InvokeDynamicInsnNode> sites = new ArrayList<>();
+        for (MethodNode mn : cn.methods) {
+            if (mn.instructions == null) continue;
+            for (AbstractInsnNode insn : mn.instructions) {
+                if (insn instanceof MethodInsnNode mi && mi.owner.equals(cn.name)) widened.remove(mi.name + mi.desc);
+                if (!(insn instanceof org.objectweb.asm.tree.InvokeDynamicInsnNode indy)) continue;
+                for (int i = 0; i < indy.bsmArgs.length; i++) {
+                    if (!(indy.bsmArgs[i] instanceof org.objectweb.asm.Handle h) || !h.getOwner().equals(cn.name) || !widened.containsKey(h.getName() + h.getDesc())) continue;
+                    boolean lmf = indy.bsm.getOwner().equals("java/lang/invoke/LambdaMetafactory") && i == 1 && indy.bsmArgs[0] instanceof Type sam
+                        && Type.getReturnType(sam.getDescriptor()).getDescriptor().equals("Ljava/lang/Object;");
+                    if (lmf) sites.add(indy);
+                    else widened.remove(h.getName() + h.getDesc());
+                }
+            }
+        }
+        if (widened.isEmpty()) return;
+        for (MethodNode mn : cn.methods) {
+            String nd = widened.get(mn.name + mn.desc);
+            if (nd != null) mn.desc = nd;
+        }
+        for (var indy : sites) {
+            org.objectweb.asm.Handle h = (org.objectweb.asm.Handle) indy.bsmArgs[1];
+            String nd = widened.get(h.getName() + h.getDesc());
+            if (nd == null) continue;
+            indy.bsmArgs[1] = new org.objectweb.asm.Handle(h.getTag(), h.getOwner(), h.getName(), nd, h.isInterface());
+            Type inst = (Type) indy.bsmArgs[2];
+            indy.bsmArgs[2] = Type.getMethodType(Type.getType(Object.class), inst.getArgumentTypes());
+        }
+    }
+
     public Output convert(byte[] bytes) {
         ClassNode cn = new ClassNode();
         new ClassReader(bytes).accept(cn, 0);
@@ -91,6 +136,10 @@ public final class ClassConverter {
                 }
             }
         }
+
+        // 1a'. lambdas declared to return such a class (registration suppliers creating a mod
+        // subclass of it) return Object, so the subclass on its new parent still verifies
+        widenLambdaReturns(cn);
 
         // 1b. evolved virtual method signatures (legacy layer): bridges and adapted calls. The
         // generated methods are straight line code with explicit max stack/locals, no frames needed.
@@ -354,7 +403,12 @@ public final class ClassConverter {
             List<String> chainA = new ArrayList<>();
             for (String c = a; c != null; c = superOf(c)) chainA.add(c);
             for (String c = b; c != null; c = superOf(c)) {
-                if (chainA.contains(c)) return mappings.mapClass(c);
+                if (!chainA.contains(c)) continue;
+                String m = mappings.mapClass(c);
+                // the hierarchy is NeoForge's patched Minecraft: a NeoForge-only parent
+                // (BlockEntity extends AttachmentHolder) does not exist on Forge
+                if (m.startsWith("net/neoforged/")) continue;
+                return m;
             }
             return "java/lang/Object";
         }
