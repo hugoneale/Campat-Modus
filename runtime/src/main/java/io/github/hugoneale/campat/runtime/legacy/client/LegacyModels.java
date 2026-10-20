@@ -11,6 +11,11 @@ import net.minecraftforge.client.event.ModelEvent;
 public final class LegacyModels {
     private LegacyModels() {}
 
+    /** ModelBakery.MISSING_MODEL_LOCATION was the missing model's ModelResourceLocation */
+    public static ModelResourceLocation missingModelLocation() {
+        return net.minecraft.client.resources.model.ModelBakery.MISSING_MODEL_VARIANT;
+    }
+
     /** a 1.20.1 ModelResourceLocation used as a ResourceLocation (it was one): its id */
     public static ResourceLocation asLocation(Object value) {
         return value instanceof ModelResourceLocation m ? m.id() : (ResourceLocation) value;
