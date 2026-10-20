@@ -33,6 +33,8 @@ import java.util.Map;
  * callMap   one entry per NEW argument:  o&lt;i&gt;  |  o&lt;i&gt;:&lt;conv&gt;  |  s:&lt;supplier&gt;
  * bridgeMap one entry per OLD argument:  n&lt;i&gt;  |  n&lt;i&gt;:&lt;conv&gt;  |  s:&lt;supplier&gt;
  *           a {@code super:} prefix adapts only super calls (other calls are left to a redirect)
+ *           {@code !none} as callMap: bridges only; as bridgeMap: adapted calls only
+ *           bridge return {@code ;r:=n<i>}: the new method returns its argument i
  * conv / supplier:  owner.name(desc)  -- a public static method; results are cast to the target type
  * </pre>
  * Runs on pre-rename names, after nothing else has touched the class.
@@ -40,6 +42,8 @@ import java.util.Map;
 public final class EvolutionPass {
     /** callMap prefix: only {@code super} calls are adapted */
     private static final String SUPER_ONLY = "super:";
+    /** callMap / bridgeMap: no adapted calls / no bridges for this evolution */
+    private static final String NONE = "!none";
 
     private final Mappings mappings;
     private final ClassHierarchy hierarchy;
@@ -62,6 +66,7 @@ public final class EvolutionPass {
                 if (ev == null) continue;
                 boolean special = mi.getOpcode() == Opcodes.INVOKESPECIAL;
                 if (!special && ev.callMap().startsWith(SUPER_ONLY)) continue; // other calls are handled by a redirect
+                if (ev.callMap().equals(NONE)) continue; // bridge only
                 if (special && itf) continue; // default method super calls: rare, leave
                 String key = mi.getOpcode() + " " + mi.owner + " " + ev.name() + ev.oldDesc() + "->" + ev.newName() + ev.newDesc();
                 MethodNode s = synthetic.computeIfAbsent(key, k -> callAdapter(cn, mi, ev, special, synthetic.size()));
@@ -77,6 +82,7 @@ public final class EvolutionPass {
         for (MethodNode mn : cn.methods) {
             if ((mn.access & (Opcodes.ACC_STATIC | Opcodes.ACC_PRIVATE | Opcodes.ACC_ABSTRACT)) != 0) continue;
             for (Mappings.Evolution ev : mappings.evolutions(mn.name)) {
+                if (ev.bridgeMap().equals(NONE)) continue; // calls only
                 if (!ev.oldDesc().equals(mn.desc) || !hierarchy.isSubtypeOf(cn.name, ev.owner()) || cn.name.equals(ev.owner())) continue;
                 if (declares(cn, ev.newName(), ev.newDesc()) || bridges.stream().anyMatch(b -> b.name.equals(ev.newName()) && b.desc.equals(ev.newDesc()))) continue;
                 bridges.add(bridge(cn, mn, ev, itf));
@@ -87,6 +93,7 @@ public final class EvolutionPass {
 
     private Mappings.Evolution find(String owner, String name, String desc) {
         for (Mappings.Evolution ev : mappings.evolutions(name)) {
+            if (ev.callMap().equals(NONE)) continue; // bridge only
             if (ev.oldDesc().equals(desc) && (owner.equals(ev.owner()) || hierarchy.isSubtypeOf(owner, ev.owner()))) return ev;
         }
         return null;
@@ -145,7 +152,14 @@ public final class EvolutionPass {
         Parsed map = parse(ev.bridgeMap(), oldArgs.length);
         for (int j = 0; j < oldArgs.length; j++) load(il, map.entries.get(j), newArgs, slots, oldArgs[j]);
         il.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, cn.name, old.name, old.desc, itf));
-        convertReturn(il, map.ret, oldRet, newRet);
+        if (map.ret != null && map.ret.startsWith("=n")) {
+            // the new method returns one of its arguments (e.g. a void method now returning the state it got)
+            if (oldRet.getSort() != Type.VOID) il.add(new InsnNode(oldRet.getSize() == 2 ? Opcodes.POP2 : Opcodes.POP));
+            int k = Integer.parseInt(map.ret.substring(2));
+            il.add(new VarInsnNode(newArgs[k].getOpcode(Opcodes.ILOAD), slots[k]));
+        } else {
+            convertReturn(il, map.ret, oldRet, newRet);
+        }
         il.add(new InsnNode(newRet.getOpcode(Opcodes.IRETURN)));
         m.maxLocals = slots.length == 0 ? 1 : slots[slots.length - 1] + newArgs[newArgs.length - 1].getSize();
         m.maxStack = 4 + Type.getArgumentsAndReturnSizes(ev.oldDesc());

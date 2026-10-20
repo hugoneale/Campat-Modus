@@ -50,6 +50,8 @@ public final class LegacyGen {
     private static final String UNWRAP = RT + "LegacyHolders.value(Lnet/minecraft/core/Holder;)Ljava/lang/Object;";
     /** old type -> new type conversions: "old>new" -> helper */
     private static final Map<String, String> CONV = Map.of(
+        "com/mojang/serialization/Codec>com/mojang/serialization/MapCodec", RT + "LegacyCodecs.mapCodec(Lcom/mojang/serialization/Codec;)Lcom/mojang/serialization/MapCodec;",
+        "com/mojang/serialization/MapCodec>com/mojang/serialization/Codec", RT + "LegacyCodecs.codec(Lcom/mojang/serialization/MapCodec;)Lcom/mojang/serialization/Codec;",
         "net/minecraft/world/level/Level>net/minecraft/world/item/Item$TooltipContext", RT + "Evo.tooltipContext(Lnet/minecraft/world/level/Level;)Lnet/minecraft/world/item/Item$TooltipContext;",
         "net/minecraft/world/item/Item$TooltipContext>net/minecraft/world/level/Level", RT + "Evo.level(Lnet/minecraft/world/item/Item$TooltipContext;)Lnet/minecraft/world/level/Level;");
     /** values for arguments only one side has */

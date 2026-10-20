@@ -67,6 +67,9 @@ public final class RedirectPass {
             AbstractInsnNode next = insn.getNext();
             if (insn instanceof TypeInsnNode ti && ti.getOpcode() == Opcodes.NEW) {
                 pendingNew.push(ti);
+            } else if (insn instanceof TypeInsnNode ti && ti.getOpcode() == Opcodes.CHECKCAST && mappings.castRedirect(ti.desc) != null) {
+                Mappings.Redirect r = mappings.castRedirect(ti.desc);
+                insns.set(ti, new MethodInsnNode(Opcodes.INVOKESTATIC, r.targetOwner(), r.targetName(), r.targetDesc(), false));
             } else if (insn instanceof MethodInsnNode mi) {
                 TypeInsnNode matchedNew = null;
                 if (mi.name.equals("<init>") && mi.getOpcode() == Opcodes.INVOKESPECIAL) {

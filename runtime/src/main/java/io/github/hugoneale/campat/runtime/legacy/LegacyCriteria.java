@@ -61,17 +61,88 @@ public final class LegacyCriteria {
     // ---- registration ----
 
     public static synchronized CriterionTrigger register(CriterionTrigger trigger) {
-        if (registered) {
-            ResourceLocation id = idOf(trigger);
-            LOGGER.warn("1.20.1 advancement trigger {} registered after registration; it is not usable in advancements", id);
-        } else {
-            PENDING.add(trigger);
-        }
+        if (registered) lateRegister(idOf(trigger), trigger);
+        else PENDING.add(trigger);
         return trigger;
+    }
+
+    /** {@code CriteriaTriggers.CRITERIA} (gone in 1.21.1) as read through mod accessors: put() registers */
+    public static java.util.Map criteriaMap() {
+        return new java.util.HashMap<ResourceLocation, CriterionTrigger<?>>() {
+            @Override
+            public CriterionTrigger<?> put(ResourceLocation id, CriterionTrigger<?> trigger) {
+                synchronized (LegacyCriteria.class) {
+                    if (registered) lateRegister(id, trigger);
+                    else PENDING_BY_ID.put(id, trigger);
+                }
+                return null;
+            }
+
+            @Override
+            public CriterionTrigger<?> get(Object id) {
+                return id instanceof ResourceLocation rl ? BuiltInRegistries.TRIGGER_TYPES.get(rl) : null;
+            }
+        };
+    }
+
+    private static final java.util.Map<ResourceLocation, CriterionTrigger<?>> PENDING_BY_ID = new java.util.LinkedHashMap<>();
+
+    /** registration after the registries froze (triggers registered from common setup): briefly unfreeze */
+    private static void lateRegister(ResourceLocation id, CriterionTrigger<?> trigger) {
+        if (id == null) return;
+        Registry<CriterionTrigger<?>> reg = BuiltInRegistries.TRIGGER_TYPES;
+        if (reg.containsKey(id)) return;
+        java.util.List<java.lang.reflect.Field> flipped = new java.util.ArrayList<>();
+        try {
+            for (Object target : new Object[]{reg, unwrap(reg)}) {
+                if (target == null) continue;
+                for (Class<?> c = target.getClass(); c != null && c != Object.class; c = c.getSuperclass()) {
+                    for (java.lang.reflect.Field f : c.getDeclaredFields()) {
+                        if (f.getType() != boolean.class || !(f.getName().equals("frozen") || f.getName().equals("locked") || f.getName().equals("isFrozen"))) continue;
+                        f.setAccessible(true);
+                        if (f.getBoolean(target)) {
+                            f.setBoolean(target, false);
+                            flipped.add(f);
+                            FLIPPED_ON.put(f, target);
+                        }
+                    }
+                }
+            }
+            Registry.register(reg, id, trigger);
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            LOGGER.warn("1.20.1 advancement trigger {} could not be registered late: {}", id, e.toString());
+        } finally {
+            for (java.lang.reflect.Field f : flipped) {
+                try {
+                    f.setBoolean(FLIPPED_ON.remove(f), true);
+                } catch (ReflectiveOperationException ignored) {
+                }
+            }
+        }
+    }
+
+    private static final java.util.Map<java.lang.reflect.Field, Object> FLIPPED_ON = new java.util.IdentityHashMap<>();
+
+    private static Object unwrap(Object registry) {
+        for (Class<?> c = registry.getClass(); c != null && c != Object.class; c = c.getSuperclass()) {
+            for (java.lang.reflect.Field f : c.getDeclaredFields()) {
+                if (Registry.class.isAssignableFrom(f.getType()) || f.getName().equals("delegate")) {
+                    try {
+                        f.setAccessible(true);
+                        Object v = f.get(registry);
+                        if (v != null && v != registry) return v;
+                    } catch (ReflectiveOperationException | RuntimeException ignored) {
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public static synchronized void onRegister(RegisterEvent event) {
         if (!event.getRegistryKey().equals(Registries.TRIGGER_TYPE)) return;
+        PENDING_BY_ID.forEach((id, t) -> event.register(Registries.TRIGGER_TYPE, id, () -> (CriterionTrigger) t));
+        PENDING_BY_ID.clear();
         for (CriterionTrigger<?> t : PENDING) {
             ResourceLocation id = idOf(t);
             if (id == null) continue;

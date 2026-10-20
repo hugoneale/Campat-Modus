@@ -25,7 +25,10 @@ public final class LegacyJarConverter {
     private final ClassConverter classConverter;
     private final LegacyResources resources;
 
+    private final Mappings mappings;
+
     public LegacyJarConverter(Mappings mappings, ClassHierarchy hierarchy) {
+        this.mappings = mappings;
         this.classConverter = new ClassConverter(mappings, hierarchy);
         this.resources = new LegacyResources(classConverter.remapper());
     }
@@ -42,12 +45,59 @@ public final class LegacyJarConverter {
         return false;
     }
 
+    /** static mixin accessors of members 1.21.1 no longer has get redirected to emulations (X mapping lines) */
+    private void indexAccessors(Map<String, byte[]> in) {
+        if (!mappings.hasAccessorReplacements()) return;
+        for (var e : in.entrySet()) {
+            if (!e.getKey().endsWith(".class")) continue;
+            try {
+                org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+                new org.objectweb.asm.ClassReader(e.getValue()).accept(cn, org.objectweb.asm.ClassReader.SKIP_CODE);
+                if ((cn.access & org.objectweb.asm.Opcodes.ACC_INTERFACE) == 0 || cn.invisibleAnnotations == null) continue;
+                List<String> targets = new ArrayList<>();
+                for (var an : cn.invisibleAnnotations) {
+                    if (!an.desc.equals("Lorg/spongepowered/asm/mixin/Mixin;") || an.values == null) continue;
+                    for (int i = 0; i < an.values.size(); i += 2) {
+                        Object v = an.values.get(i + 1);
+                        if (v instanceof List<?> l) for (Object o : l) {
+                            if (o instanceof org.objectweb.asm.Type t) targets.add(t.getInternalName());
+                            else if (o instanceof String str) targets.add(str.replace('.', '/'));
+                        }
+                    }
+                }
+                if (targets.isEmpty()) continue;
+                for (var mn : cn.methods) {
+                    if ((mn.access & org.objectweb.asm.Opcodes.ACC_STATIC) == 0) continue;
+                    List<org.objectweb.asm.tree.AnnotationNode> anns = new ArrayList<>();
+                    if (mn.visibleAnnotations != null) anns.addAll(mn.visibleAnnotations);
+                    if (mn.invisibleAnnotations != null) anns.addAll(mn.invisibleAnnotations);
+                    for (var an : anns) {
+                        boolean accessor = an.desc.equals("Lorg/spongepowered/asm/mixin/gen/Accessor;");
+                        if (!accessor && !an.desc.equals("Lorg/spongepowered/asm/mixin/gen/Invoker;")) continue;
+                        String member = null;
+                        if (an.values != null) for (int i = 0; i < an.values.size(); i += 2) if (an.values.get(i).equals("value")) member = (String) an.values.get(i + 1);
+                        if (member == null) {
+                            String n = mn.name.replaceFirst("^(get|set|is|call|invoke)", "");
+                            member = n.isEmpty() ? mn.name : Character.toLowerCase(n.charAt(0)) + n.substring(1);
+                        }
+                        for (String t : targets) {
+                            mappings.registerAccessor(cn.name, mn.name, mn.desc, t, member);
+                            mappings.registerAccessor(cn.name, mn.name, mn.desc, t, member.toUpperCase(java.util.Locale.ROOT));
+                        }
+                    }
+                }
+            } catch (RuntimeException ignored) {
+            }
+        }
+    }
+
     public JarConverter.Result convert(String fileName, byte[] jar) throws IOException {
         Map<String, byte[]> in = JarConverter.read(jar);
         if (!isLegacyMod(in)) throw new IOException(fileName + " is not a Minecraft 1.20.1 Forge mod");
         List<String> warnings = new ArrayList<>();
         Set<String> missing = new TreeSet<>();
         List<JarConverter.Report> nested = new ArrayList<>();
+        indexAccessors(in);
 
         LegacyTomlConverter.Result toml = new LegacyTomlConverter().convert(new String(in.get(JarConverter.FORGE_TOML), StandardCharsets.UTF_8));
         warnings.addAll(toml.warnings());

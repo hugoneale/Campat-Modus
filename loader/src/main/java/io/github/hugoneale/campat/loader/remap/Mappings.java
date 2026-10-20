@@ -41,6 +41,9 @@ import java.util.function.Predicate;
  *                                                 a constructor whose parameters changed: every call (also super(...)
  *                                                 from subclasses) passes the old arguments to the static adapter,
  *                                                 which returns the new arguments as an Object[] (primitives boxed)
+ * Y  type  helperOwner  helperName                casts (CHECKCAST) to the type call the static helper (Object)type instead
+ * X  target  member  helperOwner  helperName       a mixin accessor / invoker of a member that is gone: calls of
+ *                                                 static accessors targeting it go to the static helper instead
  * D  owner  name  desc  helperOwner  helperName
  *                                                 an abstract method the platform type gained: mod classes that extend
  *                                                 it get an implementation calling the static helper(self, args...)
@@ -63,12 +66,14 @@ public final class Mappings {
     private final Map<String, String> classes = new HashMap<>();
     private final Map<String, String> fieldRenames = new HashMap<>(); // owner.name -> newName
     private final Map<MemberKey, String> methodRenames = new HashMap<>();
-    private final Map<MemberKey, Redirect> methodRedirects = new HashMap<>();
+    private final Map<MemberKey, Redirect> methodRedirects = new java.util.concurrent.ConcurrentHashMap<>();
     private final Map<MemberKey, Redirect> fieldRedirects = new HashMap<>();
     private final Map<MemberKey, CtorAdapter> ctorAdapters = new HashMap<>();
     private final List<DefaultImpl> defaultImpls = new ArrayList<>();
+    private final Map<String, Redirect> accessorReplacements = new HashMap<>(); // target.member -> helper
+    private final Map<String, Redirect> castRedirects = new HashMap<>();
     /** owners that have any member entry, so lookups can be skipped quickly */
-    private final Set<String> memberOwners = new HashSet<>();
+    private final Set<String> memberOwners = java.util.concurrent.ConcurrentHashMap.newKeySet();
     private final Map<String, String> globalNames = new HashMap<>();
     private final Map<String, List<Evolution>> evolutions = new HashMap<>(); // by old name
     private final Map<String, Boolean> kindChanges = new HashMap<>(); // class -> now an interface?
@@ -114,6 +119,8 @@ public final class Mappings {
                 fieldRedirects.put(new MemberKey(p[1], p[2], p[3]), new Redirect(p[4], p[5], p.length > 6 ? p[6] : null));
                 memberOwners.add(p[1]);
             }
+            case "Y" -> castRedirects.put(p[1], new Redirect(p[2], p[3], "(Ljava/lang/Object;)L" + p[1] + ";"));
+            case "X" -> accessorReplacements.put(p[1] + "." + p[2], new Redirect(p[3], p[4], null));
             case "D" -> defaultImpls.add(new DefaultImpl(p[1], p[2], p[3], p[4], p[5]));
             case "A" -> ctorAdapters.put(new MemberKey(p[1], "<init>", p[2]), new CtorAdapter(p[3], p[4], p[5]));
             case "N" -> globalNames.put(p[1], p[2]);
@@ -191,6 +198,25 @@ public final class Mappings {
 
     public Redirect methodRedirect(String owner, String name, String desc) {
         return methodRedirects.get(new MemberKey(owner, name, desc));
+    }
+
+    /**
+     * A mod's static mixin accessor {@code accessor.method desc} reads / calls {@code target.member};
+     * if that member is emulated ({@code X} line) calls of the accessor are redirected.
+     */
+    public void registerAccessor(String accessor, String method, String desc, String target, String member) {
+        Redirect r = accessorReplacements.get(target + "." + member);
+        if (r == null) return;
+        methodRedirects.put(new MemberKey(accessor, method, desc), r);
+        memberOwners.add(accessor);
+    }
+
+    public Redirect castRedirect(String type) {
+        return castRedirects.isEmpty() ? null : castRedirects.get(type);
+    }
+
+    public boolean hasAccessorReplacements() {
+        return !accessorReplacements.isEmpty();
     }
 
     public List<DefaultImpl> defaultImpls() {
